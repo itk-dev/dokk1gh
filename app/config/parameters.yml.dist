@@ -23,4 +23,8 @@ parameters:
     mailer_name: GH
     mailer_email: gh@dokk1.gh.vm
 
+    aoes_location: https://127.0.0.1/aeosws
+    aoes_username: user
+    aoes_password: pass
+
     site_name: Gæstehåndtering
