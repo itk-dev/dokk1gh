@@ -2,16 +2,26 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Traits\BlameableEntity;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Blameable\Blameable;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * Code
  *
- * @ORM\Table
  * @ORM\Entity
+ * @Gedmo\SoftDeleteable
+ * @ORM\Table
  */
-class Code
+class Code implements Blameable
 {
+    use BlameableEntity;
+    use SoftDeleteableEntity;
+    use TimestampableEntity;
+
     /**
      * @var int
      *

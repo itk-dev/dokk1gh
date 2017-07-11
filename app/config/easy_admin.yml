@@ -12,6 +12,17 @@ easy_admin:
     entities:
         Code:
             class: AppBundle\Entity\Code
+            list:
+                fields:
+                    - property: startTime
+                    - property: endTime
+                    - property: template
+                    - property: createdAt
+                    - property: createdBy
+                      roles: [ROLE_ADMIN]
+                    - property: updatedAt
+                    - property: updatedBy
+                      roles: [ROLE_ADMIN]
             form:
                 fields:
                     - property: startTime
@@ -31,6 +42,10 @@ easy_admin:
                       type: boolean
                     - property: last_login
                       type: datetime
+                    - property: createdAt
+                    - property: createdBy
+                    - property: updatedAt
+                    - property: updatedBy
             new:
                 fields:
                     - property: enabled
@@ -73,3 +88,15 @@ easy_admin:
         Template:
             roles: [ROLE_ADMIN]
             class: AppBundle\Entity\Template
+            list:
+                fields:
+                    - property: name
+                    - property: aeosId
+                    - property: createdAt
+                    - property: createdBy
+                    - property: updatedAt
+                    - property: updatedBy
+            form:
+                fields:
+                    - property: name
+                    - property: aeosId
