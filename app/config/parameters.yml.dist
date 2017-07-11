@@ -22,3 +22,5 @@ parameters:
 
     mailer_name: GH
     mailer_email: gh@dokk1.gh.vm
+
+    site_name: Gæstehåndtering
