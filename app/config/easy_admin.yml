@@ -1,6 +1,14 @@
 easy_admin:
     site_name: '%site_name%'
 
+    design:
+        menu:
+            - entity: Code
+            - entity: User
+              roles: [ROLE_ADMIN]
+            - entity: Template
+              roles: [ROLE_ADMIN]
+
     entities:
         Code:
             class: AppBundle\Entity\Code
@@ -11,6 +19,7 @@ easy_admin:
                     - property: template
 
         User:
+            roles: [ROLE_ADMIN]
             class: AppBundle\Entity\User
             list:
                 fields:
@@ -62,4 +71,5 @@ easy_admin:
                           required: false
 
         Template:
+            roles: [ROLE_ADMIN]
             class: AppBundle\Entity\Template
