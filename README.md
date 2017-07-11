@@ -7,6 +7,10 @@ Install:
 composer install
 ```
 
+```
+bin/console assets:install --symlink
+```
+
 Set up database:
 
 ```
