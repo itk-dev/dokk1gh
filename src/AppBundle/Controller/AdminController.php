@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\User;
 use JavierEguiluz\Bundle\EasyAdminBundle\Controller\AdminController as BaseAdminController;
 
 class AdminController extends BaseAdminController
@@ -12,13 +13,15 @@ class AdminController extends BaseAdminController
         return $this->get('fos_user.user_manager')->createUser();
     }
 
-    public function prePersistUserEntity($user)
+    public function prePersistUserEntity(User $user)
     {
+        $user->setUsername($user->getEmail());
         $this->get('fos_user.user_manager')->updateUser($user, false);
     }
 
-    public function preUpdateUserEntity($user)
+    public function preUpdateUserEntity(User $user)
     {
+        $user->setUsername($user->getEmail());
         $this->get('fos_user.user_manager')->updateUser($user, false);
     }
 }
