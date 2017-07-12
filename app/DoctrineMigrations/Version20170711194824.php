@@ -21,7 +21,7 @@ class Version20170711194824 extends AbstractMigration
         $this->addSql('ALTER TABLE code ADD aeos_id VARCHAR(255) DEFAULT NULL, CHANGE startTime start_time DATETIME NOT NULL, CHANGE endTime end_time DATETIME NOT NULL, ADD identifier VARCHAR(255) DEFAULT NULL');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_77153098137CF50A ON code (aeos_id)');
         $this->addSql('DROP INDEX UNIQ_97601F837D2EE530 ON template');
-        $this->addSql('ALTER TABLE template CHANGE aeosid aeos_id VARCHAR(255) DEFAULT NULL');
+        $this->addSql('ALTER TABLE template CHANGE aeosId aeos_id VARCHAR(255) NOT NULL');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_97601F83137CF50A ON template (aeos_id)');
         $this->addSql('ALTER TABLE fos_user ADD aeos_id VARCHAR(255) DEFAULT NULL');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_957A6479137CF50A ON fos_user (aeos_id)');
@@ -40,7 +40,7 @@ class Version20170711194824 extends AbstractMigration
         $this->addSql('DROP INDEX UNIQ_957A6479137CF50A ON fos_user');
         $this->addSql('ALTER TABLE fos_user DROP aeos_id');
         $this->addSql('DROP INDEX UNIQ_97601F83137CF50A ON template');
-        $this->addSql('ALTER TABLE template CHANGE aeos_id aeosId VARCHAR(255) NOT NULL COLLATE utf8_unicode_ci');
+        $this->addSql('ALTER TABLE template CHANGE aeos_id aeosId VARCHAR(255) NOT NULL');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_97601F837D2EE530 ON template (aeosId)');
     }
 }
