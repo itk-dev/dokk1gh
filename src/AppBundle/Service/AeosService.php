@@ -186,7 +186,8 @@ class AeosService
     /**
      * Split a query into a query and a search range.
      */
-    private function splitQuery(array $query) {
+    private function splitQuery(array $query)
+    {
         $searchRange = [
             'nrOfRecords' => 25,
             'startRecordNo' => 0,
