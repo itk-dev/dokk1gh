@@ -2,12 +2,20 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Code;
 use AppBundle\Entity\User;
+use AppBundle\Service\TemplateManager;
 use Gedmo\Blameable\Blameable;
 use JavierEguiluz\Bundle\EasyAdminBundle\Controller\AdminController as BaseAdminController;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class AdminController extends BaseAdminController
 {
+    public function __construct(TemplateManager $templateManager)
+    {
+        $this->templateManager = $templateManager;
+    }
+
     protected function createListQueryBuilder($entityClass, $sortDirection, $sortField = null, $dqlFilter = null)
     {
         $this->limitByUser($dqlFilter, $entityClass, 'entity');
@@ -71,5 +79,29 @@ class AdminController extends BaseAdminController
     {
         $user->setUsername($user->getEmail());
         $this->get('fos_user.user_manager')->updateUser($user, false);
+    }
+
+    /**
+     * Custom Code form builder to make sure that only some templates are available.
+     *
+     * @param \AppBundle\Entity\Code $code
+     * @param $view
+     * @return \Symfony\Component\Form\FormBuilder
+     */
+    protected function createCodeEntityFormBuilder(Code $code, $view)
+    {
+        $builder = parent::createEntityFormBuilder($code, $view);
+        if ($builder->has('template')) {
+            $field = $builder->get('template');
+            $options = $field->getOptions();
+            // The options should include the currently selected template (if any).
+            $options['choices'] = $this->templateManager->getUserTemplates($code->getTemplate());
+            // We have to unset the "choice_loader" to make "choices" work.
+            unset($options['choice_loader']);
+            // Replace the "template" field (see https://stackoverflow.com/a/14699235).
+            $builder->add($field->getName(), EntityType::class, $options);
+        }
+
+        return $builder;
     }
 }
