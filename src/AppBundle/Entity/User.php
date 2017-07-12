@@ -29,6 +29,13 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255, unique=true, nullable=true)
+     */
+    private $aeosId;
+
+    /**
      * @ORM\ManyToMany(targetEntity=Template::class)
      */
     protected $templates;
@@ -42,5 +49,29 @@ class User extends BaseUser
     public function getTemplates()
     {
         return $this->templates;
+    }
+
+    /**
+     * Set aeosId
+     *
+     * @param string $aeosId
+     *
+     * @return Template
+     */
+    public function setAeosId($aeosId)
+    {
+        $this->aeosId = $aeosId;
+
+        return $this;
+    }
+
+    /**
+     * Get aeosId
+     *
+     * @return string
+     */
+    public function getAeosId()
+    {
+        return $this->aeosId;
     }
 }

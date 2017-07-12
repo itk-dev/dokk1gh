@@ -25,23 +25,30 @@ class Code implements Blameable
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255, unique=true, nullable=true)
+     */
+    private $aeosId;
+
+    /**
      * @var \DateTime
      *
-     * @ORM\Column(name="startTime", type="datetime")
+     * @ORM\Column(type="datetime")
      */
     private $startTime;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="endTime", type="datetime")
+     * @ORM\Column(type="datetime")
      */
     private $endTime;
 
@@ -52,6 +59,13 @@ class Code implements Blameable
      * @ORM\JoinColumn(nullable=false)
      */
     private $template;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $identifier;
 
     /**
      * Get id
@@ -70,7 +84,7 @@ class Code implements Blameable
      *
      * @return Code
      */
-    public function setStartTime($startTime)
+    public function setStartTime(\DateTime $startTime)
     {
         $this->startTime = $startTime;
 
@@ -94,7 +108,7 @@ class Code implements Blameable
      *
      * @return Code
      */
-    public function setEndTime($endTime)
+    public function setEndTime(\DateTime $endTime)
     {
         $this->endTime = $endTime;
 
@@ -133,5 +147,53 @@ class Code implements Blameable
     public function getTemplate()
     {
         return $this->template;
+    }
+
+    /**
+     * Set identifier
+     *
+     * @param string $identifier
+     *
+     * @return Code
+     */
+    public function setIdentifier(string $identifier = null)
+    {
+        $this->identifier = $identifier;
+
+        return $this;
+    }
+
+    /**
+     * Get identifier
+     *
+     * @return string
+     */
+    public function getIdentifier()
+    {
+        return $this->identifier;
+    }
+
+    /**
+     * Set aeosId
+     *
+     * @param string $aeosId
+     *
+     * @return Template
+     */
+    public function setAeosId($aeosId)
+    {
+        $this->aeosId = $aeosId;
+
+        return $this;
+    }
+
+    /**
+     * Get aeosId
+     *
+     * @return string
+     */
+    public function getAeosId()
+    {
+        return $this->aeosId;
     }
 }

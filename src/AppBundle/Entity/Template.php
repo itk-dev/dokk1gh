@@ -24,7 +24,7 @@ class Template
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -33,14 +33,14 @@ class Template
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="aeosId", type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $aeosId;
 
