@@ -36,6 +36,11 @@ class User extends BaseUser
     private $aeosId;
 
     /**
+     * @ORM\Column(type="string", unique=true, nullable=true)
+     */
+    private $apiKey;
+
+    /**
      * @ORM\ManyToMany(targetEntity=Template::class)
      */
     protected $templates;
