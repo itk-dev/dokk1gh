@@ -154,20 +154,23 @@ class AeosService
 
     public function getUnits(array $query = [])
     {
-        return $this->invoke('findUnit', (object)['UnitSearchInfo' => $query]);
+        list($query, $searchRange) = $this->splitQuery($query);
+        return $this->invoke('findUnit', (object)['UnitSearchInfo' => $query, 'SearchRange' => $searchRange]);
     }
 
     public function getPersons(array $query = [])
     {
-        return $this->invoke('findPerson', (object)['PersonInfo' => $query]);
+        list($query, $searchRange) = $this->splitQuery($query);
+        return $this->invoke('findPerson', (object)['PersonInfo' => $query, 'SearchRange' => $searchRange]);
     }
 
     public function getTemplates(array $query = [])
     {
+        list($query, $searchRange) = $this->splitQuery($query);
         $query += [
             'UnitOfAuthType' => 'OnLine',
         ];
-        return $this->invoke('findTemplate', (object)['TemplateInfo' => $query]);
+        return $this->invoke('findTemplate', (object)['TemplateInfo' => $query, 'SearchRange' => $searchRange]);
     }
 
     public function getLastRequest()
@@ -178,5 +181,26 @@ class AeosService
     public function getLastResponse()
     {
         return $this->lastResponse;
+    }
+
+    /**
+     * Split a query into a query and a search range.
+     */
+    private function splitQuery(array $query) {
+        $searchRange = [
+            'nrOfRecords' => 25,
+            'startRecordNo' => 0,
+        ];
+
+        if (isset($query['amount'])) {
+            $searchRange['nrOfRecords'] = $query['amount'];
+            unset($query['amount']);
+        }
+        if (isset($query['offset'])) {
+            $searchRange['startRecordNo'] = $query['offset'];
+            unset($query['offset']);
+        }
+
+        return [$query, $searchRange];
     }
 }

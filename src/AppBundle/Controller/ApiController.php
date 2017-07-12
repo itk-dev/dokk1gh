@@ -26,17 +26,13 @@ class ApiController extends Controller
      */
     public function indexAction()
     {
-        $data = [
-            $this->generateUrl('api_templates'),
-        ];
-
-        return new JsonResponse($data);
+        return $this->render('api/index.html.twig');
     }
 
     /**
-     * @Route("/templates", name="api_templates")
+     * @Route("/template", name="api_template_list")
      */
-    public function templateAction(Request $request)
+    public function templateListAction(Request $request)
     {
         $result = $this->aeosService->getTemplates($request->query->all());
 
@@ -44,11 +40,41 @@ class ApiController extends Controller
     }
 
     /**
-     * @Route("/persons", name="api_persons")
+     * @Route("/template/{id}", name="api_template_show")
      */
-    public function personsAction(Request $request)
+    public function templateShowAction(Request $request, $id)
+    {
+        $result = $this->aeosService->getTemplates(['Id' => $id]);
+
+        return new JsonResponse($result);
+    }
+
+    /**
+     * @Route("/person", name="api_person_list")
+     */
+    public function personListAction(Request $request)
     {
         $result = $this->aeosService->getPersons($request->query->all());
+
+        return new JsonResponse($result);
+    }
+
+    /**
+     * @Route("/person/{id}", name="api_person_show")
+     */
+    public function personShowAction(Request $request, $id)
+    {
+        $result = $this->aeosService->getPersons(['Id' => $id]);
+
+        return new JsonResponse($result);
+    }
+
+    /**
+     * @Route("/unit", name="api_unit_list")
+     */
+    public function unitListAction(Request $request)
+    {
+        $result = $this->aeosService->getUnits($request->query->all());
 
         return new JsonResponse($result);
     }
