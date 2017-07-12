@@ -12,7 +12,8 @@ class ApiKeyUserProvider implements UserProviderInterface
 {
     private $userManager;
 
-    public function __construct(UserManager $userManager) {
+    public function __construct(UserManager $userManager)
+    {
         $this->userManager = $userManager;
     }
 
