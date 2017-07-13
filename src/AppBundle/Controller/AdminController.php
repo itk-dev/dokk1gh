@@ -121,8 +121,8 @@ class AdminController extends BaseAdminController
     {
         $code = new Code();
 
-        $code->setStartTime(new \DateTime());
-        $code->setStartTime(new \DateTime('+1 hour'));
+        $code->setStartTime(new \DateTime('today'));
+        $code->setEndTime(new \DateTime('today +1 day'));
 
         return $code;
     }
