@@ -4,16 +4,25 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Code;
 use AppBundle\Entity\User;
+use AppBundle\Service\AeosHelper;
 use AppBundle\Service\TemplateManager;
 use Gedmo\Blameable\Blameable;
 use JavierEguiluz\Bundle\EasyAdminBundle\Controller\AdminController as BaseAdminController;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class AdminController extends BaseAdminController
 {
-    public function __construct(TemplateManager $templateManager)
+    /** @var \AppBundle\Service\TemplateManager */
+    protected $templateManager;
+
+    /** @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface */
+    protected $tokenStorage;
+
+    public function __construct(TemplateManager $templateManager, TokenStorageInterface $tokenStorage)
     {
         $this->templateManager = $templateManager;
+        $this->tokenStorage = $tokenStorage;
     }
 
     protected function createListQueryBuilder($entityClass, $sortDirection, $sortField = null, $dqlFilter = null)
@@ -52,12 +61,11 @@ class AdminController extends BaseAdminController
             return null;
         }
 
-        /** @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $token */
-        $token = $this->get('security.token_storage')->getToken();
         /** @var \Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface $authorizationChecker */
         $authorizationChecker = $this->get('security.authorization_checker');
         if (!$authorizationChecker->isGranted('ROLE_ADMIN')) {
-            return $alias . '.createdBy = ' . $token->getUser()->getId();
+            $user = $this->tokenStorage->getToken()->getUser();
+            return $alias . '.createdBy = ' . $user->getId();
         }
 
         return null;
@@ -103,5 +111,38 @@ class AdminController extends BaseAdminController
         }
 
         return $builder;
+    }
+
+    protected function createNewCodeEntity()
+    {
+        $code = new Code();
+
+        $code->setStartTime(new \DateTime());
+        $code->setStartTime(new \DateTime('+1 hour'));
+
+        return $code;
+    }
+
+    protected function prePersistCodeEntity(Code $code)
+    {
+        $this->createAeosIdentifier($code);
+    }
+
+    protected function preUpdateCodeEntity(Code $code)
+    {
+        if ($code->getIdentifier() === null) {
+            $this->createAeosIdentifier($code);
+        }
+    }
+
+    private function createAeosIdentifier(Code $code)
+    {
+        try {
+            $helper = $this->get(AeosHelper::class);
+            $helper->createAeosIdentifier($code);
+            $this->addFlash('info', 'Code created: ' . $code->getIdentifier());
+        } catch (\Exception $ex) {
+            $this->addFlash('error', $ex->getMessage());
+        }
     }
 }

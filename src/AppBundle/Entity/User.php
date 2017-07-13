@@ -79,4 +79,16 @@ class User extends BaseUser
     {
         return $this->aeosId;
     }
+
+    public function setApiKey($apiKey)
+    {
+        $this->apiKey = $apiKey;
+
+        return $this;
+    }
+
+    public function getApiKey()
+    {
+        return $this->apiKey;
+    }
 }
