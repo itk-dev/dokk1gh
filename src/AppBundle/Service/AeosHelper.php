@@ -3,19 +3,26 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Code;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+
 
 class AeosHelper
 {
+    /** @var \AppBundle\Service\AeosService  */
     protected $aeosService;
 
-    public function __construct(AeosService $aeosService)
+    /** @var \Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface  */
+    protected $tokenStorage;
+
+    public function __construct(AeosService $aeosService, TokenStorageInterface $tokenStorage)
     {
         $this->aeosService = $aeosService;
+        $this->tokenStorage = $tokenStorage;
     }
 
     public function createAeosIdentifier(Code $code)
     {
-        $user = $code->getCreatedBy();
+        $user = $code->getCreatedBy() ?? $this->tokenStorage->getToken()->getUser();
         if (!$user) {
             throw new \Exception('Code has no user');
         }
