@@ -50,4 +50,20 @@ class AeosHelper
 
         $code->setIdentifier($identifier->BadgeNumber);
     }
+
+    public function deleteAeosIdentifier(Code $code) {
+        $identifier = $this->aeosService->getIdentifierByBadgeNumber($code->getIdentifier());
+        $visitor = $identifier ? $this->aeosService->getVisitorByIdentifier($identifier) : null;
+        $visit = $visitor ? $this->aeosService->getVisitByVisitor($visitor) : null;
+
+        if ($identifier && !$this->aeosService->isDeleted($identifier)) {
+            $result = $this->aeosService->deleteIdentifier($identifier);
+        }
+        if ($visit) {
+            $result = $this->aeosService->deleteVisit($visit);
+        }
+        if ($visitor) {
+            $result = $this->aeosService->deleteVisitor($visitor);
+        }
+    }
 }

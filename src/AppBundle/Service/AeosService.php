@@ -111,7 +111,7 @@ class AeosService
 
     public function isDeleted($identifier)
     {
-        return $identifier && isset($identifier->Blocked) && $identifier->Blocked === true;
+        return $identifier && isset($identifier->Identifier->Blocked) && $identifier->Identifier->Blocked === true;
     }
 
     public function getVisitors(array $query = [])

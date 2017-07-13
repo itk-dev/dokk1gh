@@ -19,10 +19,14 @@ class AdminController extends BaseAdminController
     /** @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface */
     protected $tokenStorage;
 
-    public function __construct(TemplateManager $templateManager, TokenStorageInterface $tokenStorage)
+    /** @var  AeosHelper */
+    protected $aeosHelper;
+
+    public function __construct(TemplateManager $templateManager, TokenStorageInterface $tokenStorage, AeosHelper $aeosHelper)
     {
         $this->templateManager = $templateManager;
         $this->tokenStorage = $tokenStorage;
+        $this->aeosHelper = $aeosHelper;
     }
 
     protected function createListQueryBuilder($entityClass, $sortDirection, $sortField = null, $dqlFilter = null)
@@ -135,13 +139,30 @@ class AdminController extends BaseAdminController
         }
     }
 
+    protected function preRemoveCodeEntity(Code $code)
+    {
+        if ($code->getIdentifier() !== null) {
+            $this->removeAeosIdentifier($code);
+        }
+    }
+
     private function createAeosIdentifier(Code $code)
     {
         try {
-            $helper = $this->get(AeosHelper::class);
-            $helper->createAeosIdentifier($code);
+            $this->aeosHelper->createAeosIdentifier($code);
             $this->addFlash('info', 'Code created: ' . $code->getIdentifier());
         } catch (\Exception $ex) {
+            $this->addFlash('error', $ex->getMessage());
+        }
+    }
+
+    private function removeAeosIdentifier(Code $code)
+    {
+        try {
+            $this->aeosHelper->deleteAeosIdentifier($code);
+            $this->addFlash('info', 'Code removed');
+        } catch (\Exception $ex) {
+            throw $ex;
             $this->addFlash('error', $ex->getMessage());
         }
     }

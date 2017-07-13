@@ -149,30 +149,19 @@ class ApiController extends Controller
     }
 
     /**
-     * @Route("/code/{code}/info", name="api_code_info")
+     * @Route("/code/{code}", name="api_code_show")
      * @Method("GET")
      */
-    public function codeInfoAction(Request $request, Code $code)
+    public function codeInfoAction(Request $request, $code)
     {
-        $data = json_decode($request->getContent());
-
-        $user = $this->getUser();
-        $template = $this->entityManager->getRepository(Template::class)->find($data->template);
-        $startTime = new \DateTime($data->startTime);
-        $endTime = new \DateTime($data->endTime);
-
-        $code = new Code();
-        $code->setTemplate($template)
-            ->setStartTime($startTime)
-            ->setEndTime($endTime)
-            ->setCreatedBy($user);
-        $this->aeosHelper->createAeosIdentifier($code);
-        $this->entityManager->persist($code);
-        $this->entityManager->flush();
+        $identifier = $this->aeosService->getIdentifierByBadgeNumber($code);
+        $visitor = $identifier ? $this->aeosService->getVisitorByIdentifier($identifier) : null;
+        $visit = $visitor ? $this->aeosService->getVisitByVisitor($visitor) : null;
 
         $result = [
-            'status' => 'ok',
-            'code' => $code->getIdentifier(),
+            'identifier' => $identifier,
+            'visitor' => $visitor,
+            'visit' => $visit,
         ];
 
         return new JsonResponse($result);
