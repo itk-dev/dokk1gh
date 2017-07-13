@@ -1,0 +1,10 @@
+{% extends '@EasyAdmin/form/bootstrap_3_horizontal_layout.html.twig' %}
+
+{% block apikey_widget %}
+  <div class="input-group">
+    <input type="text" class="form-control" disabled value="{{ value }}"/>
+    <span class="input-group-btn">
+      <button type="submit" formaction="{{ path('user_generate_api_key', {id: easyadmin.item.id, referer: app.request.requestUri}) }}" formmethod="post" class="btn btn-default">{{ 'Generate api key' | trans }}</button>
+    </span>
+  </div>
+{% endblock %}

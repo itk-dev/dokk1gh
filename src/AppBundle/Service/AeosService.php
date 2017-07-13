@@ -2,7 +2,9 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\Helpers\BlockReasons;
 use AppBundle\Helpers\CarrierStates;
+use AppBundle\Helpers\IdentifierTypes;
 
 class AeosService
 {
@@ -78,19 +80,64 @@ class AeosService
 
     public function getIdentifiers(array $query = [])
     {
-        return $this->invoke('findToken', (object)['IdentifierSearch' => $query]);
+        list($query, $searchRange) = $this->splitQuery($query);
+        // findToken requires at least one search value.
+        $query +=  [
+            'IdentifierType' => IdentifierTypes::CODE_ACCESS,
+        ];
+
+        $result = $this->invoke('findToken', (object)['IdentifierSearch' => $query, 'SearchRange' => $searchRange]);
+        return !isset($result->IdentifierAndCarrierId) ? null : (is_array($result->IdentifierAndCarrierId) ? $result->IdentifierAndCarrierId : [$result->IdentifierAndCarrierId]);
+    }
+
+    public function getIdentifierByBadgeNumber($badgeNumber)
+    {
+        $result = $this->getIdentifiers(['BadgeNumber' => $badgeNumber]);
+
+        return ($result && count($result) === 1) ? $result[0] : null;
+    }
+
+    public function deleteIdentifier($identifier)
+    {
+        $reason = BlockReasons::LOST;
+        $result = $this->invoke('blockToken', (object)[
+            'IdentifierType' => $identifier->Identifier->IdentifierType,
+            'BadgeNumber' => $identifier->Identifier->BadgeNumber,
+            'Reason' => $reason,
+        ]);
+
+        return $result;
+    }
+
+    public function isDeleted($identifier)
+    {
+        return $identifier && isset($identifier->Identifier->Blocked) && $identifier->Identifier->Blocked === true;
     }
 
     public function getVisitors(array $query = [])
     {
-        return $this->invoke('findVisitor', (object)['VisitorInfo' => $query]);
+        list($query, $searchRange) = $this->splitQuery($query);
+        $result = $this->invoke('findVisitor', (object)['VisitorInfo' => $query, 'SearchRange' => $searchRange]);
+
+        if (!isset($result->Visitor)) {
+            return null;
+        }
+
+        return array_map(function ($item) {
+            return $item->VisitorInfo;
+        }, is_array($result->Visitor) ? $result->Visitor : [$result->Visitor]);
     }
 
     public function getVisitor($id)
     {
-        $visitors = $this->getVisitors(['Id' => $id]);
+        $result = $this->getVisitors(['Id' => $id]);
 
-        return $visitors;
+        return ($result && count($result) === 1) ? $result[0] : null;
+    }
+
+    public function getVisitorByIdentifier($identifier)
+    {
+        return isset($identifier->CarrierId) ? $this->getVisitor($identifier->CarrierId) : null;
     }
 
     public function deleteVisitor($visitor)
@@ -102,7 +149,25 @@ class AeosService
 
     public function getVisits(array $query = [])
     {
-        return $this->invoke('findVisit', (object)$query);
+        list($query, $searchRange) = $this->splitQuery($query);
+        $query['SearchRange'] = $searchRange;
+        $result = $this->invoke('findVisit', (object)$query);
+
+        return !isset($result->Visit) ? null : (is_array($result->Visit) ? $result->Visit : [$result->Visit]);
+    }
+
+    public function getVisit($id)
+    {
+        $result = $this->getVisits(['Id' => $id]);
+
+        return ($result && count($result) === 1) ? $result[0] : null;
+    }
+
+    public function getVisitByVisitor($visitor)
+    {
+        $result = $this->getVisits(['VisitorId' => $visitor->Id]);
+
+        return ($result && count($result) === 1) ? $result[0] : null;
     }
 
     public function deleteVisit($visit)
@@ -115,12 +180,24 @@ class AeosService
         return (object)$this->invoke('addVisitor', $data);
     }
 
-    public function createIdentifier($visitor, array $data)
+    public function createIdentifier($visitor, $contactPerson)
     {
-        $data += [
+        $code = $this->generateCode();
+        $data = [
+            'IdentifierType' => IdentifierTypes::CODE_ACCESS,
+            'BadgeNumber' => $code,
+            'UnitId' => $contactPerson->UnitId,
             'CarrierId' => $visitor->Id,
         ];
         return (object)$this->invoke('assignToken', $data);
+    }
+
+    private function generateCode()
+    {
+        $codeLength = 8;
+        $code = random_int(1, 9) . str_pad(random_int(1, pow(10, $codeLength - 1)-1), $codeLength - 1, '0', STR_PAD_LEFT);
+
+        return $code;
     }
 
     public function updateVisitor($id, array $data)
@@ -155,13 +232,24 @@ class AeosService
     public function getUnits(array $query = [])
     {
         list($query, $searchRange) = $this->splitQuery($query);
-        return $this->invoke('findUnit', (object)['UnitSearchInfo' => $query, 'SearchRange' => $searchRange]);
+        $result = $this->invoke('findUnit', (object)['UnitSearchInfo' => $query, 'SearchRange' => $searchRange]);
+
+        return !isset($result->Unit) ? null : (is_array($result->Unit) ? $result->Unit : [$result->Unit]);
     }
 
     public function getPersons(array $query = [])
     {
         list($query, $searchRange) = $this->splitQuery($query);
-        return $this->invoke('findPerson', (object)['PersonInfo' => $query, 'SearchRange' => $searchRange]);
+        $result = $this->invoke('findPerson', (object) ['PersonInfo' => $query, 'SearchRange' => $searchRange]);
+
+        return !isset($result->Person) ? null : (is_array($result->Person) ? $result->Person : [$result->Person]);
+    }
+
+    public function getPerson($id)
+    {
+        $result = $this->getPersons(['Id' => $id]);
+
+        return ($result && count($result) === 1) ? $result[0] : null;
     }
 
     public function getTemplates(array $query = [])
@@ -170,7 +258,16 @@ class AeosService
         $query += [
             'UnitOfAuthType' => 'OnLine',
         ];
-        return $this->invoke('findTemplate', (object)['TemplateInfo' => $query, 'SearchRange' => $searchRange]);
+        $result = $this->invoke('findTemplate', (object)['TemplateInfo' => $query, 'SearchRange' => $searchRange]);
+
+        return !isset($result->Template) ? null : (is_array($result->Template) ? $result->Template : [$result->Template]);
+    }
+
+    public function getTemplate($id)
+    {
+        $result = $this->getTemplates(['Id' => $id]);
+
+        return ($result && count($result) === 1) ? $result[0] : null;
     }
 
     public function getLastRequest()

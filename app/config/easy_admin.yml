@@ -2,6 +2,7 @@ easy_admin:
     site_name: '%site_name%'
 
     design:
+        form_theme: 'easy_admin/form/bootstrap_3_horizontal_layout.html.twig'
         menu:
             - entity: Code
             - entity: User
@@ -12,8 +13,9 @@ easy_admin:
     entities:
         Code:
             class: AppBundle\Entity\Code
+            disabled_actions: [edit]
             list:
-                actions: [show]
+                actions: [show, -delete]
                 fields:
                     - property: startTime
                     - property: endTime
@@ -95,7 +97,10 @@ easy_admin:
                       type_options:
                           required: false
                     - property: aeosId
-
+                    - property: apiKey
+                      type: AppBundle\Form\Type\ApiKeyType
+                      type_options:
+                          disabled: true
         Template:
             roles: [ROLE_ADMIN]
             class: AppBundle\Entity\Template
