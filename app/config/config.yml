@@ -27,9 +27,9 @@ framework:
     session:
         # https://symfony.com/doc/current/reference/configuration/framework.html#handler-id
         handler_id: session.handler.native_file
-        save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
+        # save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
         # If running inside a Vagrant box, use this:
-        # save_path: /var/lib/php/sessions
+        save_path: /var/lib/php/sessions
     fragments: ~
     http_method_override: true
     assets: ~
@@ -85,6 +85,32 @@ fos_user:
     from_email:
         address: "%mailer_email%"
         sender_name: "%mailer_name%"
+
+fos_rest:
+    param_fetcher_listener: true
+    body_listener: true
+    format_listener:
+        enabled: true
+        rules:
+            - { path: '^/api/', priorities: ['json', 'xml'], fallback_format: 'json', prefer_extension: true }
+    versioning: true
+    view:
+        formats:
+            xml:  true
+            json: true
+        view_response_listener: 'force'
+    zone:
+        - { path: ^/api/* }
+
+nelmio_api_doc:
+    documentation:
+        info:
+            title: "%api_title%"
+            description: "%api_description%"
+            version: 1.0.0
+    routes:
+        path_patterns: # an array of regexps
+            - ^/api
 
 stof_doctrine_extensions:
     orm:

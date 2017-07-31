@@ -9,3 +9,29 @@ app:
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+# api
+code:
+    type:     rest
+    resource: AppBundle\Controller\Api\CodeController
+    prefix: /api
+
+person:
+    type:     rest
+    resource: AppBundle\Controller\Api\PersonController
+    prefix: /api
+
+template:
+    type:     rest
+    resource: AppBundle\Controller\Api\TemplateController
+    prefix: /api
+
+api:
+    type:     rest
+    resource: AppBundle\Controller\Api\ApiController
+    prefix: /api
+
+# api doc
+app.swagger_ui:
+    resource: "@NelmioApiDocBundle/Resources/config/routing/swaggerui.xml"
+    prefix:   /api/doc

@@ -28,3 +28,6 @@ parameters:
     aoes_password: pass
 
     site_name: Gæstehåndtering
+
+    api_title: Gæstehåndtering – API
+    api_description: The API
