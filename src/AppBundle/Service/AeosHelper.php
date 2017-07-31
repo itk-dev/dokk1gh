@@ -5,7 +5,6 @@ namespace AppBundle\Service;
 use AppBundle\Entity\Code;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-
 class AeosHelper
 {
     /** @var \AppBundle\Service\AeosService  */
@@ -58,7 +57,8 @@ class AeosHelper
         $code->setIdentifier($identifier->BadgeNumber);
     }
 
-    public function deleteAeosIdentifier(Code $code) {
+    public function deleteAeosIdentifier(Code $code)
+    {
         $identifier = $this->aeosService->getIdentifierByBadgeNumber($code->getIdentifier());
         $visitor = $identifier ? $this->aeosService->getVisitorByIdentifier($identifier) : null;
         $visit = $visitor ? $this->aeosService->getVisitByVisitor($visitor) : null;
