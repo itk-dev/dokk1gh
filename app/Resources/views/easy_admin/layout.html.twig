@@ -1,0 +1,8 @@
+{% extends '@EasyAdmin/default/layout.html.twig' %}
+
+{% block user_menu_dropdown %}
+  <li>
+    <a href="{{ path('fos_user_change_password') }}"><i class="fa fa-key"></i> {{ 'Change password'|trans }}</a>
+  </li>
+  {{ parent() }}
+{% endblock %}
