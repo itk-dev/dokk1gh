@@ -3,6 +3,7 @@ easy_admin:
 
     design:
         form_theme: 'easy_admin/form/bootstrap_3_horizontal_layout.html.twig'
+        brand_color: '#003764'
         assets:
             css:
                 - 'stylesheets/app.css'
