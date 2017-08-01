@@ -3,7 +3,7 @@ action:
     delete: Slet
     cancel: Annuller
     search: Søg
-    new: Ny
+    new: Opret %entity_name%
     save: Gem
     list: Tilbage til oversigt
 
