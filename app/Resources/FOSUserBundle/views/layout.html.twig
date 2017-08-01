@@ -1,24 +1,6 @@
-{% extends '@EasyAdmin/default/layout.html.twig' %}
+{% extends 'easy_admin/layout.html.twig' %}
 
 {% trans_default_domain 'FOSUserBundle' %}
-
-{% block head_stylesheets %}
-  {{ parent() }}
-
-  {% if true or not app.user %}
-    <style>
-     {# Hide the sidebar #}
-     .main-sidebar {
-       display: none;
-     }
-
-     .content-wrapper {
-       margin-left: 0 !important;
-       padding-top: 0;
-     }
-    </style>
-  {% endif %}
-{% endblock %}
 
 {% block page_title 'Gæstehåndtering-login' | trans %}
 {% block sidebar '' %}
