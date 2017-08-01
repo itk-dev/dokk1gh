@@ -6,6 +6,7 @@ action:
     new: Opret %entity_name%
     save: Gem
     list: Tilbage til oversigt
+    show: Vis
 
 User: Bruger
 Code: Kode
@@ -18,7 +19,7 @@ ROLE_USER: Bruger
 ROLE_ADMIN: Administrator
 ROLE_SUPER_ADMIN: Superadministrator
 
-
+Identifier: Identifier
 Name: Navn
 Roles: Roller
 Templates: Skabeloner
@@ -34,6 +35,17 @@ Start time: Starttidspunkt
 End time: Sluttidspunkt
 Api key: Api-nøgle
 Generate api key: Generer api-nøgle
+
+
+AppBundle\Entity\Code: Kode
+AppBundle\Entity\User: Bruger
+AppBundle\Entity\Template: Skabelon
+
+'%entity_type% %entity_name% created': '%entity_type% "%entity_name%" oprettet'
+'%entity_type% %entity_name% updated': '%entity_type% "%entity_name%" opdateret'
+'%entity_type% %entity_name% removed': '%entity_type% "%entity_name%" slettet'
+
+
 
 # @TODO
 Notify user: Notify user

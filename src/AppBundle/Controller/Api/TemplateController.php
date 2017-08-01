@@ -2,8 +2,10 @@
 
 namespace AppBundle\Controller\Api;
 
+use AppBundle\Entity\Template;
 use AppBundle\Service\AeosHelper;
 use AppBundle\Service\AeosService;
+use AppBundle\Service\TemplateManager;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use Swagger\Annotations as SWG;
@@ -14,12 +16,14 @@ class TemplateController implements ClassResourceInterface
     private $aeosService;
     private $aeosHelper;
     private $entityManager;
+    private $templateManager;
 
-    public function __construct(AeosService $aeosService, AeosHelper $aeosHelper, EntityManagerInterface $entityManager)
+    public function __construct(AeosService $aeosService, AeosHelper $aeosHelper, EntityManagerInterface $entityManager, TemplateManager $templateManager)
     {
         $this->aeosService = $aeosService;
         $this->aeosHelper = $aeosHelper;
         $this->entityManager = $entityManager;
+        $this->templateManager = $templateManager;
     }
 
     /**
@@ -34,7 +38,8 @@ class TemplateController implements ClassResourceInterface
      */
     public function cgetAction(Request $request)
     {
-        $result = $this->aeosService->getTemplates($request->query->all());
+//        $result = $this->aeosService->getTemplates($request->query->all());
+        $result = $this->templateManager->getUserTemplates();
 
         return $result;
     }

@@ -3,16 +3,22 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Traits\BlameableEntity;
+use AppBundle\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Template
  *
  * @ORM\Entity
  * @Gedmo\SoftDeleteable
+ * @UniqueEntity(
+ *   fields="aeosId",
+ *   message="This aeosId is already in use."
+ * )
  * @ORM\Table
  */
 class Template
@@ -40,7 +46,9 @@ class Template
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\AeosTemplateId()
+     *
+     * @ORM\Column(type="string", length=255)
      */
     private $aeosId;
 

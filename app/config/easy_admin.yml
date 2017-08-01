@@ -99,7 +99,11 @@ easy_admin:
                           choices:
                               <<: *role_list
                     - property: templates
+                      type_options:
+                          required: true
                     - property: aeosId
+                      type_options:
+                          required: true
                     - property: apiKey
                       type: AppBundle\Form\Type\ApiKeyType
                       type_options:

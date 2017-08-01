@@ -1,2 +1,5 @@
 'This email is already in use.': 'Denne e-mail er allerede i brug.'
 'This aeosId is already in use.': 'Dette AEOS-id er allerede i brug.'
+
+'"{{ string }}" is not a valid AEOS person id.': '"{{ string }}" er ikke et gyldigt AEOS-person-id.'
+'"{{ string }}" is not a valid AEOS template id.': '"{{ string }}" er ikke et gyldigt AEOS-skabelon-id.'

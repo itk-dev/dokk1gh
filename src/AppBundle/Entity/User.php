@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Traits\BlameableEntity;
+use AppBundle\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
@@ -40,7 +41,9 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255, unique=true, nullable=true)
+     * @Assert\AeosPersonId
+     *
+     * @ORM\Column(type="string", length=255)
      */
     private $aeosId;
 
