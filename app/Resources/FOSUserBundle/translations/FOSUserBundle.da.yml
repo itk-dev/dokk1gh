@@ -1,16 +1,3 @@
-# Group
-group:
-    edit:
-        submit: Opdater gruppe
-    show:
-        name: Gruppenavn
-    new:
-        submit: Opret gruppe
-    flash:
-        updated: Gruppen er blevet opdateret
-        created: Gruppen er blevet oprettet
-        deleted: Gruppen er blevet slettet
-
 # Security
 security:
     login:
@@ -18,7 +5,7 @@ security:
         password: Adgangskode
         remember_me: Husk mig
         submit: Log ind
-        forgotten_password: Glemt kodeord
+        forgotten_password: Glemt adgangskode
 
 # Profile
 profile:
@@ -39,9 +26,9 @@ profile:
 
 # Password change
 change_password:
-    submit: Skift kodeord
+    submit: Skift adgangskode
     flash:
-        success: Kodeordet er blevet opdateret
+        success: Adgangskoden er blevet opdateret
 
 # Registration
 registration:
@@ -63,23 +50,23 @@ registration:
 
 # Password resetting
 resetting:
-    password_already_requested: Denne brugers kodeord er allerede blevet nulstillet inden for de sidste 24 timer.
-    check_email: En email er blevet sendt til %email%. Den indeholder et link til at nulstille dit kodeord.
+    password_already_requested: Denne brugers adgangskode er allerede blevet nulstillet inden for de sidste 24 timer.
+    check_email: En email er blevet sendt til %email%. Den indeholder et link til at nulstille dit adgangskode.
     request:
         invalid_username: Brugeren "%username" findes ikke
         username: Brugernavn
-        submit: Nulstil kodeord
+        submit: Nulstil adgangskode
     reset:
-        forgot: Glemt kodeord
-        submit: Skift kodeord
+        forgot: Glemt adgangskode
+        submit: Skift adgangskode
     flash:
-        success: Kodeordet er blevet nulstillet
+        success: Adgangskoden er blevet nulstillet
     email:
-        subject: Nulstilling af kodeord (%username%)
+        subject: Nulstilling af adgangskode (%username%)
         message: |
             Hej %username%!
 
-            For at nulstille dit kodeord, besøg venligst %confirmationUrl%
+            For at nulstille dit adgangskode, besøg venligst %confirmationUrl%
 
             Venlig hilsen,
             AaPlus
@@ -100,10 +87,10 @@ layout:
 form:
     username: Brugernavn
     email: E-mail
-    current_password: Nuværende kodeord
-    password: Kodeord
-    password_confirmation: Gentag kodeord
-    new_password: Nyt kodeord
-    new_password_confirmation: Gentag kodeord
+    current_password: Nuværende adgangskode
+    password: Adgangskode
+    password_confirmation: Gentag adgangskode
+    new_password: Nyt adgangskode
+    new_password_confirmation: Gentag adgangskode
 
 'Back to sign in': 'Tilbage til log ind'

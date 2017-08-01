@@ -3,7 +3,6 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Code;
-use AppBundle\Entity\User;
 use AppBundle\Service\AeosHelper;
 use AppBundle\Service\TemplateManager;
 use Gedmo\Blameable\Blameable;
@@ -75,24 +74,6 @@ class AdminController extends BaseAdminController
         return null;
     }
 
-    // @see http://symfony.com/doc/current/bundles/EasyAdminBundle/integration/fosuserbundle.html
-    public function createNewUserEntity()
-    {
-        return $this->get('fos_user.user_manager')->createUser();
-    }
-
-    public function prePersistUserEntity(User $user)
-    {
-        $user->setUsername($user->getEmail());
-        $this->get('fos_user.user_manager')->updateUser($user, false);
-    }
-
-    public function preUpdateUserEntity(User $user)
-    {
-        $user->setUsername($user->getEmail());
-        $this->get('fos_user.user_manager')->updateUser($user, false);
-    }
-
     /**
      * Custom Code form builder to make sure that only some templates are available.
      *
@@ -150,9 +131,9 @@ class AdminController extends BaseAdminController
     {
         try {
             $this->aeosHelper->createAeosIdentifier($code);
-            $this->addFlash('info', 'Code created: ' . $code->getIdentifier());
+            $this->showInfo('Code created: %code%', ['%code%' => $code->getIdentifier()]);
         } catch (\Exception $ex) {
-            $this->addFlash('error', $ex->getMessage());
+            $this->showError($ex->getMessage());
         }
     }
 
@@ -160,10 +141,25 @@ class AdminController extends BaseAdminController
     {
         try {
             $this->aeosHelper->deleteAeosIdentifier($code);
-            $this->addFlash('info', 'Code removed');
+            $this->showInfo('Code removed');
         } catch (\Exception $ex) {
-            throw $ex;
-            $this->addFlash('error', $ex->getMessage());
+            $this->showError($ex->getMessage());
         }
+    }
+
+    protected function showInfo(string $message, array $parameters = [])
+    {
+        $this->showMessage('info', $message, $parameters);
+    }
+
+    protected function showError(string $message, array $parameters = [])
+    {
+        $this->showMessage('error', $message, $parameters);
+    }
+
+    protected function showMessage(string $type, string $message, array $parameters = [])
+    {
+        $translator = $this->get('translator');
+        $this->addFlash($type, $translator->trans($message, $parameters));
     }
 }

@@ -9,10 +9,19 @@ use FOS\UserBundle\Model\User as BaseUser;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity
  * @Gedmo\SoftDeleteable
+ * @UniqueEntity(
+ *   fields="email",
+ *   message="This email is already in use."
+ * )
+ * @UniqueEntity(
+ *   fields="aeosId",
+ *   message="This aeosId is already in use."
+ * )
  * @ORM\Table(name="fos_user")
  */
 class User extends BaseUser

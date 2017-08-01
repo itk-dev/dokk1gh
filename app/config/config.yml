@@ -85,6 +85,8 @@ fos_user:
     from_email:
         address: "%mailer_email%"
         sender_name: "%mailer_name%"
+    service:
+        user_manager: AppBundle\Service\UserManager
 
 stof_doctrine_extensions:
     orm:

@@ -1,6 +1,14 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 {{ form_start(form, { 'action': path('fos_user_resetting_reset', {'token': token}), 'attr': { 'class': 'fos_user_resetting_reset' } }) }}
+  {% set username = app.request.query.get('reset_user_username') %}
+  {% if username %}
+    <div class="form-group">
+      <label class="control-label">{{ 'security.login.username' | trans }}</label>
+      <input type="text" class="form-control" value="{{ username }}" disabled/>
+    </div>
+  {% endif %}
+
   {{ form_widget(form) }}
 
   <button type="submit" class="btn btn-lg btn-primary btn-block">{{ 'resetting.reset.submit'|trans }}</button>

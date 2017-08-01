@@ -38,6 +38,17 @@ services:
                 password: '%aoes_password%'
                 debug:    '%kernel.debug%'
 
+    AppBundle\Service\UserManager:
+        arguments:
+            - '@fos_user.util.password_updater'
+            - '@fos_user.util.canonical_fields_updater'
+            - '@fos_user.object_manager'
+            - '%fos_user.model.user.class%'
+            - '@fos_user.util.token_generator'
+            - '@twig'
+            - '@router'
+            - '@mailer'
+
     # Inject our custom config manager (overwrite the original one)
     easyadmin.config.manager:
         class: AppBundle\Configuration\EasyAdminConfigManager
