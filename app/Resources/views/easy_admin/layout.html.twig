@@ -12,6 +12,10 @@
     {% else %}
       {% set wrapper_classes = wrapper_classes|merge(['no-menu']) %}
     {% endif %}
+    {% if app.request.attributes.get('_route') matches '/^fos_user/' %}
+      {% set wrapper_classes = wrapper_classes|merge(['no-menu']) %}
+    {% endif %}
+
     <div class="wrapper {{ wrapper_classes|join(' ') }}">
       {{ block('wrapper') }}
     </div>

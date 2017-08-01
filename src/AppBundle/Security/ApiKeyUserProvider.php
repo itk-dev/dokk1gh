@@ -2,7 +2,7 @@
 
 namespace AppBundle\Security;
 
-use FOS\UserBundle\Doctrine\UserManager;
+use AppBundle\Service\UserManager;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\User;
 use Symfony\Component\Security\Core\User\UserInterface;

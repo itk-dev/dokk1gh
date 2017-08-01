@@ -32,3 +32,4 @@ parameters:
     header_image_url: /images/logo.png
 
     locale: da
+    format_datetime: 'd/m/Y H:i'

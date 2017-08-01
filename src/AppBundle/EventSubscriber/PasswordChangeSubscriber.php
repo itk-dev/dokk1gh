@@ -3,6 +3,7 @@
 namespace AppBundle\EventSubscriber;
 
 use FOS\UserBundle\Event\FormEvent;
+use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\FOSUserEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -22,6 +23,7 @@ class PasswordChangeSubscriber implements EventSubscriberInterface
         return [
             FOSUserEvents::CHANGE_PASSWORD_SUCCESS => 'onPasswordChangeSuccess',
             FOSUserEvents::RESETTING_RESET_SUCCESS => 'onPasswordResetSuccess',
+            FOSUserEvents::RESETTING_RESET_INITIALIZE => 'onPasswordResetInitialize',
         ];
     }
 
@@ -35,5 +37,10 @@ class PasswordChangeSubscriber implements EventSubscriberInterface
     {
         $url = $this->router->generate('fos_user_security_login');
         $event->setResponse(new RedirectResponse($url));
+    }
+
+    public function onPasswordResetInitialize(GetResponseUserEvent $event)
+    {
+        $event->getRequest()->query->set('reset_user_username', $event->getUser()->getEmail());
     }
 }

@@ -17,6 +17,9 @@ easy_admin:
             - entity: Template
               roles: [ROLE_ADMIN]
 
+    formats:
+        datetime: '%format_datetime%'
+
     entities:
         Code:
             class: AppBundle\Entity\Code
@@ -47,6 +50,7 @@ easy_admin:
                     - property: template
 
         User:
+            controller: AppBundle\Controller\UserController
             roles: [ROLE_ADMIN]
             class: AppBundle\Entity\User
             list:
@@ -66,14 +70,8 @@ easy_admin:
                     - property: updatedBy
             new:
                 fields:
-                    - property: enabled
-                    # - property: username
                     - property: email
                       type: email
-                    - property: plainPassword
-                      type: text
-                      type_options:
-                          required: true
                     - property: roles
                       type: choice
                       type_options:
@@ -83,11 +81,14 @@ easy_admin:
                               ROLE_USER: ROLE_USER
                               ROLE_ADMIN: ROLE_ADMIN
                     - property: templates
+                      type_options:
+                          required: true
                     - property: aeosId
+                      type_options:
+                          required: true
             edit:
                 fields:
                     - property: enabled
-                    # - property: username
                     - property: email
                       type: email
                     - property: roles
@@ -98,11 +99,6 @@ easy_admin:
                           choices:
                               <<: *role_list
                     - property: templates
-                    - property: plainPassword
-                      help: app.user.help.plainPassword
-                      type: text
-                      type_options:
-                          required: false
                     - property: aeosId
                     - property: apiKey
                       type: AppBundle\Form\Type\ApiKeyType
