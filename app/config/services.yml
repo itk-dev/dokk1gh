@@ -42,3 +42,11 @@ services:
     easyadmin.config.manager:
         class: AppBundle\Configuration\EasyAdminConfigManager
         arguments: ['@service_container', '@security.authorization_checker']
+
+    # Enable serialization of objects.
+    JMS\Serializer\Handler\StdClassHandler:
+        tags: ['jms_serializer.subscribing_handler']
+
+    # Don't serialize names in snake_case.
+    jms_serializer.naming_strategy:
+        alias: jms_serializer.identical_property_naming_strategy

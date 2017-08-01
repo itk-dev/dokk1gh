@@ -36,11 +36,7 @@ class PersonController implements ClassResourceInterface
     {
         $result = $this->aeosService->getPersons($request->query->all());
 
-        //return $result;
-
-        return array_map(function ($item) {
-            return (array)$item;
-        }, $result);
+        return $result;
     }
 
     /**
@@ -57,6 +53,6 @@ class PersonController implements ClassResourceInterface
     {
         $result = $this->aeosService->getPerson($id);
 
-        return (array)$result;
+        return $result;
     }
 }
