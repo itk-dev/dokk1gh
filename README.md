@@ -1,11 +1,22 @@
 Dokk1-gæstehåndtering
 =====================
 
-Install:
+# Install
+
+Create database:
+
+```
+mysql --user=… --password
+create database dokk1gh;
+```
+
+Install Composer packages:
 
 ```
 composer install
 ```
+
+Install bundle assets:
 
 ```
 bin/console assets:install --symlink
@@ -14,7 +25,6 @@ bin/console assets:install --symlink
 Set up database:
 
 ```
-bin/console doctrine:database:create
 bin/console doctrine:migrations:migrate --no-interaction
 ```
 

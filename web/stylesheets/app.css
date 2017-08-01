@@ -1,3 +1,14 @@
+#header-image {
+  transform: translateX(-50%);
+  left: 50%;
+  position: absolute;
+}
+
+#header-image img {
+	max-height: 24px;
+	margin: 13px; /* (header height - header image max-height) / 2 [(50px - 24px) / 2] */
+}
+
 .no-menu aside.main-sidebar {
 	display: none !important;
 }

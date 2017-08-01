@@ -7,7 +7,6 @@ imports:
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: en
 
 framework:
     #esi: ~
@@ -42,6 +41,7 @@ twig:
     strict_variables: '%kernel.debug%'
     globals:
         site_name: '%site_name%'
+        header_image_url: "%header_image_url%"
 
 # Doctrine Configuration
 doctrine:
