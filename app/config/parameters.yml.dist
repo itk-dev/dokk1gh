@@ -33,3 +33,6 @@ parameters:
 
     locale: da
     format_datetime: 'd/m/Y H:i'
+
+    api_title: Gæstehåndtering – API
+    api_description: The API
