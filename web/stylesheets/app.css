@@ -1,24 +1,84 @@
-#header-image {
-  transform: translateX(-50%);
-  left: 50%;
-  position: absolute;
+/* Global */
+body {
+	font-size: 16px;
+	padding-bottom: 40px;
+	background-color: #F5F5F5;
+	color: #4A4A4A;
 }
 
+/* Login page */
+.form-signin {
+	max-width: 420px;
+	padding: 5px 25px 25px 25px;
+	margin: 20px auto;
+	background: #fff;
+	box-shadow: 0 0 6px rgba(0,0,0,.15);
+	border: none;
+	border-radius: 0;
+}
+.form-signin .checkbox {
+	margin-bottom: 20px;
+}
+.form-signin .panel-heading {
+	font-weight: 400;
+	font-size: 1.6em;
+}
+.form-signin-label {
+	font-weight: 200;
+	font-size: 1em;
+}
+.form-signin .checkbox {
+	font-weight: normal;
+}
+.form-signin .form-control {
+	position: relative;
+	height: auto;
+	-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+			box-sizing: border-box;
+	padding: 15px;
+	font-size: 16px;
+	background-color: #F5F5F5;
+	border-color: #EAEAEA;
+	margin-bottom: 10px;
+	border-radius: 3px;
+}
+.form-signin .btn-primary {
+	background-color: #579711;
+	border-color: #4C850B;
+	border-radius: 3px;
+	transition: background-color .1s ease-in;
+}
+.form-signin .btn-primary:hover {
+	background-color: #4C850B;
+	border-color: #4C850B;
+	transition: background-color .3s ease-out;
+}
+
+/* Display and center logo in top */
+#header-image {
+	transform: translateX(-50%);
+	left: 50%;
+	position: absolute; 
+}
 #header-image img {
 	max-height: 24px;
 	margin: 13px; /* (header height - header image max-height) / 2 [(50px - 24px) / 2] */
 }
 
+/* hide sidebar on login */
+.sidebar-collapse .no-menu aside.main-sidebar,
 .no-menu aside.main-sidebar {
 	display: none !important;
 }
-
+.sidebar-collapse .no-menu header .sidebar-toggle,
 .no-menu header .sidebar-toggle {
 	width: 0 !important;
 	padding-right: 0 !important;
 	overflow: hidden;
+	display: none;
 }
-
+.sidebar-collapse .no-menu .content-wrapper,
 .no-menu .content-wrapper {
 	margin-left: 0 !important;
 }
