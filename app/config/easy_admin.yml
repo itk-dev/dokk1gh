@@ -9,7 +9,9 @@ easy_admin:
 
         menu:
             - entity: Code
+              icon: id-card
             - entity: User
+              icon: user
               roles: [ROLE_ADMIN]
             - entity: Template
               roles: [ROLE_ADMIN]

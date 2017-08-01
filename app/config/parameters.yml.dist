@@ -28,3 +28,7 @@ parameters:
     aoes_password: pass
 
     site_name: Gæstehåndtering
+
+    header_image_url: /images/logo.png
+
+    locale: da

@@ -14,10 +14,11 @@ group:
 # Security
 security:
     login:
-        username: "Brugernavn:"
-        password: "Kodeord:"
+        username: Brugernavn
+        password: Adgangskode
         remember_me: Husk mig
         submit: Log ind
+        forgotten_password: Glemt kodeord
 
 # Profile
 profile:
@@ -66,7 +67,7 @@ resetting:
     check_email: En email er blevet sendt til %email%. Den indeholder et link til at nulstille dit kodeord.
     request:
         invalid_username: Brugeren "%username" findes ikke
-        username: "Brugernavn:"
+        username: Brugernavn
         submit: Nulstil kodeord
     reset:
         forgot: Glemt kodeord
@@ -97,11 +98,12 @@ layout:
 
 # Form field labels
 form:
-    group_name: "Gruppe navn:"
-    username: "Brugernavn:"
-    email: "Email:"
-    current_password: "Nuværende kodeord:"
-    password: "Kodeord:"
-    password_confirmation: "Gentag kodeord:"
-    new_password: "Nyt kodeord:"
-    new_password_confirmation: "Gentag kodeord:"
+    username: Brugernavn
+    email: E-mail
+    current_password: Nuværende kodeord
+    password: Kodeord
+    password_confirmation: Gentag kodeord
+    new_password: Nyt kodeord
+    new_password_confirmation: Gentag kodeord
+
+'Back to sign in': 'Tilbage til log ind'

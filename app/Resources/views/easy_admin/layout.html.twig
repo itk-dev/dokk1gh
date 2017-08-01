@@ -1,12 +1,5 @@
 {% extends '@EasyAdmin/default/layout.html.twig' %}
 
-{% block user_menu_dropdown %}
-  <li>
-    <a href="{{ path('fos_user_change_password') }}"><i class="fa fa-key"></i> {{ 'Change password'|trans }}</a>
-  </li>
-  {{ parent() }}
-{% endblock %}
-
 {# It should be possible to just change body_class, but apparently it doesn't work (cf. https://github.com/javiereguiluz/EasyAdminBundle/issues/807#issuecomment-172552196) #}
 {% block body %}
   <body id="{% block body_id %}{% endblock %}" class="easyadmin sidebar-mini {% block body_class %}{% endblock %} {{ app.request.cookies.has('_easyadmin_navigation_iscollapsed') ? 'sidebar-collapse' }}">
@@ -24,3 +17,71 @@
     </div>
   </body>
 {% endblock %}
+
+{# Add (center) image to header. #}
+{% block header %}
+  <nav class="navbar" role="navigation">
+    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+      <span class="sr-only">{{ 'toggle_navigation'|trans(domain = 'EasyAdminBundle') }}</span>
+    </a>
+
+    <div id="header-logo">
+      {% block header_logo %}
+        <a class="logo {{ easyadmin_config('site_name')|length > 14 ? 'logo-long' }}" title="{{ easyadmin_config('site_name')|striptags }}" href="{{ path('easyadmin') }}">
+          {{ easyadmin_config('site_name')|raw }}
+        </a>
+      {% endblock header_logo %}
+    </div>
+
+    {% if header_image_url|default(false) %}
+    <div id="header-image">
+      {% block header_image %}
+        <a title="{{ easyadmin_config('site_name')|striptags }}" href="{{ path('easyadmin') }}">
+          <img src="{{ header_image_url }}"/>
+        </a>
+      {% endblock header_image %}
+    </div>
+    {% endif %}
+
+    <div class="navbar-custom-menu">
+      {% block header_custom_menu %}
+        {% set _logout_path = easyadmin_logout_path() %}
+        <ul class="nav navbar-nav">
+          <li class="dropdown user user-menu">
+            {% block user_menu %}
+              <span class="sr-only">{{ 'user.logged_in_as'|trans(domain = 'EasyAdminBundle') }}</span>
+
+              {% if app.user|default(false) == false %}
+                <i class="hidden-xs fa fa-user-times"></i>
+                {{ 'user.anonymous'|trans(domain = 'EasyAdminBundle') }}
+              {% elseif not _logout_path %}
+                <i class="hidden-xs fa fa-user"></i>
+                {{ app.user.username|default('user.unnamed'|trans(domain = 'EasyAdminBundle')) }}
+              {% else %}
+                <div class="btn-group">
+                  <button type="button" class="btn" data-toggle="dropdown">
+                    <i class="hidden-xs fa fa-user"></i>
+                    {{ app.user.username|default('user.unnamed'|trans(domain = 'EasyAdminBundle')) }}
+                  </button>
+                  <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu">
+                    {% block user_menu_dropdown %}
+                      <li>
+                        <a href="{{ path('fos_user_change_password') }}"><i class="fa fa-key"></i> {{ 'Change password'|trans }}</a>
+                      </li>
+                      <li>
+                        <a href="{{ _logout_path }}"><i class="fa fa-sign-out"></i> {{ 'user.signout'|trans(domain = 'EasyAdminBundle') }}</a>
+                      </li>
+                    {% endblock user_menu_dropdown %}
+                  </ul>
+                </div>
+              {% endif %}
+            {% endblock user_menu %}
+          </li>
+        </ul>
+      {% endblock header_custom_menu %}
+    </div>
+  </nav>
+{% endblock header %}
