@@ -48,6 +48,14 @@ services:
             - '@twig'
             - '@router'
             - '@mailer'
+            -
+                user_created:
+                    sender:
+                        email: '%mailer_email%'
+                        name: '%mailer_name%'
+                    user:
+                        subject: '%user_created_user_subject%'
+                        body: '%user_created_user_body%'
 
     # Inject our custom config manager (overwrite the original one)
     easyadmin.config.manager:
