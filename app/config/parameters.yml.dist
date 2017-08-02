@@ -36,3 +36,14 @@ parameters:
 
     api_title: Gæstehåndtering – API
     api_description: The API
+
+    user_created_user_subject: '{{ site_name }} – brugeroprettelse'
+    user_created_user_body: >
+        <p>Du er blevet oprettet som bruger på {{ site_name }} med brugernavn {{ user.email }}.</p>
+
+        <p>Gå til <a href="{{ reset_password_url }}">{{ reset_password_url }}</a> og angiv en adgangskode.</p>
+
+        <p>Du kan efterfølgende logge ind med dit brugernavn ({{ user.email }}) og den valgte adgangskode.</p>
+
+        <p>Venlig hilsen<br/>
+        {{ sender.name }}</p>

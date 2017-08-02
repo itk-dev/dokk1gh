@@ -23,13 +23,17 @@ class UserManager extends BaseUserManager
     /** @var \Swift_Mailer */
     private $mailer;
 
-    public function __construct(PasswordUpdaterInterface $passwordUpdater, CanonicalFieldsUpdater $canonicalFieldsUpdater, ObjectManager $om, $class, TokenGeneratorInterface $tokenGenerator, \Twig_Environment $twig, RouterInterface $router, \Swift_Mailer $mailer)
+    /** @var array  */
+    private $configuration;
+
+    public function __construct(PasswordUpdaterInterface $passwordUpdater, CanonicalFieldsUpdater $canonicalFieldsUpdater, ObjectManager $om, $class, TokenGeneratorInterface $tokenGenerator, \Twig_Environment $twig, RouterInterface $router, \Swift_Mailer $mailer, array $configuration)
     {
         parent::__construct($passwordUpdater, $canonicalFieldsUpdater, $om, $class);
         $this->tokenGenerator = $tokenGenerator;
         $this->twig = $twig;
         $this->router = $router;
         $this->mailer = $mailer;
+        $this->configuration = json_decode(json_encode($configuration));
     }
 
     public function createUser()
@@ -49,7 +53,7 @@ class UserManager extends BaseUserManager
         parent::updateUser($user, $andFlush);
     }
 
-    public function notifyUser(User $user, $andFlush = true)
+    public function notifyUserCreated(User $user, $andFlush = true)
     {
         if (null === $user->getConfirmationToken()) {
             /** @var $tokenGenerator TokenGeneratorInterface */
@@ -58,18 +62,29 @@ class UserManager extends BaseUserManager
         $user->setPasswordRequestedAt(new \DateTime());
         $this->updateUser($user, $andFlush);
 
+        $message = $this->createUserCreatedMessage($user);
+        $this->mailer->send($message);
+    }
+
+    private function createUserCreatedMessage(UserInterface $user) {
         $url = $this->router->generate('fos_user_resetting_reset', ['token' => $user->getConfirmationToken()], UrlGeneratorInterface::ABSOLUTE_URL);
 
-        $message = (new \Swift_Message('User created'))
-            ->setFrom('send@example.com')
-            ->setTo('recipient@example.com')
-            ->setBody(
-                $this->twig->render('Emails/user_created_user.html.twig', [
-                    'reset_password_url' => $url,
-                    'user' => $user,
-                ]),
-                'text/html'
-            );
-        $this->mailer->send($message);
+        $config = $this->configuration->user_created;
+        $sender = $config->sender;
+        $template = $config->user;
+
+        $subject = $this->twig->createTemplate($template->subject)->render([]);
+        $content = $this->twig->createTemplate($template->body)->render([
+            'reset_password_url' => $url,
+            'user' => $user,
+            'sender' => $config->sender,
+        ]);
+
+        return (new \Swift_Message($subject))
+            ->setFrom($sender->email, $sender->name)
+            ->setTo($user->getEmail())
+            ->setBody($this->twig->render(':Emails:user_created_user.html.twig', [
+                'content' => $content,
+            ]), 'text/html');
     }
 }

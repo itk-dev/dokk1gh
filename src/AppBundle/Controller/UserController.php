@@ -28,7 +28,7 @@ class UserController extends AdminController
     public function prePersistUserEntity(User $user)
     {
         $this->userManager->updateUser($user, false);
-        $this->userManager->notifyUser($user, false);
+        $this->userManager->notifyUserCreated($user, false);
         $this->showInfo('User %user% notified', ['%user%' => $user]);
     }
 
@@ -75,7 +75,7 @@ class UserController extends AdminController
      */
     public function notifyAction(Request $request, User $user)
     {
-        $this->userManager->notifyUser($user, true);
+        $this->userManager->notifyUserCreated($user, true);
         $this->showInfo('User notified');
 
         $refererUrl = $request->query->get('referer');
