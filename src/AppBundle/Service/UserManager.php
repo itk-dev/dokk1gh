@@ -75,17 +75,27 @@ class UserManager extends BaseUserManager
         $template = $config->user;
 
         $subject = $this->twig->createTemplate($template->subject)->render([]);
-        $content = $this->twig->createTemplate($template->body)->render([
+        $parameters = [
             'reset_password_url' => $url,
             'user' => $user,
             'sender' => $config->sender,
-        ]);
+        ];
+        $template->header = $this->twig->createTemplate($template->header)->render($parameters);
+        $template->body = $this->twig->createTemplate($template->body)->render($parameters);
+        $template->button->text = $this->twig->createTemplate($template->button->text)->render($parameters);
+        $template->footer = $this->twig->createTemplate($template->footer)->render($parameters);
 
         return (new \Swift_Message($subject))
             ->setFrom($sender->email, $sender->name)
             ->setTo($user->getEmail())
             ->setBody($this->twig->render(':Emails:user_created_user.html.twig', [
-                'content' => $content,
+                'header' => $template->header,
+                'body' => $template->body,
+                'button' => [
+                    'url' => $url,
+                    'text' => $template->button->text,
+                ],
+                'footer' => $template->footer,
             ]), 'text/html');
     }
 }

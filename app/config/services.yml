@@ -55,7 +55,11 @@ services:
                         name: '%mailer_name%'
                     user:
                         subject: '%user_created_user_subject%'
+                        header: '%user_created_user_header%'
                         body: '%user_created_user_body%'
+                        button: 
+                            text: '%user_created_user_button_text%'
+                        footer: '%user_created_user_footer%'
 
     # Inject our custom config manager (overwrite the original one)
     easyadmin.config.manager:

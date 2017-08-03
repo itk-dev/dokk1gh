@@ -41,6 +41,7 @@ twig:
     strict_variables: '%kernel.debug%'
     globals:
         site_name: '%site_name%'
+        site_url: '%site_url%'
         header_image_url: "%header_image_url%"
 
 # Doctrine Configuration

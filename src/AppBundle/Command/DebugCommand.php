@@ -63,9 +63,8 @@ class DebugCommand extends ContainerAwareCommand
             throw new InvalidArgumentException('No such user: ' . $username);
         }
 
-        $this->userManager->notifyUserCreated($user, false);
+        $this->userManager->notifyUserCreated($user);
 
-        $user->setConfirmationToken(uniqid());
         $method = new \ReflectionMethod($this->userManager, 'createUserCreatedMessage');
         $method->setAccessible(true);
         /** @var \Swift_Message $message */
