@@ -43,6 +43,9 @@ body {
 	margin-bottom: 10px;
 	border-radius: 3px;
 }
+.form-signin input[disabled].form-control {
+	color: #969696;
+}
 
 /* Display and center logo in top */
 #header-image {
