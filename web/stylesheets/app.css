@@ -95,3 +95,15 @@ body {
 .alert {
 	margin: 0 15px 15px 15px;
 }
+
+.list-code .code-status-expired {
+	color: red;
+}
+
+.list-code .code-status-future {
+	color: orange;
+}
+
+.list-code .code-status-active {
+	color: green;
+}

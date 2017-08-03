@@ -22,19 +22,22 @@ easy_admin:
 
     entities:
         Code:
+            controller: AppBundle\Controller\CodeController
             class: AppBundle\Entity\Code
             disabled_actions: [edit]
             list:
-                actions: [show, -delete]
+                actions: [-show]
                 fields:
+                    - property: identifier
+                      label: Code
+                    - property: status
+                      sortable: true
+                      template: status.html.twig
                     - property: startTime
                     - property: endTime
                     - property: template
                     - property: createdAt
                     - property: createdBy
-                      roles: [ROLE_ADMIN]
-                    - property: updatedAt
-                    - property: updatedBy
                       roles: [ROLE_ADMIN]
             show:
                 fields:
@@ -58,6 +61,8 @@ easy_admin:
                     - property: email
                     - property: aeosId
                     - property: roles
+                      template: roles.html.twig
+                      sortable: false
                     - property: templates
                       template: templates.html.twig
                     - property: enabled
