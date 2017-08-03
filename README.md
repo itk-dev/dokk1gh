@@ -51,3 +51,18 @@ bin/console fos:user:create user user@example.com
 ```
 
 Go to `http://dokk1gh.vm/login`.
+
+
+## Debugging
+
+Debug email sent to user when created:
+
+```
+bin/console app:debug notify-user-created [user email]
+```
+
+e.g.
+
+```
+bin/console app:debug notify-user-created user@example.com
+```
