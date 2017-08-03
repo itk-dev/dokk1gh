@@ -43,17 +43,6 @@ body {
 	margin-bottom: 10px;
 	border-radius: 3px;
 }
-.form-signin .btn-primary {
-	background-color: #579711;
-	border-color: #4C850B;
-	border-radius: 3px;
-	transition: background-color .1s ease-in;
-}
-.form-signin .btn-primary:hover {
-	background-color: #4C850B;
-	border-color: #4C850B;
-	transition: background-color .3s ease-out;
-}
 
 /* Display and center logo in top */
 #header-image {
@@ -81,4 +70,25 @@ body {
 .sidebar-collapse .no-menu .content-wrapper,
 .no-menu .content-wrapper {
 	margin-left: 0 !important;
+}
+
+/* Btns */
+.btn-primary, .btn-primary:active, .btn-primary:focus {
+    background-color: #579711;
+	border-color: #4C850B;
+	border-radius: 3px;
+	transition: background-color .1s ease-in;
+}
+.btn-primary:hover, .btn-primary:active:hover {
+	background-color: #4C850B;
+	border-color: #4C850B;
+	transition: background-color .3s ease-out;
+}
+
+/* Alerts */
+#flash-messages {
+	padding-top: 15px;
+}
+.alert {
+	margin: 0 15px 15px 15px;
 }
