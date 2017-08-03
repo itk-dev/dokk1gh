@@ -1,7 +1,7 @@
 # Security
 security:
     login:
-        username: Brugernavn
+        username: E-mailadresse
         password: Adgangskode
         remember_me: Husk mig
         submit: Log ind

@@ -33,6 +33,13 @@ class CodeController extends AdminController
 
         if ($sortByStatus) {
             $alias = $builder->getRootAliases()[0];
+            // Sort by code "status"
+            //   1. active: startTime <= now <= endTime
+            //   2. future: startTime > now
+            //   3. expired: otherwise
+            //
+            // @see https://stackoverflow.com/a/15269307
+            // @see http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/dql-doctrine-query-language.html
             $builder->addSelect('CASE WHEN CURRENT_TIMESTAMP() BETWEEN ' . $alias . '.startTime AND ' . $alias . '.endTime THEN 0 WHEN ' . $alias . '.startTime > CURRENT_TIMESTAMP() THEN 1 ELSE 2 END HIDDEN sortValue');
             $builder->addOrderBy('sortValue', $sortDirection);
         }
