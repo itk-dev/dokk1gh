@@ -196,4 +196,16 @@ class Code implements Blameable
     {
         return $this->aeosId;
     }
+
+    public function getStatus()
+    {
+        $now = new \DateTime();
+        if ($this->getStartTime() > $now) {
+            return 'future';
+        } elseif ($this->getEndTime() < $now) {
+            return 'expired';
+        } else {
+            return 'active';
+        }
+    }
 }

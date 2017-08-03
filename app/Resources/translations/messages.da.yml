@@ -12,6 +12,10 @@ User: Bruger
 Code: Kode
 Template: Skabelon
 
+Code.status.expired: Udløbet
+Code.status.future: Inaktiv
+Code.status.active: Aktiv
+
 Enabled: Aktiv
 
 
