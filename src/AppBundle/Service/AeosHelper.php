@@ -27,9 +27,8 @@ class AeosHelper
     public function createAeosIdentifier(Code $code)
     {
         if ($this->testMode) {
-            $method = new \ReflectionMethod($this->aeosService, 'generateCode');
-            $method->setAccessible(true);
-            $code->setIdentifier('test-' . $method->invoke($this->aeosService));
+            $identifier = 'test-' . (new \DateTime())->format(\DateTime::ISO8601);
+            $code->setIdentifier($identifier);
             return;
         }
 
