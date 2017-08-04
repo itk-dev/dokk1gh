@@ -1,0 +1,32 @@
+{% extends '@EasyAdmin/default/list.html.twig' %}
+
+{% block main %}
+  {{ parent() }}
+{% endblock %}
+
+{% block body_javascript %}
+  <script src="{{ asset('javascripts/clipboard.min.js') }}"></script>
+  <script>(function($) {
+     $('.clipboard-copy a').popover({
+       trigger: 'manual',
+       template: '<div class="popover" role="tooltip"><div class="arrow"></div><div class="popover-content"></div></div>'
+     });
+
+     var clipboard = new Clipboard('.clipboard-copy');
+
+     clipboard.on('success', function(e) {
+       $(e.trigger).find('[data-toggle="popover"]').popover('show');
+     });
+     clipboard.on('error', function(e) {
+       console.debug(e);
+     });
+
+     $('body').on('click', function (e) {
+       ;;; console.debug(e);
+       if ($(e.target).closest('[data-toggle="popover"]').length === 0) {
+         ;;; console.debug(e.target, $(e.target).closest(['data-toggle="popover"']));
+         $('[data-toggle="popover"]').popover('hide');
+     }
+   });
+   }(jQuery))</script>
+{% endblock %}

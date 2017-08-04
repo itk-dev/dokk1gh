@@ -11,9 +11,12 @@ class AdminController extends BaseAdminController
     /** @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface */
     protected $tokenStorage;
 
-    public function __construct(TokenStorageInterface $tokenStorage)
+    protected $twig;
+
+    public function __construct(TokenStorageInterface $tokenStorage, \Twig_Environment $twig)
     {
         $this->tokenStorage = $tokenStorage;
+        $this->twig = $twig;
     }
 
     protected function createListQueryBuilder($entityClass, $sortDirection, $sortField = null, $dqlFilter = null)
@@ -62,9 +65,19 @@ class AdminController extends BaseAdminController
         return null;
     }
 
+    protected function showSuccess(string $message, array $parameters = [])
+    {
+        $this->showMessage('success', $message, $parameters);
+    }
+
     protected function showInfo(string $message, array $parameters = [])
     {
         $this->showMessage('info', $message, $parameters);
+    }
+
+    protected function showWarning(string $message, array $parameters = [])
+    {
+        $this->showMessage('warning', $message, $parameters);
     }
 
     protected function showError(string $message, array $parameters = [])
@@ -75,6 +88,13 @@ class AdminController extends BaseAdminController
     protected function showMessage(string $type, string $message, array $parameters = [])
     {
         $translator = $this->get('translator');
+
+        // If message looks like a twig template filename we render it as a template.
+        if (preg_match('/\.(html|txt)\.twig$/', $message)) {
+            $message = $this->twig->render($message, $parameters);
+            $parameters = [];
+        }
+
         $this->addFlash($type, $translator->trans($message, $parameters));
     }
 }

@@ -13,9 +13,9 @@ class UserController extends AdminController
 {
     private $userManager;
 
-    public function __construct(TokenStorageInterface $tokenStorage, UserManager $userManager)
+    public function __construct(TokenStorageInterface $tokenStorage, UserManager $userManager, \Twig_Environment $twig)
     {
-        parent::__construct($tokenStorage);
+        parent::__construct($tokenStorage, $twig);
         $this->userManager = $userManager;
     }
 

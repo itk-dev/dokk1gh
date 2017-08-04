@@ -11,10 +11,14 @@ action:
 User: Bruger
 Code: Kode
 Template: Skabelon
+Status: Status
 
 Code.status.expired: Udløbet
 Code.status.future: Inaktiv
 Code.status.active: Aktiv
+
+Copy code: Kopier kode
+Code copied to clipboard: Kode kopieret til udklipsholder
 
 Enabled: Aktiv
 
@@ -27,7 +31,7 @@ Identifier: Identifier
 Name: Navn
 Roles: Roller
 Templates: Skabeloner
-Last login: Seneste logind
+Last login: Seneste login
 Created at: Oprettet
 Created by: Oprettet af
 Updated at: Opdateret

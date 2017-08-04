@@ -3,6 +3,7 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Code;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class AeosHelper
@@ -13,14 +14,25 @@ class AeosHelper
     /** @var \Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface  */
     protected $tokenStorage;
 
-    public function __construct(AeosService $aeosService, TokenStorageInterface $tokenStorage)
+    /** @var bool */
+    protected $testMode;
+
+    public function __construct(AeosService $aeosService, TokenStorageInterface $tokenStorage, ContainerInterface $container)
     {
         $this->aeosService = $aeosService;
         $this->tokenStorage = $tokenStorage;
+        $this->testMode = !!$container->getParameter('aeos_helper_test_mode');
     }
 
     public function createAeosIdentifier(Code $code)
     {
+        if ($this->testMode) {
+            $method = new \ReflectionMethod($this->aeosService, 'generateCode');
+            $method->setAccessible(true);
+            $code->setIdentifier('test-' . $method->invoke($this->aeosService));
+            return;
+        }
+
         $user = $code->getCreatedBy() ?? $this->tokenStorage->getToken()->getUser();
         if (!$user) {
             throw new \Exception('Code has no user');
