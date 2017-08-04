@@ -10,7 +10,7 @@ security:
 # Profile
 profile:
     show:
-        username: Brugernavn
+        username: E-mailadresse
         email: Email
         name: Navn
         phone: Telefon
@@ -54,8 +54,10 @@ resetting:
     check_email: En email er blevet sendt til %email%. Den indeholder et link til at nulstille dit adgangskode.
     request:
         invalid_username: Brugeren "%username" findes ikke
-        username: Brugernavn
+        username: E-mailadresse
         submit: Nulstil adgangskode
+    create:
+        submit: Angiv adgangskode
     reset:
         forgot: Glemt adgangskode
         submit: Skift adgangskode
@@ -85,12 +87,12 @@ layout:
 
 # Form field labels
 form:
-    username: Brugernavn
+    username: E-mailadresse
     email: E-mail
     current_password: Nuværende adgangskode
     password: Adgangskode
     password_confirmation: Gentag adgangskode
-    new_password: Nyt adgangskode
+    new_password: Ny adgangskode
     new_password_confirmation: Gentag adgangskode
 
 'Back to sign in': 'Tilbage til log ind'

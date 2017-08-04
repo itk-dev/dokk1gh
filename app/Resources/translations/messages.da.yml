@@ -17,11 +17,13 @@ Code.status.expired: Udløbet
 Code.status.future: Inaktiv
 Code.status.active: Aktiv
 
+New code created: Ny kode oprettet
 Copy code: Kopier kode
 Code copied to clipboard: Kode kopieret til udklipsholder
 
 Enabled: Aktiv
 
+label.null: '–'
 
 ROLE_USER: Bruger
 ROLE_ADMIN: Administrator
