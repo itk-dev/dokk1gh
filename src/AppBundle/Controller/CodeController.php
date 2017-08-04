@@ -105,7 +105,7 @@ class CodeController extends AdminController
     {
         try {
             $this->aeosHelper->createAeosIdentifier($code);
-            $this->showSuccess('code_created.html.twig', ['code' => $code->getIdentifier()]);
+            $this->showSuccess('code_created.html.twig', ['code' => $code]);
         } catch (\Exception $ex) {
             $this->showError($ex->getMessage());
         }
