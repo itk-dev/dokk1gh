@@ -68,7 +68,10 @@ class UserManager extends BaseUserManager
 
     private function createUserCreatedMessage(UserInterface $user)
     {
-        $url = $this->router->generate('fos_user_resetting_reset', ['token' => $user->getConfirmationToken()], UrlGeneratorInterface::ABSOLUTE_URL);
+        $url = $this->router->generate('fos_user_resetting_reset', [
+            'token' => $user->getConfirmationToken(),
+            'create' => true,
+        ], UrlGeneratorInterface::ABSOLUTE_URL);
 
         $config = $this->configuration->user_created;
         $sender = $config->sender;

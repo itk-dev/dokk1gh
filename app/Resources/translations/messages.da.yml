@@ -10,18 +10,22 @@ action:
 
 User: Bruger
 Code: Kode
-Template: Skabelon
+Template: Adgangsområde
 Status: Status
+Note: Intern note
+code.note.help: Noten kan fx bruges til at finde tilbage til den oprettede kode på et senere tidspunkt. Noten bliver ikke delt med andre.
 
 Code.status.expired: Udløbet
 Code.status.future: Inaktiv
 Code.status.active: Aktiv
 
+New code created: Ny kode oprettet
 Copy code: Kopier kode
 Code copied to clipboard: Kode kopieret til udklipsholder
 
 Enabled: Aktiv
 
+label.null: '–'
 
 ROLE_USER: Bruger
 ROLE_ADMIN: Administrator
@@ -30,7 +34,7 @@ ROLE_SUPER_ADMIN: Superadministrator
 Identifier: Identifier
 Name: Navn
 Roles: Roller
-Templates: Skabeloner
+Templates: Adgangsområder
 Last login: Seneste login
 Created at: Oprettet
 Created by: Oprettet af
@@ -47,7 +51,7 @@ Generate api key: Generer api-nøgle
 
 AppBundle\Entity\Code: Kode
 AppBundle\Entity\User: Bruger
-AppBundle\Entity\Template: Skabelon
+AppBundle\Entity\Template: Adgangsområde
 
 '%entity_type% %entity_name% created': '%entity_type% "%entity_name%" oprettet'
 '%entity_type% %entity_name% updated': '%entity_type% "%entity_name%" opdateret'
