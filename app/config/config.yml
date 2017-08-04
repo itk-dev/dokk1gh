@@ -43,6 +43,16 @@ twig:
         site_name: '%site_name%'
         site_url: '%site_url%'
         header_image_url: "%header_image_url%"
+        password_resetting:
+            subject: '%password_resetting_subject%'
+            header: '%password_resetting_header%'
+            body: '%password_resetting_body%'
+            button:
+                text: '%password_resetting_button_text%'
+            footer: '%password_resetting_footer%'
+        sender:
+            email: '%mailer_email%'
+            name: '%mailer_name%'
 
 # Doctrine Configuration
 doctrine:
@@ -88,6 +98,12 @@ fos_user:
         sender_name: "%mailer_name%"
     service:
         user_manager: AppBundle\Service\UserManager
+        mailer: fos_user.mailer.twig_swift
+    resetting:
+        email:
+            template: Emails/password_resetting.email.twig
+    resetting:
+        token_ttl: 0
 
 fos_rest:
     param_fetcher_listener: true

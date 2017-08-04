@@ -79,6 +79,22 @@ class DebugCommand extends ContainerAwareCommand
         ]);
     }
 
+    /**
+     * @action Debug email sent to new user
+     */
+    private function resetPassword($username)
+    {
+        $user = $this->userManager->findUserByUsernameOrEmail($username);
+
+        if (!$user) {
+            throw new InvalidArgumentException('No such user: ' . $username);
+        }
+
+        $this->getContainer()->get('fos_user.mailer')->sendResettingEmailMessage($user);
+        $user->setPasswordRequestedAt(new \DateTime());
+        $this->getContainer()->get('fos_user.user_manager')->updateUser($user);
+    }
+
     private function addHelp()
     {
         $reflector = $reflector = new \ReflectionObject($this);
