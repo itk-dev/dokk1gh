@@ -82,7 +82,7 @@ class AeosService
     {
         list($query, $searchRange) = $this->splitQuery($query);
         // findToken requires at least one search value.
-        $query +=  [
+        $query += [
             'IdentifierType' => IdentifierTypes::CODE_ACCESS,
         ];
 

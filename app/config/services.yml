@@ -37,6 +37,7 @@ services:
                 username: '%aoes_username%'
                 password: '%aoes_password%'
                 debug:    '%kernel.debug%'
+                test:     '%aeos_test_mode%'
 
     AppBundle\Service\UserManager:
         arguments:
@@ -57,7 +58,7 @@ services:
                         subject: '%user_created_user_subject%'
                         header: '%user_created_user_header%'
                         body: '%user_created_user_body%'
-                        button: 
+                        button:
                             text: '%user_created_user_button_text%'
                         footer: '%user_created_user_footer%'
 

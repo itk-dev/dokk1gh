@@ -22,9 +22,9 @@ class NotificationSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-        EasyAdminEvents::POST_PERSIST => ['postPersist'],
-        EasyAdminEvents::POST_UPDATE => ['postUpdate'],
-        EasyAdminEvents::POST_REMOVE => ['postRemove'],
+            // EasyAdminEvents::POST_PERSIST => ['postPersist'],
+            EasyAdminEvents::POST_UPDATE => ['postUpdate'],
+            EasyAdminEvents::POST_REMOVE => ['postRemove'],
         ];
     }
 

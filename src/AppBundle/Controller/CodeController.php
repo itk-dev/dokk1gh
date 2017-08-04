@@ -16,14 +16,15 @@ class CodeController extends AdminController
     /** @var  AeosHelper */
     protected $aeosHelper;
 
-    public function __construct(TokenStorageInterface $tokenStorage, TemplateManager $templateManager, AeosHelper $aeosHelper)
+    public function __construct(TokenStorageInterface $tokenStorage, TemplateManager $templateManager, AeosHelper $aeosHelper, \Twig_Environment $twig)
     {
-        parent::__construct($tokenStorage);
+        parent::__construct($tokenStorage, $twig);
         $this->templateManager = $templateManager;
         $this->aeosHelper = $aeosHelper;
     }
 
-    protected function createCodeListQueryBuilder($entityClass, $sortDirection, $sortField, $dqlFilter) {
+    protected function createCodeListQueryBuilder($entityClass, $sortDirection, $sortField, $dqlFilter)
+    {
         $sortByStatus = false;
         if ($sortField === 'status') {
             $sortField = null;
@@ -104,7 +105,7 @@ class CodeController extends AdminController
     {
         try {
             $this->aeosHelper->createAeosIdentifier($code);
-            $this->showInfo('Code created: %code%', ['%code%' => $code->getIdentifier()]);
+            $this->showSuccess('code_created.html.twig', ['code' => $code->getIdentifier()]);
         } catch (\Exception $ex) {
             $this->showError($ex->getMessage());
         }

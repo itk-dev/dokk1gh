@@ -30,6 +30,7 @@ easy_admin:
                 fields:
                     - property: identifier
                       label: Code
+                      template: code.html.twig
                     - property: status
                       sortable: true
                       template: status.html.twig

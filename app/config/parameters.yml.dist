@@ -47,3 +47,6 @@ parameters:
         <p style='margin: 0;'>Du kan efterfølgende logge ind med din e-mailadresse ({{ user.email }}) og den valgte adgangskode.</p>
     user_created_user_button_text: 'Angiv adgangskode'
     user_created_user_footer: '<p style="margin: 0;">Venlig hilsen<br/> {{ sender.name }}</p>'
+
+    aeos_test_mode: true
+    aeos_helper_test_mode: true
