@@ -81,7 +81,6 @@ class UserManager extends BaseUserManager
         $parameters = [
             'reset_password_url' => $url,
             'user' => $user,
-            'sender' => $config->sender,
         ];
         $template->header = $this->twig->createTemplate($template->header)->render($parameters);
         $template->body = $this->twig->createTemplate($template->body)->render($parameters);
@@ -92,6 +91,7 @@ class UserManager extends BaseUserManager
             ->setFrom($sender->email, $sender->name)
             ->setTo($user->getEmail())
             ->setBody($this->twig->render(':Emails:user_created_user.html.twig', [
+                'reset_password_url' => $url,
                 'header' => $template->header,
                 'body' => $template->body,
                 'button' => [

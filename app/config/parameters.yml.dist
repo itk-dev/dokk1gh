@@ -50,3 +50,19 @@ parameters:
 
     aeos_test_mode: true
     aeos_helper_test_mode: true
+
+    password_resetting_subject: '{{ site_name }} – nulstilling af adgangskode'
+    password_resetting_header: 'Nulstilling af adgangskode på {{ site_name }}'
+    password_resetting_body: >
+        <p style='margin: 0;'>Du kan skifte adgangskoden for {{ user.email }} ved at gå til <a href="{{ confirmationUrl }}">{{ confirmationUrl }}</a> og vælge en ny adgangskode.</p>
+    password_resetting_button_text: 'Skift adgangskode'
+    password_resetting_footer: '<p style="margin: 0;">Venlig hilsen<br/> {{ sender.name }}</p>'
+
+    code_generate_email.subject: 'Adgangskode til Dokk1'
+    code_generate_email.body: |
+        Her er din adgangskode til Dokk1: {{ code.identifier }}
+
+        Koden giver adgang {{ code.startTime | date('d/m/Y H:i') }}–{{ code.endTime | date('d/m/Y H:i') }}.
+
+        Venlig hilsen
+        {{ site_name }}

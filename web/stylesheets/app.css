@@ -111,3 +111,7 @@ body {
 .alert-success .popover {
 	color: black;
 }
+
+body.new-code textarea {
+	min-height: 50px;
+}

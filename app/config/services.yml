@@ -74,3 +74,6 @@ services:
     # Don't serialize names in snake_case.
     jms_serializer.naming_strategy:
         alias: jms_serializer.identical_property_naming_strategy
+
+    twig.stringloader:
+        class: Twig_Extension_StringLoader
