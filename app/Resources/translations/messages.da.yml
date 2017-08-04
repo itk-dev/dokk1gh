@@ -10,7 +10,7 @@ action:
 
 User: Bruger
 Code: Kode
-Template: Skabelon
+Template: Adgangsområde
 Status: Status
 
 Code.status.expired: Udløbet
@@ -32,7 +32,7 @@ ROLE_SUPER_ADMIN: Superadministrator
 Identifier: Identifier
 Name: Navn
 Roles: Roller
-Templates: Skabeloner
+Templates: Adgangsområder
 Last login: Seneste login
 Created at: Oprettet
 Created by: Oprettet af
@@ -49,7 +49,7 @@ Generate api key: Generer api-nøgle
 
 AppBundle\Entity\Code: Kode
 AppBundle\Entity\User: Bruger
-AppBundle\Entity\Template: Skabelon
+AppBundle\Entity\Template: Adgangsområde
 
 '%entity_type% %entity_name% created': '%entity_type% "%entity_name%" oprettet'
 '%entity_type% %entity_name% updated': '%entity_type% "%entity_name%" opdateret'
