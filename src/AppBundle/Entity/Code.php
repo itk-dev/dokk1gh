@@ -68,6 +68,13 @@ class Code implements Blameable
     private $identifier;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $note;
+
+    /**
      * Get id
      *
      * @return int
@@ -195,6 +202,30 @@ class Code implements Blameable
     public function getAeosId()
     {
         return $this->aeosId;
+    }
+
+    /**
+     * Set note
+     *
+     * @param string $note
+     *
+     * @return Code
+     */
+    public function setNote(string $note = null)
+    {
+        $this->note = $note;
+
+        return $this;
+    }
+
+    /**
+     * Get note
+     *
+     * @return string
+     */
+    public function getNote()
+    {
+        return $this->note;
     }
 
     public function getStatus()

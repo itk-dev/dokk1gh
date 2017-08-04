@@ -12,6 +12,8 @@ User: Bruger
 Code: Kode
 Template: Adgangsområde
 Status: Status
+Note: Intern note
+code.note.help: Noten kan fx bruges til at finde tilbage til den oprettede kode på et senere tidspunkt. Noten bliver ikke delt med andre.
 
 Code.status.expired: Udløbet
 Code.status.future: Inaktiv

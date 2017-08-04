@@ -37,6 +37,9 @@ easy_admin:
                     - property: startTime
                     - property: endTime
                     - property: template
+                    - property: note
+                      sortable: false
+                      template: note.html.twig
                     - property: createdAt
                     - property: createdBy
                       roles: [ROLE_ADMIN]
@@ -52,6 +55,8 @@ easy_admin:
                     - property: startTime
                     - property: endTime
                     - property: template
+                    - property: note
+                      help: code.note.help
 
         User:
             controller: AppBundle\Controller\UserController

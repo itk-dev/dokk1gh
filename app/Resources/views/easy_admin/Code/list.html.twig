@@ -7,6 +7,8 @@
 {% block body_javascript %}
   <script src="{{ asset('javascripts/clipboard.min.js') }}"></script>
   <script>(function($) {
+     $('.code-note').popover();
+
      $('.clipboard-copy a').popover({
        trigger: 'manual',
        template: '<div class="popover" role="tooltip"><div class="arrow"></div><div class="popover-content"></div></div>'
