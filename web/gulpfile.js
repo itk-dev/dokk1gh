@@ -24,7 +24,7 @@ gulp.task('clean', function() {
 })
 
 // Compile scss to minifyed css
-gulp.task('sass', function(){
+gulp.task('scss', function(){
   gulp.src('scss/*.scss')
     .pipe(plumber({ // More graceful error handling, prevents watch from breaking.
       errorHandler: onError
@@ -39,7 +39,7 @@ gulp.task('sass', function(){
 
 // Watch task for easy development
 gulp.task('watch', [`default`], function(){
-  gulp.watch('scss/**/*.scss', ['sass']);
+  gulp.watch('scss/**/*.scss', ['scss']);
 })
 
 // Reload browser with watch task
@@ -58,7 +58,7 @@ gulp.task('browserSync', function() {
 
 // Default task when running gulp
 gulp.task('default', function (callback) {
-  runSequence(['clean','sass', 'browserSync'],
+  runSequence(['clean','scss', 'browserSync'],
     callback
   )
 })
