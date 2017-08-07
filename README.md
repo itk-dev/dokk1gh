@@ -66,3 +66,14 @@ e.g.
 ```
 bin/console app:debug notify-user-created user@example.com
 ```
+
+## Styling
+
+Gulp builds stylesheets/app.css from scss/* so you need to install node dependencies via npm:
+`npm install`
+
+Next you can add your styling to the files in scss/* and run:
+`gulp scss` to update stylesheets/app.css.
+
+To watch files and refresh browser after saved changes run:
+`gulp watch`
