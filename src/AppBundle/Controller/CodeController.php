@@ -23,6 +23,17 @@ class CodeController extends AdminController
         $this->aeosHelper = $aeosHelper;
     }
 
+    protected function listAction() {
+        // Default sort by "status".
+        if (!$this->request->query->has('sortField') || $this->request->query->get('sortField') === 'id') {
+            $this->request->query->add([
+                'sortField' => 'status',
+            ]);
+        }
+
+        return parent::listAction();
+    }
+
     protected function createCodeListQueryBuilder($entityClass, $sortDirection, $sortField, $dqlFilter)
     {
         $sortByStatus = false;
@@ -41,7 +52,7 @@ class CodeController extends AdminController
             //
             // @see https://stackoverflow.com/a/15269307
             // @see http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/dql-doctrine-query-language.html
-            $builder->addSelect('CASE WHEN CURRENT_TIMESTAMP() BETWEEN ' . $alias . '.startTime AND ' . $alias . '.endTime THEN 0 WHEN ' . $alias . '.startTime > CURRENT_TIMESTAMP() THEN 1 ELSE 2 END HIDDEN sortValue');
+            $builder->addSelect('CASE WHEN CURRENT_TIMESTAMP() BETWEEN ' . $alias . '.startTime AND ' . $alias . '.endTime THEN 0 WHEN ' . $alias . '.startTime > CURRENT_TIMESTAMP() THEN -1 ELSE -2 END HIDDEN sortValue');
             $builder->addOrderBy('sortValue', $sortDirection);
         }
 
