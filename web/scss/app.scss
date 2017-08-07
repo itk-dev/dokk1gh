@@ -1,0 +1,15 @@
+@import '_partials/_colors';
+@import '_partials/_buttons';
+@import '_partials/_alerts';
+@import '_partials/_tables';
+@import '_partials/_header';
+@import '_partials/_login';
+@import '_partials/_sidebar';
+
+/* Global */
+body {
+  font-size: 16px;
+	padding-bottom: 40px;
+	background-color: $color-grey-light;
+	color: $color-font-primary;
+}

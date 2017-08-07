@@ -1,0 +1,14 @@
+/* Btns */
+.btn-primary, .btn-primary:active, .btn-primary:focus {
+    background-color: $color-btn-primary;
+	border-color: $color-btn-primary-border;
+	border-radius: 3px;
+	transition: background-color .1s ease-in;
+}
+.btn-primary {
+    &:hover, &:active:hover {
+        background-color: $color-btn-primary-hover;
+        border-color: $color-btn-primary-border;
+        transition: background-color .3s ease-out;
+    }
+}

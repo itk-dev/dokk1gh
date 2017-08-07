@@ -1,0 +1,10 @@
+/* Display and center logo in top */
+#header-image {
+	transform: translateX(-50%);
+	left: 50%;
+    position: absolute;
+    img {
+        max-height: 24px;
+        margin: 13px; /* (header height - header image max-height) / 2 [(50px - 24px) / 2] */
+    }
+}
