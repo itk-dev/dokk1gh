@@ -14,24 +14,14 @@ class AeosHelper
     /** @var \Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface  */
     protected $tokenStorage;
 
-    /** @var bool */
-    protected $testMode;
-
-    public function __construct(AeosService $aeosService, TokenStorageInterface $tokenStorage, ContainerInterface $container)
+    public function __construct(AeosService $aeosService, TokenStorageInterface $tokenStorage)
     {
         $this->aeosService = $aeosService;
         $this->tokenStorage = $tokenStorage;
-        $this->testMode = !!$container->getParameter('aeos_helper_test_mode');
     }
 
     public function createAeosIdentifier(Code $code)
     {
-        if ($this->testMode) {
-            $identifier = 'test-' . (new \DateTime())->format(\DateTime::ISO8601);
-            $code->setIdentifier($identifier);
-            return;
-        }
-
         $user = $code->getCreatedBy() ?? $this->tokenStorage->getToken()->getUser();
         if (!$user) {
             throw new \Exception('Code has no user');

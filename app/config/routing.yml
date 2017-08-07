@@ -36,3 +36,7 @@ api:
 app.swagger_ui:
     resource: "@NelmioApiDocBundle/Resources/config/routing/swaggerui.xml"
     prefix:   /api/doc
+
+app_mock:
+    resource: '@AppBundle/Mock/Controller/'
+    type: annotation

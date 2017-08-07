@@ -1,0 +1,8 @@
+Template:
+    -
+        Id: 1
+        # <xs:enumeration value="OnLine"></xs:enumeration>
+        # <xs:enumeration value="OffLine"></xs:enumeration>
+        # <xs:enumeration value="SecurityLevel"></xs:enumeration>
+        # <xs:enumeration value="Soaa"></xs:enumeration>
+        UnitOfAuthType: OnLine

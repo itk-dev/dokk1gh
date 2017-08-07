@@ -28,6 +28,10 @@ security:
             # @see https://symfony.com/doc/current/reference/configuration/security.html#firewall-context
             context: primary_auth
 
+        mock:
+            pattern: ^/mock
+            security: false
+
         main:
             pattern: ^/
             http_basic:
