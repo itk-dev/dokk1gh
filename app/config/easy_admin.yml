@@ -93,6 +93,7 @@ easy_admin:
                               ROLE_ADMIN: ROLE_ADMIN
                     - property: templates
                       type_options:
+                          expanded: true
                           required: true
                     - property: aeosId
                       type_options:
@@ -111,6 +112,7 @@ easy_admin:
                               <<: *role_list
                     - property: templates
                       type_options:
+                          expanded: true
                           required: true
                     - property: aeosId
                       type_options:
@@ -119,6 +121,7 @@ easy_admin:
                       type: AppBundle\Form\Type\ApiKeyType
                       type_options:
                           disabled: true
+
         Template:
             roles: [ROLE_ADMIN]
             class: AppBundle\Entity\Template

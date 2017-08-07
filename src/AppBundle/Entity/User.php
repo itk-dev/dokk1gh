@@ -11,6 +11,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints\Callback;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * @ORM\Entity
@@ -102,5 +104,16 @@ class User extends BaseUser
     public function getApiKey()
     {
         return $this->apiKey;
+    }
+
+    /**
+     * @Callback
+     */
+    public function validate(ExecutionContextInterface $context, $payload) {
+        if ($this->getTemplates()->count() === 0) {
+            $context->buildViolation('At least one template is required.')
+                ->atPath('templates')
+                ->addViolation();
+        }
     }
 }
