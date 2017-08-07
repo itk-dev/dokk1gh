@@ -4,21 +4,31 @@
   border-color: #4a800e;
   border-radius: 3px;
   transition: background-color .1s ease-in; }
+  .btn-primary:hover, .btn-primary:active:hover, .btn-primary:focus:hover {
+    background-color: #4a800e;
+    transition: background-color .3s ease-out; }
 
-.btn-primary:hover, .btn-primary:active:hover {
-  background-color: #4a800e;
-  border-color: #4a800e;
-  transition: background-color .3s ease-out; }
+.clipboard-copy .btn, .clipboard-copy .btn:active, .code-email .btn, .code-email .btn:active {
+  padding: 3px 8px;
+  color: #4A4A4A;
+  background-color: #F5F5F5;
+  border-color: #e8e8e8;
+  border-radius: 3px;
+  transition: background-color .1s ease-in; }
+  .clipboard-copy .btn:hover, .clipboard-copy .btn:active:hover, .code-email .btn:hover, .code-email .btn:active:hover {
+    background-color: #e8e8e8;
+    transition: background-color .3s ease-out; }
 
 /* Alerts */
 #flash-messages {
   padding-top: 15px; }
-
-.alert {
-  margin: 0 15px 15px 15px; }
-
-.alert-success .popover {
-  color: #000; }
+  #flash-messages .alert {
+    margin: 0 15px 15px 15px; }
+    #flash-messages .alert .popover {
+      color: #000; }
+    #flash-messages .alert.alert-success {
+      background-color: #4a800e !important;
+      border-color: #4a800e; }
 
 /* Color code status */
 .list-code .code-status-expired {
@@ -29,6 +39,9 @@
 
 .list-code .code-status-active {
   color: #009C00; }
+
+body.new-code textarea {
+  min-height: 50px; }
 
 /* Display and center logo in top */
 #header-image {

@@ -3,12 +3,25 @@
     background-color: $color-btn-primary;
 	border-color: $color-btn-primary-border;
 	border-radius: 3px;
-	transition: background-color .1s ease-in;
-}
-.btn-primary {
-    &:hover, &:active:hover {
+    transition: background-color .1s ease-in;
+    &:hover {
         background-color: $color-btn-primary-hover;
-        border-color: $color-btn-primary-border;
         transition: background-color .3s ease-out;
+    }
+}
+
+// Clipboard copy and emal-code btns
+.clipboard-copy, .code-email {
+    .btn, .btn:active {
+        padding: 3px 8px;
+        color: $color-grey;
+        background-color: $color-grey-light;
+        border-color: darken($color-grey-light, 5%);
+        border-radius: 3px;
+        transition: background-color .1s ease-in;
+        &:hover {
+            background-color: darken($color-grey-light, 5%);
+            transition: background-color .3s ease-out;
+        }
     }
 }
