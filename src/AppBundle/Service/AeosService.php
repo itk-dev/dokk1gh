@@ -2,10 +2,6 @@
 
 namespace AppBundle\Service;
 
-use AppBundle\Helpers\BlockReasons;
-use AppBundle\Helpers\CarrierStates;
-use AppBundle\Helpers\IdentifierTypes;
-
 class AeosService
 {
     private $configuration;
@@ -21,19 +17,14 @@ class AeosService
 
     private function invoke($method)
     {
-        $context = stream_context_create([
-            'ssl' => [
-                // set some SSL/TLS specific options
-                'verify_peer' => false,
-                'verify_peer_name' => false,
-                'allow_self_signed' => true
-            ]
-        ]);
+        $configuration = $this->configuration['client'];
+        $options = isset($configuration['context']) ? $configuration['context'] : [];
+        $context = stream_context_create($options);
 
-        $location = $this->configuration['location'];
-        $username = $this->configuration['username'];
-        $password = $this->configuration['password'];
-        $debug = isset($this->configuration['debug']) ? $this->configuration['debug'] : false;
+        $location = $configuration['location'];
+        $username = $configuration['username'];
+        $password = $configuration['password'];
+        $debug = isset($configuration['debug']) ? $configuration['debug'] : false;
 
         $client = new \SoapClient($location . '?wsdl', [
             'location' => $location,
@@ -59,9 +50,11 @@ class AeosService
         return $result;
     }
 
+    const ACTIVATE_VERIFICATION = 'ActivateVerification';
+
     public function setVerificationState($carrier, bool $activated)
     {
-        return $this->setCarrierState($carrier, CarrierStates::ACTIVATE_VERIFICATION, $activated);
+        return $this->setCarrierState($carrier, self::ACTIVATE_VERIFICATION, $activated);
     }
 
     public function setCarrierState($carrier, string $state, bool $activated)
@@ -83,7 +76,7 @@ class AeosService
         list($query, $searchRange) = $this->splitQuery($query);
         // findToken requires at least one search value.
         $query += [
-            'IdentifierType' => IdentifierTypes::CODE_ACCESS,
+            'IdentifierType' => $this->configuration['aeos']['identifier_type'],
         ];
 
         $result = $this->invoke('findToken', (object)['IdentifierSearch' => $query, 'SearchRange' => $searchRange]);
@@ -99,7 +92,7 @@ class AeosService
 
     public function deleteIdentifier($identifier)
     {
-        $reason = BlockReasons::LOST;
+        $reason = $this->configuration['aeos']['block_reason'];
         $result = $this->invoke('blockToken', (object)[
             'IdentifierType' => $identifier->Identifier->IdentifierType,
             'BadgeNumber' => $identifier->Identifier->BadgeNumber,
@@ -184,7 +177,7 @@ class AeosService
     {
         $code = $this->generateCode();
         $data = [
-            'IdentifierType' => IdentifierTypes::CODE_ACCESS,
+            'IdentifierType' => $this->configuration['aeos']['identifier_type'],
             'BadgeNumber' => $code,
             'UnitId' => $contactPerson->UnitId,
             'CarrierId' => $visitor->Id,

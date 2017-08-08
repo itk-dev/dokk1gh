@@ -2,17 +2,12 @@
 
 namespace AppBundle\Command;
 
-use AppBundle\Entity\Template;
-use AppBundle\Entity\User;
-use AppBundle\Helpers\IdentifierTypes;
 use AppBundle\Service\AeosService;
 use AppBundle\Service\UserManager;
-use Doctrine\Common\Annotations\SimpleAnnotationReader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Exception\CommandNotFoundException;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
-use Symfony\Component\Console\Exception\LogicException;
 use Symfony\Component\Console\Exception\RuntimeException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;

@@ -67,6 +67,16 @@ e.g.
 bin/console app:debug notify-user-created user@example.com
 ```
 
+## Mock AEOS web service
+
+`parameters.yml`:
+
+```
+aoes_location: 'http://127.0.0.1/mock/aeosws'
+aoes_username: null
+aoes_password: null
+```
+
 ## Styling
 
 Gulp builds stylesheets/app.css from scss/* so you need to install node dependencies via npm:

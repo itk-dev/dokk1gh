@@ -33,11 +33,15 @@ services:
     AppBundle\Service\AeosService:
         arguments:
             -
-                location: '%aoes_location%'
-                username: '%aoes_username%'
-                password: '%aoes_password%'
-                debug:    '%kernel.debug%'
-                test:     '%aeos_test_mode%'
+                client:
+                    location: '%aoes_location%'
+                    username: '%aoes_username%'
+                    password: '%aoes_password%'
+                    context:  '%aeos_context%'
+                    debug:    '%kernel.debug%'
+                aeos:
+                    identifier_type: '%aeos_identifier_type%'
+                    block_reason: '%aeos_block_reason%'
 
     AppBundle\Service\UserManager:
         arguments:
