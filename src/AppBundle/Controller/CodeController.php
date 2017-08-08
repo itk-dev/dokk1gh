@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Code;
 use AppBundle\Service\AeosHelper;
 use AppBundle\Service\TemplateManager;
+use Psr\Container\ContainerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -13,14 +14,31 @@ class CodeController extends AdminController
     /** @var \AppBundle\Service\TemplateManager */
     protected $templateManager;
 
-    /** @var  AeosHelper */
+    /** @var AeosHelper */
     protected $aeosHelper;
 
-    public function __construct(TokenStorageInterface $tokenStorage, TemplateManager $templateManager, AeosHelper $aeosHelper, \Twig_Environment $twig)
+    /** @var ContainerInterface */
+    protected $container;
+
+    public function __construct(TokenStorageInterface $tokenStorage, TemplateManager $templateManager, AeosHelper $aeosHelper, \Twig_Environment $twig, ContainerInterface $container)
     {
         parent::__construct($tokenStorage, $twig);
         $this->templateManager = $templateManager;
         $this->aeosHelper = $aeosHelper;
+        $this->container = $container;
+    }
+
+    protected function listAction()
+    {
+        // EasyAdmin injects default sorting (by id), so we cannot check for "sortField" using $this->request->query->has().
+        parse_str($this->request->getQueryString(), $query);
+        if (!isset($query['sortField'])) {
+            $this->request->query->add([
+                'sortField' => 'status',
+            ]);
+        }
+
+        return parent::listAction();
     }
 
     protected function createCodeListQueryBuilder($entityClass, $sortDirection, $sortField, $dqlFilter)
@@ -41,7 +59,7 @@ class CodeController extends AdminController
             //
             // @see https://stackoverflow.com/a/15269307
             // @see http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/dql-doctrine-query-language.html
-            $builder->addSelect('CASE WHEN CURRENT_TIMESTAMP() BETWEEN ' . $alias . '.startTime AND ' . $alias . '.endTime THEN 0 WHEN ' . $alias . '.startTime > CURRENT_TIMESTAMP() THEN 1 ELSE 2 END HIDDEN sortValue');
+            $builder->addSelect('CASE WHEN CURRENT_TIMESTAMP() BETWEEN ' . $alias . '.startTime AND ' . $alias . '.endTime THEN 0 WHEN ' . $alias . '.startTime > CURRENT_TIMESTAMP() THEN -1 ELSE -2 END HIDDEN sortValue');
             $builder->addOrderBy('sortValue', $sortDirection);
         }
 
@@ -76,22 +94,46 @@ class CodeController extends AdminController
     {
         $code = new Code();
 
-        $code->setStartTime(new \DateTime('today'));
-        $code->setEndTime(new \DateTime('today +1 day'));
+        $timeZone = new \DateTimeZone('UTC');
+        $startTime = new \DateTime($this->container->getParameter('code.defaults.startTime'), $timeZone);
+        $endTime = new \DateTime($this->container->getParameter('code.defaults.endTime'), $timeZone);
+
+        $code->setStartTime($startTime)
+            ->setEndTime($endTime);
 
         return $code;
     }
 
     protected function prePersistCodeEntity(Code $code)
     {
+        // $this->updateTimes($code);
         $this->createAeosIdentifier($code);
     }
 
     protected function preUpdateCodeEntity(Code $code)
     {
+        // $this->updateTimes($code);
         if ($code->getIdentifier() === null) {
             $this->createAeosIdentifier($code);
         }
+    }
+
+    private function updateTimes(Code $code)
+    {
+        header('Content-type: text/plain'); echo var_export([
+            'code.startTime' => $code->getStartTime(),
+            'code.endTime' => $code->getEndTime(),
+        ], true);
+        die(__FILE__.':'.__LINE__.':'.__METHOD__);
+    }
+
+    private function setTime(\DateTime $date, \DateTime $time)
+    {
+        $time->format('H');
+        $time->format('H');
+        $date->setTime($time->format('H'), $time->format('i'), $time->format('s'));
+
+        return $date;
     }
 
     protected function preRemoveCodeEntity(Code $code)

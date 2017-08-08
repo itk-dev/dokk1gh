@@ -35,6 +35,12 @@ parameters:
 
     locale: da
     format_datetime: 'd/m/Y H:i'
+    format_date: 'd/m/Y'
+    format_time: 'H:i'
+    view_timezone: GMT
+
+    form_format_date: 'd/m/Y'
+    form_format_date_js: 'dd/mm/yyyy'
 
     api_title: Gæstehåndtering – API
     api_description: The API
@@ -66,3 +72,7 @@ parameters:
 
         Venlig hilsen
         {{ site_name }}
+
+    # UTC
+    code.defaults.startTime: 'today +7 hours'
+    code.defaults.endTime: 'today +14 hours'

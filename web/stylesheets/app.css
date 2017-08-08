@@ -103,6 +103,9 @@ body.new-code textarea {
 .no-menu .content-wrapper {
   margin-left: 0 !important; }
 
+.date-time-range-time {
+  display: inline-block; }
+
 /* Global */
 body {
   font-size: 16px;
