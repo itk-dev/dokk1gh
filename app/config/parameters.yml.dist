@@ -23,9 +23,27 @@ parameters:
     mailer_name: GH
     mailer_email: gh@dokk1.gh.vm
 
-    aoes_location: https://127.0.0.1/aeosws
-    aoes_username: user
-    aoes_password: pass
+    aoes_location: http://127.0.0.1/mock/aeosws
+    aoes_username: ~
+    aoes_password: ~
+    # SOAP client context ()
+    aeos_context:
+        ssl:
+            verify_peer: false
+            verify_peer_name: false
+            allow_self_signed: true
+
+    # Identifier type to generate
+    aeos_identifier_type: 16509
+
+    # BLock reason used when "deleting" an identifier
+    # 2: LOST
+    # 3: DEFECT
+    # 4: STOLEN
+    # 5: FORGOT
+    # 6: NOT_RETURNED
+    # 8: CARRIER_REPLACEMENT
+    aeos_block_reason: 2
 
     site_name: Gæstehåndtering
     site_url: http://dokk1gh.vm
@@ -53,9 +71,6 @@ parameters:
         <p style='margin: 0;'>Du kan efterfølgende logge ind med din e-mailadresse ({{ user.email }}) og den valgte adgangskode.</p>
     user_created_user_button_text: 'Angiv adgangskode'
     user_created_user_footer: '<p style="margin: 0;">Venlig hilsen<br/> {{ sender.name }}</p>'
-
-    aeos_test_mode: true
-    aeos_helper_test_mode: true
 
     password_resetting_subject: '{{ site_name }} – nulstilling af adgangskode'
     password_resetting_header: 'Nulstilling af adgangskode på {{ site_name }}'
