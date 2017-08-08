@@ -22,10 +22,19 @@
 
     {% block body_javascript %}{% endblock body_javascript %}
 
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js" integrity="sha256-1hjUhpc44NwiNg8OwMu2QzJXhD8kcj+sJA3aCQZoUjg=" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js" integrity="sha256-TueWqYu0G+lYIimeIcMI8x1m14QH/DQVt4s9m/uuhPw=" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/locales/bootstrap-datepicker.{{ locale }}.min.js" integrity="sha256-hGPm6Di+atmqnTEV1j+f1+CZHVAdpfGjUI/WBOVZlHM=" crossorigin="anonymous"></script>
+
     {% for js_asset in easyadmin_config('design.assets.js') %}
       <script src="{{ asset(js_asset) }}"></script>
     {% endfor %}
   </body>
+{% endblock %}
+
+{% block head_stylesheets %}
+  {{ parent() }}
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" integrity="sha256-I4gvabvvRivuPAYFqevVhZl88+vNf2NksupoBxMQi04=" crossorigin="anonymous" />
 {% endblock %}
 
 {# Add (center) image to header. #}

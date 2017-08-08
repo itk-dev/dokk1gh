@@ -8,3 +8,11 @@
     </span>
   </div>
 {% endblock %}
+
+{% block datetime_widget %}
+  {% if easyadmin.entity.class == 'AppBundle\\Entity\\Code' and name matches '/(start|end)Time/' %}
+    {% include 'easy_admin/form/Code/date_time_range.html.twig' with {markup: parent()} %}
+  {% else %}
+    {{ parent() }}
+  {% endif %}
+{% endblock %}

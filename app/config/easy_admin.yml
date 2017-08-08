@@ -53,7 +53,19 @@ easy_admin:
             form:
                 fields:
                     - property: startTime
+                      label: Date
+                      type_options:
+                          view_timezone: "%view_timezone%"
+                          required: true
+                          widget: single_text
+                          html5: false
                     - property: endTime
+                      label: Period
+                      type_options:
+                          view_timezone: "%view_timezone%"
+                          required: true
+                          widget: single_text
+                          html5: false
                     - property: template
                     - property: note
                       help: code.note.help

@@ -8,6 +8,8 @@ use Gedmo\Blameable\Blameable;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Code
@@ -237,6 +239,18 @@ class Code implements Blameable
             return 'expired';
         } else {
             return 'active';
+        }
+    }
+
+    /**
+     * @Assert\Callback
+     */
+    public function validate(ExecutionContextInterface $context, $payload)
+    {
+        if ($this->getStartTime() >= $this->getEndTime()) {
+            $context->buildViolation('End time must be greater than start time.')
+                ->atPath('endTime')
+                ->addViolation();
         }
     }
 }
