@@ -23,7 +23,7 @@ parameters:
     mailer_name: GH
     mailer_email: gh@dokk1.gh.vm
 
-    aoes_location: http://127.0.0.1/mock/aeosws
+    aoes_location: http://dokk1gh.vm/mock/aeosws
     aoes_username: ~
     aoes_password: ~
     # SOAP client context ()
