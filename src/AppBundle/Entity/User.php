@@ -109,7 +109,8 @@ class User extends BaseUser
     /**
      * @Callback
      */
-    public function validate(ExecutionContextInterface $context, $payload) {
+    public function validate(ExecutionContextInterface $context, $payload)
+    {
         if ($this->getTemplates()->count() === 0) {
             $context->buildViolation('At least one template is required.')
                 ->atPath('templates')
