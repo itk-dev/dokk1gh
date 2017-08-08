@@ -51,7 +51,7 @@ registration:
 # Password resetting
 resetting:
     password_already_requested: Denne brugers adgangskode er allerede blevet nulstillet inden for de sidste 24 timer.
-    check_email: En email er blevet sendt til %email%. Den indeholder et link til at nulstille dit adgangskode.
+    check_email: Et link til at nulstille din adgangskode er blevet sendt til din e-mailadresse.
     request:
         invalid_username: Brugeren "%username" findes ikke
         username: E-mailadresse
@@ -68,7 +68,7 @@ resetting:
         message: |
             Hej %username%!
 
-            For at nulstille dit adgangskode, besøg venligst %confirmationUrl%
+            For at nulstille din adgangskode, besøg venligst %confirmationUrl%
 
             Venlig hilsen,
             AaPlus
