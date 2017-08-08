@@ -30,3 +30,19 @@ Person:
         FirstName: Anna
         Gender: Female
         Language: dk
+
+    -
+        Id: 12
+        CarrierType: Employee
+        UnitId: 1
+        ArrivalDateTime: '2015-07-03T00:00:00'
+        ReadOnly: false
+        Freefield:
+            DefinitionId: 1
+            Name: Layout
+            value: Dokk1
+        LastName: And
+        PersonnelNo: 11223344
+        FirstName: Anders
+        Gender: Female
+        Language: dk
