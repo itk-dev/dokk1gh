@@ -113,8 +113,8 @@ class CodeController extends Controller implements ClassResourceInterface
             'status' => 'ok',
             'code' => $code->getIdentifier(),
             'template' => $template,
-            'startTime' => $startTime->format(\DateTime::ISO8601),
-            'endTime' => $endTime->format(\DateTime::ISO8601),
+            'startTime' => $startTime->format(\DateTime::W3C),
+            'endTime' => $endTime->format(\DateTime::W3C),
         ];
 
         return $result;
