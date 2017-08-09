@@ -4,15 +4,18 @@ Person:
         FirstName: User
         LastName: One
         PersonnelNo: test0001
+        UnitId: 1
 
     -
         Id: 2
         FirstName: User
         LastName: Two
         PersonnelNo: test0002
+        UnitId: 1
 
     -
         Id: 3
         FirstName: User
         LastName: Three
         PersonnelNo: test0003
+        UnitId: 1
