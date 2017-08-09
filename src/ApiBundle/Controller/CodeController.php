@@ -1,30 +1,23 @@
 <?php
 
-namespace AppBundle\Controller\Api;
+namespace ApiBundle\Controller;
 
 use AppBundle\Entity\Code;
 use AppBundle\Entity\Template;
 use AppBundle\Service\AeosHelper;
-use AppBundle\Service\AeosService;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Routing\ClassResourceInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- * @Route("/api/code")
- */
 class CodeController extends Controller implements ClassResourceInterface
 {
-    private $aeosService;
     private $aeosHelper;
     private $entityManager;
 
-    public function __construct(AeosService $aeosService, AeosHelper $aeosHelper, EntityManagerInterface $entityManager)
+    public function __construct(AeosHelper $aeosHelper, EntityManagerInterface $entityManager)
     {
-        $this->aeosService = $aeosService;
         $this->aeosHelper = $aeosHelper;
         $this->entityManager = $entityManager;
     }
@@ -41,6 +34,8 @@ class CodeController extends Controller implements ClassResourceInterface
      *    type="array"
      *  )
      * )
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return array
      */
     public function postAction(Request $request)
     {
@@ -63,32 +58,6 @@ class CodeController extends Controller implements ClassResourceInterface
         $result = [
             'status' => 'ok',
             'code' => $code->getIdentifier(),
-        ];
-
-        return $result;
-    }
-
-    /**
-     * @SWG\Tag(name="Code")
-     * @SWG\Parameter(name="code", type="string", description="The code", in="path"),
-     * @SWG\Response(
-     *  response=200,
-     *  description="Details on code",
-     *  @SWG\Schema(
-     *    type="array"
-     *  )
-     * )
-     */
-    public function getAction(Request $request, $code)
-    {
-        $identifier = $this->aeosService->getIdentifierByBadgeNumber($code);
-        $visitor = $identifier ? $this->aeosService->getVisitorByIdentifier($identifier) : null;
-        $visit = $visitor ? $this->aeosService->getVisitByVisitor($visitor) : null;
-
-        $result = [
-            'identifier' => $identifier,
-            'visitor' => $visitor,
-            'visit' => $visit,
         ];
 
         return $result;
