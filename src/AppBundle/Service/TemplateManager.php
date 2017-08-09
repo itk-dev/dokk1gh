@@ -49,4 +49,23 @@ class TemplateManager
 
         return $templates;
     }
+
+    /**
+     * Get a user template by id.
+     *
+     * @param $id
+     * @return Template|null
+     */
+    public function getUserTemplate($id)
+    {
+        $templates = $this->getUserTemplates();
+
+        foreach ($templates as $template) {
+            if ($template->getId() === $id) {
+                return $template;
+            }
+        }
+
+        return null;
+    }
 }
