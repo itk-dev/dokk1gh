@@ -1,0 +1,30 @@
+<div class="user-aeos-person">
+  {% set displayValue = value ? value.FirstName ~ ' ' ~ value.LastName ~ ' ' ~ value.PersonnelNo : '' %}
+  <input id="aeosId-typeahead" class="form-control" type="text" autocomplete="off" value="{{ displayValue }}"/>
+
+	<script src="{{ asset('javascripts/bootstrap3-typeahead.min.js') }}"></script>
+	<script>(function ($) { $(function() {
+     $('#aeosId-typeahead').typeahead({
+       minLength: 2,
+       source: function (query, process) {
+         return $.get({{ path('admin_get_people_search') | json_encode | raw }}, { query: query }, function (data) {
+           return process(data);
+         });
+       },
+       fitToElement: true,
+       matcher: function (item) { return true; },
+       displayText: function (item) {
+         if (item.message) {
+           return item.message.message;
+         } else {
+           return [item.FirstName, item.LastName, item.PersonnelNo].join(' ');
+         }
+       },
+       afterSelect: function (item) {
+         if (item.Id) {
+           $('#' + {{ id | replace({'aeosPerson': 'aeosId'}) | json_encode | raw }}).val(item.Id);
+         }
+       }
+     });
+   }) }(jQuery))</script>
+</div>

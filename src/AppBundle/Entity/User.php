@@ -106,6 +106,18 @@ class User extends BaseUser
         return $this->apiKey;
     }
 
+    private $aeosPerson;
+
+    public function setAeosPerson($aeosPerson) {
+        $this->aeosPerson = $aeosPerson;
+
+        return $this;
+    }
+
+    public function getAeosPerson() {
+        return $this->aeosPerson;
+    }
+
     /**
      * @Callback
      */

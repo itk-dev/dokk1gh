@@ -16,3 +16,11 @@
     {{ parent() }}
   {% endif %}
 {% endblock %}
+
+{% block form_widget_simple %}
+  {% if easyadmin.entity.class == 'AppBundle\\Entity\\User' and name == 'aeosPerson' %}
+    {% include 'easy_admin/form/User/aeos_person.html.twig' %}
+  {% else %}
+    {{ parent() }}
+  {% endif %}
+{% endblock %}

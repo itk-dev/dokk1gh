@@ -61,6 +61,50 @@ class AdminController extends Controller
 
     /**
      * @SWG\Tag(name="Person")
+     * @SWG\Parameter(name="query", type="string", description="The query", in="query"),
+     * @SWG\Response(
+     *   response=200,
+     *   description="Find people",
+     *   @SWG\Schema(
+     *     type="array"
+     *   )
+     * )
+     */
+    public function getPeopleSearchAction(Request $request)
+    {
+        $query = $request->query->get('query');
+
+        if (!$query) {
+            return null;
+        }
+
+        $result = [];
+
+        // Merge search results for multiple fields.
+        if (false)
+        foreach (['PersonnelNo', 'FirstName', 'LastName'] as $key) {
+            $people = $this->aeosService->getPersons([$key => $query]);
+            if ($people) {
+                foreach ($people as $person) {
+                    $result[$person->Id] = $person;
+                }
+            }
+        }
+
+        if (!$result) {
+            $result[] = [
+                'message' => [
+                    'type' => 'warning',
+                    'message' => 'No matches found',
+                ],
+            ];
+        }
+
+        return array_values($result);
+    }
+
+    /**
+     * @SWG\Tag(name="Person")
      * @SWG\Response(
      *   response=200,
      *   description="Show details of a person",
