@@ -42,7 +42,7 @@ class UserController extends AdminController
     /**
      * @Route("/user/{id}/generate-api-key", name="user_generate_api_key")
      * @Method("POST")
-     * @param \AppBundle\Controller\User $user
+     * @param User $user
      */
     public function generateApiKeyAction(Request $request, User $user)
     {
@@ -73,7 +73,7 @@ class UserController extends AdminController
     /**
      * @Route("/user/{id}/notify", name="user_notify")
      * @Method("POST")
-     * @param \AppBundle\Controller\User $user
+     * @param User $user
      */
     public function notifyAction(Request $request, User $user)
     {

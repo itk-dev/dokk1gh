@@ -10,11 +10,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 /**
  * @Route("/mock/")
  */
-class AeosWebServiceController extends Controller {
+class AeosWebServiceController extends Controller
+{
     /**
      * @Route("aeosws")
      */
-    public function aeoswsAction(AeosWebService $aeosWebService) {
+    public function aeoswsAction(AeosWebService $aeosWebService)
+    {
         $server = new \SoapServer(__DIR__ . '/wsdl/aeosws.wsdl');
         $server->setObject($aeosWebService);
 

@@ -75,7 +75,7 @@ class User extends BaseUser
      *
      * @param string $aeosId
      *
-     * @return Template
+     * @return \AppBundle\Entity\Template|\AppBundle\Entity\User
      */
     public function setAeosId($aeosId)
     {
@@ -109,7 +109,7 @@ class User extends BaseUser
     /**
      * @Callback
      */
-    public function validate(ExecutionContextInterface $context, $payload)
+    public function validate(ExecutionContextInterface $context)
     {
         if ($this->getTemplates()->count() === 0) {
             $context->buildViolation('At least one template is required.')

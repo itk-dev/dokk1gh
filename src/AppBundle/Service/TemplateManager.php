@@ -29,7 +29,7 @@ class TemplateManager
     /**
      * Get templates a user is allowed to use.
      *
-     * @return array
+     * @return ArrayCollection
      */
     public function getUserTemplates(Template $default = null)
     {

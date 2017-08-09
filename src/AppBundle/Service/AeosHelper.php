@@ -3,15 +3,14 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Code;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class AeosHelper
 {
-    /** @var \AppBundle\Service\AeosService  */
+    /** @var \AppBundle\Service\AeosService */
     protected $aeosService;
 
-    /** @var \Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface  */
+    /** @var \Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface */
     protected $tokenStorage;
 
     public function __construct(AeosService $aeosService, TokenStorageInterface $tokenStorage)
@@ -51,8 +50,8 @@ class AeosHelper
             'LastName' => $visitorName,
         ]);
 
-        $states = $this->aeosService->setVerificationState($visitor, false);
-        $visit = $this->aeosService->createVisit($visitor, $aeosContactPerson, $code->getStartTime(), $code->getEndTime(), $aeosTemplate);
+        $this->aeosService->setVerificationState($visitor, false);
+        $this->aeosService->createVisit($visitor, $aeosContactPerson, $code->getStartTime(), $code->getEndTime(), $aeosTemplate);
         $identifier = $this->aeosService->createIdentifier($visitor, $aeosContactPerson);
 
         $code->setIdentifier($identifier->BadgeNumber);
@@ -65,13 +64,13 @@ class AeosHelper
         $visit = $visitor ? $this->aeosService->getVisitByVisitor($visitor) : null;
 
         if ($identifier && !$this->aeosService->isDeleted($identifier)) {
-            $result = $this->aeosService->deleteIdentifier($identifier);
+            $this->aeosService->deleteIdentifier($identifier);
         }
         if ($visit) {
-            $result = $this->aeosService->deleteVisit($visit);
+            $this->aeosService->deleteVisit($visit);
         }
         if ($visitor) {
-            $result = $this->aeosService->deleteVisitor($visitor);
+            $this->aeosService->deleteVisitor($visitor);
         }
     }
 }

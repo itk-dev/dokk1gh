@@ -187,7 +187,7 @@ class Code implements Blameable
      *
      * @param string $aeosId
      *
-     * @return Template
+     * @return \AppBundle\Entity\Code|\AppBundle\Entity\Template
      */
     public function setAeosId($aeosId)
     {
@@ -245,7 +245,7 @@ class Code implements Blameable
     /**
      * @Assert\Callback
      */
-    public function validate(ExecutionContextInterface $context, $payload)
+    public function validate(ExecutionContextInterface $context)
     {
         if ($this->getStartTime() >= $this->getEndTime()) {
             $context->buildViolation('End time must be greater than start time.')

@@ -4,7 +4,8 @@ namespace AppBundle\Mock\Service;
 
 use Symfony\Component\Yaml\Yaml;
 
-class AeosWebService {
+class AeosWebService
+{
     public function addVisit($params)
     {
         $params->Id = 1;
@@ -38,7 +39,7 @@ class AeosWebService {
 
     public function blockToken($params)
     {
-        return true;
+        return $params;
     }
 
     public function changeCarrierAttribute($params)
@@ -94,18 +95,19 @@ class AeosWebService {
 
     public function removeVisit($params)
     {
-        return null;
+        return $params;
     }
 
     public function removeVisitor($params)
     {
-        return null;
+        return $params;
     }
 
     /**
      * Filter by first (only?) property in $params.
      */
-    private function filter($data, $params) {
+    private function filter($data, $params)
+    {
         $dataKeys = array_keys(get_object_vars($data));
         if (count($dataKeys) === 1) {
             $dataKey = $dataKeys[0];
@@ -116,10 +118,10 @@ class AeosWebService {
                 $data->{$dataKey} = array_values(array_filter($data->{$dataKey}, function ($item) use ($filter) {
                     foreach ($filter as $key => $value) {
                         if (isset($item->{$key}) && (
-                            // Substring match on string value.
-                            (is_string($item->{$key}) && strpos($item->{$key}, $value) === false)
-                            // Exact match on non-string value.
-                            || (!is_string($item->{$key}) && $item->{$key} != $value))) {
+                                // Substring match on string value.
+                                (is_string($item->{$key}) && strpos($item->{$key}, $value) === false)
+                                // Exact match on non-string value.
+                                || (!is_string($item->{$key}) && $item->{$key} != $value))) {
                             return false;
                         }
                     }
@@ -132,7 +134,8 @@ class AeosWebService {
         return $data;
     }
 
-    private function loadFixture($name, $params) {
+    private function loadFixture($name, $params)
+    {
         $fixturePath = __DIR__ . '/fixtures/' . $name . '.yml';
         if (!file_exists($fixturePath)) {
             throw new \Exception('Fixture "' . $fixturePath . '" not found.');

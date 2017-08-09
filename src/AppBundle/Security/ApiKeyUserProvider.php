@@ -20,6 +20,7 @@ class ApiKeyUserProvider implements UserProviderInterface
     public function getUsernameForApiKey($apiKey)
     {
         $user = $this->userManager->findUserBy(['apiKey' => $apiKey]);
+
         return $user ? $user->getUsername() : null;
     }
 

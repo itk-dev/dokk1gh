@@ -29,6 +29,11 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
+    ApiBundle\Controller\:
+        resource: '../../src/ApiBundle/Controller'
+        public: true
+        tags: ['controller.service_arguments']
+
     # add more services, or override services that need manual wiring
     AppBundle\Service\AeosService:
         arguments:
@@ -69,7 +74,13 @@ services:
     # Inject our custom config manager (overwrite the original one)
     easyadmin.config.manager:
         class: AppBundle\Configuration\EasyAdminConfigManager
-        arguments: ['@service_container', '@security.authorization_checker']
+        arguments:
+            - '@security.authorization_checker'
+            - '@security.token_storage'
+            - '@easyadmin.cache.manager'
+            - '@property_accessor'
+            - '%easyadmin.config%'
+            - '%kernel.debug%'
 
     # Enable serialization of objects.
     JMS\Serializer\Handler\StdClassHandler:

@@ -14,6 +14,11 @@ use Symfony\Component\Routing\RouterInterface;
 
 class UserManager extends BaseUserManager
 {
+    /**
+     * @var \FOS\UserBundle\Util\TokenGeneratorInterface
+     */
+    private $tokenGenerator;
+
     /** @var \Twig_Environment */
     private $twig;
 
@@ -23,7 +28,7 @@ class UserManager extends BaseUserManager
     /** @var \Swift_Mailer */
     private $mailer;
 
-    /** @var array  */
+    /** @var array */
     private $configuration;
 
     public function __construct(PasswordUpdaterInterface $passwordUpdater, CanonicalFieldsUpdater $canonicalFieldsUpdater, ObjectManager $om, $class, TokenGeneratorInterface $tokenGenerator, \Twig_Environment $twig, RouterInterface $router, \Swift_Mailer $mailer, array $configuration)

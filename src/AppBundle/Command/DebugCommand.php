@@ -15,13 +15,13 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class DebugCommand extends ContainerAwareCommand
 {
-    /** @var \Doctrine\ORM\EntityManagerInterface  */
+    /** @var \Doctrine\ORM\EntityManagerInterface */
     protected $entityManager;
 
-    /** @var \AppBundle\Service\AeosService  */
+    /** @var \AppBundle\Service\AeosService */
     protected $aeosService;
 
-    /** @var \AppBundle\Service\UserManager  */
+    /** @var \AppBundle\Service\UserManager */
     protected $userManager;
 
     /** @var InputInterface */
@@ -52,6 +52,7 @@ class DebugCommand extends ContainerAwareCommand
      */
     private function notifyUserCreated($username)
     {
+        /** @var \AppBundle\Entity\User $user */
         $user = $this->userManager->findUserByUsernameOrEmail($username);
 
         if (!$user) {

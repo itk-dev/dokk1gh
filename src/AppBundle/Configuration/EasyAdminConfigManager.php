@@ -2,32 +2,25 @@
 
 namespace AppBundle\Configuration;
 
+use JavierEguiluz\Bundle\EasyAdminBundle\Cache\CacheManager;
 use JavierEguiluz\Bundle\EasyAdminBundle\Configuration\ConfigManager;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class EasyAdminConfigManager extends ConfigManager
 {
-  /**
-   * @var \AppBundle\Configuration\AuthorizationCheckerInterface
-   */
+    /** @var \Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface */
     protected $authorizationChecker;
 
-    /**
-     * @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface
-     */
+    /** @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface */
     protected $tokenStorage;
-  /**
-   * @var \Symfony\Component\DependencyInjection\ContainerInterface
-   */
-    protected $container;
 
-    public function __construct(ContainerInterface $container, AuthorizationCheckerInterface $authorizationChecker)
+    public function __construct(AuthorizationCheckerInterface $authorizationChecker, TokenStorageInterface $tokenStorage, CacheManager $cacheManager, PropertyAccessorInterface $propertyAccessor, array $originalBackendConfig = [], $debug = false)
     {
-        parent::__construct($container);
+        parent::__construct($cacheManager, $propertyAccessor, $originalBackendConfig, $debug);
         $this->authorizationChecker = $authorizationChecker;
-        $this->tokenStorage = $container->get('security.token_storage');
-        //$this->container = $container;
+        $this->tokenStorage = $tokenStorage;
     }
 
     private $cache = [];
@@ -60,7 +53,7 @@ class EasyAdminConfigManager extends ConfigManager
                 });
 
                 if ($propertyPath === 'design.menu') {
-                        $this->reindexMenu($config);
+                    $this->reindexMenu($config);
                 }
             }
         }
@@ -97,7 +90,7 @@ class EasyAdminConfigManager extends ConfigManager
         return false;
     }
 
-  // @see http://php.net/manual/en/function.array-filter.php#87581
+    // @see http://php.net/manual/en/function.array-filter.php#87581
     private static function arrayFilterRecursive(array $input, callable $callback)
     {
         foreach ($input as &$value) {
@@ -109,12 +102,13 @@ class EasyAdminConfigManager extends ConfigManager
         return array_filter($input, $callback);
     }
 
-  // @see http://stackoverflow.com/a/173479
+    // @see http://stackoverflow.com/a/173479
     private static function isAssoc(array $arr)
     {
         if (array() === $arr) {
             return false;
         }
+
         return array_keys($arr) !== range(0, count($arr) - 1);
     }
 }
