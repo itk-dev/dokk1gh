@@ -74,7 +74,13 @@ services:
     # Inject our custom config manager (overwrite the original one)
     easyadmin.config.manager:
         class: AppBundle\Configuration\EasyAdminConfigManager
-        arguments: ['@service_container', '@security.authorization_checker']
+        arguments:
+            - '@security.authorization_checker'
+            - '@security.token_storage'
+            - '@easyadmin.cache.manager'
+            - '@property_accessor'
+            - '%easyadmin.config%'
+            - '%kernel.debug%'
 
     # Enable serialization of objects.
     JMS\Serializer\Handler\StdClassHandler:

@@ -2,32 +2,25 @@
 
 namespace AppBundle\Configuration;
 
+use JavierEguiluz\Bundle\EasyAdminBundle\Cache\CacheManager;
 use JavierEguiluz\Bundle\EasyAdminBundle\Configuration\ConfigManager;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class EasyAdminConfigManager extends ConfigManager
 {
-    /**
-     * @var \Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface
-     */
+    /** @var \Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface */
     protected $authorizationChecker;
 
-    /**
-     * @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface
-     */
+    /** @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface */
     protected $tokenStorage;
 
-    /**
-     * @var \Symfony\Component\DependencyInjection\ContainerInterface
-     */
-    protected $container;
-
-    public function __construct(ContainerInterface $container, AuthorizationCheckerInterface $authorizationChecker)
+    public function __construct(AuthorizationCheckerInterface $authorizationChecker, TokenStorageInterface $tokenStorage, CacheManager $cacheManager, PropertyAccessorInterface $propertyAccessor, array $originalBackendConfig = [], $debug = false)
     {
-        parent::__construct($container);
+        parent::__construct($cacheManager, $propertyAccessor, $originalBackendConfig, $debug);
         $this->authorizationChecker = $authorizationChecker;
-        $this->tokenStorage = $container->get('security.token_storage');
+        $this->tokenStorage = $tokenStorage;
     }
 
     private $cache = [];
