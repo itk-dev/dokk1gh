@@ -3,9 +3,16 @@
 namespace ApiBundle\Controller;
 
 use AppBundle\Service\TemplateManager;
+use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use Swagger\Annotations as SWG;
 
+/**
+ * Class TemplateController
+ * @package ApiBundle\Controller
+ *
+ * @Rest\View(serializerGroups={"api"})
+ */
 class TemplateController implements ClassResourceInterface
 {
     private $templateManager;

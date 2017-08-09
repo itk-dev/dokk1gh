@@ -8,6 +8,7 @@ use Gedmo\Blameable\Blameable;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use JMS\Serializer\Annotation as JMS;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
@@ -44,6 +45,7 @@ class Code implements Blameable
      * @var \DateTime
      *
      * @ORM\Column(type="datetime")
+     * @JMS\Groups({"api"})
      */
     private $startTime;
 
@@ -51,6 +53,7 @@ class Code implements Blameable
      * @var \DateTime
      *
      * @ORM\Column(type="datetime")
+     * @JMS\Groups({"api"})
      */
     private $endTime;
 
@@ -59,6 +62,7 @@ class Code implements Blameable
      *
      * @ORM\ManyToOne(targetEntity=Template::class)
      * @ORM\JoinColumn(nullable=false)
+     * @JMS\Groups({"api"})
      */
     private $template;
 
@@ -66,6 +70,8 @@ class Code implements Blameable
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
+     * @JMS\Groups({"api"})
+     * @JMS\SerializedName("code")
      */
     private $identifier;
 
