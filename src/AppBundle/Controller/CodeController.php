@@ -5,8 +5,8 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Code;
 use AppBundle\Service\AeosHelper;
 use AppBundle\Service\TemplateManager;
-use Psr\Container\ContainerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class CodeController extends AdminController
@@ -17,7 +17,7 @@ class CodeController extends AdminController
     /** @var AeosHelper */
     protected $aeosHelper;
 
-    /** @var ContainerInterface */
+    /** @var \Symfony\Component\DependencyInjection\ContainerInterface */
     protected $container;
 
     public function __construct(TokenStorageInterface $tokenStorage, TemplateManager $templateManager, AeosHelper $aeosHelper, \Twig_Environment $twig, ContainerInterface $container)
@@ -106,34 +106,14 @@ class CodeController extends AdminController
 
     protected function prePersistCodeEntity(Code $code)
     {
-        // $this->updateTimes($code);
         $this->createAeosIdentifier($code);
     }
 
     protected function preUpdateCodeEntity(Code $code)
     {
-        // $this->updateTimes($code);
         if ($code->getIdentifier() === null) {
             $this->createAeosIdentifier($code);
         }
-    }
-
-    private function updateTimes(Code $code)
-    {
-        header('Content-type: text/plain'); echo var_export([
-            'code.startTime' => $code->getStartTime(),
-            'code.endTime' => $code->getEndTime(),
-        ], true);
-        die(__FILE__.':'.__LINE__.':'.__METHOD__);
-    }
-
-    private function setTime(\DateTime $date, \DateTime $time)
-    {
-        $time->format('H');
-        $time->format('H');
-        $date->setTime($time->format('H'), $time->format('i'), $time->format('s'));
-
-        return $date;
     }
 
     protected function preRemoveCodeEntity(Code $code)

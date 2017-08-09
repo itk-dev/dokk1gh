@@ -8,18 +8,19 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class EasyAdminConfigManager extends ConfigManager
 {
-  /**
-   * @var \AppBundle\Configuration\AuthorizationCheckerInterface
-   */
+    /**
+     * @var \Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface
+     */
     protected $authorizationChecker;
 
     /**
      * @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface
      */
     protected $tokenStorage;
-  /**
-   * @var \Symfony\Component\DependencyInjection\ContainerInterface
-   */
+
+    /**
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface
+     */
     protected $container;
 
     public function __construct(ContainerInterface $container, AuthorizationCheckerInterface $authorizationChecker)
@@ -27,7 +28,6 @@ class EasyAdminConfigManager extends ConfigManager
         parent::__construct($container);
         $this->authorizationChecker = $authorizationChecker;
         $this->tokenStorage = $container->get('security.token_storage');
-        //$this->container = $container;
     }
 
     private $cache = [];
@@ -60,7 +60,7 @@ class EasyAdminConfigManager extends ConfigManager
                 });
 
                 if ($propertyPath === 'design.menu') {
-                        $this->reindexMenu($config);
+                    $this->reindexMenu($config);
                 }
             }
         }
@@ -97,7 +97,7 @@ class EasyAdminConfigManager extends ConfigManager
         return false;
     }
 
-  // @see http://php.net/manual/en/function.array-filter.php#87581
+    // @see http://php.net/manual/en/function.array-filter.php#87581
     private static function arrayFilterRecursive(array $input, callable $callback)
     {
         foreach ($input as &$value) {
@@ -109,12 +109,13 @@ class EasyAdminConfigManager extends ConfigManager
         return array_filter($input, $callback);
     }
 
-  // @see http://stackoverflow.com/a/173479
+    // @see http://stackoverflow.com/a/173479
     private static function isAssoc(array $arr)
     {
         if (array() === $arr) {
             return false;
         }
+
         return array_keys($arr) !== range(0, count($arr) - 1);
     }
 }

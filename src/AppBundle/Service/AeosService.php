@@ -80,6 +80,7 @@ class AeosService
         ];
 
         $result = $this->invoke('findToken', (object)['IdentifierSearch' => $query, 'SearchRange' => $searchRange]);
+
         return !isset($result->IdentifierAndCarrierId) ? null : (is_array($result->IdentifierAndCarrierId) ? $result->IdentifierAndCarrierId : [$result->IdentifierAndCarrierId]);
     }
 
@@ -182,13 +183,14 @@ class AeosService
             'UnitId' => $contactPerson->UnitId,
             'CarrierId' => $visitor->Id,
         ];
+
         return (object)$this->invoke('assignToken', $data);
     }
 
     private function generateCode()
     {
         $codeLength = 8;
-        $code = random_int(1, 9) . str_pad(random_int(1, pow(10, $codeLength - 1)-1), $codeLength - 1, '0', STR_PAD_LEFT);
+        $code = random_int(1, 9) . str_pad(random_int(1, pow(10, $codeLength - 1) - 1), $codeLength - 1, '0', STR_PAD_LEFT);
 
         return $code;
     }
@@ -196,6 +198,7 @@ class AeosService
     public function updateVisitor($id, array $data)
     {
         $data['Id'] = $id;
+
         return $this->invoke('changeVisitor', $data);
     }
 
@@ -233,7 +236,7 @@ class AeosService
     public function getPersons(array $query = [])
     {
         list($query, $searchRange) = $this->splitQuery($query);
-        $result = $this->invoke('findPerson', (object) ['PersonInfo' => $query, 'SearchRange' => $searchRange]);
+        $result = $this->invoke('findPerson', (object)['PersonInfo' => $query, 'SearchRange' => $searchRange]);
 
         return !isset($result->Person) ? null : (is_array($result->Person) ? $result->Person : [$result->Person]);
     }

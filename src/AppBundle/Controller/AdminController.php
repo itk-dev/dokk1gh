@@ -22,6 +22,7 @@ class AdminController extends BaseAdminController
     protected function createListQueryBuilder($entityClass, $sortDirection, $sortField = null, $dqlFilter = null)
     {
         $this->limitByUser($dqlFilter, $entityClass, 'entity');
+
         return parent::createListQueryBuilder($entityClass, $sortDirection, $sortField, $dqlFilter);
     }
 
@@ -33,6 +34,7 @@ class AdminController extends BaseAdminController
         }, ARRAY_FILTER_USE_KEY);
 
         $this->limitByUser($dqlFilter, $entityClass, 'entity');
+
         return parent::createSearchQueryBuilder($entityClass, $searchQuery, $searchableFields, $sortField, $sortDirection, $dqlFilter);
     }
 
@@ -59,6 +61,7 @@ class AdminController extends BaseAdminController
         $authorizationChecker = $this->get('security.authorization_checker');
         if (!$authorizationChecker->isGranted('ROLE_ADMIN')) {
             $user = $this->tokenStorage->getToken()->getUser();
+
             return $alias . '.createdBy = ' . $user->getId();
         }
 

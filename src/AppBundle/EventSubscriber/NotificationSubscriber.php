@@ -5,15 +5,18 @@ namespace AppBundle\EventSubscriber;
 use JavierEguiluz\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class NotificationSubscriber implements EventSubscriberInterface
 {
+    /** @var \Symfony\Component\HttpFoundation\Session\Session */
     private $session;
+
+    /** @var \Symfony\Component\Translation\TranslatorInterface */
     private $translator;
 
-    public function __construct(SessionInterface $session, TranslatorInterface $translator)
+    public function __construct(Session $session, TranslatorInterface $translator)
     {
         $this->session = $session;
         $this->translator = $translator;
@@ -48,9 +51,9 @@ class NotificationSubscriber implements EventSubscriberInterface
         $subject = $event->getSubject();
         if ($subject) {
             $messages = [
-            EasyAdminEvents::POST_PERSIST => '%entity_type% %entity_name% created',
-            EasyAdminEvents::POST_UPDATE => '%entity_type% %entity_name% updated',
-            EasyAdminEvents::POST_REMOVE => '%entity_type% %entity_name% removed',
+                EasyAdminEvents::POST_PERSIST => '%entity_type% %entity_name% created',
+                EasyAdminEvents::POST_UPDATE => '%entity_type% %entity_name% updated',
+                EasyAdminEvents::POST_REMOVE => '%entity_type% %entity_name% removed',
             ];
             if ($messages[$eventType]) {
                 $type = get_class($subject);
