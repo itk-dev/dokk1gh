@@ -43,7 +43,7 @@ class AeosHelper
             throw new \Exception('Cannot find AEOS template: ' . $template->getAeosId());
         }
 
-        $visitorName = 'dokk1gh: code: #' . $code->getId() . '; ' . (new \DateTime())->format(\DateTime::ISO8601);
+        $visitorName = 'dokk1gh: code: #' . $code->getId() . '; ' . (new \DateTime())->format(\DateTime::W3C);
 
         $visitor = $this->aeosService->createVisitor([
             'UnitId' => $aeosContactPerson->UnitId,

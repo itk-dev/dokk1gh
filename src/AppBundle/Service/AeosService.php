@@ -204,9 +204,8 @@ class AeosService
 
     public function createVisit($visitor, $contactPerson, \DateTime $beginVisit, \DateTime $endVisit, $template)
     {
-        $dateFormat = 'Y-m-d\TH:i:s';
-        $startTime = $beginVisit->format($dateFormat);
-        $endTime = $endVisit->format($dateFormat);
+        $startTime = $this->format($beginVisit);
+        $endTime = $this->formatDateTime($endVisit);
         $data = [
             'VisitorId' => $visitor->Id,
             'ContactPersonId' => $contactPerson->Id,
@@ -223,6 +222,21 @@ class AeosService
         ];
 
         return $this->invoke('addVisit', (object)$data);
+    }
+
+    /**
+     * Format date and time for AEOS service.
+     *
+     * @param \DateTime $date
+     * @return string
+     */
+    private function formatDateTime(\DateTime $date) {
+        $dateFormat = 'Y-m-d\TH:i:s';
+        $date = clone $date;
+        $timeZone = new \DateTimeZone($this->configuration['aeos']['timezone']);
+        $date->setTimezone($timeZone);
+
+        return $date->format($dateFormat);
     }
 
     public function getUnits(array $query = [])
