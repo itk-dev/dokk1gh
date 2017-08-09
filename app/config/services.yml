@@ -45,6 +45,7 @@ services:
                     context:  '%aeos_context%'
                     debug:    '%kernel.debug%'
                 aeos:
+                    timezone: '%aeos_timezone%'
                     identifier_type: '%aeos_identifier_type%'
                     block_reason: '%aeos_block_reason%'
 

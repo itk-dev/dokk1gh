@@ -26,6 +26,7 @@ parameters:
     aoes_location: http://dokk1gh.vm/mock/aeosws
     aoes_username: ~
     aoes_password: ~
+    aeos_timezone: Europe/Copenhagen
     # SOAP client context ()
     aeos_context:
         ssl:
