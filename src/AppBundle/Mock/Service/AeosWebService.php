@@ -102,6 +102,9 @@ class AeosWebService {
         return null;
     }
 
+    /**
+     * Filter by first (only?) property in $params.
+     */
     private function filter($data, $params) {
         $dataKeys = array_keys(get_object_vars($data));
         if (count($dataKeys) === 1) {
@@ -111,8 +114,14 @@ class AeosWebService {
                 $filter = $params->{$vars[0]};
 
                 $data->{$dataKey} = array_values(array_filter($data->{$dataKey}, function ($item) use ($filter) {
-                    if (isset($filter->Id)) {
-                        return $item->Id == $filter->Id;
+                    foreach ($filter as $key => $value) {
+                        if (isset($item->{$key}) && (
+                            // Substring match on string value.
+                            (is_string($item->{$key}) && strpos($item->{$key}, $value) === false)
+                            // Exact match on non-string value.
+                            || (!is_string($item->{$key}) && $item->{$key} != $value))) {
+                            return false;
+                        }
                     }
 
                     return true;

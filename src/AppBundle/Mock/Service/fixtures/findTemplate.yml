@@ -6,3 +6,9 @@ Template:
         # <xs:enumeration value="SecurityLevel"></xs:enumeration>
         # <xs:enumeration value="Soaa"></xs:enumeration>
         UnitOfAuthType: OnLine
+    -
+        Id: 2
+        UnitOfAuthType: OnLine
+    -
+        Id: 3
+        UnitOfAuthType: OnLine
