@@ -1,0 +1,64 @@
+{{ markup | raw }}
+
+{% set user = form.parent.vars.data|default({}) %}
+{% set person = user.aeosPerson|default(null) %}
+
+<div class="user-find-aeos-person">
+  <input id="aeosId-typeahead" class="form-control" type="text" autocomplete="off"/>
+  <p class="help-block"><i class="fa fa-info-circle"></i> {{ 'user.find.person.help' | trans }}</p>
+
+  <script src="{{ asset('javascripts/bootstrap3-typeahead.min.js') }}"></script>
+  <script>(function ($) { $(function() {
+     var messages = {{ {
+                    'invalidData': ('Invalid AEOS-id' | trans),
+                    'noMatches': ('No matches' | trans)
+                    } | json_encode | raw }},
+         renderPerson = function(person) {
+           if (!person) {
+             return messages.invalidData;
+           }
+
+           return person.FirstName + ' ' + person.LastName + ' (' + person.PersonnelNo + ')';
+         },
+         person = {{ person | json_encode | raw }};
+
+     $input = $('#aeosId-typeahead');
+     $input.typeahead({
+       // Some PersonnelNos has only three characters.
+       minLength: 3,
+       source: function (query, process) {
+         return $.get({{ path('admin_get_people_search') | json_encode | raw }}, { query: query }, function (data) {
+           if (!data || data.length === 0) {
+             data = [ {
+               message: messages.noMatches
+             } ];
+           }
+           return process(data);
+         });
+       },
+       fitToElement: true,
+       matcher: function (item) { return true; },
+       displayText: function (item) {
+         if (item.message) {
+           return item.message;
+         } else {
+           return renderPerson(item);
+         }
+       },
+       afterSelect: function (item) {
+         if (item.Id) {
+           $('#' + {{ id | json_encode | raw }}).val(item.Id);
+           $('.user-find-aeos-person').removeClass('has-error');
+         } else {
+           $input.val('');
+         }
+       }
+     })
+     .on('focus', function() {
+       if ($(this).val() === messages.invalidData) {
+         $(this).val('');
+       }
+     })
+     .val(renderPerson(person));
+   }) }(jQuery))</script>
+</div>

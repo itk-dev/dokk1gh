@@ -26,7 +26,8 @@ class UserEventSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function loadAeosPerson(GenericEvent $event) {
+    public function loadAeosPerson(GenericEvent $event)
+    {
         $entity = $event->getArgument('request')->attributes->get('easyadmin')['item'];
 
         if ($entity instanceof User) {

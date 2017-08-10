@@ -119,7 +119,7 @@ class AeosWebService
                     foreach ($filter as $key => $value) {
                         if (isset($item->{$key}) && (
                                 // Substring match on string value.
-                                (is_string($item->{$key}) && strpos($item->{$key}, $value) === false)
+                                (is_string($item->{$key}) && stripos($item->{$key}, $value) === false)
                                 // Exact match on non-string value.
                                 || (!is_string($item->{$key}) && $item->{$key} != $value))) {
                             return false;

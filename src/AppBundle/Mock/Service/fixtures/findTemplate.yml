@@ -6,9 +6,12 @@ Template:
         # <xs:enumeration value="SecurityLevel"></xs:enumeration>
         # <xs:enumeration value="Soaa"></xs:enumeration>
         UnitOfAuthType: OnLine
+        Name: Somewhere in time
     -
         Id: 2
         UnitOfAuthType: OnLine
+        Name: Another place
     -
         Id: 3
         UnitOfAuthType: OnLine
+        Name: My place

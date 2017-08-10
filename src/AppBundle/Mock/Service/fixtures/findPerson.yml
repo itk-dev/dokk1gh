@@ -19,3 +19,17 @@ Person:
         LastName: Three
         PersonnelNo: test0003
         UnitId: 1
+
+    -
+        Id: 4
+        FirstName: John
+        LastName: Doe
+        PersonnelNo: johndoe
+        UnitId: 1
+
+    -
+        Id: 5
+        FirstName: Jane
+        LastName: Doe
+        PersonnelNo: janedoe
+        UnitId: 1

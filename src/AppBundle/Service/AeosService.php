@@ -230,7 +230,8 @@ class AeosService
      * @param \DateTime $date
      * @return string
      */
-    private function formatDateTime(\DateTime $date) {
+    private function formatDateTime(\DateTime $date)
+    {
         $dateFormat = 'Y-m-d\TH:i:s';
         $date = clone $date;
         $timeZone = new \DateTimeZone($this->configuration['aeos']['timezone']);

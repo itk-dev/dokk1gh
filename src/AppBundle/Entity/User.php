@@ -106,15 +106,20 @@ class User extends BaseUser
         return $this->apiKey;
     }
 
+    /**
+     * Virtual property only used for displaying any AEOS person connected to this User.
+     */
     private $aeosPerson;
 
-    public function setAeosPerson($aeosPerson) {
+    public function setAeosPerson($aeosPerson)
+    {
         $this->aeosPerson = $aeosPerson;
 
         return $this;
     }
 
-    public function getAeosPerson() {
+    public function getAeosPerson()
+    {
         return $this->aeosPerson;
     }
 

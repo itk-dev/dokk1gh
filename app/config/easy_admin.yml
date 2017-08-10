@@ -129,8 +129,6 @@ easy_admin:
                     - property: aeosId
                       type_options:
                           required: true
-                    - property: aeosPerson
-                      type: text
                     - property: apiKey
                       type: AppBundle\Form\Type\ApiKeyType
                       type_options:

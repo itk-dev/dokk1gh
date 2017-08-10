@@ -14,6 +14,7 @@ Template: Adgangsområde
 Status: Status
 Note: Intern note
 code.note.help: Noten kan fx bruges til at finde tilbage til den oprettede kode på et senere tidspunkt. Noten bliver ikke delt med andre.
+user.find.person.help: Søg efter person i AEOS. Der søges på for- og efternavn plus nummer (PersonnelNo).
 
 Code.status.expired: Udløbet
 Code.status.future: Inaktiv
