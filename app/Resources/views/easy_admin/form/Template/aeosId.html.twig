@@ -1,11 +1,11 @@
 {{ markup | raw }}
 
-{% set user = form.parent.vars.data|default({}) %}
-{% set person = user.aeosPerson|default(null) %}
+{% set template = form.parent.vars.data|default({}) %}
+{% set template = template.aeosTemplate|default(null) %}
 
-<div class="user-find-aeos-person">
+<div class="template-find-aeos-template">
   <input id="aeosId-typeahead" class="form-control" type="text" autocomplete="off"/>
-  <p class="help-block"><i class="fa fa-info-circle"></i> {{ 'user.find.person.help' | trans }}</p>
+  <p class="help-block"><i class="fa fa-info-circle"></i> {{ 'template.find.template.help' | trans }}</p>
 
   <script src="{{ asset('node_modules/corejs-typeahead/dist/typeahead.bundle.min.js') }}"></script>
   <script>(function ($) { $(function() {
@@ -13,22 +13,22 @@
                     'invalidData': ('Invalid AEOS-id' | trans),
                     'noMatches': ('No matches' | trans)
                     } | json_encode | raw }},
-         renderPerson = function(person) {
-           if (!person) {
+         renderTemplate = function(template) {
+           if (!template) {
              return messages.invalidData;
            }
 
-           return person.FirstName + ' ' + person.LastName + ' (' + person.PersonnelNo + ')';
+           return template.Name;
          },
-         person = {{ person | json_encode | raw }};
+         template = {{ template | json_encode | raw }};
 
      $input = $('#aeosId-typeahead');
      $input.typeahead({
-       // Some PersonnelNos has only three characters.
+       // Some TemplatenelNos has only three characters.
        minLength: 3
      }, {
        source: function (query, syncResults, asyncResults) {
-         return $.get({{ path('admin_get_people_search') | json_encode | raw }}, { query: query }, function (data) {
+         return $.get({{ path('admin_get_templates_search') | json_encode | raw }}, { query: query }, function (data) {
            return asyncResults(data);
          });
        },
@@ -36,7 +36,7 @@
          if (item.message) {
            return item.message;
          } else {
-           return renderPerson(item);
+           return renderTemplate(item);
          }
        },
        templates: {
@@ -55,6 +55,6 @@
                $(this).val('');
              }
            })
-           .val(renderPerson(person));
+           .val(renderTemplate(template));
      }) }(jQuery))</script>
 </div>

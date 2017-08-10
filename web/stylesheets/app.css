@@ -106,6 +106,19 @@ body.new-code textarea {
 .date-time-range-time {
   display: inline-block; }
 
+.twitter-typeahead {
+  width: 100%;
+  margin-top: 1em; }
+  .twitter-typeahead .tt-input, .twitter-typeahead .tt-hint, .twitter-typeahead .tt-menu {
+    width: 100%; }
+  .twitter-typeahead .tt-menu {
+    background: #fff;
+    border: solid 2px #aaa; }
+  .twitter-typeahead .tt-suggestion {
+    padding: 0 12px; }
+  .twitter-typeahead .tt-cursor {
+    background: #eee; }
+
 /* Global */
 body {
   font-size: 16px;

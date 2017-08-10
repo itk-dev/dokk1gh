@@ -113,6 +113,23 @@ class Template
         return $this->aeosId;
     }
 
+    /**
+     * Virtual property only used for displaying any AEOS template connected to this User.
+     */
+    private $aeosTemplate;
+
+    public function setAeosTemplate($aeosTemplate)
+    {
+        $this->aeosTemplate = $aeosTemplate;
+
+        return $this;
+    }
+
+    public function getAeosTemplate()
+    {
+        return $this->aeosTemplate;
+    }
+
     public function __toString()
     {
         return $this->getName();
