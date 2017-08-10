@@ -1,60 +1,47 @@
 {{ markup | raw }}
 
-{% set user = form.parent.vars.data|default({}) %}
-{% set person = user.aeosPerson|default(null) %}
+{% set person = form.parent.vars.data.aeosData|default({}) %}
 
-<div class="user-find-aeos-person">
-  <input id="aeosId-typeahead" class="form-control" type="text" autocomplete="off"/>
+<div class="find-aeos-data">
+  <select id="aeos-data-select"></select>
   <p class="help-block"><i class="fa fa-info-circle"></i> {{ 'user.find.person.help' | trans }}</p>
 
-  <script src="{{ asset('node_modules/corejs-typeahead/dist/typeahead.bundle.min.js') }}"></script>
   <script>(function ($) { $(function() {
-     var messages = {{ {
-                    'invalidData': ('Invalid AEOS-id' | trans),
-                    'noMatches': ('No matches' | trans)
-                    } | json_encode | raw }},
-         renderPerson = function(person) {
-           if (!person) {
-             return messages.invalidData;
-           }
-
-           return person.FirstName + ' ' + person.LastName + ' [' + person.PersonnelNo + ']' + ' (#' + person.Id + ')';
-         },
-         person = {{ person | json_encode | raw }};
-
-     $input = $('#aeosId-typeahead');
-     $input.typeahead({
-       // Some PersonnelNos has only three characters.
-       minLength: 3
-     }, {
-       source: function (query, syncResults, asyncResults) {
-         return $.get({{ path('admin_get_people_search') | json_encode | raw }}, { query: query }, function (data) {
-           return asyncResults(data);
-         });
-       },
-       display: function (item) {
-         if (item.message) {
-           return item.message;
-         } else {
-           return renderPerson(item);
-         }
-       },
-       templates: {
-         notFound: messages.noMatches
+     var renderResult = function (result) {
+       if (result.loading || result.selected || result.id === 0) {
+         return result.text;
        }
-       })
-           .on('typeahead:select', function(ev, item) {
-             if (item.Id) {
-               $('#' + {{ id | json_encode | raw }}).val(item.Id);
-             } else {
-               $input.val('');
-             }
-           })
-           .on('focus', function() {
-             if ($(this).val() === messages.invalidData) {
-               $(this).val('');
-             }
-           })
-           .val(renderPerson(person));
-     }) }(jQuery))</script>
+
+       return result.FirstName + ' ' + result.LastName + ' [' + result.PersonnelNo + ']' + ' (#' + result.Id + ')';
+     };
+     $('#aeos-data-select').select2({
+       placeholder: {{ (person ? person : {'id': 0, 'text': ('Invalid AEOS person id' | trans)})
+                    | json_encode | raw }},
+       ajax: {
+         url: {{ path('admin_get_people_search') | json_encode | raw }},
+         dataType: 'json',
+         delay: 250,
+         data: function (params) {
+           return {
+             query: params.term
+           };
+         },
+         processResults: function (data, params) {
+           data.forEach(function (item) {
+             item.id = item.Id;
+           });
+
+           return {
+             results: data
+           };
+         },
+         cache: true
+       },
+       minimumInputLength: 3,
+       templateResult: renderResult,
+       templateSelection: renderResult
+     }).on('select2:select', function (event) {
+       $('#' + {{ id | json_encode | raw }}).val(event.params.data.Id);
+     });
+   }) }(jQuery))</script>
 </div>

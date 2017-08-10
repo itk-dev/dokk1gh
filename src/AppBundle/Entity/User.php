@@ -109,18 +109,18 @@ class User extends BaseUser
     /**
      * Virtual property only used for displaying any AEOS person connected to this User.
      */
-    private $aeosPerson;
+    private $aeosData;
 
-    public function setAeosPerson($aeosPerson)
+    public function setAeosData($aeosPerson)
     {
-        $this->aeosPerson = $aeosPerson;
+        $this->aeosData = $aeosPerson;
 
         return $this;
     }
 
-    public function getAeosPerson()
+    public function getAeosData()
     {
-        return $this->aeosPerson;
+        return $this->aeosData;
     }
 
     /**

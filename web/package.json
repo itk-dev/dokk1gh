@@ -18,8 +18,5 @@
     "gulp-sass": "^3.1.0",
     "gutil": "^1.6.4",
     "run-sequence": "^2.0.0"
-  },
-  "dependencies": {
-    "corejs-typeahead": "^1.1.1"
   }
 }

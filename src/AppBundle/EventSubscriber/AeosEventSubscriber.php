@@ -33,10 +33,10 @@ class AeosEventSubscriber implements EventSubscriberInterface
 
         if ($entity instanceof Template) {
             $template = $this->aeosService->getTemplate($entity->getAeosId());
-            $entity->setAeosTemplate($template);
+            $entity->setAeosData($template);
         } elseif ($entity instanceof User) {
             $person = $this->aeosService->getPerson($entity->getAeosId());
-            $entity->setAeosPerson($person);
+            $entity->setAeosData($person);
         }
     }
 }
