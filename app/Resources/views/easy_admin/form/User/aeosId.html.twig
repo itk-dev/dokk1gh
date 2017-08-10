@@ -18,7 +18,7 @@
              return messages.invalidData;
            }
 
-           return person.FirstName + ' ' + person.LastName + ' (' + person.PersonnelNo + ')';
+           return person.FirstName + ' ' + person.LastName + ' [' + person.PersonnelNo + ']' + ' (#' + person.Id + ')';
          },
          person = {{ person | json_encode | raw }};
 
