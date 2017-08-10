@@ -1,60 +1,47 @@
 {{ markup | raw }}
 
-{% set template = form.parent.vars.data|default({}) %}
-{% set template = template.aeosTemplate|default(null) %}
+{% set template = form.parent.vars.data.aeosData|default({}) %}
 
-<div class="template-find-aeos-template">
-  <input id="aeosId-typeahead" class="form-control" type="text" autocomplete="off"/>
+<div class="find-aeos-data">
+  <select id="aeos-data-select"></select>
   <p class="help-block"><i class="fa fa-info-circle"></i> {{ 'template.find.template.help' | trans }}</p>
 
-  <script src="{{ asset('node_modules/corejs-typeahead/dist/typeahead.bundle.min.js') }}"></script>
   <script>(function ($) { $(function() {
-     var messages = {{ {
-                    'invalidData': ('Invalid AEOS-id' | trans),
-                    'noMatches': ('No matches' | trans)
-                    } | json_encode | raw }},
-         renderTemplate = function(template) {
-           if (!template) {
-             return messages.invalidData;
-           }
-
-           return template.Name + ' (#' + template.Id + ')';
-         },
-         template = {{ template | json_encode | raw }};
-
-     $input = $('#aeosId-typeahead');
-     $input.typeahead({
-       // Some TemplatenelNos has only three characters.
-       minLength: 3
-     }, {
-       source: function (query, syncResults, asyncResults) {
-         return $.get({{ path('admin_get_templates_search') | json_encode | raw }}, { query: query }, function (data) {
-           return asyncResults(data);
-         });
-       },
-       display: function (item) {
-         if (item.message) {
-           return item.message;
-         } else {
-           return renderTemplate(item);
-         }
-       },
-       templates: {
-         notFound: messages.noMatches
+     var renderResult = function (result) {
+       if (result.loading || result.selected || result.id === 0) {
+         return result.text;
        }
-       })
-           .on('typeahead:select', function(ev, item) {
-             if (item.Id) {
-               $('#' + {{ id | json_encode | raw }}).val(item.Id);
-             } else {
-               $input.val('');
-             }
-           })
-           .on('focus', function() {
-             if ($(this).val() === messages.invalidData) {
-               $(this).val('');
-             }
-           })
-           .val(renderTemplate(template));
-     }) }(jQuery))</script>
+
+       return result.Name + ' (#' + result.Id + ')';
+     };
+     $('#aeos-data-select').select2({
+       placeholder: {{ (template ? template : {'id': 0, 'text': ('Invalid AEOS template id' | trans)})
+                    | json_encode | raw }},
+       ajax: {
+         url: {{ path('admin_get_templates_search') | json_encode | raw }},
+         dataType: 'json',
+         delay: 250,
+         data: function (params) {
+           return {
+             query: params.term
+           };
+         },
+         processResults: function (data, params) {
+           data.forEach(function (item) {
+             item.id = item.Id;
+           });
+
+           return {
+             results: data
+           };
+         },
+         cache: true
+       },
+       minimumInputLength: 3,
+       templateResult: renderResult,
+       templateSelection: renderResult
+     }).on('select2:select', function (event) {
+       $('#' + {{ id | json_encode | raw }}).val(event.params.data.Id);
+     });
+   }) }(jQuery))</script>
 </div>
