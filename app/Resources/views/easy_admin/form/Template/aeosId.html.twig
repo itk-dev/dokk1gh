@@ -18,7 +18,7 @@
              return messages.invalidData;
            }
 
-           return template.Name;
+           return template.Name + ' (#' + template.Id + ')';
          },
          template = {{ template | json_encode | raw }};
 
