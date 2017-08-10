@@ -4,7 +4,7 @@
   <div class="input-group">
     <input type="text" class="form-control" readonly value="{{ value }}"/>
     <span class="input-group-btn">
-      <button type="submit" formaction="{{ path('user_generate_api_key', {id: easyadmin.item.id, referer: app.request.requestUri}) }}" formmethod="post" class="btn btn-default">{{ 'Generate api key' | trans }}</button>
+      <button type="submit" tabindex="0" formaction="{{ path('user_generate_api_key', {id: easyadmin.item.id, referer: app.request.requestUri}) }}" formmethod="post" class="btn btn-default">{{ 'Generate api key' | trans }}</button>
     </span>
   </div>
 {% endblock %}
@@ -13,6 +13,16 @@
   {% if easyadmin.entity.class == 'AppBundle\\Entity\\Code' and name matches '/(start|end)Time/' %}
     {% include 'easy_admin/form/Code/date_time_range.html.twig' with {markup: parent()} %}
   {% else %}
+    {{ parent() }}
+  {% endif %}
+{% endblock %}
+
+{% block form_widget_simple %}
+  {% if easyadmin.entity.class == 'AppBundle\\Entity\\Template' and name == 'aeosId' %}
+    {% include 'easy_admin/form/Template/aeosId.html.twig' with {markup: parent()} %}
+  {% elseif easyadmin.entity.class == 'AppBundle\\Entity\\User' and name == 'aeosId' %}
+      {% include 'easy_admin/form/User/aeosId.html.twig' with {markup: parent()} %}
+    {% else %}
     {{ parent() }}
   {% endif %}
 {% endblock %}

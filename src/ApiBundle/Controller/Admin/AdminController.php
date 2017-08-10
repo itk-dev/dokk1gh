@@ -61,6 +61,22 @@ class AdminController extends Controller
 
     /**
      * @SWG\Tag(name="Person")
+     * @SWG\Parameter(name="query", type="string", description="The query", in="query"),
+     * @SWG\Response(
+     *   response=200,
+     *   description="Find people",
+     *   @SWG\Schema(
+     *     type="array"
+     *   )
+     * )
+     */
+    public function getPeopleSearchAction(Request $request)
+    {
+        return $this->searchAction($request, 'getPersons', ['PersonnelNo', 'LastName', 'FirstName']);
+    }
+
+    /**
+     * @SWG\Tag(name="Person")
      * @SWG\Response(
      *   response=200,
      *   description="Show details of a person",
@@ -95,6 +111,22 @@ class AdminController extends Controller
         $result = $this->aeosService->getTemplates($request->query->all());
 
         return $result;
+    }
+
+    /**
+     * @SWG\Tag(name="Template")
+     * @SWG\Parameter(name="query", type="string", description="The query", in="query"),
+     * @SWG\Response(
+     *   response=200,
+     *   description="Find templates",
+     *   @SWG\Schema(
+     *     type="array"
+     *   )
+     * )
+     */
+    public function getTemplatesSearchAction(Request $request)
+    {
+        return $this->searchAction($request, 'getTemplates', ['Name']);
     }
 
     /**
@@ -142,6 +174,36 @@ class AdminController extends Controller
         ];
 
         return $result;
+    }
+
+    private function searchAction(Request $request, string $method, array $keys)
+    {
+        $query = $request->query->get('query');
+
+        if (!$query) {
+            return null;
+        }
+
+        $result = [];
+
+        // Search for each word in query and intersect results.
+        $words = preg_split('/\s+/', preg_replace('/[^a-z0-9\s]/i', '', $query));
+        foreach ($words as $word) {
+            $partResult = [];
+            // Merge search results for multiple fields.
+            foreach ($keys as $key) {
+                $people = $this->aeosService->{$method}([$key => $word]);
+                if ($people) {
+                    foreach ($people as $person) {
+                        $partResult[$person->Id] = $person;
+                    }
+                }
+            }
+
+            $result = $result ? array_intersect_key($result, $partResult) : $partResult;
+        }
+
+        return array_values($result);
     }
 
     // /**
