@@ -106,6 +106,16 @@ body.new-code textarea {
 .date-time-range-time {
   display: inline-block; }
 
+/* User page */
+.user-page .panel {
+  max-width: 600px;
+  padding: 5px 25px 25px 25px;
+  margin: 20px auto;
+  background: #FFF;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+  border: none;
+  border-radius: 0; }
+
 /* Global */
 body {
   font-size: 16px;

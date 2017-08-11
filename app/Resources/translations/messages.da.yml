@@ -52,6 +52,9 @@ Period: Tidsrum
 Api key: Api-nøgle
 Generate api key: Generer api-nøgle
 
+Generate new api key: Generer ny api-nøgle
+Api-key generated: Api-nøgle genereret
+Api key copied to clipboard: Api-nøgle kopieret til udklipsholder
 
 AppBundle\Entity\Code: Kode
 AppBundle\Entity\User: Bruger

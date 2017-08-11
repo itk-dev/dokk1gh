@@ -3,7 +3,7 @@
 {# It should be possible to just change body_class, but apparently it doesn't work (cf. https://github.com/javiereguiluz/EasyAdminBundle/issues/807#issuecomment-172552196) #}
 {% block body %}
   <body id="{% block body_id %}{% endblock %}" class="easyadmin sidebar-mini {% block body_class %}{% endblock %} {{ app.request.cookies.has('_easyadmin_navigation_iscollapsed') ? 'sidebar-collapse' }}">
-    {% set wrapper_classes = [] %}
+    {% set wrapper_classes = wrapper_classes|default([]) %}
     {% if app.user == null %}
       {% set wrapper_classes = wrapper_classes|merge(['is-unauthorized']) %}
     {% endif %}
@@ -91,6 +91,9 @@
                       {% block user_menu_dropdown %}
                         <li>
                           <a href="{{ path('fos_user_change_password') }}"><i class="fa fa-key"></i> {{ 'Change password'|trans }}</a>
+                        </li>
+                        <li>
+                          <a href="{{ path('user_apikey') }}"><i class="fa fa-key"></i> {{ 'Api key'|trans }}</a>
                         </li>
                         <li>
                           <a href="{{ _logout_path }}"><i class="fa fa-sign-out"></i> {{ 'user.signout'|trans(domain = 'EasyAdminBundle') }}</a>
