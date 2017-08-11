@@ -52,6 +52,10 @@ Period: Tidsrum
 Api key: Api-nøgle
 Generate api key: Generer api-nøgle
 
+Cancel: Annuller
+
+Confirm generate new api key: Bekræft at du vil generere en ny api-nøgle.
+
 Generate new api key: Generer ny api-nøgle
 Api-key generated: Api-nøgle genereret
 Api key copied to clipboard: Api-nøgle kopieret til udklipsholder
