@@ -40,12 +40,23 @@ class UserController extends AdminController
     }
 
     /**
-     * @Route("/user/{id}/generate-api-key", name="user_generate_api_key")
-     * @Method("POST")
-     * @param User $user
+     * @Route("/user/apikey", name="user_apikey")
+     * @Method("GET")
      */
-    public function generateApiKeyAction(Request $request, User $user)
+    public function apiKeyGetAction(Request $request)
     {
+        return $this->render('User/apikey.html.twig', [
+            'user' => $this->getUser(),
+        ]);
+    }
+
+    /**
+     * @Route("/user/apikey", name="user_apikey_generate")
+     * @Method("POST")
+     */
+    public function apiKeyPostAction(Request $request)
+    {
+        $user = $this->getUser();
         $apiKey = $this->generateApiKey();
         $user->setApiKey($apiKey);
         $em = $this->get('doctrine')->getManager();
@@ -54,10 +65,7 @@ class UserController extends AdminController
 
         $this->showInfo('Api-key generated');
 
-        $refererUrl = $request->query->get('referer');
-
-        return $refererUrl ? $this->redirect(urldecode($refererUrl))
-            : $this->redirectToRoute('easyadmin', ['action' => 'show', 'entity' => 'User', 'id' => $user->getId()]);
+        return $this->apiKeyGetAction($request);
     }
 
     /**

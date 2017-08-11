@@ -1,14 +1,5 @@
 {% extends '@EasyAdmin/form/bootstrap_3_horizontal_layout.html.twig' %}
 
-{% block apikey_widget %}
-  <div class="input-group">
-    <input type="text" class="form-control" readonly value="{{ value }}"/>
-    <span class="input-group-btn">
-      <button type="submit" tabindex="0" formaction="{{ path('user_generate_api_key', {id: easyadmin.item.id, referer: app.request.requestUri}) }}" formmethod="post" class="btn btn-default">{{ 'Generate api key' | trans }}</button>
-    </span>
-  </div>
-{% endblock %}
-
 {% block datetime_widget %}
   {% if easyadmin.entity.class == 'AppBundle\\Entity\\Code' and name matches '/(start|end)Time/' %}
     {% include 'easy_admin/form/Code/date_time_range.html.twig' with {markup: parent()} %}
