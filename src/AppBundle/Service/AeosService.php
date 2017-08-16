@@ -204,7 +204,7 @@ class AeosService
 
     public function createVisit($visitor, $contactPerson, \DateTime $beginVisit, \DateTime $endVisit, $template)
     {
-        $startTime = $this->format($beginVisit);
+        $startTime = $this->formatDateTime($beginVisit);
         $endTime = $this->formatDateTime($endVisit);
         $data = [
             'VisitorId' => $visitor->Id,
