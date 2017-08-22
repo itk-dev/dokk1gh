@@ -9,7 +9,9 @@ default:
             # mink_session: default
             # mink_javascript_session: selenium2
             contexts:
-                - AppBundle\Features\Context\FeatureContext: { doctrine: '@doctrine' }
+                - AppBundle\Features\Context\FeatureContext:
+                        doctrine: '@doctrine'
+                        tokenStorage: '@security.token_storage'
                 - Behat\MinkExtension\Context\MinkContext
 
     extensions:

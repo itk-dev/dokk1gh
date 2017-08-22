@@ -4,24 +4,35 @@ namespace AppBundle\Features\Context;
 
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
+use Behat\Mink\Driver\BrowserKitDriver;
+use Behat\Mink\Exception\UnsupportedDriverActionException;
 use Behat\Symfony2Extension\Context\KernelAwareContext;
 use Behatch\Context\BaseContext;
 use Doctrine\ORM\Tools\SchemaTool;
 use Symfony\Bridge\Doctrine\ManagerRegistry;
+use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 /**
  * Defines application features from the specific context.
  */
 class FeatureContext extends BaseContext implements Context, KernelAwareContext
 {
+    /** @var KernelInterface */
     private $kernel;
+
+    /** @var \Symfony\Component\DependencyInjection\ContainerInterface */
     private $container;
 
     /**
      * @var ManagerRegistry
      */
     private $doctrine;
+
+    private $tokenStorage;
+
     /**
      * @var \Doctrine\Common\Persistence\ObjectManager
      */
@@ -36,9 +47,10 @@ class FeatureContext extends BaseContext implements Context, KernelAwareContext
      * You can also pass arbitrary arguments to the
      * context constructor through behat.yml.
      */
-    public function __construct(ManagerRegistry $doctrine)
+    public function __construct(ManagerRegistry $doctrine, TokenStorageInterface $tokenStorage)
     {
         $this->doctrine = $doctrine;
+        $this->tokenStorage = $tokenStorage;
         $this->manager = $doctrine->getManager();
         $this->schemaTool = new SchemaTool($this->manager);
         $this->classes = $this->manager->getMetadataFactory()->getAllMetadata();
@@ -64,6 +76,34 @@ class FeatureContext extends BaseContext implements Context, KernelAwareContext
     public function dropDatabase()
     {
         $this->schemaTool->dropSchema($this->classes);
+    }
+
+    /**
+     * @Given /^I am authenticated as "([^"]*)"$/
+     *
+     * @param mixed $username
+     */
+    public function iAmAuthenticatedAs($username)
+    {
+        $driver = $this->getSession()->getDriver();
+        if (!$driver instanceof BrowserKitDriver) {
+            throw new UnsupportedDriverActionException('This step is only supported by the BrowserKitDriver');
+        }
+
+        $user = $this->container->get('fos_user.user_manager')->findUserByUsernameOrEmail($username);
+
+        $client = $driver->getClient();
+        $client->getCookieJar()->set(new Cookie(session_name(), true));
+
+        $session = $client->getContainer()->get('session');
+        $providerKey = 'primary_auth'; // @TODO: Get this from request and firewall configuration.
+
+        $token = new UsernamePasswordToken($user, null, $providerKey, $user->getRoles());
+        $session->set('_security_'.$providerKey, serialize($token));
+        $session->save();
+
+        $cookie = new Cookie($session->getName(), $session->getId());
+        $client->getCookieJar()->set($cookie);
     }
 
     /**
