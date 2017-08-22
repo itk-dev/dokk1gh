@@ -16,23 +16,22 @@ use Symfony\Component\Intl\Exception\NotImplementedException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
- * Class CodeController
- * @package ApiBundle\Controller
+ * Class CodeController.
  *
  * @Rest\View(serializerGroups={"api"})
  */
 class CodeController extends Controller implements ClassResourceInterface
 {
-    /** @var \AppBundle\Service\AeosHelper  */
+    /** @var \AppBundle\Service\AeosHelper */
     private $aeosHelper;
 
-    /** @var \AppBundle\Service\TemplateManager  */
+    /** @var \AppBundle\Service\TemplateManager */
     private $templateManager;
 
-    /** @var \Doctrine\ORM\EntityManagerInterface  */
+    /** @var \Doctrine\ORM\EntityManagerInterface */
     private $entityManager;
 
-    /** @var \Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface  */
+    /** @var \Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface */
     private $authorizationChecker;
 
     public function __construct(AeosHelper $aeosHelper, TemplateManager $templateManager, EntityManagerInterface $entityManager, AuthorizationCheckerInterface $authorizationChecker)
@@ -80,7 +79,9 @@ class CodeController extends Controller implements ClassResourceInterface
      *    type="array"
      *  )
      * )
+     *
      * @param \Symfony\Component\HttpFoundation\Request $request
+     *
      * @return array
      */
     public function postAction(Request $request)
@@ -89,13 +90,13 @@ class CodeController extends Controller implements ClassResourceInterface
 
         foreach (['template', 'startTime', 'endTime'] as $key) {
             if (!isset($data[$key])) {
-                throw new \Exception('Missing data: ' . $key);
+                throw new \Exception('Missing data: '.$key);
             }
         }
 
         $template = $this->templateManager->getUserTemplate($data['template']);
         if (!$template) {
-            throw new \Exception('Invalid template: ' . $data['template']);
+            throw new \Exception('Invalid template: '.$data['template']);
         }
         $startTime = new \DateTime($data['startTime']);
         $endTime = new \DateTime($data['endTime']);
@@ -129,7 +130,10 @@ class CodeController extends Controller implements ClassResourceInterface
      *  response=204,
      *  description="Code deleted"
      * )
+     *
      * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param mixed                                     $code
+     *
      * @return array
      */
     public function deleteAction($code)

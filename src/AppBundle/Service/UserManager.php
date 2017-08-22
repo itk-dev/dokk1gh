@@ -61,7 +61,7 @@ class UserManager extends BaseUserManager
     public function notifyUserCreated(User $user, $andFlush = true)
     {
         if (null === $user->getConfirmationToken()) {
-            /** @var $tokenGenerator TokenGeneratorInterface */
+            // @var $tokenGenerator TokenGeneratorInterface
             $user->setConfirmationToken($this->tokenGenerator->generateToken());
         }
         $user->setPasswordRequestedAt(new \DateTime());

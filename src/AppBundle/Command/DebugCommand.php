@@ -47,8 +47,31 @@ class DebugCommand extends ContainerAwareCommand
             ->addHelp();
     }
 
+    public function execute(InputInterface $input, OutputInterface $output)
+    {
+        if ($this->getContainer()->get('kernel')->getEnvironment() !== 'dev') {
+            throw new RuntimeException('Command only available in "dev" environment.');
+        }
+
+        $this->input = $input;
+        $this->output = $output;
+
+        $cmd = $this->input->getArgument('cmd');
+
+        // kebab-case -> camelCase
+        $method = $this->kebab2camel($cmd);
+        if (method_exists($this, $method)) {
+            $arguments = $this->input->getArgument('arguments');
+            call_user_func_array([$this, $method], $arguments);
+        } else {
+            throw new CommandNotFoundException('Invalid command: '.$cmd);
+        }
+    }
+
     /**
      * @action Debug email sent to new user
+     *
+     * @param mixed $username
      */
     private function notifyUserCreated($username)
     {
@@ -56,7 +79,7 @@ class DebugCommand extends ContainerAwareCommand
         $user = $this->userManager->findUserByUsernameOrEmail($username);
 
         if (!$user) {
-            throw new InvalidArgumentException('No such user: ' . $username);
+            throw new InvalidArgumentException('No such user: '.$username);
         }
 
         $this->userManager->notifyUserCreated($user);
@@ -77,13 +100,15 @@ class DebugCommand extends ContainerAwareCommand
 
     /**
      * @action Debug email sent to new user
+     *
+     * @param mixed $username
      */
     private function resetPassword($username)
     {
         $user = $this->userManager->findUserByUsernameOrEmail($username);
 
         if (!$user) {
-            throw new InvalidArgumentException('No such user: ' . $username);
+            throw new InvalidArgumentException('No such user: '.$username);
         }
 
         $this->getContainer()->get('fos_user.mailer')->sendResettingEmailMessage($user);
@@ -104,35 +129,14 @@ class DebugCommand extends ContainerAwareCommand
         }));
 
         if ($commands) {
-            $this->setHelp('Commands: ' . PHP_EOL . implode(PHP_EOL, $commands));
-        }
-    }
-
-    public function execute(InputInterface $input, OutputInterface $output)
-    {
-        if ($this->getContainer()->get('kernel')->getEnvironment() !== 'dev') {
-            throw new RuntimeException('Command only available in "dev" environment.');
-        }
-
-        $this->input = $input;
-        $this->output = $output;
-
-        $cmd = $this->input->getArgument('cmd');
-
-        // kebab-case -> camelCase
-        $method = $this->kebab2camel($cmd);
-        if (method_exists($this, $method)) {
-            $arguments = $this->input->getArgument('arguments');
-            call_user_func_array([$this, $method], $arguments);
-        } else {
-            throw new CommandNotFoundException('Invalid command: ' . $cmd);
+            $this->setHelp('Commands: '.PHP_EOL.implode(PHP_EOL, $commands));
         }
     }
 
     private function camel2kebab($s)
     {
         return preg_replace_callback('/[A-Z]/', function ($matches) {
-            return '-' . strtolower($matches[0]);
+            return '-'.strtolower($matches[0]);
         }, $s);
     }
 

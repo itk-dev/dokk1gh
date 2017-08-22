@@ -69,18 +69,9 @@ class UserController extends AdminController
     }
 
     /**
-     * Generate a random string.
-     *
-     * @return string
-     */
-    private function generateApiKey($length = 30)
-    {
-        return base64_encode(random_bytes($length));
-    }
-
-    /**
      * @Route("/user/{id}/notify", name="user_notify")
      * @Method("POST")
+     *
      * @param User $user
      */
     public function notifyAction(Request $request, User $user)
@@ -92,5 +83,17 @@ class UserController extends AdminController
 
         return $refererUrl ? $this->redirect(urldecode($refererUrl))
             : $this->redirectToRoute('easyadmin', ['action' => 'edit', 'entity' => 'User', 'id' => $user->getId()]);
+    }
+
+    /**
+     * Generate a random string.
+     *
+     * @param mixed $length
+     *
+     * @return string
+     */
+    private function generateApiKey($length = 30)
+    {
+        return base64_encode(random_bytes($length));
     }
 }
