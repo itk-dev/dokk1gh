@@ -3,9 +3,9 @@
 namespace AppBundle\Mock\Controller;
 
 use AppBundle\Mock\Service\AeosWebService;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
  * @Route("/mock/")
@@ -17,7 +17,7 @@ class AeosWebServiceController extends Controller
      */
     public function aeoswsAction(AeosWebService $aeosWebService)
     {
-        $server = new \SoapServer(__DIR__ . '/wsdl/aeosws.wsdl');
+        $server = new \SoapServer(__DIR__.'/wsdl/aeosws.wsdl');
         $server->setObject($aeosWebService);
 
         $response = new Response();

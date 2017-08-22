@@ -58,7 +58,8 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
         ],
         "post-install-cmd": [
-            "@symfony-scripts"
+            "@symfony-scripts",
+            "ln -s ../../githooks/pre-commit .git/hooks/pre-commit"
         ],
         "post-update-cmd": [
             "@symfony-scripts"

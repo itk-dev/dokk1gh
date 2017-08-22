@@ -58,8 +58,9 @@ class NotificationSubscriber implements EventSubscriberInterface
             if ($messages[$eventType]) {
                 $type = get_class($subject);
                 $name = $type;
+
                 try {
-                    $name = (string)$subject;
+                    $name = (string) $subject;
                 } catch (\Exception $ex) {
                 }
                 $this->session->getFlashBag()->add('info', $this->translator->trans($messages[$eventType], [
