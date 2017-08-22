@@ -55,7 +55,7 @@
         ],
         "post-install-cmd": [
             "@symfony-scripts",
-            "ln -s ../../githooks/pre-commit .git/hooks/pre-commit"
+            "ln -sf ../../githooks/pre-commit .git/hooks/pre-commit"
         ],
         "post-update-cmd": [
             "@symfony-scripts"
