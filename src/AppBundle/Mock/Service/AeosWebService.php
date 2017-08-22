@@ -16,7 +16,7 @@ class AeosWebService
 
     public function addVisitor($params)
     {
-        return (object)[
+        return (object) [
             'Id' => 1,
             'CarrierType' => 'Visitor',
             'UnitId' => $params->UnitId,
@@ -44,10 +44,10 @@ class AeosWebService
 
     public function changeCarrierAttribute($params)
     {
-        return (object)[
+        return (object) [
             'CarrierId' => $params->CarrierId,
             // @TODO: Depend on $params->State and $params->Activated
-            'States' => (object)[
+            'States' => (object) [
                 'Blocked' => false,
                 'ExcludedFromApb' => false,
                 'AutoBlockEnabled' => true,
@@ -105,6 +105,9 @@ class AeosWebService
 
     /**
      * Filter by first (only?) property in $params.
+     *
+     * @param mixed $data
+     * @param mixed $params
      */
     private function filter($data, $params)
     {
@@ -121,7 +124,8 @@ class AeosWebService
                                 // Substring match on string value.
                                 (is_string($item->{$key}) && stripos($item->{$key}, $value) === false)
                                 // Exact match on non-string value.
-                                || (!is_string($item->{$key}) && $item->{$key} != $value))) {
+                                || (!is_string($item->{$key}) && $item->{$key} !== $value)
+                        )) {
                             return false;
                         }
                     }
@@ -136,9 +140,9 @@ class AeosWebService
 
     private function loadFixture($name, $params)
     {
-        $fixturePath = __DIR__ . '/fixtures/' . $name . '.yml';
+        $fixturePath = __DIR__.'/fixtures/'.$name.'.yml';
         if (!file_exists($fixturePath)) {
-            throw new \Exception('Fixture "' . $fixturePath . '" not found.');
+            throw new \Exception('Fixture "'.$fixturePath.'" not found.');
         }
 
         $content = file_get_contents($fixturePath);

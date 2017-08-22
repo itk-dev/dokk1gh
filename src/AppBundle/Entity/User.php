@@ -41,6 +41,11 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * @ORM\ManyToMany(targetEntity=Template::class)
+     */
+    protected $templates;
+
+    /**
      * @var string
      *
      * @Assert\AeosPersonId
@@ -55,9 +60,9 @@ class User extends BaseUser
     private $apiKey;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Template::class)
+     * Virtual property only used for displaying any AEOS person connected to this User.
      */
-    protected $templates;
+    private $aeosData;
 
     public function __construct()
     {
@@ -71,7 +76,7 @@ class User extends BaseUser
     }
 
     /**
-     * Set aeosId
+     * Set aeosId.
      *
      * @param string $aeosId
      *
@@ -85,7 +90,7 @@ class User extends BaseUser
     }
 
     /**
-     * Get aeosId
+     * Get aeosId.
      *
      * @return string
      */
@@ -105,11 +110,6 @@ class User extends BaseUser
     {
         return $this->apiKey;
     }
-
-    /**
-     * Virtual property only used for displaying any AEOS person connected to this User.
-     */
-    private $aeosData;
 
     public function setAeosData($aeosPerson)
     {

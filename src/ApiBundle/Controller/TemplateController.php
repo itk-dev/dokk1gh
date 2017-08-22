@@ -8,8 +8,7 @@ use FOS\RestBundle\Routing\ClassResourceInterface;
 use Swagger\Annotations as SWG;
 
 /**
- * Class TemplateController
- * @package ApiBundle\Controller
+ * Class TemplateController.
  *
  * @Rest\View(serializerGroups={"api"})
  */

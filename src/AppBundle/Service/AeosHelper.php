@@ -35,15 +35,15 @@ class AeosHelper
 
         $aeosContactPerson = $this->aeosService->getPerson($user->getAeosId());
         if (!$aeosContactPerson) {
-            throw new \Exception('Cannot find AEOS person: ' . $user->getAeosId());
+            throw new \Exception('Cannot find AEOS person: '.$user->getAeosId());
         }
 
         $aeosTemplate = $this->aeosService->getTemplate($template->getAeosId());
         if (!$aeosTemplate) {
-            throw new \Exception('Cannot find AEOS template: ' . $template->getAeosId());
+            throw new \Exception('Cannot find AEOS template: '.$template->getAeosId());
         }
 
-        $visitorName = 'dokk1gh: code: #' . $code->getId() . '; ' . (new \DateTime())->format(\DateTime::W3C);
+        $visitorName = 'dokk1gh: code: #'.$code->getId().'; '.(new \DateTime())->format(\DateTime::W3C);
 
         $visitor = $this->aeosService->createVisitor([
             'UnitId' => $aeosContactPerson->UnitId,

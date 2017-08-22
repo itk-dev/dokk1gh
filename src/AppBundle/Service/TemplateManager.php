@@ -13,10 +13,10 @@ class TemplateManager
     /** @var EntityManagerInterface */
     protected $entityManager;
 
-    /** @var  AuthorizationCheckerInterface */
+    /** @var AuthorizationCheckerInterface */
     protected $authorizationChecker;
 
-    /** @var  TokenStorageInterface */
+    /** @var TokenStorageInterface */
     protected $tokenStorage;
 
     public function __construct(EntityManagerInterface $entityManager, AuthorizationCheckerInterface $authorizationChecker, TokenStorageInterface $tokenStorage)
@@ -54,7 +54,8 @@ class TemplateManager
      * Get a user template by id.
      *
      * @param $id
-     * @return Template|null
+     *
+     * @return null|Template
      */
     public function getUserTemplate($id)
     {
