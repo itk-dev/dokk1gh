@@ -130,6 +130,23 @@ aoes_username: null
 aoes_password: null
 ```
 
+# Acceptance tests
+
+Clear out the acceptance test cache and set up the database:
+
+```
+SYMFONY_ENV=acceptance bin/console cache:clear --no-warmup
+SYMFONY_ENV=acceptance bin/console cache:warmup
+SYMFONY_ENV=acceptance bin/console doctrine:database:create
+```
+
+Run API tests:
+
+```
+./vendor/bin/behat
+```
+
+
 ## Styling
 
 Gulp builds stylesheets/app.css from scss/* so you need to install node dependencies via npm:

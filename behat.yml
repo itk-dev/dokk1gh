@@ -1,0 +1,24 @@
+default:
+    calls:
+        error_reporting: 16383 # E_ALL & ~E_USER_DREPRECATED
+
+    suites:
+        default:
+            type: symfony_bundle
+            bundle: AppBundle
+            # mink_session: default
+            # mink_javascript_session: selenium2
+            contexts:
+                - AppBundle\Features\Context\FeatureContext: { doctrine: '@doctrine' }
+                - Behat\MinkExtension\Context\MinkContext
+
+    extensions:
+        Behat\Symfony2Extension:
+            kernel:
+                env: acceptance
+                debug: true
+        Behat\MinkExtension:
+            sessions:
+                my_session:
+                    symfony2: ~
+            show_cmd: open -a /Applications/Firefox.app/ %s
