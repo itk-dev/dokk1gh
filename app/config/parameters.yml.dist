@@ -22,6 +22,7 @@ parameters:
 
     mailer_name: GH
     mailer_email: gh@dokk1.gh.vm
+    administrator_email: admin@dokk1.gh.vm
 
     aoes_location: http://dokk1gh.vm/mock/aeosws
     aoes_username: ~
@@ -93,3 +94,7 @@ parameters:
     # UTC
     code.defaults.startTime: 'today +7 hours'
     code.defaults.endTime: 'today +14 hours'
+
+    user.cannot_create_codes.subject: Bruger {{ app.user.email }} kan ikke oprette koder på {{ site_name }}
+    user.cannot_create_codes.body: >-
+        Bruger {{ app.user.email }} kan ikke oprette koder på {{ site_name }} ({{ site_url }}).

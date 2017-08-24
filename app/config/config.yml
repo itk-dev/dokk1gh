@@ -50,6 +50,7 @@ twig:
         format_time: '%format_time%'
         view_timezone: '%view_timezone%'
         header_image_url: "%header_image_url%"
+        administrator_email: '%administrator_email%'
         password_resetting:
             subject: '%password_resetting_subject%'
             header: '%password_resetting_header%'
