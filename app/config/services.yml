@@ -47,6 +47,7 @@ services:
                 aeos:
                     timezone: '%aeos_timezone%'
                     identifier_type: '%aeos_identifier_type%'
+                    identifier_length: '%aeos_identifier_length%'
                     block_reason: '%aeos_block_reason%'
 
     AppBundle\Service\UserManager:
