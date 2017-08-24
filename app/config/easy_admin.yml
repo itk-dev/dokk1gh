@@ -24,7 +24,7 @@ easy_admin:
         Code:
             controller: AppBundle\Controller\CodeController
             class: AppBundle\Entity\Code
-            disabled_actions: [edit]
+            disabled_actions: [show, edit]
             list:
                 actions: [-show]
                 fields:
@@ -76,6 +76,7 @@ easy_admin:
             controller: AppBundle\Controller\UserController
             roles: [ROLE_ADMIN]
             class: AppBundle\Entity\User
+            disabled_actions: [show]
             list:
                 fields:
                     - property: email
@@ -137,6 +138,7 @@ easy_admin:
         Template:
             roles: [ROLE_ADMIN]
             class: AppBundle\Entity\Template
+            disabled_actions: [show]
             list:
                 fields:
                     - property: name
