@@ -1,11 +1,15 @@
 imports:
     - { resource: config_test.yml }
 
+parameters:
+    format_datetime: 'Y-m-d H:i'
+    format_date: 'Y-m-d'
+    format_time: 'H:i'
+    locale: da
+
 framework:
     profiler:
         collect: false
-    translator:
-        enabled: false
 
 web_profiler:
     toolbar: false
