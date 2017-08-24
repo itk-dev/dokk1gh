@@ -12,6 +12,7 @@ use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints\Callback;
+use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
@@ -41,6 +42,12 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * @var string
+     * @Email
+     */
+    protected $email;
+
+    /**
      * @ORM\ManyToMany(targetEntity=Template::class)
      */
     protected $templates;
@@ -68,6 +75,13 @@ class User extends BaseUser
     {
         parent::__construct();
         $this->templates = new ArrayCollection();
+    }
+
+    public function setTemplates(ArrayCollection $templates)
+    {
+        $this->templates = $templates;
+
+        return $this;
     }
 
     public function getTemplates()
