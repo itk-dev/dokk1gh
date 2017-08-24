@@ -36,6 +36,7 @@ parameters:
 
     # Identifier type to generate
     aeos_identifier_type: 16509
+    aeos_identifier_length: 8
 
     # BLock reason used when "deleting" an identifier
     # 2: LOST

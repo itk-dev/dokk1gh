@@ -55,7 +55,7 @@ class AeosService
         return ($result && count($result) === 1) ? $result[0] : null;
     }
 
-    public function deleteIdentifier($identifier)
+    public function blockIdentifier($identifier)
     {
         $reason = $this->configuration['aeos']['block_reason'];
         $result = $this->invoke('blockToken', (object) [
@@ -67,7 +67,7 @@ class AeosService
         return $result;
     }
 
-    public function isDeleted($identifier)
+    public function isBlocked($identifier)
     {
         return $identifier && isset($identifier->Identifier->Blocked) && $identifier->Identifier->Blocked === true;
     }
@@ -140,10 +140,10 @@ class AeosService
 
     public function createIdentifier($visitor, $contactPerson)
     {
-        $code = $this->generateCode();
+        $badgeNumber = $this->generateBadgeNumber();
         $data = [
             'IdentifierType' => $this->configuration['aeos']['identifier_type'],
-            'BadgeNumber' => $code,
+            'BadgeNumber' => $badgeNumber,
             'UnitId' => $contactPerson->UnitId,
             'CarrierId' => $visitor->Id,
         ];
@@ -266,12 +266,31 @@ class AeosService
         return $result;
     }
 
-    private function generateCode()
+    private function generateBadgeNumber($length = null)
     {
-        $codeLength = 8;
-        $code = random_int(1, 9).str_pad(random_int(1, pow(10, $codeLength - 1) - 1), $codeLength - 1, '0', STR_PAD_LEFT);
+        if ($length === null) {
+            $length = isset($this->configuration['aeos']['identifier_length']) ? $this->configuration['aeos']['identifier_length'] : 8;
+        }
 
-        return $code;
+        // Loop until we find an unused code or time out.
+        for ($i = 0; $i < 100; ++$i) {
+            // A badge number must start with a non-zero digit.
+            $badgeNumber = (string) random_int(1, 9);
+            for ($j = 1; $j < $length; ++$j) {
+                $badgeNumber .= (string) random_int(0, 9);
+            }
+            $identifier = $this->getIdentifierByBadgeNumber($badgeNumber);
+            if (!$identifier) {
+                return $badgeNumber;
+            }
+        }
+
+        throw new \RuntimeException('Cannot generate unique code');
+    }
+
+    private function identifierExists($code)
+    {
+        return $this->getIdentifierByBadgeNumber($code);
     }
 
     /**
