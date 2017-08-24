@@ -53,6 +53,8 @@ Api key: Api-nøgle
 Generate api key: Generer api-nøgle
 Time range: Tidsrum
 Cancel: Annuller
+Invalid AEOS template id: Ugyldigt AEOS-skabelon-id
+Invalid AEOS person id: Ugyldigt AEOS-person-id
 
 Confirm generate new api key: Bekræft at du vil generere en ny api-nøgle.
 
