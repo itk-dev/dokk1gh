@@ -2,12 +2,14 @@
 
 namespace AppBundle\Features\Context;
 
+use AppBundle\Entity\Template;
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
 use Behat\Mink\Driver\BrowserKitDriver;
 use Behat\Mink\Exception\UnsupportedDriverActionException;
 use Behat\Symfony2Extension\Context\KernelAwareContext;
 use Behatch\Context\BaseContext;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Tools\SchemaTool;
 use Symfony\Bridge\Doctrine\ManagerRegistry;
 use Symfony\Component\BrowserKit\Cookie;
@@ -80,6 +82,7 @@ class FeatureContext extends BaseContext implements Context, KernelAwareContext
 
     /**
      * @Given /^I am authenticated as "([^"]*)"$/
+     * @When /^I authenticate as "([^"]*)"$/
      *
      * @param mixed $username
      */
@@ -128,6 +131,24 @@ class FeatureContext extends BaseContext implements Context, KernelAwareContext
     }
 
     /**
+     * @When I go to password :action url for user :email
+     *
+     * @param mixed $action
+     * @param mixed $email
+     */
+    public function iGoToPasswordResetUrlForUser($action, $email)
+    {
+        $userManager = $this->container->get('fos_user.user_manager');
+        $user = $userManager->findUserByEmail($email);
+        if (!$user) {
+            throw new \RuntimeException('No such user: '.$email);
+        }
+
+        $path = $this->container->get('router')->generate('fos_user_resetting_reset', ['token' => $user->getConfirmationToken(), 'create' => $action === 'create']);
+        $this->visitPath($path);
+    }
+
+    /**
      * @Given the following users exist:
      */
     public function theFollowingUsersExist(TableNode $table)
@@ -137,11 +158,34 @@ class FeatureContext extends BaseContext implements Context, KernelAwareContext
             $password = isset($row['password']) ? $row['password'] : uniqid();
             $roles = isset($row['roles']) ? preg_split('/\s*,\s*/', $row['roles'], -1, PREG_SPLIT_NO_EMPTY) : [];
 
-            $this->createUser($email, $password, $roles);
+            $this->createUser($email, $password, $roles, $row);
         }
     }
 
-    private function createUser(string $email, string $password, array $roles)
+    /**
+     * @Given the following :type entities exist:
+     *
+     * @param mixed $type
+     */
+    public function theFollowingEntitiesExist($type, TableNode $table)
+    {
+        $class = 'AppBundle\\Entity\\'.$type;
+        if (!class_exists($class)) {
+            throw new \RuntimeException('Class '.$class.' does not exist.');
+        }
+
+        $accessor = $this->container->get('property_accessor');
+        foreach ($table->getHash() as $row) {
+            $entity = new $class();
+            foreach ($row as $path => $value) {
+                $accessor->setValue($entity, $path, $value);
+            }
+            $this->manager->persist($entity);
+        }
+        $this->manager->flush();
+    }
+
+    private function createUser(string $email, string $password, array $roles, $data = [])
     {
         /** @var \AppBundle\Service\UserManager $userManager */
         $userManager = $this->container->get('fos_user.user_manager');
@@ -151,11 +195,21 @@ class FeatureContext extends BaseContext implements Context, KernelAwareContext
             $user = $userManager->createUser();
         }
         $user
-      ->setEnabled(true)
-      ->setUsername($email)
-      ->setPlainPassword($password)
-      ->setEmail($email)
-      ->setRoles($roles);
+            ->setEnabled(true)
+            ->setUsername($email)
+            ->setPlainPassword($password)
+            ->setEmail($email)
+            ->setRoles($roles);
+
+        if (isset($data['templates'])) {
+            $ids = preg_split('/\s*,\s*/', $data['templates'], -1, PREG_SPLIT_NO_EMPTY);
+            $templates = $this->manager->getRepository(Template::class)->findBy(['id' => $ids]);
+            $user->setTemplates(new ArrayCollection($templates));
+        }
+        if (isset($data['aeosId'])) {
+            $user->setAeosId($data['aeosId']);
+        }
+
         $userManager->updateUser($user);
     }
 }
