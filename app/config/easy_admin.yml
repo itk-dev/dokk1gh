@@ -35,12 +35,14 @@ easy_admin:
                       sortable: true
                       template: status.html.twig
                     - property: startTime
-                    - property: endTime
+                      label: Time range
+                      template: date_time_range.html.twig
                     - property: template
                     - property: note
                       sortable: false
                       template: note.html.twig
                     - property: createdAt
+                      template: datetime.html.twig
                     - property: createdBy
                       roles: [ROLE_ADMIN]
             show:
@@ -88,8 +90,10 @@ easy_admin:
                     - property: last_login
                       type: datetime
                     - property: createdAt
+                      template: datetime.html.twig
                     - property: createdBy
                     - property: updatedAt
+                      template: datetime.html.twig
                     - property: updatedBy
             new:
                 fields:
@@ -138,8 +142,10 @@ easy_admin:
                     - property: name
                     - property: aeosId
                     - property: createdAt
+                      template: datetime.html.twig
                     - property: createdBy
                     - property: updatedAt
+                      template: datetime.html.twig
                     - property: updatedBy
             form:
                 fields:
