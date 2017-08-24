@@ -7,6 +7,7 @@ use AppBundle\Service\AeosHelper;
 use AppBundle\Service\TemplateManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class CodeController extends AdminController
@@ -93,6 +94,10 @@ class CodeController extends AdminController
 
     protected function createNewCodeEntity()
     {
+        if (!$this->aeosHelper->userHasAeosId()) {
+            throw new BadRequestHttpException('User has invalid Aeos id.');
+        }
+
         $code = new Code();
 
         $timeZone = new \DateTimeZone('UTC');

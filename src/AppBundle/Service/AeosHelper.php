@@ -3,6 +3,7 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Code;
+use AppBundle\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class AeosHelper
@@ -72,5 +73,19 @@ class AeosHelper
         if ($visitor) {
             $this->aeosService->deleteVisitor($visitor);
         }
+    }
+
+    public function userHasAeosId(User $user = null)
+    {
+        try {
+            if ($user === null) {
+                $user = $this->tokenStorage->getToken()->getUser();
+            }
+
+            return $this->aeosService->getPerson($user->getAeosId()) !== null;
+        } catch (\Exception $ex) {
+        }
+
+        return false;
     }
 }
