@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Service\TemplateManager;
 use Gedmo\Blameable\Blameable;
 use JavierEguiluz\Bundle\EasyAdminBundle\Controller\AdminController as BaseAdminController;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -11,11 +12,16 @@ class AdminController extends BaseAdminController
     /** @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface */
     protected $tokenStorage;
 
+    /** @var \AppBundle\Service\TemplateManager */
+    protected $templateManager;
+
+    /** @var \Twig_Environment */
     protected $twig;
 
-    public function __construct(TokenStorageInterface $tokenStorage, \Twig_Environment $twig)
+    public function __construct(TokenStorageInterface $tokenStorage, TemplateManager $templateManager, \Twig_Environment $twig)
     {
         $this->tokenStorage = $tokenStorage;
+        $this->templateManager = $templateManager;
         $this->twig = $twig;
     }
 

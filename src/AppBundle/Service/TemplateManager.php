@@ -27,6 +27,16 @@ class TemplateManager
     }
 
     /**
+     * Get all enabled templates.
+     *
+     * @return ArrayCollection
+     */
+    public function getTemplates()
+    {
+        return $this->entityManager->getRepository(Template::class)->findBy(['enabled' => true]);
+    }
+
+    /**
      * Get templates a user is allowed to use.
      *
      * @return ArrayCollection
@@ -40,7 +50,7 @@ class TemplateManager
 
         // Non-admins can only use specified templates.
         $userTemplates = $this->authorizationChecker->isGranted('ROLE_ADMIN')
-            ? $this->entityManager->getRepository(Template::class)->findAll()
+            ? $this->entityManager->getRepository(Template::class)->findAll(['enabled' => true])
             : $this->tokenStorage->getToken()->getUser()->getTemplates();
 
         foreach ($userTemplates as $userTemplate) {

@@ -12,19 +12,15 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class CodeController extends AdminController
 {
-    /** @var \AppBundle\Service\TemplateManager */
-    protected $templateManager;
-
     /** @var AeosHelper */
     protected $aeosHelper;
 
     /** @var \Symfony\Component\DependencyInjection\ContainerInterface */
     protected $container;
 
-    public function __construct(TokenStorageInterface $tokenStorage, TemplateManager $templateManager, AeosHelper $aeosHelper, \Twig_Environment $twig, ContainerInterface $container)
+    public function __construct(TokenStorageInterface $tokenStorage, TemplateManager $templateManager, \Twig_Environment $twig, AeosHelper $aeosHelper, ContainerInterface $container)
     {
-        parent::__construct($tokenStorage, $twig);
-        $this->templateManager = $templateManager;
+        parent::__construct($tokenStorage, $templateManager, $twig);
         $this->aeosHelper = $aeosHelper;
         $this->container = $container;
     }
