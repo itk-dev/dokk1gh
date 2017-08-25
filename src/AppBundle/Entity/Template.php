@@ -29,6 +29,12 @@ class Template
     use TimestampableEntity;
 
     /**
+     * @var bool
+     * @ORM\Column(type="boolean")
+     */
+    protected $enabled = true;
+
+    /**
      * @var int
      *
      * @ORM\Column(type="integer")
@@ -73,6 +79,24 @@ class Template
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @param bool $enabled
+     */
+    public function setEnabled(bool $enabled)
+    {
+        $this->enabled = $enabled;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getEnabled()
+    {
+        return $this->enabled;
     }
 
     /**

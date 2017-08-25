@@ -76,10 +76,11 @@ easy_admin:
             controller: AppBundle\Controller\UserController
             roles: [ROLE_ADMIN]
             class: AppBundle\Entity\User
-            disabled_actions: [show]
+            disabled_actions: [show, delete]
             list:
                 fields:
                     - property: email
+                    - property: enabled
                     - property: aeosId
                     - property: roles
                       template: roles.html.twig
@@ -138,10 +139,12 @@ easy_admin:
         Template:
             roles: [ROLE_ADMIN]
             class: AppBundle\Entity\Template
-            disabled_actions: [show]
+            disabled_actions: [show, delete]
             list:
                 fields:
                     - property: name
+                    - property: enabled
+                      type: boolean
                     - property: aeosId
                     - property: createdAt
                       template: datetime.html.twig
@@ -151,5 +154,6 @@ easy_admin:
                     - property: updatedBy
             form:
                 fields:
+                    - property: enabled
                     - property: name
                     - property: aeosId
