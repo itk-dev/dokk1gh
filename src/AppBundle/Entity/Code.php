@@ -253,15 +253,17 @@ class Code implements Blameable
      */
     public function validate(ExecutionContextInterface $context)
     {
-        if ($this->getStartTime() <= new \DateTime()) {
-            $context->buildViolation('Start time must be after now.')
-                ->atPath('startTime')
-                ->addViolation();
-        }
-        if ($this->getStartTime() >= $this->getEndTime()) {
-            $context->buildViolation('End time must be greater than start time.')
-                ->atPath('endTime')
-                ->addViolation();
+        if ($this->getId() === null) {
+            if ($this->getStartTime() <= new \DateTime('-1 hour')) {
+                $context->buildViolation('Start time must be after one hour ago.')
+                    ->atPath('startTime')
+                    ->addViolation();
+            }
+            if ($this->getStartTime() >= $this->getEndTime()) {
+                $context->buildViolation('End time must be greater than start time.')
+                    ->atPath('endTime')
+                    ->addViolation();
+            }
         }
     }
 }
