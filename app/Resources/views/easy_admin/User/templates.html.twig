@@ -1,5 +1,5 @@
 {% for template in value %}
-	<a href="{{ path('easyadmin', {entity: 'Template', action: 'show', id: template.id}) }}">{{ template.name }}</a>{% if not loop.last %},{% endif %}
+	<a href="{{ path('easyadmin', {entity: 'Template', action: 'edit', id: template.id}) }}">{{ template.name }}</a>{% if not loop.last %},{% endif %}
 {% else %}
 	–
 {% endfor %}

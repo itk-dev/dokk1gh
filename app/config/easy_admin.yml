@@ -24,7 +24,7 @@ easy_admin:
         Code:
             controller: AppBundle\Controller\CodeController
             class: AppBundle\Entity\Code
-            disabled_actions: [edit]
+            disabled_actions: [show, edit]
             list:
                 actions: [-show]
                 fields:
@@ -35,12 +35,14 @@ easy_admin:
                       sortable: true
                       template: status.html.twig
                     - property: startTime
-                    - property: endTime
+                      label: Time range
+                      template: date_time_range.html.twig
                     - property: template
                     - property: note
                       sortable: false
                       template: note.html.twig
                     - property: createdAt
+                      template: datetime.html.twig
                     - property: createdBy
                       roles: [ROLE_ADMIN]
             show:
@@ -74,9 +76,11 @@ easy_admin:
             controller: AppBundle\Controller\UserController
             roles: [ROLE_ADMIN]
             class: AppBundle\Entity\User
+            disabled_actions: [show, delete]
             list:
                 fields:
                     - property: email
+                    - property: enabled
                     - property: aeosId
                     - property: roles
                       template: roles.html.twig
@@ -88,8 +92,10 @@ easy_admin:
                     - property: last_login
                       type: datetime
                     - property: createdAt
+                      template: datetime.html.twig
                     - property: createdBy
                     - property: updatedAt
+                      template: datetime.html.twig
                     - property: updatedBy
             new:
                 fields:
@@ -133,15 +139,21 @@ easy_admin:
         Template:
             roles: [ROLE_ADMIN]
             class: AppBundle\Entity\Template
+            disabled_actions: [show, delete]
             list:
                 fields:
                     - property: name
+                    - property: enabled
+                      type: boolean
                     - property: aeosId
                     - property: createdAt
+                      template: datetime.html.twig
                     - property: createdBy
                     - property: updatedAt
+                      template: datetime.html.twig
                     - property: updatedBy
             form:
                 fields:
+                    - property: enabled
                     - property: name
                     - property: aeosId

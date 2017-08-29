@@ -42,7 +42,7 @@ Created at: Oprettet
 Created by: Oprettet af
 Updated at: Opdateret
 Updated by: Opdateret af
-Email: E-mail
+Email: E-mailadresse
 Aeos id: AEOS-id
 Change password: Skift adgangskode
 Start time: Starttidspunkt
@@ -51,8 +51,13 @@ Date: Dato
 Period: Tidsrum
 Api key: Api-nøgle
 Generate api key: Generer api-nøgle
-
+Time range: Tidsrum
 Cancel: Annuller
+Invalid AEOS template id: Ugyldigt AEOS-skabelon-id
+Invalid AEOS person id: Ugyldigt AEOS-person-id
+
+'You cannot create codes.': 'Du kan ikke oprette koder.'
+'Please contact an administrator (%administrator_email%) for help.': 'Kontakt en administrator (%administrator_email%) for hjælp.'
 
 Confirm generate new api key: Bekræft at du vil generere en ny api-nøgle.
 
@@ -68,7 +73,7 @@ AppBundle\Entity\Template: Adgangsområde
 '%entity_type% %entity_name% updated': '%entity_type% "%entity_name%" opdateret'
 '%entity_type% %entity_name% removed': '%entity_type% "%entity_name%" slettet'
 
-
+'User %user% notified': 'Mail om oprettelse sendt til %user%'
 
 # @TODO
 Notify user: Notify user

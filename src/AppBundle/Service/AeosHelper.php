@@ -3,6 +3,7 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Code;
+use AppBundle\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class AeosHelper
@@ -35,15 +36,15 @@ class AeosHelper
 
         $aeosContactPerson = $this->aeosService->getPerson($user->getAeosId());
         if (!$aeosContactPerson) {
-            throw new \Exception('Cannot find AEOS person: ' . $user->getAeosId());
+            throw new \Exception('Cannot find AEOS person: '.$user->getAeosId());
         }
 
         $aeosTemplate = $this->aeosService->getTemplate($template->getAeosId());
         if (!$aeosTemplate) {
-            throw new \Exception('Cannot find AEOS template: ' . $template->getAeosId());
+            throw new \Exception('Cannot find AEOS template: '.$template->getAeosId());
         }
 
-        $visitorName = 'dokk1gh: code: #' . $code->getId() . '; ' . (new \DateTime())->format(\DateTime::W3C);
+        $visitorName = 'dokk1gh: code: #'.$code->getId().'; '.(new \DateTime())->format(\DateTime::W3C);
 
         $visitor = $this->aeosService->createVisitor([
             'UnitId' => $aeosContactPerson->UnitId,
@@ -57,14 +58,17 @@ class AeosHelper
         $code->setIdentifier($identifier->BadgeNumber);
     }
 
+    /**
+     * @param \AppBundle\Entity\Code $code
+     */
     public function deleteAeosIdentifier(Code $code)
     {
         $identifier = $this->aeosService->getIdentifierByBadgeNumber($code->getIdentifier());
         $visitor = $identifier ? $this->aeosService->getVisitorByIdentifier($identifier) : null;
         $visit = $visitor ? $this->aeosService->getVisitByVisitor($visitor) : null;
 
-        if ($identifier && !$this->aeosService->isDeleted($identifier)) {
-            $this->aeosService->deleteIdentifier($identifier);
+        if ($identifier && !$this->aeosService->isBlocked($identifier)) {
+            $this->aeosService->blockIdentifier($identifier);
         }
         if ($visit) {
             $this->aeosService->deleteVisit($visit);
@@ -72,5 +76,19 @@ class AeosHelper
         if ($visitor) {
             $this->aeosService->deleteVisitor($visitor);
         }
+    }
+
+    public function userHasAeosId(User $user = null)
+    {
+        try {
+            if ($user === null) {
+                $user = $this->tokenStorage->getToken()->getUser();
+            }
+
+            return $this->aeosService->getPerson($user->getAeosId()) !== null;
+        } catch (\Exception $ex) {
+        }
+
+        return false;
     }
 }

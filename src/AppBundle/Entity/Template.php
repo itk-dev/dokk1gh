@@ -12,7 +12,7 @@ use JMS\Serializer\Annotation as JMS;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * Template
+ * Template.
  *
  * @ORM\Entity
  * @Gedmo\SoftDeleteable
@@ -27,6 +27,12 @@ class Template
     use BlameableEntity;
     use SoftDeleteableEntity;
     use TimestampableEntity;
+
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean")
+     */
+    protected $enabled = true;
 
     /**
      * @var int
@@ -56,7 +62,17 @@ class Template
     private $aeosId;
 
     /**
-     * Get id
+     * Virtual property only used for displaying any AEOS template connected to this User.
+     */
+    private $aeosData;
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
+    /**
+     * Get id.
      *
      * @return int
      */
@@ -66,7 +82,25 @@ class Template
     }
 
     /**
-     * Set name
+     * @param bool $enabled
+     */
+    public function setEnabled(bool $enabled)
+    {
+        $this->enabled = $enabled;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * Set name.
      *
      * @param string $name
      *
@@ -80,7 +114,7 @@ class Template
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -90,7 +124,7 @@ class Template
     }
 
     /**
-     * Set aeosId
+     * Set aeosId.
      *
      * @param string $aeosId
      *
@@ -104,7 +138,7 @@ class Template
     }
 
     /**
-     * Get aeosId
+     * Get aeosId.
      *
      * @return string
      */
@@ -112,11 +146,6 @@ class Template
     {
         return $this->aeosId;
     }
-
-    /**
-     * Virtual property only used for displaying any AEOS template connected to this User.
-     */
-    private $aeosData;
 
     public function setAeosData($aeosTemplate)
     {
@@ -128,10 +157,5 @@ class Template
     public function getAeosData()
     {
         return $this->aeosData;
-    }
-
-    public function __toString()
-    {
-        return $this->getName();
     }
 }

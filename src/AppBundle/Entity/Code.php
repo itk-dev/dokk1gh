@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
- * Code
+ * Code.
  *
  * @ORM\Entity
  * @Gedmo\SoftDeleteable
@@ -83,7 +83,7 @@ class Code implements Blameable
     private $note;
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -93,7 +93,7 @@ class Code implements Blameable
     }
 
     /**
-     * Set startTime
+     * Set startTime.
      *
      * @param \DateTime $startTime
      *
@@ -107,7 +107,7 @@ class Code implements Blameable
     }
 
     /**
-     * Get startTime
+     * Get startTime.
      *
      * @return \DateTime
      */
@@ -117,7 +117,7 @@ class Code implements Blameable
     }
 
     /**
-     * Set endTime
+     * Set endTime.
      *
      * @param \DateTime $endTime
      *
@@ -131,7 +131,7 @@ class Code implements Blameable
     }
 
     /**
-     * Get endTime
+     * Get endTime.
      *
      * @return \DateTime
      */
@@ -141,7 +141,7 @@ class Code implements Blameable
     }
 
     /**
-     * Set template
+     * Set template.
      *
      * @param \AppBundle\Entity\Template $template
      *
@@ -155,7 +155,7 @@ class Code implements Blameable
     }
 
     /**
-     * Get template
+     * Get template.
      *
      * @return \AppBundle\Entity\Template
      */
@@ -165,7 +165,7 @@ class Code implements Blameable
     }
 
     /**
-     * Set identifier
+     * Set identifier.
      *
      * @param string $identifier
      *
@@ -179,7 +179,7 @@ class Code implements Blameable
     }
 
     /**
-     * Get identifier
+     * Get identifier.
      *
      * @return string
      */
@@ -189,7 +189,7 @@ class Code implements Blameable
     }
 
     /**
-     * Set aeosId
+     * Set aeosId.
      *
      * @param string $aeosId
      *
@@ -203,7 +203,7 @@ class Code implements Blameable
     }
 
     /**
-     * Get aeosId
+     * Get aeosId.
      *
      * @return string
      */
@@ -213,7 +213,7 @@ class Code implements Blameable
     }
 
     /**
-     * Set note
+     * Set note.
      *
      * @param string $note
      *
@@ -227,7 +227,7 @@ class Code implements Blameable
     }
 
     /**
-     * Get note
+     * Get note.
      *
      * @return string
      */
@@ -243,9 +243,9 @@ class Code implements Blameable
             return 'future';
         } elseif ($this->getEndTime() < $now) {
             return 'expired';
-        } else {
-            return 'active';
         }
+
+        return 'active';
     }
 
     /**
@@ -253,10 +253,17 @@ class Code implements Blameable
      */
     public function validate(ExecutionContextInterface $context)
     {
-        if ($this->getStartTime() >= $this->getEndTime()) {
-            $context->buildViolation('End time must be greater than start time.')
-                ->atPath('endTime')
-                ->addViolation();
+        if ($this->getId() === null) {
+            if ($this->getStartTime() <= new \DateTime('-1 hour')) {
+                $context->buildViolation('Start time must be after one hour ago.')
+                    ->atPath('startTime')
+                    ->addViolation();
+            }
+            if ($this->getStartTime() >= $this->getEndTime()) {
+                $context->buildViolation('End time must be greater than start time.')
+                    ->atPath('endTime')
+                    ->addViolation();
+            }
         }
     }
 }

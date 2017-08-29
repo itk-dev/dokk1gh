@@ -1,7 +1,8 @@
 'This email is already in use.': 'Denne e-mail er allerede i brug.'
 'This aeosId is already in use.': 'Dette AEOS-id er allerede i brug.'
 'At least one template is required.': 'Vælg venligst mindst ét adgangsområde.'
+'Start time must be after one hour ago.': 'Starttidspunktet må ikke ligge tidligere end for en time siden.'
 'End time must be greater than start time.': 'Sluttidspunktet skal være efter starttidspunktet.'
-
+'This value is not a valid email address.': 'Indtast venligst en gyldig e-mailadresse.'
 '"{{ string }}" is not a valid AEOS person id.': '"{{ string }}" er ikke et gyldigt AEOS-person-id.'
 '"{{ string }}" is not a valid AEOS template id.': '"{{ string }}" er ikke et gyldigt AEOS-skabelon-id.'

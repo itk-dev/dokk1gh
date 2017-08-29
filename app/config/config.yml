@@ -45,7 +45,12 @@ twig:
         locale: '%locale%'
         form_format_date: '%form_format_date%'
         form_format_date_js: '%form_format_date_js%'
+        format_datetime: '%format_datetime%'
+        format_date: '%format_date%'
+        format_time: '%format_time%'
+        view_timezone: '%view_timezone%'
         header_image_url: "%header_image_url%"
+        administrator_email: '%administrator_email%'
         password_resetting:
             subject: '%password_resetting_subject%'
             header: '%password_resetting_header%'
@@ -53,9 +58,6 @@ twig:
             button:
                 text: '%password_resetting_button_text%'
             footer: '%password_resetting_footer%'
-        code_generate_email:
-            subject: '%code_generate_email.subject%'
-            body: '%code_generate_email.body%'
         sender:
             email: '%mailer_email%'
             name: '%mailer_name%'

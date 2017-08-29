@@ -13,10 +13,10 @@ class TemplateManager
     /** @var EntityManagerInterface */
     protected $entityManager;
 
-    /** @var  AuthorizationCheckerInterface */
+    /** @var AuthorizationCheckerInterface */
     protected $authorizationChecker;
 
-    /** @var  TokenStorageInterface */
+    /** @var TokenStorageInterface */
     protected $tokenStorage;
 
     public function __construct(EntityManagerInterface $entityManager, AuthorizationCheckerInterface $authorizationChecker, TokenStorageInterface $tokenStorage)
@@ -24,6 +24,16 @@ class TemplateManager
         $this->entityManager = $entityManager;
         $this->authorizationChecker = $authorizationChecker;
         $this->tokenStorage = $tokenStorage;
+    }
+
+    /**
+     * Get all enabled templates.
+     *
+     * @return ArrayCollection
+     */
+    public function getTemplates()
+    {
+        return $this->entityManager->getRepository(Template::class)->findBy(['enabled' => true]);
     }
 
     /**
@@ -40,7 +50,7 @@ class TemplateManager
 
         // Non-admins can only use specified templates.
         $userTemplates = $this->authorizationChecker->isGranted('ROLE_ADMIN')
-            ? $this->entityManager->getRepository(Template::class)->findAll()
+            ? $this->entityManager->getRepository(Template::class)->findAll(['enabled' => true])
             : $this->tokenStorage->getToken()->getUser()->getTemplates();
 
         foreach ($userTemplates as $userTemplate) {
@@ -54,7 +64,8 @@ class TemplateManager
      * Get a user template by id.
      *
      * @param $id
-     * @return Template|null
+     *
+     * @return null|Template
      */
     public function getUserTemplate($id)
     {

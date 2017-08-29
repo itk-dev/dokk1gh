@@ -12,6 +12,7 @@ use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints\Callback;
+use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
@@ -42,6 +43,17 @@ class User extends BaseUser
 
     /**
      * @var string
+     * @Email
+     */
+    protected $email;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Template::class)
+     */
+    protected $templates;
+
+    /**
+     * @var string
      *
      * @Assert\AeosPersonId
      *
@@ -55,14 +67,21 @@ class User extends BaseUser
     private $apiKey;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Template::class)
+     * Virtual property only used for displaying any AEOS person connected to this User.
      */
-    protected $templates;
+    private $aeosData;
 
     public function __construct()
     {
         parent::__construct();
         $this->templates = new ArrayCollection();
+    }
+
+    public function setTemplates(ArrayCollection $templates)
+    {
+        $this->templates = $templates;
+
+        return $this;
     }
 
     public function getTemplates()
@@ -71,7 +90,7 @@ class User extends BaseUser
     }
 
     /**
-     * Set aeosId
+     * Set aeosId.
      *
      * @param string $aeosId
      *
@@ -85,7 +104,7 @@ class User extends BaseUser
     }
 
     /**
-     * Get aeosId
+     * Get aeosId.
      *
      * @return string
      */
@@ -105,11 +124,6 @@ class User extends BaseUser
     {
         return $this->apiKey;
     }
-
-    /**
-     * Virtual property only used for displaying any AEOS person connected to this User.
-     */
-    private $aeosData;
 
     public function setAeosData($aeosPerson)
     {

@@ -3,9 +3,11 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
+use AppBundle\Service\TemplateManager;
 use AppBundle\Service\UserManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -13,9 +15,9 @@ class UserController extends AdminController
 {
     private $userManager;
 
-    public function __construct(TokenStorageInterface $tokenStorage, UserManager $userManager, \Twig_Environment $twig)
+    public function __construct(TokenStorageInterface $tokenStorage, TemplateManager $templateManager, \Twig_Environment $twig, UserManager $userManager)
     {
-        parent::__construct($tokenStorage, $twig);
+        parent::__construct($tokenStorage, $templateManager, $twig);
         $this->userManager = $userManager;
     }
 
@@ -69,18 +71,9 @@ class UserController extends AdminController
     }
 
     /**
-     * Generate a random string.
-     *
-     * @return string
-     */
-    private function generateApiKey($length = 30)
-    {
-        return base64_encode(random_bytes($length));
-    }
-
-    /**
      * @Route("/user/{id}/notify", name="user_notify")
      * @Method("POST")
+     *
      * @param User $user
      */
     public function notifyAction(Request $request, User $user)
@@ -92,5 +85,41 @@ class UserController extends AdminController
 
         return $refererUrl ? $this->redirect(urldecode($refererUrl))
             : $this->redirectToRoute('easyadmin', ['action' => 'edit', 'entity' => 'User', 'id' => $user->getId()]);
+    }
+
+    /**
+     * Custom User form builder to make sure that only some templates are available.
+     *
+     * @param \AppBundle\Entity\User $user
+     * @param $view
+     *
+     * @return \Symfony\Component\Form\FormBuilder
+     */
+    protected function createUserEntityFormBuilder(User $user, $view)
+    {
+        $builder = parent::createEntityFormBuilder($user, $view);
+        if ($builder->has('templates')) {
+            $field = $builder->get('templates');
+            $options = $field->getOptions();
+            $options['choices'] = $this->templateManager->getTemplates();
+            // We have to unset the "choice_loader" to make "choices" work.
+            unset($options['choice_loader']);
+            // Replace the field (see https://stackoverflow.com/a/14699235).
+            $builder->add($field->getName(), EntityType::class, $options);
+        }
+
+        return $builder;
+    }
+
+    /**
+     * Generate a random string.
+     *
+     * @param mixed $length
+     *
+     * @return string
+     */
+    private function generateApiKey($length = 30)
+    {
+        return base64_encode(random_bytes($length));
     }
 }

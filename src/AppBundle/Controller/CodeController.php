@@ -7,23 +7,20 @@ use AppBundle\Service\AeosHelper;
 use AppBundle\Service\TemplateManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class CodeController extends AdminController
 {
-    /** @var \AppBundle\Service\TemplateManager */
-    protected $templateManager;
-
     /** @var AeosHelper */
     protected $aeosHelper;
 
     /** @var \Symfony\Component\DependencyInjection\ContainerInterface */
     protected $container;
 
-    public function __construct(TokenStorageInterface $tokenStorage, TemplateManager $templateManager, AeosHelper $aeosHelper, \Twig_Environment $twig, ContainerInterface $container)
+    public function __construct(TokenStorageInterface $tokenStorage, TemplateManager $templateManager, \Twig_Environment $twig, AeosHelper $aeosHelper, ContainerInterface $container)
     {
-        parent::__construct($tokenStorage, $twig);
-        $this->templateManager = $templateManager;
+        parent::__construct($tokenStorage, $templateManager, $twig);
         $this->aeosHelper = $aeosHelper;
         $this->container = $container;
     }
@@ -59,7 +56,7 @@ class CodeController extends AdminController
             //
             // @see https://stackoverflow.com/a/15269307
             // @see http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/dql-doctrine-query-language.html
-            $builder->addSelect('CASE WHEN CURRENT_TIMESTAMP() BETWEEN ' . $alias . '.startTime AND ' . $alias . '.endTime THEN 0 WHEN ' . $alias . '.startTime > CURRENT_TIMESTAMP() THEN -1 ELSE -2 END HIDDEN sortValue');
+            $builder->addSelect('CASE WHEN CURRENT_TIMESTAMP() BETWEEN '.$alias.'.startTime AND '.$alias.'.endTime THEN 0 WHEN '.$alias.'.startTime > CURRENT_TIMESTAMP() THEN -1 ELSE -2 END HIDDEN sortValue');
             $builder->addOrderBy('sortValue', $sortDirection);
         }
 
@@ -71,6 +68,7 @@ class CodeController extends AdminController
      *
      * @param \AppBundle\Entity\Code $code
      * @param $view
+     *
      * @return \Symfony\Component\Form\FormBuilder
      */
     protected function createCodeEntityFormBuilder(Code $code, $view)
@@ -92,6 +90,10 @@ class CodeController extends AdminController
 
     protected function createNewCodeEntity()
     {
+        if (!$this->aeosHelper->userHasAeosId()) {
+            throw new BadRequestHttpException('User has invalid Aeos id.');
+        }
+
         $code = new Code();
 
         $timeZone = new \DateTimeZone('UTC');

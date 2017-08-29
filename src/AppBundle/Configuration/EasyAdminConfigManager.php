@@ -16,14 +16,14 @@ class EasyAdminConfigManager extends ConfigManager
     /** @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface */
     protected $tokenStorage;
 
+    private $cache = [];
+
     public function __construct(AuthorizationCheckerInterface $authorizationChecker, TokenStorageInterface $tokenStorage, CacheManager $cacheManager, PropertyAccessorInterface $propertyAccessor, array $originalBackendConfig = [], $debug = false)
     {
         parent::__construct($cacheManager, $propertyAccessor, $originalBackendConfig, $debug);
         $this->authorizationChecker = $authorizationChecker;
         $this->tokenStorage = $tokenStorage;
     }
-
-    private $cache = [];
 
     public function getBackendConfig($propertyPath = null)
     {
@@ -105,7 +105,7 @@ class EasyAdminConfigManager extends ConfigManager
     // @see http://stackoverflow.com/a/173479
     private static function isAssoc(array $arr)
     {
-        if (array() === $arr) {
+        if ([] === $arr) {
             return false;
         }
 

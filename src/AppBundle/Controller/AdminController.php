@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Service\TemplateManager;
 use Gedmo\Blameable\Blameable;
 use JavierEguiluz\Bundle\EasyAdminBundle\Controller\AdminController as BaseAdminController;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -11,11 +12,16 @@ class AdminController extends BaseAdminController
     /** @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface */
     protected $tokenStorage;
 
+    /** @var \AppBundle\Service\TemplateManager */
+    protected $templateManager;
+
+    /** @var \Twig_Environment */
     protected $twig;
 
-    public function __construct(TokenStorageInterface $tokenStorage, \Twig_Environment $twig)
+    public function __construct(TokenStorageInterface $tokenStorage, TemplateManager $templateManager, \Twig_Environment $twig)
     {
         $this->tokenStorage = $tokenStorage;
+        $this->templateManager = $templateManager;
         $this->twig = $twig;
     }
 
@@ -36,36 +42,6 @@ class AdminController extends BaseAdminController
         $this->limitByUser($dqlFilter, $entityClass, 'entity');
 
         return parent::createSearchQueryBuilder($entityClass, $searchQuery, $searchableFields, $sortField, $sortDirection, $dqlFilter);
-    }
-
-    private function limitByUser(string &$dqlFilter = null, string $entityClass, string $alias)
-    {
-        $limitByUserFilter = $this->getLimitByUserFilter($entityClass, $alias);
-        if ($limitByUserFilter) {
-            if ($dqlFilter) {
-                $dqlFilter .= ' and ' . $limitByUserFilter;
-            } else {
-                $dqlFilter = $limitByUserFilter;
-            }
-        }
-    }
-
-    private function getLimitByUserFilter(string $entityClass, string $alias)
-    {
-        // instanceof does not work with string as first operand.
-        if (!is_subclass_of($entityClass, Blameable::class)) {
-            return null;
-        }
-
-        /** @var \Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface $authorizationChecker */
-        $authorizationChecker = $this->get('security.authorization_checker');
-        if (!$authorizationChecker->isGranted('ROLE_ADMIN')) {
-            $user = $this->tokenStorage->getToken()->getUser();
-
-            return $alias . '.createdBy = ' . $user->getId();
-        }
-
-        return null;
     }
 
     protected function showSuccess(string $message, array $parameters = [])
@@ -99,5 +75,35 @@ class AdminController extends BaseAdminController
         }
 
         $this->addFlash($type, $translator->trans($message, $parameters));
+    }
+
+    private function limitByUser(string &$dqlFilter = null, string $entityClass, string $alias)
+    {
+        $limitByUserFilter = $this->getLimitByUserFilter($entityClass, $alias);
+        if ($limitByUserFilter) {
+            if ($dqlFilter) {
+                $dqlFilter .= ' and '.$limitByUserFilter;
+            } else {
+                $dqlFilter = $limitByUserFilter;
+            }
+        }
+    }
+
+    private function getLimitByUserFilter(string $entityClass, string $alias)
+    {
+        // instanceof does not work with string as first operand.
+        if (!is_subclass_of($entityClass, Blameable::class)) {
+            return null;
+        }
+
+        /** @var \Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface $authorizationChecker */
+        $authorizationChecker = $this->get('security.authorization_checker');
+        if (!$authorizationChecker->isGranted('ROLE_ADMIN')) {
+            $user = $this->tokenStorage->getToken()->getUser();
+
+            return $alias.'.createdBy = '.$user->getId();
+        }
+
+        return null;
     }
 }

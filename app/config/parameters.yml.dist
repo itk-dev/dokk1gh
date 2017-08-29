@@ -22,6 +22,7 @@ parameters:
 
     mailer_name: GH
     mailer_email: gh@dokk1.gh.vm
+    administrator_email: admin@dokk1.gh.vm
 
     aoes_location: http://dokk1gh.vm/mock/aeosws
     aoes_username: ~
@@ -36,6 +37,7 @@ parameters:
 
     # Identifier type to generate
     aeos_identifier_type: 16509
+    aeos_identifier_length: 8
 
     # BLock reason used when "deleting" an identifier
     # 2: LOST
@@ -84,7 +86,11 @@ parameters:
     code_generate_email.body: |
         Her er din adgangskode til Dokk1: {{ code.identifier }}
 
-        Koden giver adgang {{ code.startTime | date('d/m/Y H:i') }}–{{ code.endTime | date('d/m/Y H:i') }}.
+        Koden giver adgang til “{{ code.template.name }}” i tidsrummet {% if (code.startTime | date('Y-m-d')) == (code.endTime | date('Y-m-d')) -%}
+        {{ code.startTime | date(format_date, view_timezone) }} {{ code.startTime | date(format_time, view_timezone) }}–{{ code.endTime | date(format_time, view_timezone) }}
+        {%- else -%}
+        {{ code.startTime | date(format_datetime, view_timezone) }}–{{ code.endTime | date(format_datetime, view_timezone) }}
+        {%- endif -%}.
 
         Venlig hilsen
         {{ site_name }}
@@ -92,3 +98,7 @@ parameters:
     # UTC
     code.defaults.startTime: 'today +7 hours'
     code.defaults.endTime: 'today +14 hours'
+
+    user.cannot_create_codes.subject: Bruger {{ app.user.email }} kan ikke oprette koder på {{ site_name }}
+    user.cannot_create_codes.body: >-
+        Bruger {{ app.user.email }} kan ikke oprette koder på {{ site_name }} ({{ site_url }}).

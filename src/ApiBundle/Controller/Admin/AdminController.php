@@ -30,8 +30,10 @@ class AdminController extends Controller
      *    type="array"
      *  )
      * )
+     *
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @return array|null
+     *
+     * @return null|array
      */
     public function getUnitsAction(Request $request)
     {
@@ -49,8 +51,10 @@ class AdminController extends Controller
      *     type="array"
      *   )
      * )
+     *
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @return array|null
+     *
+     * @return null|array
      */
     public function getPeopleAction(Request $request)
     {
@@ -84,8 +88,10 @@ class AdminController extends Controller
      *     type="array"
      *   )
      * )
+     *
      * @param $id
-     * @return mixed|null
+     *
+     * @return null|mixed
      */
     public function getPersonAction($id)
     {
@@ -103,8 +109,10 @@ class AdminController extends Controller
      *    type="array"
      *  )
      * )
+     *
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @return array|null
+     *
+     * @return null|array
      */
     public function getTemplatesAction(Request $request)
     {
@@ -138,8 +146,10 @@ class AdminController extends Controller
      *     type="array"
      *   )
      * )
+     *
      * @param $id
-     * @return mixed|null
+     *
+     * @return null|mixed
      */
     public function getTemplateAction($id)
     {
@@ -158,7 +168,9 @@ class AdminController extends Controller
      *    type="array"
      *  )
      * )
+     *
      * @param $code
+     *
      * @return array
      */
     public function getCodeAction($code)

@@ -4,6 +4,7 @@ namespace AppBundle\Service;
 
 class AeosService
 {
+    const ACTIVATE_VERIFICATION = 'ActivateVerification';
     private $configuration;
 
     // Debugging.
@@ -15,43 +16,6 @@ class AeosService
         $this->configuration = $configuration;
     }
 
-    private function invoke($method)
-    {
-        $configuration = $this->configuration['client'];
-        $options = isset($configuration['context']) ? $configuration['context'] : [];
-        $context = stream_context_create($options);
-
-        $location = $configuration['location'];
-        $username = $configuration['username'];
-        $password = $configuration['password'];
-        $debug = isset($configuration['debug']) ? $configuration['debug'] : false;
-
-        $client = new \SoapClient($location . '?wsdl', [
-            'location' => $location,
-            'login' => $username,
-            'password' => $password,
-            'stream_context' => $context,
-            'trace' => $debug,
-        ]);
-
-        $result = null;
-        if (func_num_args() > 1) {
-            $arguments = array_slice(func_get_args(), 1);
-            $result = call_user_func_array([$client, $method], $arguments);
-        } else {
-            $result = call_user_func([$client, $method]);
-        }
-
-        if ($debug) {
-            $this->lastRequest = $client->__getLastRequest();
-            $this->lastResponse = $client->__getLastResponse();
-        }
-
-        return $result;
-    }
-
-    const ACTIVATE_VERIFICATION = 'ActivateVerification';
-
     public function setVerificationState($carrier, bool $activated)
     {
         return $this->setCarrierState($carrier, self::ACTIVATE_VERIFICATION, $activated);
@@ -59,7 +23,7 @@ class AeosService
 
     public function setCarrierState($carrier, string $state, bool $activated)
     {
-        return $this->invoke('changeCarrierAttribute', (object)[
+        return $this->invoke('changeCarrierAttribute', (object) [
             'CarrierId' => $carrier->Id,
             'State' => $state,
             'Activated' => $activated,
@@ -79,7 +43,7 @@ class AeosService
             'IdentifierType' => $this->configuration['aeos']['identifier_type'],
         ];
 
-        $result = $this->invoke('findToken', (object)['IdentifierSearch' => $query, 'SearchRange' => $searchRange]);
+        $result = $this->invoke('findToken', (object) ['IdentifierSearch' => $query, 'SearchRange' => $searchRange]);
 
         return !isset($result->IdentifierAndCarrierId) ? null : (is_array($result->IdentifierAndCarrierId) ? $result->IdentifierAndCarrierId : [$result->IdentifierAndCarrierId]);
     }
@@ -91,10 +55,10 @@ class AeosService
         return ($result && count($result) === 1) ? $result[0] : null;
     }
 
-    public function deleteIdentifier($identifier)
+    public function blockIdentifier($identifier)
     {
         $reason = $this->configuration['aeos']['block_reason'];
-        $result = $this->invoke('blockToken', (object)[
+        $result = $this->invoke('blockToken', (object) [
             'IdentifierType' => $identifier->Identifier->IdentifierType,
             'BadgeNumber' => $identifier->Identifier->BadgeNumber,
             'Reason' => $reason,
@@ -103,7 +67,7 @@ class AeosService
         return $result;
     }
 
-    public function isDeleted($identifier)
+    public function isBlocked($identifier)
     {
         return $identifier && isset($identifier->Identifier->Blocked) && $identifier->Identifier->Blocked === true;
     }
@@ -111,7 +75,7 @@ class AeosService
     public function getVisitors(array $query = [])
     {
         list($query, $searchRange) = $this->splitQuery($query);
-        $result = $this->invoke('findVisitor', (object)['VisitorInfo' => $query, 'SearchRange' => $searchRange]);
+        $result = $this->invoke('findVisitor', (object) ['VisitorInfo' => $query, 'SearchRange' => $searchRange]);
 
         if (!isset($result->Visitor)) {
             return null;
@@ -145,7 +109,7 @@ class AeosService
     {
         list($query, $searchRange) = $this->splitQuery($query);
         $query['SearchRange'] = $searchRange;
-        $result = $this->invoke('findVisit', (object)$query);
+        $result = $this->invoke('findVisit', (object) $query);
 
         return !isset($result->Visit) ? null : (is_array($result->Visit) ? $result->Visit : [$result->Visit]);
     }
@@ -171,28 +135,20 @@ class AeosService
 
     public function createVisitor(array $data)
     {
-        return (object)$this->invoke('addVisitor', $data);
+        return (object) $this->invoke('addVisitor', $data);
     }
 
     public function createIdentifier($visitor, $contactPerson)
     {
-        $code = $this->generateCode();
+        $badgeNumber = $this->generateBadgeNumber();
         $data = [
             'IdentifierType' => $this->configuration['aeos']['identifier_type'],
-            'BadgeNumber' => $code,
+            'BadgeNumber' => $badgeNumber,
             'UnitId' => $contactPerson->UnitId,
             'CarrierId' => $visitor->Id,
         ];
 
-        return (object)$this->invoke('assignToken', $data);
-    }
-
-    private function generateCode()
-    {
-        $codeLength = 8;
-        $code = random_int(1, 9) . str_pad(random_int(1, pow(10, $codeLength - 1) - 1), $codeLength - 1, '0', STR_PAD_LEFT);
-
-        return $code;
+        return (object) $this->invoke('assignToken', $data);
     }
 
     public function updateVisitor($id, array $data)
@@ -221,29 +177,13 @@ class AeosService
             ],
         ];
 
-        return $this->invoke('addVisit', (object)$data);
-    }
-
-    /**
-     * Format date and time for AEOS service.
-     *
-     * @param \DateTime $date
-     * @return string
-     */
-    private function formatDateTime(\DateTime $date)
-    {
-        $dateFormat = 'Y-m-d\TH:i:s';
-        $date = clone $date;
-        $timeZone = new \DateTimeZone($this->configuration['aeos']['timezone']);
-        $date->setTimezone($timeZone);
-
-        return $date->format($dateFormat);
+        return $this->invoke('addVisit', (object) $data);
     }
 
     public function getUnits(array $query = [])
     {
         list($query, $searchRange) = $this->splitQuery($query);
-        $result = $this->invoke('findUnit', (object)['UnitSearchInfo' => $query, 'SearchRange' => $searchRange]);
+        $result = $this->invoke('findUnit', (object) ['UnitSearchInfo' => $query, 'SearchRange' => $searchRange]);
 
         return !isset($result->Unit) ? null : (is_array($result->Unit) ? $result->Unit : [$result->Unit]);
     }
@@ -251,7 +191,7 @@ class AeosService
     public function getPersons(array $query = [])
     {
         list($query, $searchRange) = $this->splitQuery($query);
-        $result = $this->invoke('findPerson', (object)['PersonInfo' => $query, 'SearchRange' => $searchRange]);
+        $result = $this->invoke('findPerson', (object) ['PersonInfo' => $query, 'SearchRange' => $searchRange]);
 
         return !isset($result->Person) ? null : (is_array($result->Person) ? $result->Person : [$result->Person]);
     }
@@ -269,7 +209,7 @@ class AeosService
         $query += [
             'UnitOfAuthType' => 'OnLine',
         ];
-        $result = $this->invoke('findTemplate', (object)['TemplateInfo' => $query, 'SearchRange' => $searchRange]);
+        $result = $this->invoke('findTemplate', (object) ['TemplateInfo' => $query, 'SearchRange' => $searchRange]);
 
         return !isset($result->Template) ? null : (is_array($result->Template) ? $result->Template : [$result->Template]);
     }
@@ -289,6 +229,85 @@ class AeosService
     public function getLastResponse()
     {
         return $this->lastResponse;
+    }
+
+    private function invoke($method)
+    {
+        $configuration = $this->configuration['client'];
+        $options = isset($configuration['context']) ? $configuration['context'] : [];
+        $context = stream_context_create($options);
+
+        $location = $configuration['location'];
+        $username = $configuration['username'];
+        $password = $configuration['password'];
+        $debug = isset($configuration['debug']) ? $configuration['debug'] : false;
+
+        $client = new \SoapClient($location.'?wsdl', [
+            'location' => $location,
+            'login' => $username,
+            'password' => $password,
+            'stream_context' => $context,
+            'trace' => $debug,
+        ]);
+
+        $result = null;
+        if (func_num_args() > 1) {
+            $arguments = array_slice(func_get_args(), 1);
+            $result = call_user_func_array([$client, $method], $arguments);
+        } else {
+            $result = call_user_func([$client, $method]);
+        }
+
+        if ($debug) {
+            $this->lastRequest = $client->__getLastRequest();
+            $this->lastResponse = $client->__getLastResponse();
+        }
+
+        return $result;
+    }
+
+    private function generateBadgeNumber($length = null)
+    {
+        if ($length === null) {
+            $length = isset($this->configuration['aeos']['identifier_length']) ? $this->configuration['aeos']['identifier_length'] : 8;
+        }
+
+        // Loop until we find an unused code or time out.
+        for ($i = 0; $i < 100; ++$i) {
+            // A badge number must start with a non-zero digit.
+            $badgeNumber = (string) random_int(1, 9);
+            for ($j = 1; $j < $length; ++$j) {
+                $badgeNumber .= (string) random_int(0, 9);
+            }
+            $identifier = $this->getIdentifierByBadgeNumber($badgeNumber);
+            if (!$identifier) {
+                return $badgeNumber;
+            }
+        }
+
+        throw new \RuntimeException('Cannot generate unique code');
+    }
+
+    private function identifierExists($code)
+    {
+        return $this->getIdentifierByBadgeNumber($code);
+    }
+
+    /**
+     * Format date and time for AEOS service.
+     *
+     * @param \DateTime $date
+     *
+     * @return string
+     */
+    private function formatDateTime(\DateTime $date)
+    {
+        $dateFormat = 'Y-m-d\TH:i:s';
+        $date = clone $date;
+        $timeZone = new \DateTimeZone($this->configuration['aeos']['timezone']);
+        $date->setTimezone($timeZone);
+
+        return $date->format($dateFormat);
     }
 
     /**
