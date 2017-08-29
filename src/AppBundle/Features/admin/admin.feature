@@ -84,6 +84,9 @@ Feature: admin
 
     When I follow "Kode"
     And I follow "Opret Kode"
+    And I fill in "Dato" with date "tomorrow"
+    And I fill in "code[startTime]" with datetime "today +10 hours"
+    And I fill in "code[endTime]" with datetime "today +16 hours"
     And I fill in "Intern note" with "A note for my first code"
     And press "Gem"
     Then I should be on url matching "/?action=list&entity=Code"

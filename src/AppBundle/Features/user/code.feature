@@ -17,27 +17,33 @@ Feature: Create code
 
   @createSchema
   Scenario: Create code
-    And I go to "/?action=new&entity=Code"
-    And I fill in "code[startTime]" with "2017-08-24T08:00:00+02:00"
-    And I fill in "code[endTime]" with "2017-08-01T16:00:00+02:00"
+    When I go to "/?action=new&entity=Code"
+    And I fill in "code[startTime]" with datetime "-2 hours"
+    And I fill in "code[endTime]" with datetime "+2 hours"
     And I fill in "Intern note" with "Behat test"
+    And I press "Gem"
+    Then I should see "Starttidspunktet må ikke ligge tidligere end for en time siden" in the ".error-block" element
+
+    When I fill in "code[startTime]" with datetime "+4 hours"
+    And I fill in "code[endTime]" with datetime "+2 hours"
     And I press "Gem"
     Then I should see "Sluttidspunktet skal være efter starttidspunktet" in the ".error-block" element
 
-    When I fill in "code[endTime]" with "2017-08-24T16:00:00+02:00"
+    When I fill in "code[startTime]" with "2020-08-25T08:00:00+02:00"
+    And I fill in "code[endTime]" with "2020-08-25T16:00:00+02:00"
     And I press "Gem"
     Then I should be on url matching "/?action=list&entity=Code"
-    And I should see "2017-08-24 08:00–16:00"
+    And I should see "2020-08-25 08:00–16:00"
 
   Scenario: Create code spanning multiple days
     When I go to "/?action=list&entity=Code"
     And I follow "Opret Kode"
-    And I fill in "code[startTime]" with "2017-08-25T10:00:00+02:00"
-    And I fill in "code[endTime]" with "2017-08-26T14:00:00+02:00"
+    And I fill in "code[startTime]" with "2020-08-25T10:00:00+02:00"
+    And I fill in "code[endTime]" with "2020-08-26T14:00:00+02:00"
     And I fill in "Intern note" with "Behat test"
     And I press "Gem"
     Then I should be on url matching "/?action=list&entity=Code"
-    And I should see "2017-08-25 10:00–2017-08-26 14:00"
+    And I should see "2020-08-25 10:00–2020-08-26 14:00"
 
   @dropSchema
   Scenario: Drop schema

@@ -36,7 +36,6 @@ Feature: admin
     When I fill in "AEOS-id" with "1"
     And press "Gem"
     Then I should be on url matching "/?action=list&entity=User"
-    And show last response
     And I should see "Mail om oprettelse sendt til user@example.com" in the ".alert-info" element
 
   Scenario: Set user password
