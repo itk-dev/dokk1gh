@@ -25,14 +25,14 @@ class AeosCommand extends AbstractBaseCommand
      *
      * @command
      */
-    private function listIdentifiers()
+    protected function listIdentifiers()
     {
     }
 
     /**
      * @command
      */
-    private function cleanUpIdentifiers()
+    protected function cleanUpIdentifiers()
     {
     }
 }

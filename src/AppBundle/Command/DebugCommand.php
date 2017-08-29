@@ -33,7 +33,7 @@ class DebugCommand extends AbstractBaseCommand
      *
      * @param mixed $username
      */
-    private function notifyUserCreated($username)
+    protected function notifyUserCreated($username)
     {
         /** @var \AppBundle\Entity\User $user */
         $user = $this->userManager->findUserByUsernameOrEmail($username);
@@ -63,7 +63,7 @@ class DebugCommand extends AbstractBaseCommand
      *
      * @param string $username the username (email)
      */
-    private function resetPassword($username)
+    protected function resetPassword($username)
     {
         $user = $this->userManager->findUserByUsernameOrEmail($username);
 
