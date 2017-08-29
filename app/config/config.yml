@@ -58,9 +58,6 @@ twig:
             button:
                 text: '%password_resetting_button_text%'
             footer: '%password_resetting_footer%'
-        code_generate_email:
-            subject: '%code_generate_email.subject%'
-            body: '%code_generate_email.body%'
         sender:
             email: '%mailer_email%'
             name: '%mailer_name%'

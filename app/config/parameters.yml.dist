@@ -86,7 +86,11 @@ parameters:
     code_generate_email.body: |
         Her er din adgangskode til Dokk1: {{ code.identifier }}
 
-        Koden giver adgang {{ code.startTime | date('d/m/Y H:i') }}–{{ code.endTime | date('d/m/Y H:i') }}.
+        Koden giver adgang til “{{ code.template.name }}” i tidsrummet {% if (code.startTime | date('Y-m-d')) == (code.endTime | date('Y-m-d')) -%}
+        {{ code.startTime | date(format_date, view_timezone) }} {{ code.startTime | date(format_time, view_timezone) }}–{{ code.endTime | date(format_time, view_timezone) }}
+        {%- else -%}
+        {{ code.startTime | date(format_datetime, view_timezone) }}–{{ code.endTime | date(format_datetime, view_timezone) }}
+        {%- endif -%}.
 
         Venlig hilsen
         {{ site_name }}
