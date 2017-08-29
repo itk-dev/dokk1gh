@@ -110,6 +110,31 @@ class FeatureContext extends BaseContext implements Context, KernelAwareContext
     }
 
     /**
+     * @When I fill in :field with datetime :datetime
+     *
+     * @param mixed $field
+     * @param mixed $time
+     * @param mixed $format
+     */
+    public function iFillInWithDatetime($field, $time, $format = \DateTime::W3C)
+    {
+        $date = new \DateTime($time, new \DateTimeZone('utc'));
+        $context = $this->getMinkContext();
+        $context->fillField($field, $date->format($format));
+    }
+
+    /**
+     * @When I fill in :field with date :datetime
+     *
+     * @param mixed $field
+     * @param mixed $time
+     */
+    public function iFillInWithDate($field, $time)
+    {
+        $this->iFillInWithDatetime($field, $time, 'Y-m-d');
+    }
+
+    /**
      * @Then I should be on url matching :pathAndQuery
      *
      * @param mixed $pathAndQuery
