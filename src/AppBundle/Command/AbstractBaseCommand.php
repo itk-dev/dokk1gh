@@ -52,6 +52,16 @@ abstract class AbstractBaseCommand extends ContainerAwareCommand
         }
     }
 
+    protected function write($messages)
+    {
+        $this->output->write($messages);
+    }
+
+    protected function writeln($messages)
+    {
+        $this->output->writeln($messages);
+    }
+
     private function addHelp()
     {
         $reflector = $reflector = new \ReflectionObject($this);

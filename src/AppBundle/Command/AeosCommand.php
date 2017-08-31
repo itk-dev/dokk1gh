@@ -27,6 +27,27 @@ class AeosCommand extends AbstractBaseCommand
      */
     protected function listIdentifiers()
     {
+        $serializer = $this->getContainer()->get('jms_serializer');
+
+        $visitors = $this->getVisitors();
+        $visits = $this->getVisits($visitors);
+        $identifiers = $this->getIdentifiers($visitors);
+        $visitorId2visitId = [];
+        foreach ($visits as $visit) {
+            $visitorId2visitId[$visit->VisitorId] = $visit->Id;
+        }
+
+        foreach ($identifiers as $identifier) {
+            // $visitor = $identifier ? $this->aeosService->getVisitorByIdentifier($identifier) : null;
+            // $visit = $visitor ? $this->aeosService->getVisitByVisitor($visitor) : null;
+            $visitor = $visitors[$identifier->CarrierId];
+            $visit = $visits[$visitorId2visitId[$visitor->Id]];
+            $this->writeln(var_export([
+                'identifier' => $identifier,
+                'visitor' => $visitor,
+                'visit' => $visit,
+            ], true));
+        }
     }
 
     /**
@@ -34,5 +55,55 @@ class AeosCommand extends AbstractBaseCommand
      */
     protected function cleanUpIdentifiers()
     {
+    }
+
+    private function getVisitors()
+    {
+        return $this->getItems('visitor', ['LastName' => 'dokk1gh']);
+    }
+
+    private function getVisits(array $visitors)
+    {
+        return array_filter($this->getItems('visit'), function ($visit) use ($visitors) {
+            return isset($visit->VisitorId) && isset($visitors[$visit->VisitorId]);
+        });
+    }
+
+    private function getIdentifiers(array $visitors)
+    {
+        return array_filter($this->getItems('identifier'), function ($identifier) use ($visitors) {
+            return isset($identifier->CarrierId) && isset($visitors[$identifier->CarrierId]);
+        });
+    }
+
+    private function getItems(string $name, array $query = [])
+    {
+        $methods = [
+            'identifier' => 'getIdentifiers',
+            'visit' => 'getVisits',
+            'visitor' => 'getVisitors',
+        ];
+        $method = $methods[$name];
+
+        $items = [];
+
+        $amount = 100;
+        $offset = 0;
+        $query += ['amount' => $amount, 'offset' => $offset];
+        while (true) {
+            $query['offset'] = $offset;
+            $result = $this->aeosService->{$method}($query);
+            foreach ($result as $item) {
+                $items[$item->Id] = $item;
+            }
+
+            if (count($result) < $amount) {
+                break;
+            }
+
+            $offset += $amount;
+        }
+
+        return $items;
     }
 }

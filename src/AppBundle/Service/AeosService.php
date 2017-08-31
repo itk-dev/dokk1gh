@@ -44,8 +44,16 @@ class AeosService
         ];
 
         $result = $this->invoke('findToken', (object) ['IdentifierSearch' => $query, 'SearchRange' => $searchRange]);
+        if (!isset($result->IdentifierAndCarrierId)) {
+            return null;
+        }
 
-        return !isset($result->IdentifierAndCarrierId) ? null : (is_array($result->IdentifierAndCarrierId) ? $result->IdentifierAndCarrierId : [$result->IdentifierAndCarrierId]);
+        return array_map(function ($item) {
+            $value = $item->Identifier;
+            $value->CarrierId = isset($item->CarrierId) ? $item->CarrierId : null;
+
+            return $value;
+        }, is_array($result->IdentifierAndCarrierId) ? $result->IdentifierAndCarrierId : [$result->IdentifierAndCarrierId]);
     }
 
     public function getIdentifierByBadgeNumber($badgeNumber)
