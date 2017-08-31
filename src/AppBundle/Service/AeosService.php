@@ -23,11 +23,14 @@ class AeosService
 
     public function setCarrierState($carrier, string $state, bool $activated)
     {
-        return $this->invoke('changeCarrierAttribute', (object) [
-            'CarrierId' => $carrier->Id,
-            'State' => $state,
-            'Activated' => $activated,
-        ]);
+        return $this->invoke(
+            'changeCarrierAttribute',
+            (object) [
+                'CarrierId' => $carrier->Id,
+                'State' => $state,
+                'Activated' => $activated,
+            ]
+        );
     }
 
     public function getCarrierStates($carrier)
@@ -45,7 +48,9 @@ class AeosService
 
         $result = $this->invoke('findToken', (object) ['IdentifierSearch' => $query, 'SearchRange' => $searchRange]);
 
-        return !isset($result->IdentifierAndCarrierId) ? null : (is_array($result->IdentifierAndCarrierId) ? $result->IdentifierAndCarrierId : [$result->IdentifierAndCarrierId]);
+        return !isset($result->IdentifierAndCarrierId)
+            ? null
+            : (is_array($result->IdentifierAndCarrierId) ? $result->IdentifierAndCarrierId : [$result->IdentifierAndCarrierId]);
     }
 
     public function getIdentifierByBadgeNumber($badgeNumber)
@@ -58,11 +63,14 @@ class AeosService
     public function blockIdentifier($identifier)
     {
         $reason = $this->configuration['aeos']['block_reason'];
-        $result = $this->invoke('blockToken', (object) [
-            'IdentifierType' => $identifier->Identifier->IdentifierType,
-            'BadgeNumber' => $identifier->Identifier->BadgeNumber,
-            'Reason' => $reason,
-        ]);
+        $result = $this->invoke(
+            'blockToken',
+            (object) [
+                'IdentifierType' => $identifier->Identifier->IdentifierType,
+                'BadgeNumber' => $identifier->Identifier->BadgeNumber,
+                'Reason' => $reason,
+            ]
+        );
 
         return $result;
     }
@@ -81,9 +89,12 @@ class AeosService
             return null;
         }
 
-        return array_map(function ($item) {
-            return $item->VisitorInfo;
-        }, is_array($result->Visitor) ? $result->Visitor : [$result->Visitor]);
+        return array_map(
+            function ($item) {
+                return $item->VisitorInfo;
+            },
+            is_array($result->Visitor) ? $result->Visitor : [$result->Visitor]
+        );
     }
 
     public function getVisitor($id)
@@ -211,7 +222,9 @@ class AeosService
         ];
         $result = $this->invoke('findTemplate', (object) ['TemplateInfo' => $query, 'SearchRange' => $searchRange]);
 
-        return !isset($result->Template) ? null : (is_array($result->Template) ? $result->Template : [$result->Template]);
+        return !isset($result->Template)
+            ? null
+            : (is_array($result->Template) ? $result->Template : [$result->Template]);
     }
 
     public function getTemplate($id)
@@ -242,13 +255,16 @@ class AeosService
         $password = $configuration['password'];
         $debug = isset($configuration['debug']) ? $configuration['debug'] : false;
 
-        $client = new \SoapClient($location.'?wsdl', [
-            'location' => $location,
-            'login' => $username,
-            'password' => $password,
-            'stream_context' => $context,
-            'trace' => $debug,
-        ]);
+        $client = new \SoapClient(
+            $location.'?wsdl',
+            [
+                'location' => $location,
+                'login' => $username,
+                'password' => $password,
+                'stream_context' => $context,
+                'trace' => $debug,
+            ]
+        );
 
         $result = null;
         if (func_num_args() > 1) {
