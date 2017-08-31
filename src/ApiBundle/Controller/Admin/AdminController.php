@@ -245,63 +245,6 @@ class AdminController extends Controller
         return $result;
     }
 
-    /**
-     * @SWG\Tag(name="Miscellaneous")
-     * @SWG\Response(
-     *  response=200,
-     *  description="List of visits",
-     *  @SWG\Schema(
-     *    type="array"
-     *  )
-     * )
-     *
-     * @return array
-     */
-    public function getVisitsAction(Request $request)
-    {
-        $result = $this->aeosService->getVisits($request->query->all());
-
-        return $result;
-    }
-
-    /**
-     * @SWG\Tag(name="Miscellaneous")
-     * @SWG\Response(
-     *  response=200,
-     *  description="List of visitors",
-     *  @SWG\Schema(
-     *    type="array"
-     *  )
-     * )
-     *
-     * @return array
-     */
-    public function getVisitorsAction(Request $request)
-    {
-        $result = $this->aeosService->getVisitors($request->query->all());
-
-        return $result;
-    }
-
-    /**
-     * @SWG\Tag(name="Miscellaneous")
-     * @SWG\Response(
-     *  response=200,
-     *  description="List of identifiers",
-     *  @SWG\Schema(
-     *    type="array"
-     *  )
-     * )
-     *
-     * @return array
-     */
-    public function getIdentifiersAction(Request $request)
-    {
-        $result = $this->aeosService->getIdentifiers($request->query->all());
-
-        return $result;
-    }
-
     private function searchAction(Request $request, string $method, array $keys)
     {
         $query = $request->query->get('query');
