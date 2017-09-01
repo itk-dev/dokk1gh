@@ -94,7 +94,7 @@ class Template
     /**
      * @return bool
      */
-    public function getEnabled()
+    public function isEnabled()
     {
         return $this->enabled;
     }
