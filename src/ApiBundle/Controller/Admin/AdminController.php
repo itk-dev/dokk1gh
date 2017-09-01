@@ -2,6 +2,8 @@
 
 namespace ApiBundle\Controller\Admin;
 
+use AppBundle\Entity\Template;
+use AppBundle\Entity\User;
 use AppBundle\Service\AeosService;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Swagger\Annotations as SWG;
@@ -76,7 +78,7 @@ class AdminController extends Controller
      */
     public function getPeopleSearchAction(Request $request)
     {
-        return $this->searchAction($request, 'getPersons', ['PersonnelNo', 'LastName', 'FirstName']);
+        return $this->searchAction($request, 'getPersons', ['Id', 'PersonnelNo', 'LastName', 'FirstName'], User::class);
     }
 
     /**
@@ -134,7 +136,7 @@ class AdminController extends Controller
      */
     public function getTemplatesSearchAction(Request $request)
     {
-        return $this->searchAction($request, 'getTemplates', ['Name']);
+        return $this->searchAction($request, 'getTemplates', ['Id', 'Name'], Template::class);
     }
 
     /**
@@ -245,7 +247,7 @@ class AdminController extends Controller
         return $result;
     }
 
-    private function searchAction(Request $request, string $method, array $keys)
+    private function searchAction(Request $request, string $method, array $keys, $class)
     {
         $query = $request->query->get('query');
 
@@ -261,10 +263,10 @@ class AdminController extends Controller
             $partResult = [];
             // Merge search results for multiple fields.
             foreach ($keys as $key) {
-                $people = $this->aeosService->{$method}([$key => $word]);
-                if ($people) {
-                    foreach ($people as $person) {
-                        $partResult[$person->Id] = $person;
+                $items = $this->aeosService->{$method}([$key => $word]);
+                if ($items) {
+                    foreach ($items as $item) {
+                        $partResult[$item->Id] = $item;
                     }
                 }
             }
@@ -272,6 +274,21 @@ class AdminController extends Controller
             $result = $result ? array_intersect_key($result, $partResult) : $partResult;
         }
 
-        return array_values($result);
+        $result = array_values($result);
+
+        if ($class === User::class || $class === Template::class) {
+            $dql = 'SELECT e.'.($class === User::class ? 'username' : 'name').' name, e.aeosId FROM '.$class.' e WHERE e.aeosId IS NOT NULL';
+            $query = $this->getDoctrine()->getManager()->createQuery($dql);
+            $aeosIdsInUse = [];
+            foreach ($query->getResult() as $row) {
+                $aeosIdsInUse[$row['aeosId']] = $row['name'];
+            }
+
+            foreach ($result as $item) {
+                $item->_usedBy = isset($aeosIdsInUse[$item->Id]) ? $aeosIdsInUse[$item->Id] : null;
+            }
+        }
+
+        return $result;
     }
 }
