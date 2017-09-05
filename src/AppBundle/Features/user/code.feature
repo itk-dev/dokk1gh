@@ -45,5 +45,12 @@ Feature: Create code
     Then I should be on url matching "/?action=list&entity=Code"
     And I should see "2020-08-25 10:00–2020-08-26 14:00"
 
+  Scenario: Search codes
+    When I go to "/?action=list&entity=Code"
+    And I fill in "query" with "test"
+    And I press "Søg"
+    Then I should be on "/?action=list&entity=Code"
+    Then I should see "Behat test"
+
   @dropSchema
   Scenario: Drop schema
