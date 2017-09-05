@@ -18,7 +18,7 @@ class AeosTemplateIdValidator extends ConstraintValidator
 
     public function validate($value, Constraint $constraint)
     {
-        $template = $this->aeosService->getTemplate($value);
+        $template = $value ? $this->aeosService->getTemplate($value) : null;
         if (!$template) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ string }}', $value)
