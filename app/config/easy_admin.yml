@@ -114,8 +114,6 @@ easy_admin:
                           expanded: true
                           required: true
                     - property: aeosId
-                      type_options:
-                          required: true
             edit:
                 fields:
                     - property: enabled
@@ -133,8 +131,6 @@ easy_admin:
                           expanded: true
                           required: true
                     - property: aeosId
-                      type_options:
-                          required: true
 
         Template:
             roles: [ROLE_ADMIN]
