@@ -6,6 +6,7 @@ parameters:
     format_date: 'Y-m-d'
     format_time: 'H:i'
     locale: da
+    aoes_location: 'http://dokk1gh.vm/mock/aeosws'
 
 framework:
     profiler:

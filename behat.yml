@@ -13,6 +13,8 @@ default:
                         doctrine: '@doctrine'
                         tokenStorage: '@security.token_storage'
                 - Behat\MinkExtension\Context\MinkContext
+                - Behatch\Context\RestContext
+                - Behatch\Context\JsonContext
 
     extensions:
         Behat\Symfony2Extension:
@@ -24,3 +26,4 @@ default:
                 my_session:
                     symfony2: ~
             show_cmd: open -a /Applications/Firefox.app/ %s
+        Behatch\Extension: ~

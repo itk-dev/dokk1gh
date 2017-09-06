@@ -225,14 +225,18 @@ class FeatureContext extends BaseContext implements Context, KernelAwareContext
             ->setPlainPassword($password)
             ->setEmail($email)
             ->setRoles($roles);
+        unset($data['email'], $data['password'], $data['roles']);
 
         if (isset($data['templates'])) {
             $ids = preg_split('/\s*,\s*/', $data['templates'], -1, PREG_SPLIT_NO_EMPTY);
             $templates = $this->manager->getRepository(Template::class)->findBy(['id' => $ids]);
             $user->setTemplates(new ArrayCollection($templates));
+            unset($data['templates']);
         }
-        if (isset($data['aeosId'])) {
-            $user->setAeosId($data['aeosId']);
+
+        $accessor = $this->container->get('property_accessor');
+        foreach ($data as $path => $value) {
+            $accessor->setValue($user, $path, $value);
         }
 
         $userManager->updateUser($user);

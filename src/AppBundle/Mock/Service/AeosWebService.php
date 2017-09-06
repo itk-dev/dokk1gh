@@ -138,6 +138,20 @@ class AeosWebService
         return $data;
     }
 
+    private function slice($data, $range)
+    {
+        $length = isset($range->nrOfRecords) ? $range->nrOfRecords : null;
+        $offset = isset($range->startRecordNo) ? $range->startRecordNo : 0;
+
+        $dataKeys = array_keys(get_object_vars($data));
+        if (count($dataKeys) === 1) {
+            $dataKey = $dataKeys[0];
+            $data->{$dataKey} = array_slice($data->{$dataKey}, $offset, $length);
+        }
+
+        return $data;
+    }
+
     private function loadFixture($name, $params)
     {
         $fixturePath = __DIR__.'/fixtures/'.$name.'.yml';
@@ -149,8 +163,10 @@ class AeosWebService
         $result = Yaml::parse($content, Yaml::PARSE_OBJECT_FOR_MAP);
 
         if (isset($params->SearchRange)) {
+            $range = $params->SearchRange;
             unset($params->SearchRange);
             $result = $this->filter($result, $params);
+            $result = $this->slice($result, $range);
         }
 
         return $result;
