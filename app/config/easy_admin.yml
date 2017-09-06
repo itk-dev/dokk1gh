@@ -153,3 +153,5 @@ easy_admin:
                     - property: enabled
                     - property: name
                     - property: aeosId
+                      type_options:
+                          required: false
