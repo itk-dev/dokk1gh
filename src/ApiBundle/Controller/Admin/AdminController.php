@@ -258,20 +258,22 @@ class AdminController extends Controller
         $result = [];
 
         // Search for each word in query and intersect results.
-        $words = preg_split('/\s+/', preg_replace('/[^a-z0-9\s]/i', '', $query));
+        $words = preg_split('/\s+/', $query);
         foreach ($words as $word) {
-            $partResult = [];
+            $partialResult = [];
             // Merge search results for multiple fields.
             foreach ($keys as $key) {
                 $items = $this->aeosService->{$method}([$key => $word]);
                 if ($items) {
                     foreach ($items as $item) {
-                        $partResult[$item->Id] = $item;
+                        $partialResult[$item->Id] = $item;
                     }
                 }
             }
-
-            $result = $result ? array_intersect_key($result, $partResult) : $partResult;
+            // Ignore empty partial results.
+            if ($partialResult) {
+                $result = $result ? array_intersect_key($result, $partialResult) : $partialResult;
+            }
         }
 
         $result = array_values($result);
