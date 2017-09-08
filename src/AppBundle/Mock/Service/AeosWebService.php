@@ -121,8 +121,8 @@ class AeosWebService
                 $data->{$dataKey} = array_values(array_filter($data->{$dataKey}, function ($item) use ($filter) {
                     foreach ($filter as $key => $value) {
                         if (isset($item->{$key}) && (
-                                // Substring match on string value.
-                                (is_string($item->{$key}) && stripos($item->{$key}, $value) === false)
+                                // Starts with match on string value.
+                                (is_string($item->{$key}) && stripos($item->{$key}, $value) !== 0)
                                 // Exact match on non-string value.
                                 || (!is_string($item->{$key}) && $item->{$key} !== $value)
                         )) {
