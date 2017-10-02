@@ -8,8 +8,6 @@
 
   <exclude-pattern>app/App(Cache|Kernel)\.php</exclude-pattern>
 
-  <!-- No warnings -->
-  <arg value="n"/>
   <!-- Show progress -->
   <arg value="p"/>
 

@@ -73,8 +73,8 @@ class AeosService
         $result = $this->invoke(
             'blockToken',
             (object) [
-                'IdentifierType' => $identifier->Identifier->IdentifierType,
-                'BadgeNumber' => $identifier->Identifier->BadgeNumber,
+                'IdentifierType' => $identifier->IdentifierType,
+                'BadgeNumber' => $identifier->BadgeNumber,
                 'Reason' => $reason,
             ]
         );
@@ -84,7 +84,7 @@ class AeosService
 
     public function isBlocked($identifier)
     {
-        return $identifier && isset($identifier->Identifier->Blocked) && $identifier->Identifier->Blocked === true;
+        return $identifier && isset($identifier->Blocked) && $identifier->Blocked === true;
     }
 
     public function getVisitors(array $query = [])
