@@ -68,23 +68,23 @@ parameters:
 
     user_created_user_subject: '{{ site_name }} – brugeroprettelse'
     user_created_user_header: 'Bruger oprettet på {{ site_name }}'
-    user_created_user_body: >
+    user_created_user_body: |-
         <p style='margin: 0;'>Du er blevet oprettet som bruger på {{ site_name }} med e-mailadressen {{ user.email }}.</p>
-        <p style='margin: 0;'>For at komme i gang skal du angive en adgangskode.
+        <p style='margin: 0;'>For at komme i gang skal du angive en adgangskode.</p>
         <p style='margin: 0;'>Du kan efterfølgende logge ind med din e-mailadresse ({{ user.email }}) og den valgte adgangskode.</p>
     user_created_user_button_text: 'Angiv adgangskode'
     user_created_user_footer: '<p style="margin: 0;">Venlig hilsen<br/> {{ sender.name }}</p>'
 
     password_resetting_subject: '{{ site_name }} – nulstilling af adgangskode'
     password_resetting_header: 'Nulstilling af adgangskode på {{ site_name }}'
-    password_resetting_body: >
+    password_resetting_body: |-
         <p style='margin: 0;'>Du kan skifte adgangskoden for {{ user.email }} ved at gå til <a href="{{ confirmationUrl }}">{{ confirmationUrl }}</a> og vælge en ny adgangskode.</p>
     password_resetting_button_text: 'Skift adgangskode'
     password_resetting_footer: '<p style="margin: 0;">Venlig hilsen<br/> {{ sender.name }}</p>'
 
     code_generate_email.subject: 'Adgangskode til Dokk1'
-    code_generate_email.body: |
-        Her er din adgangskode til Dokk1: {{ code.identifier }}
+    code_generate_email.body: |-
+        Her er din adgangskode til Dokk1: {{ code.identifier }}E.
 
         Koden giver adgang til “{{ code.template.name }}” i tidsrummet {% if (code.startTime | date('Y-m-d')) == (code.endTime | date('Y-m-d')) -%}
         {{ code.startTime | date(format_date, view_timezone) }} {{ code.startTime | date(format_time, view_timezone) }}–{{ code.endTime | date(format_time, view_timezone) }}
@@ -100,5 +100,5 @@ parameters:
     code.defaults.endTime: 'today +14 hours'
 
     user.cannot_create_codes.subject: Bruger {{ app.user.email }} kan ikke oprette koder på {{ site_name }}
-    user.cannot_create_codes.body: >-
+    user.cannot_create_codes.body: |-
         Bruger {{ app.user.email }} kan ikke oprette koder på {{ site_name }} ({{ site_url }}).
