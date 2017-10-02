@@ -2,16 +2,14 @@
 <ruleset name="dokk1">
   <description>PHP CodeSniffer configuration for Dokk1 Gæstehåndtering</description>
 
-	<file>app/</file>
-	<file>src/</file>
-	<file>tests/</file>
+  <file>app/</file>
+  <file>src/</file>
+  <file>tests/</file>
 
-	<exclude-pattern>app/App(Cache|Kernel)\.php</exclude-pattern>
+  <exclude-pattern>app/App(Cache|Kernel)\.php</exclude-pattern>
 
-	<!-- No warnings -->
-	<arg value="n"/>
-	<!-- Show progress -->
-	<arg value="p"/>
+  <!-- Show progress -->
+  <arg value="p"/>
 
   <rule ref="PSR2"/>
 </ruleset>

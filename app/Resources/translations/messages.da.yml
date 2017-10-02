@@ -14,8 +14,8 @@ Template: Adgangsområde
 Status: Status
 Note: Intern note
 code.note.help: Noten kan fx bruges til at finde tilbage til den oprettede kode på et senere tidspunkt. Noten bliver ikke delt med andre.
-template.find.template.help: Søg efter skabelon i AEOS.
-user.find.person.help: Søg efter person i AEOS. Der søges på for- og efternavn plus nummer (PersonnelNo).
+template.find.template.help: Søg efter skabelon i AEOS. Der søges på id og navn.
+user.find.person.help: Søg efter person i AEOS. Der søges på id, for- og efternavn plus nummer (PersonnelNo).
 
 Code.status.expired: Udløbet
 Code.status.future: Inaktiv
@@ -24,6 +24,7 @@ Code.status.active: Aktiv
 New code created: Ny kode oprettet
 Copy code: Kopier kode
 Code copied to clipboard: Kode kopieret til udklipsholder
+Code removed: Kode slettet
 
 Enabled: Aktiv
 
@@ -53,8 +54,9 @@ Api key: Api-nøgle
 Generate api key: Generer api-nøgle
 Time range: Tidsrum
 Cancel: Annuller
-Invalid AEOS template id: Ugyldigt AEOS-skabelon-id
-Invalid AEOS person id: Ugyldigt AEOS-person-id
+'Invalid AEOS template id: %id%': 'Ugyldigt AEOS-id: %id%'
+'Invalid AEOS person id: %id%': 'Ugyldigt AEOS-id: %id%'
+'AEOS id used by %name%': 'bruges af "%name%"'
 
 'You cannot create codes.': 'Du kan ikke oprette koder.'
 'Please contact an administrator (%administrator_email%) for help.': 'Kontakt en administrator (%administrator_email%) for hjælp.'

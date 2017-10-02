@@ -37,11 +37,11 @@ bin/console fos:user:create --super-admin super-admin super-admin@example.com
 Create administrator:
 
 ```
-bin/console fos:user:create admin admin@example.com
+bin/console fos:user:create admin@example.com admin@example.com
 ```
 
 ```
-bin/console fos:user:promote admin ROLE_ADMIN
+bin/console fos:user:promote admin@example.com ROLE_ADMIN
 ```
 
 Create user:

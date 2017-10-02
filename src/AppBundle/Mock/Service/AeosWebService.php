@@ -121,8 +121,8 @@ class AeosWebService
                 $data->{$dataKey} = array_values(array_filter($data->{$dataKey}, function ($item) use ($filter) {
                     foreach ($filter as $key => $value) {
                         if (isset($item->{$key}) && (
-                                // Substring match on string value.
-                                (is_string($item->{$key}) && stripos($item->{$key}, $value) === false)
+                                // Starts with match on string value.
+                                (is_string($item->{$key}) && stripos($item->{$key}, $value) !== 0)
                                 // Exact match on non-string value.
                                 || (!is_string($item->{$key}) && $item->{$key} !== $value)
                         )) {
@@ -133,6 +133,20 @@ class AeosWebService
                     return true;
                 }));
             }
+        }
+
+        return $data;
+    }
+
+    private function slice($data, $range)
+    {
+        $length = isset($range->nrOfRecords) ? $range->nrOfRecords : null;
+        $offset = isset($range->startRecordNo) ? $range->startRecordNo : 0;
+
+        $dataKeys = array_keys(get_object_vars($data));
+        if (count($dataKeys) === 1) {
+            $dataKey = $dataKeys[0];
+            $data->{$dataKey} = array_slice($data->{$dataKey}, $offset, $length);
         }
 
         return $data;
@@ -149,8 +163,10 @@ class AeosWebService
         $result = Yaml::parse($content, Yaml::PARSE_OBJECT_FOR_MAP);
 
         if (isset($params->SearchRange)) {
+            $range = $params->SearchRange;
             unset($params->SearchRange);
             $result = $this->filter($result, $params);
+            $result = $this->slice($result, $range);
         }
 
         return $result;
