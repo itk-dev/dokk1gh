@@ -52,8 +52,23 @@ bin/console fos:user:create user user@example.com
 
 Go to `http://dokk1gh.vm/login`.
 
+# Cron jobs
 
-## API
+The `app:aeos:code-cleanup` console command can be used to delete expires codes:
+
+```sh
+bin/console app:aeos:code-cleanup --help
+```
+
+Set up a `cron` job to have expired codes deleted daily at 02:00
+(adjust paths to match your actual setup):
+
+```
+0 2 * * * /usr/bin/php /home/www/dokk1gh/htdocs/bin/console app:aeos:code-cleanup
+```
+
+
+# API
 
 API documentation:
 
@@ -106,7 +121,9 @@ On success the result will look like this:
 }
 ```
 
-## Debugging
+# Test and debugging
+
+## Emails
 
 Debug email sent to user when created:
 

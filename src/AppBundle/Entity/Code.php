@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 /**
  * Code.
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=CodeRepository::class)
  * @Gedmo\SoftDeleteable
  * @ORM\Table
  */
@@ -81,6 +81,15 @@ class Code implements Blameable
      * @ORM\Column(type="text", nullable=true)
      */
     private $note;
+
+    public function __toString()
+    {
+        $timeRange = ($this->getStartTime() ? $this->getStartTime()->format(\DateTime::W3C) : null)
+                   .'–'
+                   .($this->getEndTime() ? $this->getEndTime()->format(\DateTime::W3C) : null);
+
+        return '['.$this->getIdentifier().'; '.$this->getTemplate()->getName().'; '.$timeRange.']';
+    }
 
     /**
      * Get id.
