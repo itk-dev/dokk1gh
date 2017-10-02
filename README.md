@@ -64,7 +64,7 @@ Set up a `cron` job to have expired codes deleted daily at 02:00
 (adjust paths to match your actual setup):
 
 ```
-0 2 * * * /usr/bin/php /home/www/dokk1gh/htdocs/bin/console app:aeos:code-cleanup
+0 2 * * * /usr/bin/php /home/www/dokk1gh/htdocs/bin/console --env=prod app:aeos:code-cleanup
 ```
 
 

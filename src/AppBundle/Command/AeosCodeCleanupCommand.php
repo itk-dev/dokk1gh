@@ -18,16 +18,18 @@ class AeosCodeCleanupCommand extends Command
     /** @var AeosHelper */
     private $aeosHelper;
 
-    public function __construct($name, EntityManagerInterface $entityManager, AeosHelper $aeosHelper)
+    public function __construct(EntityManagerInterface $entityManager, AeosHelper $aeosHelper)
     {
-        parent::__construct('app:aeos:code-cleanup');
         $this->entityManager = $entityManager;
         $this->aeosHelper = $aeosHelper;
+        parent::__construct();
     }
 
     public function configure()
     {
-        $this->addOption('dry-run', null, InputOption::VALUE_NONE, 'Don\'t do anything. Just show what will be done.');
+        $this
+            ->setName('app:aeos:code-cleanup')
+            ->addOption('dry-run', null, InputOption::VALUE_NONE, 'Don\'t do anything. Just show what will be done.');
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
