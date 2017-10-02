@@ -14,6 +14,6 @@ class CodeRepository extends EntityRepository
         $criteria = (new Criteria())
             ->where(new Comparison('endTime', Comparison::LT, $now));
 
-        return $this->matching(new Criteria());
+        return $this->matching($criteria);
     }
 }
