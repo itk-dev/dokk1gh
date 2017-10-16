@@ -52,6 +52,31 @@ body.new-code textarea {
     max-height: 24px;
     margin: 13px;
     /* (header height - header image max-height) / 2 [(50px - 24px) / 2] */ }
+  @media (max-width: 767px) {
+    #header-image {
+      transform: none;
+      position: static;
+      display: inline-block;
+      width: auto;
+      float: right; }
+      .is-admin #header-image img {
+        max-height: 14px;
+        margin: 10px; } }
+
+@media (max-width: 767px) {
+  #header-logo {
+    display: inline-block;
+    width: auto;
+    padding-left: 10px;
+    float: left; }
+    .is-admin #header-logo .logo {
+      font-size: 15px;
+      height: 34px;
+      line-height: 34px; }
+  .main-header .navbar .sidebar-toggle {
+    top: 34px; }
+  .main-header .navbar-custom-menu {
+    padding-right: 0; } }
 
 /* Login page */
 .form-signin {
@@ -86,6 +111,13 @@ body.new-code textarea {
     border-radius: 3px; }
   .form-signin input[disabled].form-control {
     color: #969696; }
+
+@media (max-width: 767px) {
+  #fos-user #flash-messages, #fos-user .form-signin {
+    padding-top: 0;
+    margin-top: 0; }
+  #fos-user #header-image img {
+    max-height: 19px; } }
 
 /* hide sidebar on login */
 .sidebar-collapse .no-menu aside.main-sidebar,

@@ -38,3 +38,20 @@
         color: #969696;
     }
 }
+
+
+@media (max-width: 767px) {
+    #fos-user {
+        // remove unwanted space on mobile
+        #flash-messages, .form-signin {
+            padding-top: 0;
+            margin-top: 0;
+        }
+        // resize image
+        #header-image {
+            img {
+                max-height: 19px;
+            }
+        }
+    }
+}
