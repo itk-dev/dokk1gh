@@ -52,24 +52,28 @@
 
   {% elseif easyadmin.entity.class == 'AppBundle\\Entity\\Code' and name == 'endTime' %}
 
+    {% macro time_selector(config, id) %}
+      <select class="form-control" id="{{ id }}">
+        {% for hour in config.hours.min..config.hours.max %}
+          {% for minute in config.minutes %}
+            {# Skip last minute value in last hour. @TODO: Improve this, i.e. make it more obvious #}
+            {% if not loop.last or not loop.parent.loop.last %}
+              <option>{{ '%02d:%02d' | format(hour, minute)}}</option>
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+      </select>
+    {% endmacro %}
+    {% from _self import time_selector %}
+
+    {% set config = configuration.get('code.config') %}
     {# Time span selectors #}
     <div class="date-time-range-time date-time-range-time-start">
-      <select class="form-control" id="{{ id }}-time-start">
-        {% for i in 8..16 %}
-          <option>{{ '%02d' | format(i)}}:00</option>
-          <option>{{ '%02d' | format(i)}}:30</option>
-        {% endfor %}
-      </select>
+      {{ time_selector(config.startTime, id ~ '-time-start') }}
     </div>
     –
-    {# no space between select elements #}
     <div class="date-time-range-time date-time-range-time-end">
-      <select class="form-control" id="{{ id }}-time-end">
-        {% for i in 9..17 %}
-          <option>{{ '%02d' | format(i)}}:00</option>
-          <option>{{ '%02d' | format(i)}}:30</option>
-        {% endfor %}
-      </select>
+      {{ time_selector(config.endTime, id ~ '-time-end') }}
     </div>
 
     <script>
