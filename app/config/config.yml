@@ -26,9 +26,9 @@ framework:
     session:
         # https://symfony.com/doc/current/reference/configuration/framework.html#handler-id
         handler_id: session.handler.native_file
-        # save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
+        save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
         # If running inside a Vagrant box, use this:
-        save_path: /var/lib/php/sessions
+        # save_path: /var/lib/php/sessions
     fragments: ~
     http_method_override: true
     assets: ~
