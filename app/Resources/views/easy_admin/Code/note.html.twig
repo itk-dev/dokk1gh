@@ -1,5 +1,9 @@
-{% if view == 'show' %}
-  {{ value|nl2br }}
+{% if item.createdBy == app.user %}
+  {% if view == 'show' %}
+    {{ value|nl2br }}
+  {% else %}
+    <span class="code-note" data-toggle="popover" data-placement="bottom" data-content="{{ value }}">{{ value|easyadmin_truncate }}</span>
+  {% endif %}
 {% else %}
-  <span class="code-note" data-toggle="popover" data-placement="bottom" data-content="{{ value }}">{{ value|easyadmin_truncate }}</span>
+  –
 {% endif %}
