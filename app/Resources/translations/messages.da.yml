@@ -18,7 +18,7 @@ template.find.template.help: Søg efter skabelon i AEOS. Der søges på id og na
 user.find.person.help: Søg efter person i AEOS. Der søges på id, for- og efternavn plus nummer (PersonnelNo).
 
 Code.status.expired: Udløbet
-Code.status.future: Inaktiv
+Code.status.future: Fremtidig
 Code.status.active: Aktiv
 
 New code created: Ny kode oprettet
