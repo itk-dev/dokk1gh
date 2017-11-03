@@ -2,7 +2,9 @@
 {% trans_default_domain 'FOSUserBundle' %}
 {% form_theme form 'bootstrap_3_layout.html.twig' %}
 
-{% block page_title (app.request.query.get('create')|default(false) ? 'resetting.create.submit' : 'resetting.reset.submit')|trans %}
+{% set is_create = app.request.get('create')|default(false) %}
+
+{% block page_title (is_create ? 'resetting.create.title' : 'resetting.reset.submit')|trans %}
 
 {% block fos_user_content %}
 {% include "FOSUserBundle:Resetting:reset_content.html.twig" %}

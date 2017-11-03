@@ -6,3 +6,4 @@
 'This value is not a valid email address.': 'Indtast venligst en gyldig e-mailadresse.'
 '"{{ string }}" is not a valid AEOS person id.': '"{{ string }}" er ikke et gyldigt AEOS-person-id.'
 '"{{ string }}" is not a valid AEOS template id.': '"{{ string }}" er ikke et gyldigt AEOS-skabelon-id.'
+fos_user.password.mismatch: Adgangskoderne er ikke ens
