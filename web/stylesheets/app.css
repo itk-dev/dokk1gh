@@ -8,14 +8,14 @@
     background-color: #4a800e;
     transition: background-color .3s ease-out; }
 
-.clipboard-copy .btn, .clipboard-copy .btn:active, .code-email .btn, .code-email .btn:active {
+.clipboard-copy .btn, .clipboard-copy .btn:active, .code-email .btn, .code-email .btn:active, .code-sms .btn, .code-sms .btn:active {
   padding: 3px 8px;
   color: #4A4A4A;
   background-color: #F5F5F5;
   border-color: #e8e8e8;
   border-radius: 3px;
   transition: background-color .1s ease-in; }
-  .clipboard-copy .btn:hover, .clipboard-copy .btn:active:hover, .code-email .btn:hover, .code-email .btn:active:hover {
+  .clipboard-copy .btn:hover, .clipboard-copy .btn:active:hover, .code-email .btn:hover, .code-email .btn:active:hover, .code-sms .btn:hover, .code-sms .btn:active:hover {
     background-color: #e8e8e8;
     transition: background-color .3s ease-out; }
 
