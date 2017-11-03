@@ -29,6 +29,7 @@ class AppKernel extends Kernel
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
+            new SunCat\MobileDetectBundle\MobileDetectBundle(),
             new AppBundle\AppBundle(),
             new ApiBundle\ApiBundle(),
         ];
