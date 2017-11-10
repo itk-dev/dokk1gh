@@ -79,3 +79,5 @@ AppBundle\Entity\Template: Adgangsområde
 
 # @TODO
 Notify user: Notify user
+
+'Please wait while the system generates the key - it can take up to a minute': 'Vent venligst mens koden oprettes - det kan tage op til et minut.'

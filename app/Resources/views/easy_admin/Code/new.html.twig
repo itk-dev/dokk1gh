@@ -1,0 +1,34 @@
+{% extends '@EasyAdmin/default/new.html.twig' %}
+
+{% block body_javascript %}
+
+<div class="modal fade" id="saving" tabindex="-1" role="dialog" aria-labelledby="savingcode" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="spinner">
+                    <div class="bounce1"></div>
+                    <div class="bounce2"></div>
+                    <div class="bounce3"></div>
+                </div>
+                <p>{{ "Please wait while the system generates the key - it can take up to a minute" | trans }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{ parent() }}
+
+<script>
+    $(function() {
+        $('.action-save').on("click", function(){
+            $('.wrapper').addClass('blur');
+            $('#saving').modal( {
+                backdrop: 'static',
+                keyboard: false
+            });
+        });
+    });
+</script>
+
+{% endblock %}
