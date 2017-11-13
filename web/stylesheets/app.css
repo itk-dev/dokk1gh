@@ -8,14 +8,14 @@
     background-color: #4a800e;
     transition: background-color .3s ease-out; }
 
-.clipboard-copy .btn, .clipboard-copy .btn:active, .code-email .btn, .code-email .btn:active {
+.clipboard-copy .btn, .clipboard-copy .btn:active, .code-email .btn, .code-email .btn:active, .code-sms .btn, .code-sms .btn:active {
   padding: 3px 8px;
   color: #4A4A4A;
   background-color: #F5F5F5;
   border-color: #e8e8e8;
   border-radius: 3px;
   transition: background-color .1s ease-in; }
-  .clipboard-copy .btn:hover, .clipboard-copy .btn:active:hover, .code-email .btn:hover, .code-email .btn:active:hover {
+  .clipboard-copy .btn:hover, .clipboard-copy .btn:active:hover, .code-email .btn:hover, .code-email .btn:active:hover, .code-sms .btn:hover, .code-sms .btn:active:hover {
     background-color: #e8e8e8;
     transition: background-color .3s ease-out; }
 
@@ -147,6 +147,48 @@ body.new-code textarea {
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
   border: none;
   border-radius: 0; }
+
+/* Modals */
+.modal {
+  background: rgba(255, 255, 255, 0.4);
+  z-index: 10000; }
+  @media screen and (min-width: 991px) {
+    .modal .modal-dialog {
+      margin: 40px auto; } }
+  @media screen and (max-width: 990px) {
+    .modal .modal-dialog {
+      margin: 40px 20px; } }
+  .modal .modal-dialog .modal-content {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.16);
+    border: 0;
+    border-radius: 2px; }
+    .modal .modal-dialog .modal-content .modal-body {
+      padding: 25px; }
+      .modal .modal-dialog .modal-content .modal-body p {
+        text-align: center; }
+  .wrapper.blur {
+    filter: blur(5px); }
+  .modal .spinner {
+    margin: 30px auto 30px;
+    width: 70px;
+    text-align: center; }
+    .modal .spinner > div {
+      width: 18px;
+      height: 18px;
+      background-color: #003764;
+      border-radius: 100%;
+      display: inline-block;
+      animation: bouncedelay 1.4s infinite ease-in-out both; }
+    .modal .spinner .bounce1 {
+      animation-delay: -0.32s; }
+    .modal .spinner .bounce2 {
+      animation-delay: -0.16s; }
+
+@keyframes bouncedelay {
+  0%, 80%, 100% {
+    transform: scale(0); }
+  40% {
+    transform: scale(1); } }
 
 /* Global */
 body {

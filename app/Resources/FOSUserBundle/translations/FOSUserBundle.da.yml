@@ -57,7 +57,8 @@ resetting:
         username: E-mailadresse
         submit: Nulstil adgangskode
     create:
-        submit: Angiv adgangskode
+        title: Skriv adgangskode
+        submit: Gem adgangskode
     reset:
         forgot: Glemt adgangskode
         submit: Skift adgangskode

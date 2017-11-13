@@ -18,7 +18,7 @@ template.find.template.help: Søg efter skabelon i AEOS. Der søges på id og na
 user.find.person.help: Søg efter person i AEOS. Der søges på id, for- og efternavn plus nummer (PersonnelNo).
 
 Code.status.expired: Udløbet
-Code.status.future: Inaktiv
+Code.status.future: Fremtidig
 Code.status.active: Aktiv
 
 New code created: Ny kode oprettet
@@ -79,3 +79,5 @@ AppBundle\Entity\Template: Adgangsområde
 
 # @TODO
 Notify user: Notify user
+
+'Please wait while the system generates the key - it can take up to a minute': 'Vent venligst mens koden oprettes - det kan tage op til et minut.'

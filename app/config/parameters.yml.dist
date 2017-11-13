@@ -97,6 +97,20 @@ parameters:
         Venlig hilsen
         {{ site_name }}
 
+    code_generate_sms.body: |-
+        Her er din adgangskode til Dokk1: {{ code.identifier }}
+
+        Koden indtastes på tal-panelet ved siden af døren eller inde i elevatoren. OBS: Når du taster koden skal du huske at afslutte med E, dvs. du skal taste “{{ code.identifier }}E”.
+
+        Koden giver adgang til “{{ code.template.name }}” i tidsrummet {% if (code.startTime | date('Y-m-d')) == (code.endTime | date('Y-m-d')) -%}
+        {{ code.startTime | date(format_date, view_timezone) }} {{ code.startTime | date(format_time, view_timezone) }}–{{ code.endTime | date(format_time, view_timezone) }}
+        {%- else -%}
+        {{ code.startTime | date(format_datetime, view_timezone) }}–{{ code.endTime | date(format_datetime, view_timezone) }}
+        {%- endif -%}.
+
+        Venlig hilsen
+        {{ site_name }}
+
     # UTC
     code.config:
       startTime:
