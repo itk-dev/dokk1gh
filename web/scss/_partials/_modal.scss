@@ -1,9 +1,15 @@
 /* Modals */
 .modal {
     background: rgba(255,255,255,0.4);
-    
+    z-index: 10000;
     .modal-dialog {
-        margin: 40px auto;
+        @media screen and (min-width: 991px) {
+            margin: 40px auto;    
+        }
+        @media screen and (max-width: 990px) {
+            margin: 40px 20px;    
+        }
+        
         .modal-content {
             box-shadow: 0 4px 16px rgba(0,0,0,0.16);
             border: 0;
