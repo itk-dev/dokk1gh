@@ -15,6 +15,12 @@ class Configuration
 
     public function get($path)
     {
-        return $this->container->getParameter($path);
+        $config = $this->container->getParameter($path);
+
+        if ($path === 'code.config') {
+            $config['daysDisabled'] = array_values(array_diff(range(0, 6), isset($config['daysEnabled']) ? $config['daysEnabled'] : []));
+        }
+
+        return $config;
     }
 }

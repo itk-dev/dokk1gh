@@ -1,5 +1,7 @@
 <div style="display: none">{{ markup | raw }}</div>
 
+{% set config = configuration.get('code.config') %}
+
 <div class="date-time-range">
   {% if name == 'startTime' %}
 
@@ -44,7 +46,7 @@
          language: {{ locale | json_encode | raw }},
          format: {{ form_format_date_js | json_encode | raw }},
          startDate: 'now',
-         daysOfWeekDisabled: [0, 6],
+         daysOfWeekDisabled: {{ config.daysDisabled | json_encode | raw }},
          autoclose: true
        }).on('changeDate', gh.code.updateTimes);
        gh.code.updateTimes(true);
@@ -66,7 +68,6 @@
     {% endmacro %}
     {% from _self import time_selector %}
 
-    {% set config = configuration.get('code.config') %}
     {# Time span selectors #}
     <div class="date-time-range-time date-time-range-time-start">
       {{ time_selector(config.startTime, id ~ '-time-start') }}
