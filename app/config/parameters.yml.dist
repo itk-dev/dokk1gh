@@ -123,7 +123,8 @@ parameters:
           min: 9
           max: 22
         minutes: [0, 30]
-
+      # 0: Sunday, 1: Monday, …, 6: Saturday
+      daysEnabled: [0, 1, 2, 3, 4, 5, 6]
     code.defaults.startTime: 'today +7 hours'
     code.defaults.endTime: 'today +14 hours'
 
