@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * This file is part of Gæstehåndtering.
+ *
+ * (c) 2017–2018 ITK Development
+ *
+ * This source file is subject to the MIT license.
+ */
+
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
@@ -15,8 +23,12 @@ class UserController extends AdminController
 {
     private $userManager;
 
-    public function __construct(TokenStorageInterface $tokenStorage, TemplateManager $templateManager, \Twig_Environment $twig, UserManager $userManager)
-    {
+    public function __construct(
+        TokenStorageInterface $tokenStorage,
+        TemplateManager $templateManager,
+        \Twig_Environment $twig,
+        UserManager $userManager
+    ) {
         parent::__construct($tokenStorage, $templateManager, $twig);
         $this->userManager = $userManager;
     }

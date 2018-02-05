@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * This file is part of Gæstehåndtering.
+ *
+ * (c) 2017–2018 ITK Development
+ *
+ * This source file is subject to the MIT license.
+ */
+
 namespace AppBundle\Entity;
 
 use AppBundle\Traits\BlameableEntity;
@@ -262,7 +270,7 @@ class Code implements Blameable
      */
     public function validate(ExecutionContextInterface $context)
     {
-        if ($this->getId() === null) {
+        if (null === $this->getId()) {
             if ($this->getStartTime() <= new \DateTime('-1 hour')) {
                 $context->buildViolation('Start time must be after one hour ago.')
                     ->atPath('startTime')

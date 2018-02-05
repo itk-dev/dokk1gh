@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * This file is part of Gæstehåndtering.
+ *
+ * (c) 2017–2018 ITK Development
+ *
+ * This source file is subject to the MIT license.
+ */
+
 namespace AppBundle\Features\Context;
 
 use AppBundle\Entity\Template;
@@ -169,7 +177,10 @@ class FeatureContext extends BaseContext implements Context, KernelAwareContext
             throw new \RuntimeException('No such user: '.$email);
         }
 
-        $path = $this->container->get('router')->generate('fos_user_resetting_reset', ['token' => $user->getConfirmationToken(), 'create' => $action === 'create']);
+        $path = $this->container->get('router')->generate('fos_user_resetting_reset', [
+            'token' => $user->getConfirmationToken(),
+            'create' => 'create' === $action,
+        ]);
         $this->visitPath($path);
     }
 

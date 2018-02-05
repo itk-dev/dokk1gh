@@ -4,6 +4,14 @@ $finder = PhpCsFixer\Finder::create()
      ->in(__DIR__.'/{app,src,tests}')
 ;
 
+$header =<<<'HEADER'
+This file is part of Gæstehåndtering.
+
+(c) 2017–2018 ITK Development
+
+This source file is subject to the MIT license.
+HEADER;
+
 return PhpCsFixer\Config::create()
     ->setRiskyAllowed(true)
     ->setRules([
@@ -15,7 +23,7 @@ return PhpCsFixer\Config::create()
         'combine_consecutive_unsets' => true,
         // one should use PHPUnit methods to set up expected exception instead of annotations
         'general_phpdoc_annotation_remove' => ['annotations' => ['expectedException', 'expectedExceptionMessage', 'expectedExceptionMessageRegExp']],
-        // 'header_comment' => ['header' => $header],
+        'header_comment' => ['header' => $header],
         'heredoc_to_nowdoc' => true,
         'list_syntax' => ['syntax' => 'long'],
         'method_argument_space' => ['ensure_fully_multiline' => true],

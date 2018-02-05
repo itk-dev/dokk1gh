@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * This file is part of Gæstehåndtering.
+ *
+ * (c) 2017–2018 ITK Development
+ *
+ * This source file is subject to the MIT license.
+ */
+
 namespace AppBundle\Service;
 
 use AppBundle\Entity\User;
@@ -31,8 +39,17 @@ class UserManager extends BaseUserManager
     /** @var array */
     private $configuration;
 
-    public function __construct(PasswordUpdaterInterface $passwordUpdater, CanonicalFieldsUpdater $canonicalFieldsUpdater, ObjectManager $om, $class, TokenGeneratorInterface $tokenGenerator, \Twig_Environment $twig, RouterInterface $router, \Swift_Mailer $mailer, array $configuration)
-    {
+    public function __construct(
+        PasswordUpdaterInterface $passwordUpdater,
+        CanonicalFieldsUpdater $canonicalFieldsUpdater,
+        ObjectManager $om,
+        $class,
+        TokenGeneratorInterface $tokenGenerator,
+        \Twig_Environment $twig,
+        RouterInterface $router,
+        \Swift_Mailer $mailer,
+        array $configuration
+    ) {
         parent::__construct($passwordUpdater, $canonicalFieldsUpdater, $om, $class);
         $this->tokenGenerator = $tokenGenerator;
         $this->twig = $twig;

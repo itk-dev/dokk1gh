@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * This file is part of Gæstehåndtering.
+ *
+ * (c) 2017–2018 ITK Development
+ *
+ * This source file is subject to the MIT license.
+ */
+
 namespace ApiBundle\Controller\Admin;
 
 use AppBundle\Entity\Template;
@@ -278,8 +286,10 @@ class AdminController extends Controller
 
         $result = array_values($result);
 
-        if ($class === User::class || $class === Template::class) {
-            $dql = 'SELECT e.'.($class === User::class ? 'username' : 'name').' name, e.aeosId FROM '.$class.' e WHERE e.aeosId IS NOT NULL';
+        if (User::class === $class || Template::class === $class) {
+            $dql = 'SELECT e.'.(User::class === $class ? 'username' : 'name').' name, e.aeosId
+                    FROM '.$class.' e
+                    WHERE e.aeosId IS NOT NULL';
             $query = $this->getDoctrine()->getManager()->createQuery($dql);
             $aeosIdsInUse = [];
             foreach ($query->getResult() as $row) {

@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * This file is part of Gæstehåndtering.
+ *
+ * (c) 2017–2018 ITK Development
+ *
+ * This source file is subject to the MIT license.
+ */
+
 namespace AppBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
@@ -32,7 +40,11 @@ abstract class AbstractBaseCommand extends ContainerAwareCommand
         parent::configure();
         $this
             ->addArgument('cmd', InputArgument::REQUIRED, 'The command to run')
-            ->addArgument('arguments', InputArgument::OPTIONAL | InputArgument::IS_ARRAY, 'The arguments to the command')
+            ->addArgument(
+                'arguments',
+                InputArgument::OPTIONAL | InputArgument::IS_ARRAY,
+                'The arguments to the command'
+            )
             ->addHelp();
     }
 
@@ -89,7 +101,11 @@ abstract class AbstractBaseCommand extends ContainerAwareCommand
     private function renderMethodHelp(\ReflectionMethod $method, int $commandNameWidth, string $indent = '')
     {
         $doc = new DocBlockReflection($method);
-        $help = $indent.'<info>'.str_pad($this->camel2kebab($method->getName()), $commandNameWidth + 2).'</info>'.$doc->getShortDescription();
+        $help = $indent
+            .'<info>'
+            .str_pad($this->camel2kebab($method->getName()), $commandNameWidth + 2)
+            .'</info>'
+            .$doc->getShortDescription();
         if ($doc->getTags('param')) {
             $params = $doc->getTags('param');
             $paramNameWidth = max(array_map('strlen', array_map(function (ParamTag $param) {

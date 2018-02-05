@@ -64,8 +64,10 @@
           <root url="file://$MODULE_DIR$/vendor/doctrine/orm" />
           <root url="file://$MODULE_DIR$/vendor/exsyst/swagger" />
           <root url="file://$MODULE_DIR$/vendor/fig/link-util" />
+          <root url="file://$MODULE_DIR$/vendor/friendsofphp/php-cs-fixer" />
           <root url="file://$MODULE_DIR$/vendor/friendsofsymfony/rest-bundle" />
           <root url="file://$MODULE_DIR$/vendor/friendsofsymfony/user-bundle" />
+          <root url="file://$MODULE_DIR$/vendor/gecko-packages/gecko-php-unit" />
           <root url="file://$MODULE_DIR$/vendor/gedmo/doctrine-extensions" />
           <root url="file://$MODULE_DIR$/vendor/incenteev/composer-parameter-handler" />
           <root url="file://$MODULE_DIR$/vendor/javiereguiluz/easyadmin-bundle" />
@@ -75,12 +77,14 @@
           <root url="file://$MODULE_DIR$/vendor/jms/serializer" />
           <root url="file://$MODULE_DIR$/vendor/jms/serializer-bundle" />
           <root url="file://$MODULE_DIR$/vendor/justinrainbow/json-schema" />
+          <root url="file://$MODULE_DIR$/vendor/mobiledetect/mobiledetectlib" />
           <root url="file://$MODULE_DIR$/vendor/monolog/monolog" />
           <root url="file://$MODULE_DIR$/vendor/nelmio/api-doc-bundle" />
           <root url="file://$MODULE_DIR$/vendor/ocramius/package-versions" />
           <root url="file://$MODULE_DIR$/vendor/ocramius/proxy-manager" />
           <root url="file://$MODULE_DIR$/vendor/pagerfanta/pagerfanta" />
           <root url="file://$MODULE_DIR$/vendor/paragonie/random_compat" />
+          <root url="file://$MODULE_DIR$/vendor/php-cs-fixer/diff" />
           <root url="file://$MODULE_DIR$/vendor/phpcollection/phpcollection" />
           <root url="file://$MODULE_DIR$/vendor/phpoption/phpoption" />
           <root url="file://$MODULE_DIR$/vendor/psr/cache" />
@@ -92,7 +96,9 @@
           <root url="file://$MODULE_DIR$/vendor/sensio/framework-extra-bundle" />
           <root url="file://$MODULE_DIR$/vendor/sensio/generator-bundle" />
           <root url="file://$MODULE_DIR$/vendor/sensiolabs/security-checker" />
+          <root url="file://$MODULE_DIR$/vendor/squizlabs/php_codesniffer" />
           <root url="file://$MODULE_DIR$/vendor/stof/doctrine-extensions-bundle" />
+          <root url="file://$MODULE_DIR$/vendor/suncat/mobile-detect-bundle" />
           <root url="file://$MODULE_DIR$/vendor/swiftmailer/swiftmailer" />
           <root url="file://$MODULE_DIR$/vendor/symfony/monolog-bundle" />
           <root url="file://$MODULE_DIR$/vendor/symfony/phpunit-bridge" />
@@ -101,6 +107,7 @@
           <root url="file://$MODULE_DIR$/vendor/symfony/polyfill-mbstring" />
           <root url="file://$MODULE_DIR$/vendor/symfony/polyfill-php56" />
           <root url="file://$MODULE_DIR$/vendor/symfony/polyfill-php70" />
+          <root url="file://$MODULE_DIR$/vendor/symfony/polyfill-php72" />
           <root url="file://$MODULE_DIR$/vendor/symfony/polyfill-util" />
           <root url="file://$MODULE_DIR$/vendor/symfony/swiftmailer-bundle" />
           <root url="file://$MODULE_DIR$/vendor/symfony/symfony" />
@@ -138,8 +145,10 @@
           <root url="file://$MODULE_DIR$/vendor/doctrine/orm" />
           <root url="file://$MODULE_DIR$/vendor/exsyst/swagger" />
           <root url="file://$MODULE_DIR$/vendor/fig/link-util" />
+          <root url="file://$MODULE_DIR$/vendor/friendsofphp/php-cs-fixer" />
           <root url="file://$MODULE_DIR$/vendor/friendsofsymfony/rest-bundle" />
           <root url="file://$MODULE_DIR$/vendor/friendsofsymfony/user-bundle" />
+          <root url="file://$MODULE_DIR$/vendor/gecko-packages/gecko-php-unit" />
           <root url="file://$MODULE_DIR$/vendor/gedmo/doctrine-extensions" />
           <root url="file://$MODULE_DIR$/vendor/incenteev/composer-parameter-handler" />
           <root url="file://$MODULE_DIR$/vendor/javiereguiluz/easyadmin-bundle" />
@@ -149,12 +158,14 @@
           <root url="file://$MODULE_DIR$/vendor/jms/serializer" />
           <root url="file://$MODULE_DIR$/vendor/jms/serializer-bundle" />
           <root url="file://$MODULE_DIR$/vendor/justinrainbow/json-schema" />
+          <root url="file://$MODULE_DIR$/vendor/mobiledetect/mobiledetectlib" />
           <root url="file://$MODULE_DIR$/vendor/monolog/monolog" />
           <root url="file://$MODULE_DIR$/vendor/nelmio/api-doc-bundle" />
           <root url="file://$MODULE_DIR$/vendor/ocramius/package-versions" />
           <root url="file://$MODULE_DIR$/vendor/ocramius/proxy-manager" />
           <root url="file://$MODULE_DIR$/vendor/pagerfanta/pagerfanta" />
           <root url="file://$MODULE_DIR$/vendor/paragonie/random_compat" />
+          <root url="file://$MODULE_DIR$/vendor/php-cs-fixer/diff" />
           <root url="file://$MODULE_DIR$/vendor/phpcollection/phpcollection" />
           <root url="file://$MODULE_DIR$/vendor/phpoption/phpoption" />
           <root url="file://$MODULE_DIR$/vendor/psr/cache" />
@@ -166,7 +177,9 @@
           <root url="file://$MODULE_DIR$/vendor/sensio/framework-extra-bundle" />
           <root url="file://$MODULE_DIR$/vendor/sensio/generator-bundle" />
           <root url="file://$MODULE_DIR$/vendor/sensiolabs/security-checker" />
+          <root url="file://$MODULE_DIR$/vendor/squizlabs/php_codesniffer" />
           <root url="file://$MODULE_DIR$/vendor/stof/doctrine-extensions-bundle" />
+          <root url="file://$MODULE_DIR$/vendor/suncat/mobile-detect-bundle" />
           <root url="file://$MODULE_DIR$/vendor/swiftmailer/swiftmailer" />
           <root url="file://$MODULE_DIR$/vendor/symfony/monolog-bundle" />
           <root url="file://$MODULE_DIR$/vendor/symfony/phpunit-bridge" />
@@ -175,6 +188,7 @@
           <root url="file://$MODULE_DIR$/vendor/symfony/polyfill-mbstring" />
           <root url="file://$MODULE_DIR$/vendor/symfony/polyfill-php56" />
           <root url="file://$MODULE_DIR$/vendor/symfony/polyfill-php70" />
+          <root url="file://$MODULE_DIR$/vendor/symfony/polyfill-php72" />
           <root url="file://$MODULE_DIR$/vendor/symfony/polyfill-util" />
           <root url="file://$MODULE_DIR$/vendor/symfony/swiftmailer-bundle" />
           <root url="file://$MODULE_DIR$/vendor/symfony/symfony" />

@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * This file is part of Gæstehåndtering.
+ *
+ * (c) 2017–2018 ITK Development
+ *
+ * This source file is subject to the MIT license.
+ */
+
 namespace AppBundle\Service;
 
 class AeosService
@@ -57,14 +65,16 @@ class AeosService
             $value->CarrierId = isset($item->CarrierId) ? $item->CarrierId : null;
 
             return $value;
-        }, is_array($result->IdentifierAndCarrierId) ? $result->IdentifierAndCarrierId : [$result->IdentifierAndCarrierId]);
+        }, is_array($result->IdentifierAndCarrierId)
+            ? $result->IdentifierAndCarrierId
+            : [$result->IdentifierAndCarrierId]);
     }
 
     public function getIdentifierByBadgeNumber($badgeNumber)
     {
         $result = $this->getIdentifiers(['BadgeNumber' => $badgeNumber]);
 
-        return ($result && count($result) === 1) ? $result[0] : null;
+        return ($result && 1 === count($result)) ? $result[0] : null;
     }
 
     public function blockIdentifier($identifier)
@@ -84,7 +94,7 @@ class AeosService
 
     public function isBlocked($identifier)
     {
-        return $identifier && isset($identifier->Blocked) && $identifier->Blocked === true;
+        return $identifier && isset($identifier->Blocked) && true === $identifier->Blocked;
     }
 
     public function getVisitors(array $query = [])
@@ -108,7 +118,7 @@ class AeosService
     {
         $result = $this->getVisitors(['Id' => $id]);
 
-        return ($result && count($result) === 1) ? $result[0] : null;
+        return ($result && 1 === count($result)) ? $result[0] : null;
     }
 
     public function getVisitorByIdentifier($identifier)
@@ -136,14 +146,14 @@ class AeosService
     {
         $result = $this->getVisits(['Id' => $id]);
 
-        return ($result && count($result) === 1) ? $result[0] : null;
+        return ($result && 1 === count($result)) ? $result[0] : null;
     }
 
     public function getVisitByVisitor($visitor)
     {
         $result = $this->getVisits(['VisitorId' => $visitor->Id]);
 
-        return ($result && count($result) === 1) ? $result[0] : null;
+        return ($result && 1 === count($result)) ? $result[0] : null;
     }
 
     public function deleteVisit($visit)
@@ -218,7 +228,7 @@ class AeosService
     {
         $result = $this->getPersons(['Id' => $id]);
 
-        return ($result && count($result) === 1) ? $result[0] : null;
+        return ($result && 1 === count($result)) ? $result[0] : null;
     }
 
     public function getTemplates(array $query = [])
@@ -238,7 +248,7 @@ class AeosService
     {
         $result = $this->getTemplates(['Id' => $id]);
 
-        return ($result && count($result) === 1) ? $result[0] : null;
+        return ($result && 1 === count($result)) ? $result[0] : null;
     }
 
     public function getLastRequest()
@@ -291,8 +301,10 @@ class AeosService
 
     private function generateBadgeNumber($length = null)
     {
-        if ($length === null) {
-            $length = isset($this->configuration['aeos']['identifier_length']) ? $this->configuration['aeos']['identifier_length'] : 8;
+        if (null === $length) {
+            $length = isset($this->configuration['aeos']['identifier_length'])
+                ? $this->configuration['aeos']['identifier_length']
+                : 8;
         }
 
         // Loop until we find an unused code or time out.
