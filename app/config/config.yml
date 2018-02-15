@@ -127,7 +127,6 @@ fos_user:
     resetting:
         email:
             template: Emails/password_resetting.email.twig
-    resetting:
         token_ttl: 0
 
 fos_rest:
