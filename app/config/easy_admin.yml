@@ -124,6 +124,7 @@ easy_admin:
                       type: date
                     - property: timeRanges
                       type: AppBundle\Form\TimeRangesType
+                      label: 'Access times'
 
             edit:
                 fields:
@@ -145,6 +146,7 @@ easy_admin:
                       type: date
                     - property: timeRanges
                       type: AppBundle\Form\TimeRangesType
+                      label: 'Access times'
 
         User:
             controller: AppBundle\Controller\UserController
