@@ -7,6 +7,7 @@ security:
         submit: Log ind
         forgotten_password: Glemt adgangskode
         gdpr_consent: Accepter betingelser for indsamling af data
+        gdpr_terms_link_text: Læs betingelser
 
 # Profile
 profile:
