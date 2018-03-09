@@ -1,0 +1,10 @@
+{% extends 'easy_admin/layout.html.twig' %}
+
+{# Variable `wrapper_classes` is used by parent template #}
+{% set wrapper_classes = ['no-menu', 'user-page'] %}
+
+{% block main %}
+    <div class="container">
+        {{ content|raw }}
+    </div>
+{% endblock %}
