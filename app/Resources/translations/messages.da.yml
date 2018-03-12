@@ -158,3 +158,10 @@ app_terms_content: Betingelser – indhold
 app_about_lead: Om app'en – manchet
 app_about_header: Om app'en – overskrift
 app_about_content: Om app'en – indhold
+
+# GDPR
+
+GDPR Consent: Accepter GDPR
+Yes, I accept the terms: Ja, jeg acceptere betingelserne
+Continue: Fortsæt
+Leave: Tilbage

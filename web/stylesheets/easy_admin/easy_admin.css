@@ -125,6 +125,53 @@ body.new-code textarea {
   #fos-user #header-image img {
     max-height: 19px; } }
 
+/* gdpr page */
+.gdpr {
+  max-width: 620px;
+  padding: 5px 25px 25px 25px;
+  margin: 20px auto;
+  background: #FFF;
+  -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+          box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+  border: none;
+  border-radius: 0; }
+  .gdpr .checkbox {
+    margin-top: 30px;
+    margin-bottom: 30px; }
+  .gdpr .panel-heading {
+    font-weight: 400;
+    font-size: 1.6em; }
+  .gdpr .control-label {
+    font-weight: 200;
+    font-size: 1em; }
+  .gdpr .checkbox {
+    font-weight: normal; }
+  .gdpr .form-control {
+    position: relative;
+    height: auto;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 15px;
+    font-size: 16px;
+    background-color: #F5F5F5;
+    border-color: #EAEAEA;
+    margin-bottom: 10px;
+    border-radius: 3px; }
+  .gdpr input[disabled].form-control {
+    color: #969696; }
+  .gdpr button[disabled].btn-primary:hover {
+    background-color: #579711;
+    border-color: #4a800e;
+    opacity: .65;
+    cursor: not-allowed; }
+
+@media (max-width: 767px) {
+  #fos-user #flash-messages, #fos-user .form-signin {
+    padding-top: 0;
+    margin-top: 0; }
+  #fos-user #header-image img {
+    max-height: 19px; } }
+
 /* hide sidebar on login */
 .sidebar-collapse .no-menu aside.main-sidebar,
 .no-menu aside.main-sidebar {

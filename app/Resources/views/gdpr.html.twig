@@ -1,0 +1,52 @@
+{% extends 'easy_admin/layout.html.twig' %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block sidebar null %}
+{% block body_id 'fos-user' %}
+
+{% block main %}
+	<div class="container">
+		<div class="row">
+			<div class="panel gdpr">
+				<div class="panel-heading">
+					<h1>{{ 'GDPR Consent'|trans }}</h1>
+				</div>
+				<div class="panel-body">
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut egestas iaculis ex, at fermentum arcu efficitur quis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Suspendisse potenti. Aliquam ornare odio enim, a iaculis nunc ullamcorper vel. Nunc dapibus est tincidunt, iaculis elit id, finibus orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed nisi dapibus, accumsan velit non, semper nulla. Duis porta blandit dolor, nec convallis ligula suscipit quis. Fusce a sodales tortor. Nullam enim enim, tempus et arcu sit amet, facilisis sagittis lorem. Vestibulum aliquet at mi et convallis. Donec lectus urna, consequat eu bibendum non, aliquet nec erat.</p>
+				<p>Curabitur pretium posuere massa, vel accumsan erat vehicula in. Integer diam sapien, tempus auctor orci a, aliquam aliquet urna. Vivamus in nunc id lorem hendrerit ultricies eget non nunc. Quisque et sem porttitor, ultricies augue sit amet, sodales nulla. Donec elementum interdum justo, ac sollicitudin libero elementum at. Sed at elementum felis. Fusce cursus pharetra pellentesque. Praesent pulvinar massa est, et sagittis odio tincidunt vel. Aenean aliquet lorem at tellus ultricies, et condimentum quam dictum. Mauris blandit libero nec finibus gravida. Cras maximus tellus quis nibh ornare, id vestibulum lacus vehicula.</p>
+				<p>Curabitur egestas ex mi, in mattis erat lobortis in. Mauris a fermentum est. Curabitur consectetur, lorem nec ullamcorper ultricies, turpis ante iaculis diam, quis tincidunt nibh dui at tellus. Nullam luctus malesuada sagittis. Duis pharetra id lacus blandit laoreet. Vivamus ut tellus urna. Sed eu dui pulvinar, efficitur orci et, ornare augue.</p>
+				<p>Aenean sed ultrices odio, non lobortis eros. Donec a rhoncus turpis. Proin laoreet ante ut tortor iaculis aliquet. In id vulputate metus. In hac habitasse platea dictumst. Sed interdum posuere metus, eget interdum odio facilisis eu. Praesent interdum ultrices egestas. Ut convallis pharetra odio, at iaculis enim hendrerit et. Maecenas tristique neque sit amet massa accumsan fermentum.</p>
+				<p>Vestibulum bibendum cursus sem at vestibulum. Mauris a orci non nulla pharetra venenatis in id est. Praesent vel elit vestibulum, porttitor lacus et, posuere mi. Nam in massa et erat posuere luctus ac vel risus. Praesent convallis enim ac tempor tristique. Donec sit amet dapibus dui. Proin commodo, dui ac facilisis tempus, enim sapien consequat est, a ornare felis diam nec lectus.</p>
+				
+				{% block fos_user_content %}
+					<form action="{{ path("fos_user_security_check") }}" method="post">
+						{# <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/> #}
+						<div class="checkbox">
+							<label>
+							<input type="checkbox" id="_gdpr_consent" name="_gdpr_consent" value="on"/>
+							<b>{{ 'Yes, I accept the terms'|trans }}</b>
+							</label>
+						</div>
+						<div class="form-group">
+							<button type="submit" disabled class="btn btn-lg btn-primary col-md-7 pull-right" id="_submit" name="_submit">{{ 'Continue'|trans }}</button>
+							<button type="button" class="btn btn-lg btn-inverse col-md-4" name="_leave">{{ 'Leave'|trans }}</button>
+						</div>
+					</form>
+				{% endblock fos_user_content %}
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		var checker = document.getElementById('_gdpr_consent');
+		var sendbtn = document.getElementById('_submit');
+		checker.onchange = function(){
+			if(this.checked){
+				sendbtn.disabled = false;
+			} else {
+				sendbtn.disabled = true;
+			}
+		}
+	</script>
+{% endblock %}
