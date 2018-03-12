@@ -33,6 +33,7 @@
         "incenteev/composer-parameter-handler": "^2.1",
         "itk-dev/config-bundle": "^1.0",
         "itk-dev/database-bundle": "^1.0",
+        "itk-dev/gdpr-bundle": "^1.0",
         "itk-dev/monolog-db-bundle": "^1.0",
         "javiereguiluz/easyadmin-bundle": "^1.17",
         "jms/serializer-bundle": "^2.3",

@@ -47,6 +47,7 @@ class AppKernel extends Kernel
             new MockBundle\MockBundle(),
             new AppBundle\AppBundle(),
             new ApiBundle\ApiBundle(),
+            new ItkDev\GDPRBundle\ItkDevGDPRBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test', 'acceptance'], true)) {
