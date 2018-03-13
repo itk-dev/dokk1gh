@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f37305939f01d00e701469c646cc9984",
+    "content-hash": "3476f1d159b1aedd5e45abd8cbcfc222",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1924,19 +1924,20 @@
         },
         {
             "name": "itk-dev/gdpr-bundle",
-            "version": "1.0.1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/itk-dev/gdpr-bundle.git",
-                "reference": "976fd728f00b661963720c3c61c0e3f73c30ab62"
+                "reference": "0a886f93df0a1e23f1b46ebfb110ddc7662fa15a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/itk-dev/gdpr-bundle/zipball/976fd728f00b661963720c3c61c0e3f73c30ab62",
-                "reference": "976fd728f00b661963720c3c61c0e3f73c30ab62",
+                "url": "https://api.github.com/repos/itk-dev/gdpr-bundle/zipball/0a886f93df0a1e23f1b46ebfb110ddc7662fa15a",
+                "reference": "0a886f93df0a1e23f1b46ebfb110ddc7662fa15a",
                 "shasum": ""
             },
             "require": {
+                "friendsofsymfony/user-bundle": "^2.1",
                 "symfony/symfony": "^3.0"
             },
             "require-dev": {
@@ -5936,7 +5937,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "itk-dev/gdpr-bundle": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
