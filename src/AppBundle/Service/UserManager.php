@@ -13,6 +13,7 @@ namespace AppBundle\Service;
 use AppBundle\Entity\User;
 use Doctrine\Common\Persistence\ObjectManager;
 use FOS\UserBundle\Doctrine\UserManager as BaseUserManager;
+use FOS\UserBundle\Mailer\TwigSwiftMailer;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Util\CanonicalFieldsUpdater;
 use FOS\UserBundle\Util\PasswordUpdaterInterface;
@@ -33,6 +34,9 @@ class UserManager extends BaseUserManager
     /** @var \Symfony\Component\Routing\RouterInterface */
     private $router;
 
+    /** @var TwigSwiftMailer */
+    private $userMailer;
+
     /** @var \Swift_Mailer */
     private $mailer;
 
@@ -47,6 +51,7 @@ class UserManager extends BaseUserManager
         TokenGeneratorInterface $tokenGenerator,
         \Twig_Environment $twig,
         RouterInterface $router,
+        TwigSwiftMailer $userMailer,
         \Swift_Mailer $mailer,
         array $configuration
     ) {
@@ -54,6 +59,7 @@ class UserManager extends BaseUserManager
         $this->tokenGenerator = $tokenGenerator;
         $this->twig = $twig;
         $this->router = $router;
+        $this->userMailer = $userMailer;
         $this->mailer = $mailer;
         $this->configuration = json_decode(json_encode($configuration));
     }
@@ -86,6 +92,18 @@ class UserManager extends BaseUserManager
 
         $message = $this->createUserCreatedMessage($user);
         $this->mailer->send($message);
+    }
+
+    public function resetPassword(User $user, $andFlush = true)
+    {
+        if (null === $user->getConfirmationToken()) {
+            // @var $tokenGenerator TokenGeneratorInterface
+            $user->setConfirmationToken($this->tokenGenerator->generateToken());
+        }
+        $user->setPasswordRequestedAt(new \DateTime());
+        $this->updateUser($user, $andFlush);
+
+        $this->userMailer->sendResettingEmailMessage($user);
     }
 
     private function createUserCreatedMessage(UserInterface $user)

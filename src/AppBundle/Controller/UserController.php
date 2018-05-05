@@ -82,18 +82,31 @@ class UserController extends AdminController
         return $this->apiKeyGetAction($request);
     }
 
-    /**
-     * @Route("/user/{id}/notify", name="user_notify")
-     * @Method("POST")
-     *
-     * @param User $user
-     */
-    public function notifyAction(Request $request, User $user)
+    public function notifyUserCreatedAction()
     {
-        $this->userManager->notifyUserCreated($user, true);
-        $this->showInfo('User notified');
+        $id = $this->request->query->get('id');
+        $easyadmin = $this->request->attributes->get('easyadmin');
+        $user = $easyadmin['item'];
 
-        $refererUrl = $request->query->get('referer');
+        $this->userManager->notifyUserCreated($user, true);
+        $this->showInfo('User %user% notified', ['%user%' => $user]);
+
+        $refererUrl = $this->request->query->get('referer');
+
+        return $refererUrl ? $this->redirect(urldecode($refererUrl))
+            : $this->redirectToRoute('easyadmin', ['action' => 'edit', 'entity' => 'User', 'id' => $user->getId()]);
+    }
+
+    public function resetPasswordAction()
+    {
+        $id = $this->request->query->get('id');
+        $easyadmin = $this->request->attributes->get('easyadmin');
+        $user = $easyadmin['item'];
+
+        $this->userManager->resetPassword($user, true);
+        $this->showInfo('Password for %user% reset', ['%user%' => $user]);
+
+        $refererUrl = $this->request->query->get('referer');
 
         return $refererUrl ? $this->redirect(urldecode($refererUrl))
             : $this->redirectToRoute('easyadmin', ['action' => 'edit', 'entity' => 'User', 'id' => $user->getId()]);

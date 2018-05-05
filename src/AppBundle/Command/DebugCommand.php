@@ -82,8 +82,6 @@ class DebugCommand extends AbstractBaseCommand
             throw new InvalidArgumentException('No such user: '.$username);
         }
 
-        $this->getContainer()->get('fos_user.mailer')->sendResettingEmailMessage($user);
-        $user->setPasswordRequestedAt(new \DateTime());
-        $this->getContainer()->get('fos_user.user_manager')->updateUser($user);
+        $this->userManager->resetPassword($user);
     }
 }
