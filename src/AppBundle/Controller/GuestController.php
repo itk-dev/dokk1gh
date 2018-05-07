@@ -57,4 +57,9 @@ class GuestController extends AdminController
 
         return $this->redirectToReferrer();
     }
+
+    public function resendAppAction()
+    {
+        return $this->sendAppAction();
+    }
 }

@@ -9,6 +9,10 @@ action:
     show: Vis
     notify_user_created: 'Gensend oprettelsesmail'
     reset_password: 'Nulstil adgangskode'
+    resend_app: 'Gensend app'
+
+'Show app': 'Vis app'
+'Send app': 'Send app'
 
 User: Bruger
 Code: Kode
