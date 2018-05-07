@@ -7,6 +7,8 @@ action:
     save: Gem
     list: Tilbage til oversigt
     show: Vis
+    notify_user_created: 'Gensend oprettelsesmail'
+    reset_password: 'Nulstil adgangskode'
 
 User: Bruger
 Code: Kode

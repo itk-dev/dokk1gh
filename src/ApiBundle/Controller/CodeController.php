@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * This file is part of Gæstehåndtering.
+ *
+ * (c) 2017–2018 ITK Development
+ *
+ * This source file is subject to the MIT license.
+ */
+
 namespace ApiBundle\Controller;
 
 use AppBundle\Entity\Code;
@@ -34,8 +42,12 @@ class CodeController extends Controller implements ClassResourceInterface
     /** @var \Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface */
     private $authorizationChecker;
 
-    public function __construct(AeosHelper $aeosHelper, TemplateManager $templateManager, EntityManagerInterface $entityManager, AuthorizationCheckerInterface $authorizationChecker)
-    {
+    public function __construct(
+        AeosHelper $aeosHelper,
+        TemplateManager $templateManager,
+        EntityManagerInterface $entityManager,
+        AuthorizationCheckerInterface $authorizationChecker
+    ) {
         $this->aeosHelper = $aeosHelper;
         $this->templateManager = $templateManager;
         $this->entityManager = $entityManager;

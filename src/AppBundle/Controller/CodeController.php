@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * This file is part of Gæstehåndtering.
+ *
+ * (c) 2017–2018 ITK Development
+ *
+ * This source file is subject to the MIT license.
+ */
+
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Code;
@@ -18,8 +26,13 @@ class CodeController extends AdminController
     /** @var \Symfony\Component\DependencyInjection\ContainerInterface */
     protected $container;
 
-    public function __construct(TokenStorageInterface $tokenStorage, TemplateManager $templateManager, \Twig_Environment $twig, AeosHelper $aeosHelper, ContainerInterface $container)
-    {
+    public function __construct(
+        TokenStorageInterface $tokenStorage,
+        TemplateManager $templateManager,
+        \Twig_Environment $twig,
+        AeosHelper $aeosHelper,
+        ContainerInterface $container
+    ) {
         parent::__construct($tokenStorage, $templateManager, $twig);
         $this->aeosHelper = $aeosHelper;
         $this->container = $container;
@@ -27,7 +40,8 @@ class CodeController extends AdminController
 
     protected function listAction()
     {
-        // EasyAdmin injects default sorting (by id), so we cannot check for "sortField" using $this->request->query->has().
+        // EasyAdmin injects default sorting (by id), so we cannot check for
+        // "sortField" using $this->request->query->has().
         parse_str($this->request->getQueryString(), $query);
         if (!isset($query['sortField'])) {
             $this->request->query->add([
@@ -38,15 +52,27 @@ class CodeController extends AdminController
         return parent::listAction();
     }
 
-    protected function createSearchQueryBuilder($entityClass, $searchQuery, array $searchableFields, $sortField = null, $sortDirection = null, $dqlFilter = null)
-    {
+    protected function createSearchQueryBuilder(
+        $entityClass,
+        $searchQuery,
+        array $searchableFields,
+        $sortField = null,
+        $sortDirection = null,
+        $dqlFilter = null
+    ) {
         $sortByStatus = false;
-        if ($sortField === 'status') {
+        if ('status' === $sortField) {
             $sortField = null;
             $sortByStatus = true;
         }
-        $builder = parent::createSearchQueryBuilder($entityClass, $searchQuery, $searchableFields, $sortField, $sortDirection, $dqlFilter);
-
+        $builder = parent::createSearchQueryBuilder(
+            $entityClass,
+            $searchQuery,
+            $searchableFields,
+            $sortField,
+            $sortDirection,
+            $dqlFilter
+        );
         if ($sortByStatus) {
             $alias = $builder->getRootAliases()[0];
             // Sort by code "status"
@@ -56,7 +82,11 @@ class CodeController extends AdminController
             //
             // @see https://stackoverflow.com/a/15269307
             // @see http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/dql-doctrine-query-language.html
-            $builder->addSelect('CASE WHEN CURRENT_TIMESTAMP() BETWEEN '.$alias.'.startTime AND '.$alias.'.endTime THEN 0 WHEN '.$alias.'.startTime > CURRENT_TIMESTAMP() THEN -1 ELSE -2 END HIDDEN sortValue');
+            $builder->addSelect('CASE
+                                   WHEN CURRENT_TIMESTAMP() BETWEEN '.$alias.'.startTime AND '.$alias.'.endTime THEN 0
+                                   WHEN '.$alias.'.startTime > CURRENT_TIMESTAMP() THEN -1
+                                   ELSE -2
+                                 END HIDDEN sortValue');
             $builder->addOrderBy('sortValue', $sortDirection);
         }
 
@@ -66,7 +96,7 @@ class CodeController extends AdminController
     protected function createCodeListQueryBuilder($entityClass, $sortDirection, $sortField, $dqlFilter)
     {
         $sortByStatus = false;
-        if ($sortField === 'status') {
+        if ('status' === $sortField) {
             $sortField = null;
             $sortByStatus = true;
         }
@@ -81,7 +111,11 @@ class CodeController extends AdminController
             //
             // @see https://stackoverflow.com/a/15269307
             // @see http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/dql-doctrine-query-language.html
-            $builder->addSelect('CASE WHEN CURRENT_TIMESTAMP() BETWEEN '.$alias.'.startTime AND '.$alias.'.endTime THEN 0 WHEN '.$alias.'.startTime > CURRENT_TIMESTAMP() THEN -1 ELSE -2 END HIDDEN sortValue');
+            $builder->addSelect('CASE
+                                   WHEN CURRENT_TIMESTAMP() BETWEEN '.$alias.'.startTime AND '.$alias.'.endTime THEN 0
+                                   WHEN '.$alias.'.startTime > CURRENT_TIMESTAMP() THEN -1
+                                   ELSE -2
+                                 END HIDDEN sortValue');
             $builder->addOrderBy('sortValue', $sortDirection);
         }
 
@@ -138,14 +172,14 @@ class CodeController extends AdminController
 
     protected function preUpdateCodeEntity(Code $code)
     {
-        if ($code->getIdentifier() === null) {
+        if (null === $code->getIdentifier()) {
             $this->createAeosIdentifier($code);
         }
     }
 
     protected function preRemoveCodeEntity(Code $code)
     {
-        if ($code->getIdentifier() !== null) {
+        if (null !== $code->getIdentifier()) {
             $this->removeAeosIdentifier($code);
         }
     }

@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * This file is part of Gæstehåndtering.
+ *
+ * (c) 2017–2018 ITK Development
+ *
+ * This source file is subject to the MIT license.
+ */
+
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
@@ -15,8 +23,12 @@ class UserController extends AdminController
 {
     private $userManager;
 
-    public function __construct(TokenStorageInterface $tokenStorage, TemplateManager $templateManager, \Twig_Environment $twig, UserManager $userManager)
-    {
+    public function __construct(
+        TokenStorageInterface $tokenStorage,
+        TemplateManager $templateManager,
+        \Twig_Environment $twig,
+        UserManager $userManager
+    ) {
         parent::__construct($tokenStorage, $templateManager, $twig);
         $this->userManager = $userManager;
     }
@@ -70,18 +82,31 @@ class UserController extends AdminController
         return $this->apiKeyGetAction($request);
     }
 
-    /**
-     * @Route("/user/{id}/notify", name="user_notify")
-     * @Method("POST")
-     *
-     * @param User $user
-     */
-    public function notifyAction(Request $request, User $user)
+    public function notifyUserCreatedAction()
     {
-        $this->userManager->notifyUserCreated($user, true);
-        $this->showInfo('User notified');
+        $id = $this->request->query->get('id');
+        $easyadmin = $this->request->attributes->get('easyadmin');
+        $user = $easyadmin['item'];
 
-        $refererUrl = $request->query->get('referer');
+        $this->userManager->notifyUserCreated($user, true);
+        $this->showInfo('User %user% notified', ['%user%' => $user]);
+
+        $refererUrl = $this->request->query->get('referer');
+
+        return $refererUrl ? $this->redirect(urldecode($refererUrl))
+            : $this->redirectToRoute('easyadmin', ['action' => 'edit', 'entity' => 'User', 'id' => $user->getId()]);
+    }
+
+    public function resetPasswordAction()
+    {
+        $id = $this->request->query->get('id');
+        $easyadmin = $this->request->attributes->get('easyadmin');
+        $user = $easyadmin['item'];
+
+        $this->userManager->resetPassword($user, true);
+        $this->showInfo('Password for %user% reset', ['%user%' => $user]);
+
+        $refererUrl = $this->request->query->get('referer');
 
         return $refererUrl ? $this->redirect(urldecode($refererUrl))
             : $this->redirectToRoute('easyadmin', ['action' => 'edit', 'entity' => 'User', 'id' => $user->getId()]);

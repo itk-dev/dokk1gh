@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * This file is part of Gæstehåndtering.
+ *
+ * (c) 2017–2018 ITK Development
+ *
+ * This source file is subject to the MIT license.
+ */
+
 namespace AppBundle\Controller;
 
 use AppBundle\Service\TemplateManager;
@@ -18,8 +26,11 @@ class AdminController extends BaseAdminController
     /** @var \Twig_Environment */
     protected $twig;
 
-    public function __construct(TokenStorageInterface $tokenStorage, TemplateManager $templateManager, \Twig_Environment $twig)
-    {
+    public function __construct(
+        TokenStorageInterface $tokenStorage,
+        TemplateManager $templateManager,
+        \Twig_Environment $twig
+    ) {
         $this->tokenStorage = $tokenStorage;
         $this->templateManager = $templateManager;
         $this->twig = $twig;
@@ -32,8 +43,14 @@ class AdminController extends BaseAdminController
         return parent::createListQueryBuilder($entityClass, $sortDirection, $sortField, $dqlFilter);
     }
 
-    protected function createSearchQueryBuilder($entityClass, $searchQuery, array $searchableFields, $sortField = null, $sortDirection = null, $dqlFilter = null)
-    {
+    protected function createSearchQueryBuilder(
+        $entityClass,
+        $searchQuery,
+        array $searchableFields,
+        $sortField = null,
+        $sortDirection = null,
+        $dqlFilter = null
+    ) {
         // Use only list fields in search query.
         $this->entity['search']['fields'] = array_filter($this->entity['search']['fields'], function ($key) {
             return isset($this->entity['list']['fields'][$key]);
@@ -41,7 +58,14 @@ class AdminController extends BaseAdminController
 
         $this->limitByUser($dqlFilter, $entityClass, 'entity');
 
-        return parent::createSearchQueryBuilder($entityClass, $searchQuery, $searchableFields, $sortField, $sortDirection, $dqlFilter);
+        return parent::createSearchQueryBuilder(
+            $entityClass,
+            $searchQuery,
+            $searchableFields,
+            $sortField,
+            $sortDirection,
+            $dqlFilter
+        );
     }
 
     protected function showSuccess(string $message, array $parameters = [])

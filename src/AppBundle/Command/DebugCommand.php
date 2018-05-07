@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * This file is part of Gæstehåndtering.
+ *
+ * (c) 2017–2018 ITK Development
+ *
+ * This source file is subject to the MIT license.
+ */
+
 namespace AppBundle\Command;
 
 use AppBundle\Service\AeosService;
@@ -18,8 +26,11 @@ class DebugCommand extends AbstractBaseCommand
     /** @var \AppBundle\Service\UserManager */
     protected $userManager;
 
-    public function __construct(EntityManagerInterface $entityManager, AeosService $aeosService, UserManager $userManager)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        AeosService $aeosService,
+        UserManager $userManager
+    ) {
         parent::__construct('app:debug');
         $this->entityManager = $entityManager;
         $this->aeosService = $aeosService;
@@ -71,8 +82,6 @@ class DebugCommand extends AbstractBaseCommand
             throw new InvalidArgumentException('No such user: '.$username);
         }
 
-        $this->getContainer()->get('fos_user.mailer')->sendResettingEmailMessage($user);
-        $user->setPasswordRequestedAt(new \DateTime());
-        $this->getContainer()->get('fos_user.user_manager')->updateUser($user);
+        $this->userManager->resetPassword($user);
     }
 }

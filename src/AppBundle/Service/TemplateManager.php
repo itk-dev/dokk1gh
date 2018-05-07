@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * This file is part of Gæstehåndtering.
+ *
+ * (c) 2017–2018 ITK Development
+ *
+ * This source file is subject to the MIT license.
+ */
+
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Template;
@@ -19,8 +27,11 @@ class TemplateManager
     /** @var TokenStorageInterface */
     protected $tokenStorage;
 
-    public function __construct(EntityManagerInterface $entityManager, AuthorizationCheckerInterface $authorizationChecker, TokenStorageInterface $tokenStorage)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        AuthorizationCheckerInterface $authorizationChecker,
+        TokenStorageInterface $tokenStorage
+    ) {
         $this->entityManager = $entityManager;
         $this->authorizationChecker = $authorizationChecker;
         $this->tokenStorage = $tokenStorage;

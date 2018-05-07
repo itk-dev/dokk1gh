@@ -25,16 +25,16 @@ DIR=$(php -r "echo dirname(dirname(realpath('$0')));")
 STAGED_FILES=$(git diff-index --name-only --cached --diff-filter=ACMR HEAD | grep '\.php$' | tr '\n' ' ')
 
 if [ "$STAGED_FILES" != "" ]; then
-  echo "Running php-cs-fixer …"
+  echo "Checking coding standard …"
   echo ""
-  php -n $(which php-cs-fixer) fix --dry-run --config=$DIR/.php_cs.dist $STAGED_FILES
+  composer check-coding-standard $STAGED_FILES
   status=$?
   if [ $status != 0 ]
   then
     (>&2 echo)
     (>&2 echo "Fix the errors before commit:")
     (>&2 echo)
-    (>&2 echo "  php -n \$(which php-cs-fixer) fix --dry-run --config=.php_cs.dist --diff $STAGED_FILES")
+    (>&2 echo "  composer fix-coding-standard $STAGED_FILES")
     (>&2 echo)
   fi
 fi

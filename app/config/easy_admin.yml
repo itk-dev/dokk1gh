@@ -81,16 +81,14 @@ easy_admin:
                 fields:
                     - property: email
                     - property: enabled
+                      type: boolean
                     - property: aeosId
                     - property: roles
                       template: roles.html.twig
                       sortable: false
                     - property: templates
                       template: templates.html.twig
-                    - property: enabled
-                      type: boolean
-                    - property: last_login
-                      type: datetime
+                    - property: lastLogin
                     - property: createdAt
                       template: datetime.html.twig
                     - property: createdBy

@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * This file is part of Gæstehåndtering.
+ *
+ * (c) 2017–2018 ITK Development
+ *
+ * This source file is subject to the MIT license.
+ */
+
 namespace AppBundle\Mock\Service;
 
 use Symfony\Component\Yaml\Yaml;
@@ -112,7 +120,7 @@ class AeosWebService
     private function filter($data, $params)
     {
         $dataKeys = array_keys(get_object_vars($data));
-        if (count($dataKeys) === 1) {
+        if (1 === count($dataKeys)) {
             $dataKey = $dataKeys[0];
             $vars = array_keys(get_object_vars($params));
             if (count($vars) > 0) {
@@ -122,7 +130,7 @@ class AeosWebService
                     foreach ($filter as $key => $value) {
                         if (isset($item->{$key}) && (
                                 // Starts with match on string value.
-                                (is_string($item->{$key}) && stripos($item->{$key}, $value) !== 0)
+                                (is_string($item->{$key}) && 0 !== stripos($item->{$key}, $value))
                                 // Exact match on non-string value.
                                 || (!is_string($item->{$key}) && $item->{$key} !== $value)
                         )) {
@@ -144,7 +152,7 @@ class AeosWebService
         $offset = isset($range->startRecordNo) ? $range->startRecordNo : 0;
 
         $dataKeys = array_keys(get_object_vars($data));
-        if (count($dataKeys) === 1) {
+        if (1 === count($dataKeys)) {
             $dataKey = $dataKeys[0];
             $data->{$dataKey} = array_slice($data->{$dataKey}, $offset, $length);
         }

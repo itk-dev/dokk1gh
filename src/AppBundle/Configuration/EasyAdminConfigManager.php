@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * This file is part of Gæstehåndtering.
+ *
+ * (c) 2017–2018 ITK Development
+ *
+ * This source file is subject to the MIT license.
+ */
+
 namespace AppBundle\Configuration;
 
 use JavierEguiluz\Bundle\EasyAdminBundle\Cache\CacheManager;
@@ -18,8 +26,14 @@ class EasyAdminConfigManager extends ConfigManager
 
     private $cache = [];
 
-    public function __construct(AuthorizationCheckerInterface $authorizationChecker, TokenStorageInterface $tokenStorage, CacheManager $cacheManager, PropertyAccessorInterface $propertyAccessor, array $originalBackendConfig = [], $debug = false)
-    {
+    public function __construct(
+        AuthorizationCheckerInterface $authorizationChecker,
+        TokenStorageInterface $tokenStorage,
+        CacheManager $cacheManager,
+        PropertyAccessorInterface $propertyAccessor,
+        array $originalBackendConfig = [],
+        $debug = false
+    ) {
         parent::__construct($cacheManager, $propertyAccessor, $originalBackendConfig, $debug);
         $this->authorizationChecker = $authorizationChecker;
         $this->tokenStorage = $tokenStorage;
@@ -52,7 +66,7 @@ class EasyAdminConfigManager extends ConfigManager
                     return $this->hasRole($roles);
                 });
 
-                if ($propertyPath === 'design.menu') {
+                if ('design.menu' === $propertyPath) {
                     $this->reindexMenu($config);
                 }
             }
@@ -67,7 +81,7 @@ class EasyAdminConfigManager extends ConfigManager
     {
         $config = array_values($config);
         foreach ($config as $index => &$item) {
-            if ($menuIndex === null) {
+            if (null === $menuIndex) {
                 $item['menu_index'] = $index;
                 if (isset($item['children'])) {
                     $this->reindexMenu($item['children'], $index);

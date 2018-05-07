@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * This file is part of Gæstehåndtering.
+ *
+ * (c) 2017–2018 ITK Development
+ *
+ * This source file is subject to the MIT license.
+ */
+
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Code;
@@ -52,7 +60,13 @@ class AeosHelper
         ]);
 
         $this->aeosService->setVerificationState($visitor, false);
-        $this->aeosService->createVisit($visitor, $aeosContactPerson, $code->getStartTime(), $code->getEndTime(), $aeosTemplate);
+        $this->aeosService->createVisit(
+            $visitor,
+            $aeosContactPerson,
+            $code->getStartTime(),
+            $code->getEndTime(),
+            $aeosTemplate
+        );
         $identifier = $this->aeosService->createIdentifier($visitor, $aeosContactPerson);
 
         $code->setIdentifier($identifier->BadgeNumber);
@@ -81,11 +95,11 @@ class AeosHelper
     public function userHasAeosId(User $user = null)
     {
         try {
-            if ($user === null) {
+            if (null === $user) {
                 $user = $this->tokenStorage->getToken()->getUser();
             }
 
-            return $this->aeosService->getPerson($user->getAeosId()) !== null;
+            return null !== $this->aeosService->getPerson($user->getAeosId());
         } catch (\Exception $ex) {
         }
 

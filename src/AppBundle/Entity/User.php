@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * This file is part of Gæstehåndtering.
+ *
+ * (c) 2017–2018 ITK Development
+ *
+ * This source file is subject to the MIT license.
+ */
+
 namespace AppBundle\Entity;
 
 use AppBundle\Traits\BlameableEntity;
@@ -142,7 +150,7 @@ class User extends BaseUser
      */
     public function validate(ExecutionContextInterface $context)
     {
-        if ($this->getTemplates()->count() === 0) {
+        if (0 === $this->getTemplates()->count()) {
             $context->buildViolation('At least one template is required.')
                 ->atPath('templates')
                 ->addViolation();
