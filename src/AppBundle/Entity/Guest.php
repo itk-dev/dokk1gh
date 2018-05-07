@@ -83,6 +83,13 @@ class Guest
     /**
      * @var string
      *
+     * @ORM\Column(type="string", length=255)
+     */
+    private $phoneCountryCode;
+
+    /**
+     * @var string
+     *
      * @Assert\Email()
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -225,6 +232,30 @@ class Guest
     public function getPhone()
     {
         return $this->phone;
+    }
+
+    /**
+     * Set phone country code.
+     *
+     * @param string $phoneCountryCode
+     *
+     * @return Guest
+     */
+    public function setPhoneContryCode($phoneCountryCode)
+    {
+        $this->phoneCountryCode = $phoneCountryCode;
+
+        return $this;
+    }
+
+    /**
+     * Get phone country code.
+     *
+     * @return string
+     */
+    public function getPhoneCountryCode()
+    {
+        return $this->phoneCountryCode;
     }
 
     /**

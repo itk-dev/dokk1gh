@@ -114,6 +114,9 @@ easy_admin:
                     - property: name
                     - property: company
                     - property: phone
+                      help: 'Phone number without country code'
+                    - property: phoneCountryCode
+                      help: 'Phone country code'
                     - property: email
                       type: email
                     - property: templates
@@ -136,6 +139,9 @@ easy_admin:
                     - property: name
                     - property: company
                     - property: phone
+                      help: 'Phone number without country code'
+                    - property: phoneCountryCode
+                      help: 'Phone country code'
                     - property: email
                       type: email
                     - property: templates

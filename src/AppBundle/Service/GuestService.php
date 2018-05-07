@@ -63,6 +63,7 @@ class GuestService
         $guest = new Guest();
         $guest
             ->setEnabled(true)
+            ->setPhoneContryCode($this->configuration->get('guest_default_phone_country_code'))
             ->setStartTime(new \DateTime($this->configuration->get('guest_default_startTime')))
             ->setEndTime(new \DateTime($this->configuration->get('guest_default_endTime')));
 

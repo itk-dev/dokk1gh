@@ -15,10 +15,11 @@ interface SmsServiceInterface
     /**
      * Send an SMS message to the specified recipient (mobile phone number).
      *
-     * @param $recipient
+     * @param $number
      * @param $message
+     * @param $countryCode
      *
      * @return bool
      */
-    public function send($recipient, $message);
+    public function send($number, $message, $countryCode);
 }

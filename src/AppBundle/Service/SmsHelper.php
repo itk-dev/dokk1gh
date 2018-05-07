@@ -44,8 +44,8 @@ class SmsHelper
 
     public function sendApp(Guest $guest, $appUrl)
     {
-        $recipient = $guest->getPhone();
-        $template =
+        $number = $guest->getPhone();
+        $countryCode = $guest->getPhoneCountryCode();
         $message = $this->twigHelper->renderTemplate(
             $this->configuration->get('guest_app_sms_body_template'),
             [
@@ -54,7 +54,7 @@ class SmsHelper
                 'guest_name' => $guest->getName(),
             ]
         );
-        $this->smsService->send($recipient, $message);
+        $this->smsService->send($number, $message, $countryCode);
 
         $this->actionLogger->log($guest, self::SMS_SENT, [
             'guest' => $guest,
@@ -64,7 +64,8 @@ class SmsHelper
 
     public function sendCode(Guest $guest, Code $code)
     {
-        $recipient = $guest->getPhone();
+        $number = $guest->getPhone();
+        $countryCode = $guest->getPhoneCountryCode();
 
         $codeValidTimePeriod = $this->twigHelper->renderTemplate(
             $this->configuration->get('code_valid_time_period'),
@@ -81,7 +82,7 @@ class SmsHelper
                 'code_valid_time_period' => $codeValidTimePeriod,
             ]
         );
-        $this->smsService->send($recipient, $message);
+        $this->smsService->send($number, $message, $countryCode);
 
         $this->actionLogger->log($guest, self::SMS_SENT, [
             'guest' => $guest,

@@ -157,11 +157,11 @@ parameters:
     sms_gateway_url: '%site_url%/mock/sms/send'
     sms_gateway_username: test
     sms_gateway_password: test
-    sms_gateway_default_countrycode: '+45'
 
     guest_timeRanges_min: '06:00'
     guest_timeRanges_max: '22:00'
     guest_timeRanges_step: '30M'
+    guest_default_phone_country_code: '45'
 
     guest_default_startTime: 'today'
     guest_default_endTime: 'today + 7 days'

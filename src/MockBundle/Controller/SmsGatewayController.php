@@ -69,8 +69,8 @@ class SmsGatewayController extends Controller
      */
     public function sendAction(Request $request)
     {
-        $username = $request->get('username');
-        $password = $request->get('password');
+        $username = $request->get('user');
+        $password = $request->get('pass');
         $countryCode = $request->get('countrycode');
         $number = $request->get('number');
         $message = $request->get('message');

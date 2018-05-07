@@ -22,7 +22,7 @@ class SmsService implements SmsServiceInterface
         $this->configuration = $configuration;
     }
 
-    public function send($recipient, $message, $countryCode = null)
+    public function send($number, $message, $countryCode)
     {
         try {
             $client = new Client();
@@ -31,11 +31,12 @@ class SmsService implements SmsServiceInterface
                 $this->configuration->get('sms_gateway_url'),
                 [
                     'form_params' => [
-                        'username' => $this->configuration->get('sms_gateway_username'),
-                        'password' => $this->configuration->get('sms_gateway_password'),
-                        'countrycode' => $countryCode ?: $this->configuration->get('sms_gateway_default_countrycode'),
-                        'number' => $recipient,
+                        'user' => $this->configuration->get('sms_gateway_username'),
+                        'pass' => $this->configuration->get('sms_gateway_password'),
+                        'countrycode' => $countryCode,
+                        'number' => $number,
                         'message' => $message,
+                        'charset' => 'UTF-8',
                     ],
                 ]
             );
