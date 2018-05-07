@@ -83,8 +83,9 @@
                 // @see https://stackoverflow.com/questions/41063074/bootstrap-modal-not-showing-on-submit-button-click-on-ios
                 event.preventDefault();
 
+                var form = $(this).closest('form');
                 setTimeout(function () {
-                    $(this).closest('form').submit();
+                    form.submit();
                 }, 500);
             });
         });</script>
