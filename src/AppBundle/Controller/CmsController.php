@@ -15,8 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
- * Class CmsController
- * @package AppBundle\Controller
+ * Class CmsController.
  *
  * @Route("/cms")
  */
