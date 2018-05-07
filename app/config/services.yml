@@ -59,6 +59,7 @@ services:
             - '@fos_user.util.token_generator'
             - '@twig'
             - '@router'
+            - '@fos_user.mailer'
             - '@mailer'
             -
                 user_created:
