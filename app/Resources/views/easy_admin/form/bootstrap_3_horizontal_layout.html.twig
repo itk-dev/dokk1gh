@@ -9,11 +9,14 @@
 {% endblock %}
 
 {% block form_widget_simple %}
+  {# @FIXME: There must be a better way to do this! #}
   {% if easyadmin.entity.class == 'AppBundle\\Entity\\Template' and name == 'aeosId' %}
     {% include 'easy_admin/form/Template/aeosId.html.twig' with {markup: parent()} %}
   {% elseif easyadmin.entity.class == 'AppBundle\\Entity\\User' and name == 'aeosId' %}
-      {% include 'easy_admin/form/User/aeosId.html.twig' with {markup: parent()} %}
-    {% else %}
+    {% include 'easy_admin/form/User/aeosId.html.twig' with {markup: parent()} %}
+  {% elseif easyadmin.entity.class == 'AppBundle\\Entity\\Guest' and name == 'phone' %}
+    {% include 'easy_admin/form/Guest/phone.html.twig' with {markup: parent()} %}
+  {% else %}
     {{ parent() }}
   {% endif %}
 {% endblock %}
