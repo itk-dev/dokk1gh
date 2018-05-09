@@ -47,6 +47,12 @@
 body.new-code textarea {
   min-height: 50px; }
 
+.input-group .input-group-addon {
+  border-color: #aaaaaa;
+  background-color: #eee;
+  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.15);
+          box-shadow: 0 0 3px rgba(0, 0, 0, 0.15); }
+
 /* Display and center logo in top */
 #header-image {
   -webkit-transform: translateX(-50%);
