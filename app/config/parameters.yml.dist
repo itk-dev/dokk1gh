@@ -23,6 +23,7 @@ parameters:
     app_name: Gæstehåndtering
     site_name: Gæstehåndtering
     site_url: http://dokk1gh.vm
+    router.request_context.scheme: http
     router.request_context.host: dokk1gh.vm
 
     mailer_name: GH
