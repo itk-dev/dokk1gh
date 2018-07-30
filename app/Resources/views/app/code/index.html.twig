@@ -10,8 +10,13 @@
     {% set route_params = app.request.attributes.get('_route_params')|default({}) %}
 
     <div class="header">
-        <h1>{{ 'Select area'|trans }}</h1>
-        <p class="lead">{{ 'Press the area in Dokk1 you wish to access'|trans }}</p>
+        {% if guest.templates|length == 1 %}
+            <h1>{{ 'Get new code'|trans }}</h1>
+            <p class="lead">{{ 'Press %request_access% to get access'|trans({'%request_access%': 'Request access'|trans}) }}</p>
+        {% else %}
+            <h1>{{ 'Select area'|trans }}</h1>
+            <p class="lead">{{ 'Press the area in Dokk1 you wish to access'|trans }}</p>
+        {% endif %}
     </div>
 
     {% if not guest_can_request_code %}
