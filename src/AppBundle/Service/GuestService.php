@@ -137,6 +137,36 @@ class GuestService
         return true;
     }
 
+    /**
+     * Get end time for a new code.
+     */
+    public function getEndTime(Guest $guest)
+    {
+        $duration = $this->configuration->get('guest_code_duration');
+        if (null !== $duration) {
+            // Relative end time.
+            return new \DateTime($duration);
+        }
+
+        // Use end time from guest access times.
+        $timezone = new \DateTimeZone($this->configuration->get('view_timezone'));
+        $now = new \DateTime('now', $timezone);
+        $timeRanges = $guest->getTimeRanges();
+        $day = $now->format('N');
+
+        if (!isset($timeRanges['start_time_'.$day], $timeRanges['end_time_'.$day])
+            || !preg_match('/^(?<hours>\d{2}):(?<minutes>\d{2})$/', $timeRanges['start_time_'.$day], $startTimeData)
+            || !preg_match('/^(?<hours>\d{2}):(?<minutes>\d{2})$/', $timeRanges['end_time_'.$day], $endTimeData)) {
+            return null;
+        }
+
+        $endTime = clone $now;
+        $endTime->setTime($endTimeData['hours'], $endTimeData['minutes']);
+        $endTime->setTimeZone(new \DateTimeZone('UTC'));
+
+        return $endTime;
+    }
+
     public function generateCode(Guest $guest, Template $template, $note = null)
     {
         if (!$this->canRequestCode($guest)) {
@@ -153,13 +183,12 @@ class GuestService
         }
 
         try {
-            $code = new Code();
-            $code
+            $code = (new Code())
                 ->setNote($note)
                 ->setCreatedBy($guest->getCreatedBy())
                 ->setTemplate($template)
                 ->setStartTime(new \DateTime())
-                ->setEndTime(new \DateTime($this->configuration->get('guest_code_duration')));
+                ->setEndTime($this->getEndTime($guest));
 
             $visitorName = $this->twig
                 ->renderTemplate($this->configuration->get('guest_code_name_template'), [
