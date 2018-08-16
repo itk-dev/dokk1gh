@@ -7,7 +7,7 @@ imports:
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    version: 1.1.2
+    version: 1.2.0
 
 framework:
     #esi: ~
@@ -42,6 +42,7 @@ twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     globals:
+        app_name: '%app_name%'
         site_name: '%site_name%'
         site_url: '%site_url%'
         locale: '%locale%'
@@ -63,33 +64,49 @@ twig:
         sender:
             email: '%mailer_email%'
             name: '%mailer_name%'
+        version: '%version%'
         configuration: '@AppBundle\Service\Configuration'
 
 # Doctrine Configuration
 doctrine:
     dbal:
-        driver: pdo_mysql
-        host: '%database_host%'
-        port: '%database_port%'
-        dbname: '%database_name%'
-        user: '%database_user%'
-        password: '%database_password%'
-        charset: UTF8
-        # if using pdo_sqlite as your database driver:
-        #   1. add the path in parameters.yml
-        #     e.g. database_path: "%kernel.project_dir%/var/data/data.sqlite"
-        #   2. Uncomment database_path in parameters.yml.dist
-        #   3. Uncomment next line:
-        #path: '%database_path%'
+        default_connection: default
+        connections:
+            default:
+                driver: pdo_mysql
+                host: '%database_host%'
+                port: '%database_port%'
+                dbname: '%database_name%'
+                user: '%database_user%'
+                password: '%database_password%'
+                charset: UTF8
+                schema_filter: ~^(?!craue_config_setting)~
+            mocks:
+                driver: pdo_sqlite
+                path: '%kernel.project_dir%/var/data/mocks.sqlite'
 
     orm:
         auto_generate_proxy_classes: '%kernel.debug%'
-        naming_strategy: doctrine.orm.naming_strategy.underscore
-        auto_mapping: true
-        filters:
-            softdeleteable:
-                class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
-                enabled: true
+        default_entity_manager: default
+        entity_managers:
+            default:
+                connection: default
+                naming_strategy: doctrine.orm.naming_strategy.underscore
+                # auto_mapping: true
+                mappings:
+                    AppBundle: ~
+                    ApiBundle: ~
+                    ActionLogBundle: ~
+                    ItkDevConfigBundle: ~
+                filters:
+                    softdeleteable:
+                        class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
+                        enabled: true
+            mocks:
+                connection: mocks
+                # auto_mapping: true
+                mappings:
+                    MockBundle: ~
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -113,8 +130,7 @@ fos_user:
     resetting:
         email:
             template: Emails/password_resetting.email.twig
-    resetting:
-        token_ttl: 0
+        token_ttl: 86400
 
 fos_rest:
     param_fetcher_listener: true
@@ -148,3 +164,14 @@ stof_doctrine_extensions:
             timestampable: true
             blameable: true
             softdeleteable: true
+
+monolog:
+    channels: ['db']
+    handlers:
+        db:
+            channels: ['db']
+            type: service
+            id: itk_dev.monolog.db_handler
+
+craue_config:
+    entity_name: ItkDev\ConfigBundle\Entity\Setting

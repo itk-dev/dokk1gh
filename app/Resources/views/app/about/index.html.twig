@@ -1,0 +1,15 @@
+{% extends 'app/base.html.twig' %}
+
+{% block content %}
+    <div class="header">
+        <h1>{{ get_configuration('app_about_header', 'About'|trans) }}</h1>
+        {% if get_configuration('app_about_lead')|default(null) %}
+            <p class="lead">{{ get_configuration('app_about_lead') }}</p>
+        {% endif %}
+    </div>
+    <div class="row about">
+        <div class="col-sm-8 offset-sm-2 mb-3">
+            {{ get_configuration('app_about_content')|replace(replacements|default({}))|raw }}
+        </div>
+    </div>
+{% endblock %}

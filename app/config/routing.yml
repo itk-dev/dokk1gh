@@ -2,6 +2,10 @@ app:
     resource: '@AppBundle/Controller/'
     type: annotation
 
+gdpr_bundle:
+    resource: '@ItkDevGDPRBundle/Resources/config/routing.xml'
+    prefix: /gdpr
+
 easy_admin_bundle:
     # resource: "@EasyAdminBundle/Controller/AdminController.php"
     resource: '@AppBundle/Controller/AdminController.php'
@@ -22,5 +26,6 @@ app.swagger_ui:
     prefix:   /api/doc
 
 app_mock:
-    resource: '@AppBundle/Mock/Controller/'
+    resource: '@MockBundle/Controller/'
     type: annotation
+    prefix: /mock

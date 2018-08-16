@@ -32,14 +32,22 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new FOS\UserBundle\FOSUserBundle(),
-            new JavierEguiluz\Bundle\EasyAdminBundle\EasyAdminBundle(),
+            new EasyCorp\Bundle\EasyAdminBundle\EasyAdminBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
             new SunCat\MobileDetectBundle\MobileDetectBundle(),
+            new ItkDev\DatabaseBundle\ItkDevDatabaseBundle(),
+            new ItkDev\MonologDbBundle\ItkDevMonologDbBundle(),
+            new Craue\ConfigBundle\CraueConfigBundle(),
+            new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
+            new ItkDev\ConfigBundle\ItkDevConfigBundle(),
+            new ActionLogBundle\ActionLogBundle(),
+            new MockBundle\MockBundle(),
             new AppBundle\AppBundle(),
             new ApiBundle\ApiBundle(),
+            new ItkDev\GDPRBundle\ItkDevGDPRBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test', 'acceptance'], true)) {

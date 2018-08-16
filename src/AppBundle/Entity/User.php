@@ -50,6 +50,12 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * @var \DateTime
+     * @ORM\Column(name="gdpr_accepted_at", type="datetime", nullable=true)
+     */
+    protected $gdprAcceptedAt;
+
+    /**
      * @var string
      * @Email
      */
@@ -83,6 +89,18 @@ class User extends BaseUser
     {
         parent::__construct();
         $this->templates = new ArrayCollection();
+    }
+
+    public function getGdprAcceptedAt()
+    {
+        return $this->gdprAcceptedAt;
+    }
+
+    public function setGdprAcceptedAt($gdprAcceptedAt)
+    {
+        $this->gdprAcceptedAt = $gdprAcceptedAt;
+
+        return $this;
     }
 
     public function setTemplates(ArrayCollection $templates)

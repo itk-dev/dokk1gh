@@ -5,8 +5,9 @@ security:
         FOS\UserBundle\Model\UserInterface: bcrypt
 
     role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: ROLE_ADMIN
+        ROLE_ADMIN:        ROLE_USER
+        ROLE_CONFIG_ADMIN: ROLE_USER
+        ROLE_SUPER_ADMIN:  [ROLE_ADMIN, ROLE_CONFIG_ADMIN]
 
     providers:
         fos_userbundle:
@@ -27,6 +28,7 @@ security:
             provider: api_key_user_provider
             # @see https://symfony.com/doc/current/reference/configuration/security.html#firewall-context
             context: primary_auth
+            logout_on_user_change: true
 
         mock:
             pattern: ^/mock
@@ -41,11 +43,14 @@ security:
                 csrf_token_generator: security.csrf.token_manager
             # @see https://symfony.com/doc/current/reference/configuration/security.html#firewall-context
             context: primary_auth
+            logout_on_user_change: true
 
             logout:       true
             anonymous:    true
 
     access_control:
+        - { path: ^/app, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/cms, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }

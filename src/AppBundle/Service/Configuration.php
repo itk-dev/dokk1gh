@@ -10,20 +10,46 @@
 
 namespace AppBundle\Service;
 
+use Craue\ConfigBundle\Util\Config;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
 
 class Configuration
 {
+    /** @var Config */
+    private $config;
+
+    /** @var ContainerInterface */
     private $container;
 
-    public function __construct(ContainerInterface $container)
+    public function __construct(Config $config, ContainerInterface $container)
     {
+        $this->config = $config;
         $this->container = $container;
     }
 
-    public function get($path)
+    public function get($path, $defaultValue = null)
     {
-        $config = $this->container->getParameter($path);
+        $settings = $this->config->all();
+        if (array_key_exists($path, $settings)) {
+            return $this->config->get($path);
+        }
+
+        $parameters = $this->container->getParameterBag();
+        if ($parameters->has($path)) {
+            $config = $parameters->get($path);
+        } else {
+            $steps = explode('.', $path);
+            foreach ($steps as $index => $step) {
+                if (0 === $index) {
+                    $config = $parameters->get($step);
+                } elseif (!isset($config[$step])) {
+                    throw new ParameterNotFoundException(implode('.', array_slice($steps, 0, $index + 1)));
+                } else {
+                    $config = $config[$step];
+                }
+            }
+        }
 
         if ('code.config' === $path) {
             $config['daysDisabled'] = array_values(

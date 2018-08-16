@@ -22,13 +22,25 @@ class AeosHelper
     /** @var \Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface */
     protected $tokenStorage;
 
-    public function __construct(AeosService $aeosService, TokenStorageInterface $tokenStorage)
-    {
+    /** @var TwigHelper */
+    protected $twigHelper;
+
+    /** @var Configuration */
+    protected $configuration;
+
+    public function __construct(
+        AeosService $aeosService,
+        TokenStorageInterface $tokenStorage,
+        TwigHelper $twigHelper,
+        Configuration $configuration
+    ) {
         $this->aeosService = $aeosService;
         $this->tokenStorage = $tokenStorage;
+        $this->twigHelper = $twigHelper;
+        $this->configuration = $configuration;
     }
 
-    public function createAeosIdentifier(Code $code)
+    public function createAeosIdentifier(Code $code, $visitorName = null)
     {
         $user = $code->getCreatedBy() ?? $this->tokenStorage->getToken()->getUser();
         if (!$user) {
@@ -52,7 +64,18 @@ class AeosHelper
             throw new \Exception('Cannot find AEOS template: '.$template->getAeosId());
         }
 
-        $visitorName = 'dokk1gh: code: #'.$code->getId().'; '.(new \DateTime())->format(\DateTime::W3C);
+        if (null === $visitorName) {
+            try {
+                $template = $this->configuration->get('aeos_vistor_name_template');
+                $visitorName = $this->twigHelper
+                    ->renderTemplate($template, [
+                        'code' => $code,
+                        'user' => $user,
+                    ]);
+            } catch (\Exception $e) {
+            }
+        }
+        $visitorName = trim($visitorName);
 
         $visitor = $this->aeosService->createVisitor([
             'UnitId' => $aeosContactPerson->UnitId,
