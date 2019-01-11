@@ -16,7 +16,7 @@
             <div class="card text-center shadow">
               <div class="card-body">
                 <img src="/images/guide-screen1.png" class="img-fluid" alt="Select area">
-                <p class="card-text">{{ 'Select the building area you want to access'|trans }}</p>
+                <p class="card-text">{{ 'Select the building area you want to access.'|trans }}</p>
               </div>
             </div>
             <button class="btn btn-primary btn-lg btn-block" onclick="guideSteps()">{{ 'Next'|trans }}</button>
@@ -28,7 +28,7 @@
             <div class="card text-center shadow">
               <div class="card-body">
                 <img src="/images/guide-screen2.png" class="img-fluid" alt="Select area">
-                <p class="card-text">{{ 'You now recive an SMS with the doorcode. The code will only work for 10 min.'|trans }}</p>
+                <p class="card-text">{{ 'You now recive an SMS with the doorcode.'|trans }}</p>
               </div>
             </div>
             <button class="btn btn-primary btn-lg btn-block" onclick="guideSteps()">{{ 'Next'|trans }}</button>
@@ -40,7 +40,7 @@
                     <p class="lead">{{ get_configuration('app_terms_lead') }}</p>
                 {% endif %}
             </div>
-            <div class="card text-center shadow">
+            <div class="card shadow">
                 <div class="card-body">
                     {% set replacements = {} %}
                     {{ get_configuration('app_terms_content')|replace(replacements)|raw }}
