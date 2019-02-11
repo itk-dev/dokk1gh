@@ -80,10 +80,16 @@ doctrine:
                 user: '%database_user%'
                 password: '%database_password%'
                 charset: UTF8
-                schema_filter: ~^(?!craue_config_setting)~
+                schema_filter: ~^(?!craue_config_setting|mock_)~
+                server_version: '10.3.12'
             mocks:
-                driver: pdo_sqlite
-                path: '%kernel.project_dir%/var/data/mocks.sqlite'
+                driver: pdo_mysql
+                host: '%database_host%'
+                port: '%database_port%'
+                dbname: '%database_name%'
+                user: '%database_user%'
+                password: '%database_password%'
+                charset: UTF8
 
     orm:
         auto_generate_proxy_classes: '%kernel.debug%'
