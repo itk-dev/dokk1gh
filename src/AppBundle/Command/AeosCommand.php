@@ -45,7 +45,7 @@ class AeosCommand extends AbstractBaseCommand
             $visitorId2visitId[$visit->VisitorId] = $visit->Id;
         }
 
-        $this->writeln('#identifiers: '.count($identifiers));
+        $this->writeln('#identifiers: '.\count($identifiers));
         foreach ($identifiers as $identifier) {
             // $visitor = $identifier ? $this->aeosService->getVisitorByIdentifier($identifier) : null;
             // $visit = $visitor ? $this->aeosService->getVisitByVisitor($visitor) : null;
@@ -102,13 +102,13 @@ class AeosCommand extends AbstractBaseCommand
         while (true) {
             $query['offset'] = $offset;
             $result = $this->aeosService->{$method}($query);
-            if (is_array($result)) {
+            if (\is_array($result)) {
                 foreach ($result as $item) {
                     $items[$item->Id] = $item;
                 }
             }
 
-            if (count($result) < $amount) {
+            if (\count($result) < $amount) {
                 break;
             }
 

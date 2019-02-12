@@ -58,7 +58,7 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
             throw new \InvalidArgumentException(
                 sprintf(
                     'The user provider must be an instance of ApiKeyUserProvider (%s was given).',
-                    get_class($userProvider)
+                    \get_class($userProvider)
                 )
             );
         }

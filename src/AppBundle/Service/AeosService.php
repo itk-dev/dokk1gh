@@ -65,7 +65,7 @@ class AeosService
             $value->CarrierId = isset($item->CarrierId) ? $item->CarrierId : null;
 
             return $value;
-        }, is_array($result->IdentifierAndCarrierId)
+        }, \is_array($result->IdentifierAndCarrierId)
             ? $result->IdentifierAndCarrierId
             : [$result->IdentifierAndCarrierId]);
     }
@@ -74,7 +74,7 @@ class AeosService
     {
         $result = $this->getIdentifiers(['BadgeNumber' => $badgeNumber]);
 
-        return ($result && 1 === count($result)) ? $result[0] : null;
+        return ($result && 1 === \count($result)) ? $result[0] : null;
     }
 
     public function blockIdentifier($identifier)
@@ -110,7 +110,7 @@ class AeosService
             function ($item) {
                 return $item->VisitorInfo;
             },
-            is_array($result->Visitor) ? $result->Visitor : [$result->Visitor]
+            \is_array($result->Visitor) ? $result->Visitor : [$result->Visitor]
         );
     }
 
@@ -118,7 +118,7 @@ class AeosService
     {
         $result = $this->getVisitors(['Id' => $id]);
 
-        return ($result && 1 === count($result)) ? $result[0] : null;
+        return ($result && 1 === \count($result)) ? $result[0] : null;
     }
 
     public function getVisitorByIdentifier($identifier)
@@ -139,21 +139,21 @@ class AeosService
         $query['SearchRange'] = $searchRange;
         $result = $this->invoke('findVisit', (object) $query);
 
-        return !isset($result->Visit) ? null : (is_array($result->Visit) ? $result->Visit : [$result->Visit]);
+        return !isset($result->Visit) ? null : (\is_array($result->Visit) ? $result->Visit : [$result->Visit]);
     }
 
     public function getVisit($id)
     {
         $result = $this->getVisits(['Id' => $id]);
 
-        return ($result && 1 === count($result)) ? $result[0] : null;
+        return ($result && 1 === \count($result)) ? $result[0] : null;
     }
 
     public function getVisitByVisitor($visitor)
     {
         $result = $this->getVisits(['VisitorId' => $visitor->Id]);
 
-        return ($result && 1 === count($result)) ? $result[0] : null;
+        return ($result && 1 === \count($result)) ? $result[0] : null;
     }
 
     public function deleteVisit($visit)
@@ -213,7 +213,7 @@ class AeosService
         list($query, $searchRange) = $this->splitQuery($query);
         $result = $this->invoke('findUnit', (object) ['UnitSearchInfo' => $query, 'SearchRange' => $searchRange]);
 
-        return !isset($result->Unit) ? null : (is_array($result->Unit) ? $result->Unit : [$result->Unit]);
+        return !isset($result->Unit) ? null : (\is_array($result->Unit) ? $result->Unit : [$result->Unit]);
     }
 
     public function getPersons(array $query = [])
@@ -221,14 +221,14 @@ class AeosService
         list($query, $searchRange) = $this->splitQuery($query);
         $result = $this->invoke('findPerson', (object) ['PersonInfo' => $query, 'SearchRange' => $searchRange]);
 
-        return !isset($result->Person) ? null : (is_array($result->Person) ? $result->Person : [$result->Person]);
+        return !isset($result->Person) ? null : (\is_array($result->Person) ? $result->Person : [$result->Person]);
     }
 
     public function getPerson($id)
     {
         $result = $this->getPersons(['Id' => $id]);
 
-        return ($result && 1 === count($result)) ? $result[0] : null;
+        return ($result && 1 === \count($result)) ? $result[0] : null;
     }
 
     public function getTemplates(array $query = [])
@@ -241,14 +241,14 @@ class AeosService
 
         return !isset($result->Template)
             ? null
-            : (is_array($result->Template) ? $result->Template : [$result->Template]);
+            : (\is_array($result->Template) ? $result->Template : [$result->Template]);
     }
 
     public function getTemplate($id)
     {
         $result = $this->getTemplates(['Id' => $id]);
 
-        return ($result && 1 === count($result)) ? $result[0] : null;
+        return ($result && 1 === \count($result)) ? $result[0] : null;
     }
 
     public function getLastRequest()
@@ -284,11 +284,11 @@ class AeosService
         );
 
         $result = null;
-        if (func_num_args() > 1) {
-            $arguments = array_slice(func_get_args(), 1);
-            $result = call_user_func_array([$client, $method], $arguments);
+        if (\func_num_args() > 1) {
+            $arguments = \array_slice(\func_get_args(), 1);
+            $result = \call_user_func_array([$client, $method], $arguments);
         } else {
-            $result = call_user_func([$client, $method]);
+            $result = \call_user_func([$client, $method]);
         }
 
         if ($debug) {

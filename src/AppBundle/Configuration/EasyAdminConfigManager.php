@@ -50,7 +50,7 @@ class EasyAdminConfigManager extends ConfigManager
 
         $token = $this->tokenStorage->getToken();
         if ($token) {
-            if (is_array($config)) {
+            if (\is_array($config)) {
                 // Filter config by roles.
                 $config = self::arrayFilterRecursive($config, function ($item) {
                     // If key "roles" is not set or the value is an associative array, we want to keep the value.
@@ -59,7 +59,7 @@ class EasyAdminConfigManager extends ConfigManager
                     }
 
                     $roles = $item['roles'];
-                    if (!is_array($roles)) {
+                    if (!\is_array($roles)) {
                         $roles = [$roles];
                     }
 
@@ -108,7 +108,7 @@ class EasyAdminConfigManager extends ConfigManager
     private static function arrayFilterRecursive(array $input, callable $callback)
     {
         foreach ($input as &$value) {
-            if (is_array($value)) {
+            if (\is_array($value)) {
                 $value = self::arrayFilterRecursive($value, $callback);
             }
         }
@@ -123,6 +123,6 @@ class EasyAdminConfigManager extends ConfigManager
             return false;
         }
 
-        return array_keys($arr) !== range(0, count($arr) - 1);
+        return array_keys($arr) !== range(0, \count($arr) - 1);
     }
 }

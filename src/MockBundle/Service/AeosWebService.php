@@ -135,19 +135,19 @@ class AeosWebService
     private function filter($data, $params)
     {
         $dataKeys = array_keys(get_object_vars($data));
-        if (1 === count($dataKeys)) {
+        if (1 === \count($dataKeys)) {
             $dataKey = $dataKeys[0];
             $vars = array_keys(get_object_vars($params));
-            if (count($vars) > 0) {
+            if (\count($vars) > 0) {
                 $filter = $params->{$vars[0]};
 
                 $data->{$dataKey} = array_values(array_filter($data->{$dataKey}, function ($item) use ($filter) {
                     foreach ($filter as $key => $value) {
                         if (isset($item->{$key}) && (
                                 // Starts with match on string value.
-                                (is_string($item->{$key}) && 0 !== stripos($item->{$key}, $value))
+                                (\is_string($item->{$key}) && 0 !== stripos($item->{$key}, $value))
                                 // Exact match on non-string value.
-                                || (!is_string($item->{$key}) && $item->{$key} !== $value)
+                                || (!\is_string($item->{$key}) && $item->{$key} !== $value)
                         )) {
                             return false;
                         }
@@ -167,9 +167,9 @@ class AeosWebService
         $offset = isset($range->startRecordNo) ? $range->startRecordNo : 0;
 
         $dataKeys = array_keys(get_object_vars($data));
-        if (1 === count($dataKeys)) {
+        if (1 === \count($dataKeys)) {
             $dataKey = $dataKeys[0];
-            $data->{$dataKey} = array_slice($data->{$dataKey}, $offset, $length);
+            $data->{$dataKey} = \array_slice($data->{$dataKey}, $offset, $length);
         }
 
         return $data;
