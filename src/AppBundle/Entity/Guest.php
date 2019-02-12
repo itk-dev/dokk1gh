@@ -12,8 +12,10 @@ namespace AppBundle\Entity;
 
 use AppBundle\Traits\BlameableEntity;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Blameable\Blameable;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
@@ -22,8 +24,16 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  *
  * @ORM\Table
  * @ORM\Entity
+ * @UniqueEntity(
+ *     fields={"phone"},
+ *     message="This phone number is already in use."
+ * )
+ * @UniqueEntity(
+ *     fields={"email"},
+ *     message="This email is already in use."
+ * )
  */
-class Guest
+class Guest implements Blameable
 {
     use BlameableEntity;
     use SoftDeleteableEntity;

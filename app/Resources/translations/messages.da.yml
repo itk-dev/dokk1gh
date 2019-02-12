@@ -43,6 +43,8 @@ label.null: '–'
 
 ROLE_USER: Bruger
 ROLE_ADMIN: Administrator
+ROLE_USER_ADMIN: Brugeradministrator
+ROLE_GUEST_ADMIN: Gæsteadministrator
 ROLE_CONFIG_ADMIN: Konfigurationsadministrator
 ROLE_SUPER_ADMIN: Superadministrator
 

@@ -9,7 +9,7 @@
     {% endif %}
     {% if is_granted('ROLE_ADMIN') %}
       {% set wrapper_classes = wrapper_classes|merge(['is-admin']) %}
-    {% else %}
+    {% elseif easyadmin_config('design.menu')|length < 2 %}
       {% set wrapper_classes = wrapper_classes|merge(['no-menu']) %}
     {% endif %}
     {% if app.request.attributes.get('_route') matches '/^fos_user/' %}
