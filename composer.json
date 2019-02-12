@@ -89,15 +89,15 @@
             "@check-coding-standards/php-cs-fixer",
             "@check-coding-standards/phpcs"
         ],
-        "fix-coding-standards/php-cs-fixer": [
+        "apply-coding-standards/php-cs-fixer": [
             "php -n vendor/bin/php-cs-fixer --config=.php_cs.dist fix"
         ],
-        "fix-coding-standards/phpcs": [
+        "apply-coding-standards/phpcs": [
             "vendor/bin/phpcbf --standard=phpcs.xml.dist"
         ],
-        "fix-coding-standards": [
-            "@fix-coding-standards/php-cs-fixer",
-            "@fix-coding-standards/phpcs"
+        "apply-coding-standards": [
+            "@apply-coding-standards/php-cs-fixer",
+            "@apply-coding-standards/phpcs"
         ],
         "install-git-hooks": [
             "ln -sf ../../githooks/pre-commit .git/hooks"
