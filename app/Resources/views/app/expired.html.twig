@@ -1,0 +1,22 @@
+{% extends 'app/base.html.twig' %}
+
+{#
+ # @param guest: The Guest object.
+ #}
+
+{% block body %}
+    {% if guest.expiredAt %}
+        <div class="header">
+            <h1 class="alert alert-danger">{{ get_configuration('app_expired_header', 'App expired'|trans) }}</h1>
+        </div>
+
+        <div class="row about">
+            <div class="col-sm-8 offset-sm-2 mb-3">
+                {{ get_configuration('app_expired_content')|replace({
+                    '%expired_at%': guest.expiredAt|date(format_datetime),
+                        '%expired_on%': guest.expiredAt|date(format_date)
+                    })|raw }}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

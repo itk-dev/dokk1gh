@@ -87,7 +87,9 @@ easy_admin:
             class: AppBundle\Entity\Guest
             disabled_actions: [show, delete]
             list:
-                actions: [showApp]
+                dql_filter: 'entity.expiredAt is null'
+
+                actions: [showApp, expireApp]
                 fields:
                     - property: name
                     - property: company

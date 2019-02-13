@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Class AeosEntity.
  *
  * @ORM\Entity()
- * @ORM\Table()
+ * @ORM\Table(name="mock_action_log_entry")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({"aeos" = "AeosActionLogEntry", "sms" = "SmsGatewayActionLogEntry"})

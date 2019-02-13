@@ -22,6 +22,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
  * Class AppController.
@@ -50,6 +51,10 @@ class AppController extends Controller
      */
     public function codeAction(Guest $guest)
     {
+        if (null !== $guest->getExpiredAt()) {
+            return $this->render('app/expired.html.twig', ['guest' => $guest], new Response('', 404));
+        }
+
         if (null === $guest->getActivatedAt()) {
             return $this->guideAction($guest);
         }
@@ -61,6 +66,33 @@ class AppController extends Controller
             'guest' => $guest,
             'guest_is_valid' => $isValid,
             'guest_can_request_code' => $canRequestCode,
+        ]);
+    }
+
+    /**
+     * @Route("/card", name="app_card")
+     */
+    public function cardAction(Guest $guest)
+    {
+        if (null !== $guest->getExpiredAt()) {
+            return $this->render('app/expired.html.twig', ['guest' => $guest], new Response('', 404));
+        }
+
+        return $this->render('app/card/index.html.twig', [
+            'guest' => $guest,
+        ]);
+    }
+
+    /**
+     * @Route("/about", name="app_about")
+     */
+    public function aboutAction(Guest $guest)
+    {
+        return $this->render('app/about/index.html.twig', [
+            'guest' => $guest,
+            'replacements' => [
+                'app://guide_url' => $this->generateUrl('app_guide', ['guest' => $guest->getId()]),
+            ],
         ]);
     }
 
@@ -95,6 +127,10 @@ class AppController extends Controller
      */
     public function codeRequestAction(Guest $guest, Template $template)
     {
+        if (!$guest->isEnabled() || null !== $guest->getExpiredAt()) {
+            throw new AccessDeniedHttpException();
+        }
+
         $code = null;
         $messages = null;
         $status = [];
@@ -140,29 +176,6 @@ class AppController extends Controller
             'code' => $code,
             'messages' => $messages,
             'status' => $status,
-        ]);
-    }
-
-    /**
-     * @Route("/card", name="app_card")
-     */
-    public function cardAction(Guest $guest)
-    {
-        return $this->render('app/card/index.html.twig', [
-            'guest' => $guest,
-        ]);
-    }
-
-    /**
-     * @Route("/about", name="app_about")
-     */
-    public function aboutAction(Guest $guest)
-    {
-        return $this->render('app/about/index.html.twig', [
-            'guest' => $guest,
-            'replacements' => [
-                'app://guide_url' => $this->generateUrl('app_guide', ['guest' => $guest->getId()]),
-            ],
         ]);
     }
 

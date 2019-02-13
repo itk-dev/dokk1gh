@@ -13,7 +13,9 @@ action:
 
 'Show app': 'Vis app'
 'Send app': 'Send app'
+'Resend app': 'Gensend app'
 'App sent': 'App sendt'
+'App sent at %sent_at%': 'App sendt %sent_at%'
 
 User: Bruger
 Code: Kode
