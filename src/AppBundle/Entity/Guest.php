@@ -15,6 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Blameable\Blameable;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Superbrave\GdprBundle\Annotation\Anonymize;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
@@ -61,6 +62,15 @@ class Guest implements Blameable
     private $enabled;
 
     /**
+     * Time when app is sent to user.
+     *
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $sentAt;
+
+    /**
      * Time when user accepts terms and conditions.
      *
      * @var \DateTime
@@ -70,9 +80,19 @@ class Guest implements Blameable
     private $activatedAt;
 
     /**
+     * Time when the Guest has been expired (e.g. due to inactivity).
+     *
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $expiredAt;
+
+    /**
      * @var string
      *
      * @ORM\Column(type="string", length=255)
+     * @Anonymize(type="fixed", value="{id}")
      */
     private $name;
 
@@ -80,6 +100,7 @@ class Guest implements Blameable
      * @var string
      *
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Anonymize(type="fixed", value="{id}")
      */
     private $company;
 
@@ -87,6 +108,7 @@ class Guest implements Blameable
      * @var string
      *
      * @ORM\Column(type="string", length=255)
+     * @Anonymize(type="fixed", value="12345678")
      */
     private $phone;
 
@@ -94,6 +116,7 @@ class Guest implements Blameable
      * @var string
      *
      * @ORM\Column(type="string", length=255)
+     * @Anonymize(type="fixed", value="+45")
      */
     private $phoneCountryCode;
 
@@ -102,6 +125,7 @@ class Guest implements Blameable
      *
      * @Assert\Email()
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Anonymize(type="fixed", value="{id}@example.com")
      */
     private $email;
 
@@ -155,7 +179,25 @@ class Guest implements Blameable
     }
 
     /**
-     * @return \DateTime
+     * @return null|\DateTime
+     */
+    public function getSentAt()
+    {
+        return $this->sentAt;
+    }
+
+    /**
+     * @param \DateTime $sentAt
+     */
+    public function setSentAt(\DateTime $sentAt)
+    {
+        $this->sentAt = $sentAt;
+
+        return $this;
+    }
+
+    /**
+     * @return null|\DateTime
      */
     public function getActivatedAt()
     {
@@ -168,6 +210,24 @@ class Guest implements Blameable
     public function setActivatedAt(\DateTime $activatedAt)
     {
         $this->activatedAt = $activatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return null|\DateTime
+     */
+    public function getExpiredAt()
+    {
+        return $this->expiredAt;
+    }
+
+    /**
+     * @param \DateTime $expiredAt
+     */
+    public function setExpiredAt(\DateTime $expiredAt)
+    {
+        $this->expiredAt = $expiredAt;
 
         return $this;
     }

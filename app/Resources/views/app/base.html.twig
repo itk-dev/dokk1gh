@@ -44,6 +44,7 @@
         <title>{{ get_configuration('pwa_app_name') }}</title>
     </head>
     <body>
+        {% block body %}
         <div class="wrapper">
             <div class="container">
                 <div class="row">
@@ -85,5 +86,6 @@
         </div>
 
         {% block body_javascript %}{% endblock %}
+        {% endblock %}
     </body>
 </html>

@@ -38,8 +38,7 @@ class GuestController extends AdminController
 
     public function showAppAction()
     {
-        $id = $this->request->query->get('id');
-        $guest = $this->em->getRepository(Guest::class)->find($id);
+        $guest = $this->getGuest();
 
         return $this->redirectToRoute('app_code', [
             'guest' => $guest->getId(),
@@ -48,8 +47,7 @@ class GuestController extends AdminController
 
     public function sendAppAction()
     {
-        $id = $this->request->query->get('id');
-        $guest = $this->em->getRepository(Guest::class)->find($id);
+        $guest = $this->getGuest();
         $appUrl = $this->generateUrl('app_code', ['guest' => $guest->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
         if ($this->guestService->sendApp($guest, $appUrl)) {
             $this->addFlash('info', 'App sent');
@@ -61,5 +59,25 @@ class GuestController extends AdminController
     public function resendAppAction()
     {
         return $this->sendAppAction();
+    }
+
+    public function expireAppAction()
+    {
+        $guest = $this->getGuest();
+        if ($this->guestService->expire($guest)) {
+            $this->addFlash('info', 'Guest '.$guest->getId().' expired');
+        }
+
+        return $this->redirectToReferrer();
+    }
+
+    /**
+     * @return null|Guest
+     */
+    private function getGuest()
+    {
+        $id = $this->request->query->get('id');
+
+        return  $this->em->getRepository(Guest::class)->find($id);
     }
 }
