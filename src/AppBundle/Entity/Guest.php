@@ -108,7 +108,7 @@ class Guest implements Blameable
      * @var string
      *
      * @ORM\Column(type="string", length=255)
-     * @Anonymize(type="fixed", value="12345678")
+     * @Anonymize(type="fixed", value="{id}")
      */
     private $phone;
 

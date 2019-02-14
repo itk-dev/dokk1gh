@@ -77,6 +77,7 @@ EOF
         $respository = $this->entityManager->getRepository(Guest::class);
 
         $query = $respository->createQueryBuilder('e')
+            ->andWhere('e.expiredAt IS NULL')
             ->andWhere('e.endTime < :endTimeBefore')
             ->setParameter('endTimeBefore', $endTimeBefore)
             ->getQuery();
@@ -93,9 +94,11 @@ EOF
         }
 
         foreach ($entities as $entity) {
-            $this->guestService->expire($entity);
-
-            $output->writeln([$entity->getId()]);
+            if ($this->guestService->expire($entity)) {
+                if ($output->isVerbose()) {
+                    $output->writeln([$entity->getId()]);
+                }
+            }
         }
     }
 }
