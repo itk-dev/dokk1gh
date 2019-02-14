@@ -48,9 +48,11 @@ class GuestController extends AdminController
     public function sendAppAction()
     {
         $guest = $this->getGuest();
-        $appUrl = $this->generateUrl('app_code', ['guest' => $guest->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
-        if ($this->guestService->sendApp($guest, $appUrl)) {
-            $this->addFlash('info', 'App sent');
+        if (null !== $guest) {
+            $appUrl = $this->generateUrl('app_code', ['guest' => $guest->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
+            if ($this->guestService->sendApp($guest, $appUrl)) {
+                $this->addFlash('info', 'App sent');
+            }
         }
 
         return $this->redirectToReferrer();
@@ -64,8 +66,10 @@ class GuestController extends AdminController
     public function expireAppAction()
     {
         $guest = $this->getGuest();
-        if ($this->guestService->expire($guest)) {
-            $this->addFlash('info', 'Guest '.$guest->getId().' expired');
+        if (null !== $guest) {
+            if ($this->guestService->expire($guest)) {
+                $this->addFlash('info', 'Guest '.$guest->getId().' expired');
+            }
         }
 
         return $this->redirectToReferrer();
