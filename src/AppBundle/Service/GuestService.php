@@ -230,7 +230,9 @@ class GuestService
     {
         if (null !== $guest && null === $guest->getExpiredAt()) {
             $this->anonymizer->anonymize($guest);
-            $guest->setExpiredAt(new \DateTime());
+            $guest
+                ->setEnabled(false)
+                ->setExpiredAt(new \DateTime());
             $this->manager->persist($guest);
             $this->manager->flush();
 
