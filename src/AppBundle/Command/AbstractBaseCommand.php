@@ -3,7 +3,7 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2018 ITK Development
+ * (c) 2017–2019 ITK Development
  *
  * This source file is subject to the MIT license.
  */
@@ -58,7 +58,7 @@ abstract class AbstractBaseCommand extends ContainerAwareCommand
         $method = $this->kebab2camel($cmd);
         if (method_exists($this, $method)) {
             $arguments = $this->input->getArgument('arguments');
-            call_user_func_array([$this, $method], $arguments);
+            \call_user_func_array([$this, $method], $arguments);
         } else {
             throw new CommandNotFoundException('Invalid command: '.$cmd);
         }

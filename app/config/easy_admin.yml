@@ -16,11 +16,12 @@ easy_admin:
               icon: id-card
             - entity: Guest
               icon: id-card
+              roles: [ROLE_GUEST_ADMIN]
             - entity: User
               icon: user
-              roles: [ROLE_ADMIN]
+              roles: [ROLE_USER_ADMIN]
             - entity: Template
-              roles: [ROLE_ADMIN]
+              roles: [ROLE_TEMPLATE_ADMIN]
             - entity: Setting
               label: Settings
               roles: [ROLE_CONFIG_ADMIN]
@@ -82,11 +83,13 @@ easy_admin:
 
         Guest:
             controller: AppBundle\Controller\GuestController
-            roles: [ROLE_ADMIN]
+            roles: [ROLE_GUEST_ADMIN]
             class: AppBundle\Entity\Guest
             disabled_actions: [show, delete]
             list:
-                actions: [showApp]
+                dql_filter: 'entity.expiredAt is null'
+
+                actions: [showApp, expireApp]
                 fields:
                     - property: name
                     - property: company
@@ -154,7 +157,7 @@ easy_admin:
 
         User:
             controller: AppBundle\Controller\UserController
-            roles: [ROLE_ADMIN]
+            roles: [ROLE_USER_ADMIN]
             class: AppBundle\Entity\User
             disabled_actions: [show, delete]
             list:
@@ -186,6 +189,7 @@ easy_admin:
                           expanded: true
                           choices: &role_list
                               ROLE_USER: ROLE_USER
+                              ROLE_GUEST_ADMIN: ROLE_GUEST_ADMIN
                               ROLE_ADMIN: ROLE_ADMIN
                               ROLE_CONFIG_ADMIN: ROLE_CONFIG_ADMIN
                     - property: templates
@@ -212,7 +216,7 @@ easy_admin:
                     - property: aeosId
 
         Template:
-            roles: [ROLE_ADMIN]
+            roles: [ROLE_TEMPLATE_ADMIN]
             class: AppBundle\Entity\Template
             disabled_actions: [show, delete]
             list:

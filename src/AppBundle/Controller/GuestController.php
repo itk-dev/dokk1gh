@@ -3,7 +3,7 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2018 ITK Development
+ * (c) 2017–2019 ITK Development
  *
  * This source file is subject to the MIT license.
  */
@@ -38,8 +38,7 @@ class GuestController extends AdminController
 
     public function showAppAction()
     {
-        $id = $this->request->query->get('id');
-        $guest = $this->em->getRepository(Guest::class)->find($id);
+        $guest = $this->getGuest();
 
         return $this->redirectToRoute('app_code', [
             'guest' => $guest->getId(),
@@ -48,11 +47,12 @@ class GuestController extends AdminController
 
     public function sendAppAction()
     {
-        $id = $this->request->query->get('id');
-        $guest = $this->em->getRepository(Guest::class)->find($id);
-        $appUrl = $this->generateUrl('app_code', ['guest' => $guest->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
-        if ($this->guestService->sendApp($guest, $appUrl)) {
-            $this->addFlash('info', 'App sent');
+        $guest = $this->getGuest();
+        if (null !== $guest) {
+            $appUrl = $this->generateUrl('app_code', ['guest' => $guest->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
+            if ($this->guestService->sendApp($guest, $appUrl)) {
+                $this->addFlash('info', 'App sent');
+            }
         }
 
         return $this->redirectToReferrer();
@@ -61,5 +61,27 @@ class GuestController extends AdminController
     public function resendAppAction()
     {
         return $this->sendAppAction();
+    }
+
+    public function expireAppAction()
+    {
+        $guest = $this->getGuest();
+        if (null !== $guest) {
+            if ($this->guestService->expire($guest)) {
+                $this->addFlash('info', 'Guest '.$guest->getId().' expired');
+            }
+        }
+
+        return $this->redirectToReferrer();
+    }
+
+    /**
+     * @return null|Guest
+     */
+    private function getGuest()
+    {
+        $id = $this->request->query->get('id');
+
+        return  $this->em->getRepository(Guest::class)->find($id);
     }
 }

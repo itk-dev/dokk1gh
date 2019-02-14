@@ -3,7 +3,7 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2018 ITK Development
+ * (c) 2017–2019 ITK Development
  *
  * This source file is subject to the MIT license.
  */
@@ -12,8 +12,11 @@ namespace AppBundle\Entity;
 
 use AppBundle\Traits\BlameableEntity;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Blameable\Blameable;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Superbrave\GdprBundle\Annotation\Anonymize;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
@@ -22,8 +25,16 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  *
  * @ORM\Table
  * @ORM\Entity
+ * @UniqueEntity(
+ *     fields={"phone"},
+ *     message="This phone number is already in use."
+ * )
+ * @UniqueEntity(
+ *     fields={"email"},
+ *     message="This email is already in use."
+ * )
  */
-class Guest
+class Guest implements Blameable
 {
     use BlameableEntity;
     use SoftDeleteableEntity;
@@ -51,6 +62,15 @@ class Guest
     private $enabled;
 
     /**
+     * Time when app is sent to user.
+     *
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $sentAt;
+
+    /**
      * Time when user accepts terms and conditions.
      *
      * @var \DateTime
@@ -60,9 +80,19 @@ class Guest
     private $activatedAt;
 
     /**
+     * Time when the Guest has been expired (e.g. due to inactivity).
+     *
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $expiredAt;
+
+    /**
      * @var string
      *
      * @ORM\Column(type="string", length=255)
+     * @Anonymize(type="fixed", value="{id}")
      */
     private $name;
 
@@ -70,6 +100,7 @@ class Guest
      * @var string
      *
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Anonymize(type="fixed", value="{id}")
      */
     private $company;
 
@@ -77,6 +108,7 @@ class Guest
      * @var string
      *
      * @ORM\Column(type="string", length=255)
+     * @Anonymize(type="fixed", value="{id}")
      */
     private $phone;
 
@@ -84,6 +116,7 @@ class Guest
      * @var string
      *
      * @ORM\Column(type="string", length=255)
+     * @Anonymize(type="fixed", value="+45")
      */
     private $phoneCountryCode;
 
@@ -92,6 +125,7 @@ class Guest
      *
      * @Assert\Email()
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Anonymize(type="fixed", value="{id}@example.com")
      */
     private $email;
 
@@ -145,7 +179,25 @@ class Guest
     }
 
     /**
-     * @return \DateTime
+     * @return null|\DateTime
+     */
+    public function getSentAt()
+    {
+        return $this->sentAt;
+    }
+
+    /**
+     * @param \DateTime $sentAt
+     */
+    public function setSentAt(\DateTime $sentAt)
+    {
+        $this->sentAt = $sentAt;
+
+        return $this;
+    }
+
+    /**
+     * @return null|\DateTime
      */
     public function getActivatedAt()
     {
@@ -158,6 +210,24 @@ class Guest
     public function setActivatedAt(\DateTime $activatedAt)
     {
         $this->activatedAt = $activatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return null|\DateTime
+     */
+    public function getExpiredAt()
+    {
+        return $this->expiredAt;
+    }
+
+    /**
+     * @param \DateTime $expiredAt
+     */
+    public function setExpiredAt(\DateTime $expiredAt)
+    {
+        $this->expiredAt = $expiredAt;
 
         return $this;
     }

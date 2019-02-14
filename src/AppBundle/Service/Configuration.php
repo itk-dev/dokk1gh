@@ -3,7 +3,7 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2018 ITK Development
+ * (c) 2017–2019 ITK Development
  *
  * This source file is subject to the MIT license.
  */
@@ -31,7 +31,7 @@ class Configuration
     public function get($path, $defaultValue = null)
     {
         $settings = $this->config->all();
-        if (array_key_exists($path, $settings)) {
+        if (\array_key_exists($path, $settings)) {
             return $this->config->get($path);
         }
 
@@ -44,7 +44,7 @@ class Configuration
                 if (0 === $index) {
                     $config = $parameters->get($step);
                 } elseif (!isset($config[$step])) {
-                    throw new ParameterNotFoundException(implode('.', array_slice($steps, 0, $index + 1)));
+                    throw new ParameterNotFoundException(implode('.', \array_slice($steps, 0, $index + 1)));
                 } else {
                     $config = $config[$step];
                 }

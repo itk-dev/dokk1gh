@@ -3,7 +3,7 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2018 ITK Development
+ * (c) 2017–2019 ITK Development
  *
  * This source file is subject to the MIT license.
  */
@@ -58,7 +58,7 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
             throw new \InvalidArgumentException(
                 sprintf(
                     'The user provider must be an instance of ApiKeyUserProvider (%s was given).',
-                    get_class($userProvider)
+                    \get_class($userProvider)
                 )
             );
         }

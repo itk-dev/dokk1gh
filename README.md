@@ -1,56 +1,55 @@
 Dokk1-gæstehåndtering
 =====================
 
-# Install
-
-Create database:
+# Installation
 
 ```
-mysql --user=… --password
-create database dokk1gh;
+docker-compose up -d
 ```
 
-Install Composer packages:
-
 ```
-composer install
+docker-compose exec phpfpm composer install
 ```
 
 Install bundle assets:
 
 ```
-bin/console assets:install --symlink
+docker-compose exec phpfpm bin/console assets:install --symlink
 ```
 
 Set up database:
 
 ```
-bin/console doctrine:migrations:migrate --no-interaction
+docker-compose exec phpfpm bin/console doctrine:migrations:migrate --no-interaction
 ```
 
 Create super administrator:
 
 ```
-bin/console fos:user:create --super-admin super-admin super-admin@example.com
+docker-compose exec phpfpm bin/console fos:user:create --super-admin super-admin super-admin@example.com
 ```
 
 Create administrator:
 
 ```
-bin/console fos:user:create admin@example.com admin@example.com
+docker-compose exec phpfpm bin/console fos:user:create admin@example.com admin@example.com
 ```
 
 ```
-bin/console fos:user:promote admin@example.com ROLE_ADMIN
+docker-compose exec phpfpm bin/console fos:user:promote admin@example.com ROLE_ADMIN
 ```
 
 Create user:
 
 ```
-bin/console fos:user:create user user@example.com
+docker-compose exec phpfpm bin/console fos:user:create user user@example.com
 ```
 
-Go to `http://dokk1gh.vm/login`.
+Open the site:
+
+```
+open http://dokk1gh.docker.localhost:$(docker-compose port reverse-proxy 80 | cut -d: -f2)
+```
 
 # Cron jobs
 
@@ -140,7 +139,6 @@ bin/console app:debug notify-user-created user@example.com
 ## Mocks
 
 ```
-mkdir -p var/data
 bin/console doctrine:schema:update --em=mocks --force
 ```
 
@@ -149,7 +147,7 @@ bin/console doctrine:schema:update --em=mocks --force
 `parameters.yml`:
 
 ```
-aoes_location: 'http://127.0.0.1/mock/aeosws'
+aoes_location: 'http://nginx/mock/aeosws'
 aoes_username: null
 aoes_password: null
 ```
@@ -157,7 +155,7 @@ aoes_password: null
 ### Mock SMS gateway
 
 ```
-sms_gateway_location: 'http://127.0.0.1/mock/sms
+sms_gateway_location: 'http://nginx/mock/sms
 sms_gateway_username: null
 sms_gateway_password: null
 ```

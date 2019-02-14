@@ -3,7 +3,7 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2018 ITK Development
+ * (c) 2017–2019 ITK Development
  *
  * This source file is subject to the MIT license.
  */
@@ -16,6 +16,7 @@ use AppBundle\Entity\Template;
 use AppBundle\Exception\GuestException;
 use AppBundle\Exception\InvalidTemplateException;
 use Doctrine\ORM\EntityManagerInterface;
+use Superbrave\GdprBundle\Anonymize\Anonymizer;
 
 class GuestService
 {
@@ -24,6 +25,9 @@ class GuestService
 
     /** @var EntityManagerInterface */
     private $manager;
+
+    /** @var Anonymizer */
+    private $anonymizer;
 
     /** @var TwigHelper */
     private $twig;
@@ -40,6 +44,7 @@ class GuestService
     public function __construct(
         AeosHelper $aeosHelper,
         EntityManagerInterface $manager,
+        Anonymizer $anonymizer,
         TwigHelper $twig,
         Configuration $configuration,
         SmsHelper $smsHelper,
@@ -47,6 +52,7 @@ class GuestService
     ) {
         $this->aeosHelper = $aeosHelper;
         $this->manager = $manager;
+        $this->anonymizer = $anonymizer;
         $this->twig = $twig;
         $this->configuration = $configuration;
         $this->smsHelper = $smsHelper;
@@ -86,6 +92,10 @@ class GuestService
         if (null !== $guest->getEmail()) {
             $this->mailHelper->sendApp($guest, $appUrl);
         }
+
+        $guest->setSentAt(new \DateTime());
+        $this->manager->persist($guest);
+        $this->manager->flush();
 
         return true;
     }
@@ -209,5 +219,26 @@ class GuestService
     public function sendCode(Guest $guest, Code $code)
     {
         $this->smsHelper->sendCode($guest, $code);
+    }
+
+    /**
+     * Expire a Guest by anonymizing data and setting the expired at time.
+     *
+     * @param Guest $guest
+     */
+    public function expire(Guest $guest)
+    {
+        if (null !== $guest && null === $guest->getExpiredAt()) {
+            $this->anonymizer->anonymize($guest);
+            $guest
+                ->setEnabled(false)
+                ->setExpiredAt(new \DateTime());
+            $this->manager->persist($guest);
+            $this->manager->flush();
+
+            return true;
+        }
+
+        return false;
     }
 }

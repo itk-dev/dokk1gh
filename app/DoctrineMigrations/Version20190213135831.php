@@ -16,7 +16,7 @@ use Doctrine\DBAL\Schema\Schema;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-class Version20180309144329 extends AbstractMigration
+class Version20190213135831 extends AbstractMigration
 {
     /**
      * @param Schema $schema
@@ -25,14 +25,27 @@ class Version20180309144329 extends AbstractMigration
     {
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('INSERT INTO itkdev_setting (name, type, form_type, description, value_text) VALUES (:name, :type, :form_type, :description, :value)', [
-            'name' => 'admin_gdpr',
-            'type' => 'text',
-            'form_type' => 'textarea',
-            'description' => 'Information on GDPR (terms and conditions)',
-            'value' => '<h1>General Data Protection Regulation (GDPR)</h1>
+        $this->addSql('INSERT INTO itkdev_setting (name, type, form_type, description, value_string) VALUES (:name, :type, :form_type, :description, :value)', [
+            'name' => 'app_expired_header',
+            'type' => 'string',
+            'form_type' => 'text',
+            'description' => 'The app expired header',
+            'value' => 'App expired',
+        ]);
 
-<p><a href="https://www.eugdpr.org/">https://www.eugdpr.org/</a></p>',
+        $this->addSql('INSERT INTO itkdev_setting (name, type, form_type, description, value_text) VALUES (:name, :type, :form_type, :description, :value)', [
+            'name' => 'app_expired_content',
+            'type' => 'text',
+            'form_type' => 'ckeditor',
+            'description' => 'The app expired content
+
+
+Placeholders:
+
+%expired_on%: The date on which the app expired.
+%expired_at%: The date and time at which the app expired.
+',
+            'value' => '<p>This app expired on %expired_on%</p>',
         ]);
     }
 
@@ -43,6 +56,7 @@ class Version20180309144329 extends AbstractMigration
     {
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql("DELETE FROM itkdev_setting WHERE name = 'admin_gdpr'");
+        $this->addSql("DELETE FROM itkdev_setting WHERE name = 'app_expired_header'");
+        $this->addSql("DELETE FROM itkdev_setting WHERE name = 'app_expired_content'");
     }
 }

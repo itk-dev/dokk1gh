@@ -2,18 +2,18 @@
 # Set parameters here that may be different on each deployment target of the app, e.g. development, staging, production.
 # https://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
 parameters:
-    database_host: 127.0.0.1
+    database_host: mariadb
     database_port: ~
-    database_name: dokk1gh
-    database_user: root
-    database_password: vagrant
+    database_name: db
+    database_user: db
+    database_password: db
     # You should uncomment this if you want to use pdo_sqlite
     #database_path: '%kernel.project_dir%/var/data/data.sqlite'
 
     mailer_transport: smtp
-    mailer_host: 127.0.0.1
+    mailer_host: mailhog
     # Use port 1025 for HailHog
-    mailer_port: ~
+    mailer_port: 1025
     mailer_user: ~
     mailer_password: ~
 
@@ -22,9 +22,9 @@ parameters:
 
     app_name: Gæstehåndtering
     site_name: Gæstehåndtering
-    site_url: http://dokk1gh.vm
+    site_url: http://dokk1gh.docker.localhost
     router.request_context.scheme: http
-    router.request_context.host: dokk1gh.vm
+    router.request_context.host: dokk1gh.docker.localhost
 
     mailer_name: GH
     mailer_email: gh@dokk1.gh.vm
@@ -33,7 +33,7 @@ parameters:
     error_mail_sender: error@dokk1gh.vm
     error_mail_recipient: [error@dokk1gh.vm]
 
-    aoes_location: '%site_url%/mock/aeosws'
+    aoes_location: 'http://nginx/mock/aeosws'
     aoes_username: ~
     aoes_password: ~
     aeos_timezone: Europe/Copenhagen
@@ -158,7 +158,7 @@ parameters:
     pwa_app_short_name: 'Code2Dokk1'
     pwa_app_name: 'Code2Dokk1 - Generer dørkoder'
 
-    sms_gateway_url: '%site_url%/mock/sms/send'
+    sms_gateway_url: 'http://nginx/mock/sms/send'
     sms_gateway_username: test
     sms_gateway_password: test
 

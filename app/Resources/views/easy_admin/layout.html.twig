@@ -9,7 +9,7 @@
     {% endif %}
     {% if is_granted('ROLE_ADMIN') %}
       {% set wrapper_classes = wrapper_classes|merge(['is-admin']) %}
-    {% else %}
+    {% elseif easyadmin_config('design.menu')|length < 2 %}
       {% set wrapper_classes = wrapper_classes|merge(['no-menu']) %}
     {% endif %}
     {% if app.request.attributes.get('_route') matches '/^fos_user/' %}
@@ -25,6 +25,12 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js" integrity="sha256-1hjUhpc44NwiNg8OwMu2QzJXhD8kcj+sJA3aCQZoUjg=" crossorigin="anonymous"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js" integrity="sha256-TueWqYu0G+lYIimeIcMI8x1m14QH/DQVt4s9m/uuhPw=" crossorigin="anonymous"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/locales/bootstrap-datepicker.{{ locale }}.min.js" integrity="sha256-hGPm6Di+atmqnTEV1j+f1+CZHVAdpfGjUI/WBOVZlHM=" crossorigin="anonymous"></script>
+
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
 
     {% for js_asset in easyadmin_config('design.assets.js') %}
       <script src="{{ asset(js_asset) }}"></script>

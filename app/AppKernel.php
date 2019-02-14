@@ -3,7 +3,7 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2018 ITK Development
+ * (c) 2017–2019 ITK Development
  *
  * This source file is subject to the MIT license.
  */
@@ -48,6 +48,7 @@ class AppKernel extends Kernel
             new AppBundle\AppBundle(),
             new ApiBundle\ApiBundle(),
             new ItkDev\GDPRBundle\ItkDevGDPRBundle(),
+            new Superbrave\GdprBundle\SuperbraveGdprBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test', 'acceptance'], true)) {

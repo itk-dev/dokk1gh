@@ -3,7 +3,7 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2018 ITK Development
+ * (c) 2017–2019 ITK Development
  *
  * This source file is subject to the MIT license.
  */
@@ -48,10 +48,10 @@ class EntityActionLogger
 
     private function getEntityTypeAndId($entity)
     {
-        if (!is_object($entity)) {
+        if (!\is_object($entity)) {
             throw new \RuntimeException('Entity must be an object');
         }
-        $entityType = get_class($entity);
+        $entityType = \get_class($entity);
 
         if (method_exists($entity, 'getId')) {
             $entityId = $entity->getId();

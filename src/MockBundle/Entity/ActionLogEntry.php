@@ -3,7 +3,7 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2018 ITK Development
+ * (c) 2017–2019 ITK Development
  *
  * This source file is subject to the MIT license.
  */
@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Class AeosEntity.
  *
  * @ORM\Entity()
- * @ORM\Table()
+ * @ORM\Table(name="mock_action_log_entry")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({"aeos" = "AeosActionLogEntry", "sms" = "SmsGatewayActionLogEntry"})

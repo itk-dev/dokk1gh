@@ -3,7 +3,7 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2018 ITK Development
+ * (c) 2017–2019 ITK Development
  *
  * This source file is subject to the MIT license.
  */
@@ -45,7 +45,7 @@ class AeosCodeCleanupCommand extends Command
         $dryRun = $input->getOption('dry-run');
         $expiredCodes = $this->entityManager->getRepository(Code::class)->findExpired();
         if ($output->isVerbose()) {
-            $output->writeln('#expired codes: '.count($expiredCodes));
+            $output->writeln('#expired codes: '.\count($expiredCodes));
         }
         foreach ($expiredCodes as $code) {
             if ($dryRun) {

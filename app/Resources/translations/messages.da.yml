@@ -13,7 +13,9 @@ action:
 
 'Show app': 'Vis app'
 'Send app': 'Send app'
+'Resend app': 'Gensend app'
 'App sent': 'App sendt'
+'App sent at %sent_at%': 'App sendt %sent_at%'
 
 User: Bruger
 Code: Kode
@@ -43,6 +45,8 @@ label.null: '–'
 
 ROLE_USER: Bruger
 ROLE_ADMIN: Administrator
+ROLE_USER_ADMIN: Brugeradministrator
+ROLE_GUEST_ADMIN: Gæsteadministrator
 ROLE_CONFIG_ADMIN: Konfigurationsadministrator
 ROLE_SUPER_ADMIN: Superadministrator
 
