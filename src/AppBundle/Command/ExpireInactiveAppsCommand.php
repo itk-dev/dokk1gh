@@ -96,7 +96,11 @@ EOF
         }
 
         foreach ($entities as $entity) {
-            $this->guestService->expire($entity);
+            if ($this->guestService->expire($entity)) {
+                if ($output->isVerbose()) {
+                    $output->writeln([$entity->getId()]);
+                }
+            }
         }
     }
 }
