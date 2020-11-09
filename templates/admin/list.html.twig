@@ -1,0 +1,50 @@
+{% extends '@EasyAdmin/default/list.html.twig' %}
+
+{% block item_actions %}
+    {# Add custom action for (some) users #}
+    {% if _entity_config.class == 'App\\Entity\\User' %}
+        {% if not item.lastLoggedInAt %}
+            {% set _list_item_actions = _list_item_actions|merge({
+                notifyUserCreated: {
+                    template: '@EasyAdmin/default/action.html.twig',
+                    name: 'notifyUserCreated',
+                    label: 'action.notify_user_created',
+                    type: 'method',
+                    target: '_self',
+                    css_class: 'text-primary action-notify-user',
+                    icon: null
+                }
+                }) %}
+        {% else %}
+            {% set _list_item_actions = _list_item_actions|merge({
+                resetPassword: {
+                    template: '@EasyAdmin/default/action.html.twig',
+                    name: 'resetPassword',
+                    label: 'action.reset_password',
+                    type: 'method',
+                    target: '_self',
+                    css_class: 'text-primary action-reset-password',
+                    icon: null
+                }
+                }) %}
+        {% endif %}
+
+    {% elseif _entity_config.class == 'App\\Entity\\Guest' %}
+        {% if item.activatedAt is not null %}
+            {% set _list_item_actions = _list_item_actions|merge({
+                resendApp: {
+                    template: '@EasyAdmin/default/action.html.twig',
+                    name: 'resendApp',
+                    label: 'action.resend_app',
+                    type: 'method',
+                    target: '_self',
+                    css_class: 'text-primary action-resend-app',
+                    icon: null
+                }
+                }) %}
+        {% endif %}
+    {% endif %}
+
+
+    {{ parent() }}
+{% endblock item_actions %}

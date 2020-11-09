@@ -1,0 +1,48 @@
+/* Display and center logo in top */
+#header-image {
+	transform: translateX(-50%);
+	left: 50%;
+    position: absolute;
+    img {
+        max-height: 24px;
+        margin: 13px; /* (header height - header image max-height) / 2 [(50px - 24px) / 2] */
+    }
+    @media (max-width: 767px) {
+        transform: none;
+        position: static;
+        display: inline-block;
+        width: auto;
+        float: right;
+        .is-admin & {
+            img {
+                max-height: 14px;
+                margin: 10px;
+            }
+        }
+    }
+}
+@media (max-width: 767px) {
+    #header-logo {
+        display: inline-block;
+        width: auto;
+        padding-left: 10px;
+        float: left;
+        .is-admin & {
+            .logo {
+                font-size: 15px;
+                height: 34px;
+                line-height: 34px;
+            }
+        }
+    }
+    .main-header {
+        .navbar {
+            .sidebar-toggle {
+                top: 34px;
+            }
+        }
+        .navbar-custom-menu {
+            padding-right: 0;
+        }
+    }
+}

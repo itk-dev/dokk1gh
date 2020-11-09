@@ -1,0 +1,12 @@
+{% include 'admin/form/_includes/aeosId.html.twig' with {
+  markup: markup,
+  value: value,
+  id: id,
+  data: form.parent.vars.data.aeosData|default({}),
+  item_template: '%FirstName% %LastName% [%PersonnelNo%] (#%Id%)',
+  messages: {
+    help: 'user.find.person.help',
+    invalid_id: 'Invalid AEOS person id: %id%',
+  },
+  search_path: 'admin_get_people_search'
+} only %}

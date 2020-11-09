@@ -1,0 +1,11 @@
+//fix textarea height on "Create code" page
+body.new-code textarea {
+	min-height: 50px;
+}
+
+// Change appearance on input group addon to look disabled
+.input-group .input-group-addon {
+    border-color: #aaaaaa;
+    background-color: #eee;
+    box-shadow: 0 0 3px rgba(0, 0, 0, .15);
+}

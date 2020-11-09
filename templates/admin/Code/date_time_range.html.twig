@@ -1,0 +1,8 @@
+{% set start_time = item.startTime %}
+{% set end_time = item.endTime %}
+
+{% if (start_time|date('Y-m-d')) == (end_time|date('Y-m-d')) %}
+  {{ start_time|date(format_date, view_timezone) }} {{ start_time|date(format_time, view_timezone) }}–{{ end_time|date(format_time, view_timezone) }}
+{% else %}
+  {{ start_time|date(format_datetime, view_timezone) }}–{{ end_time|date(format_datetime, view_timezone) }}
+{% endif %}

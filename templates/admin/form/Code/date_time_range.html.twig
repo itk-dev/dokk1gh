@@ -1,0 +1,89 @@
+<div style="display: none">{{ markup|raw }}</div>
+
+{% set config = configuration.get('code.config') %}
+
+<div class="date-time-range">
+  {% if name == 'startTime' %}
+
+    <div class="date-time-range-date">
+      <input id="{{ id }}-picker" class="form-control" type="text" value="{{ value|date(form_format_date) }}"/>
+    </div>
+
+    <script>
+     (typeof gh !== 'undefined') || (gh = {});
+     (typeof gh.code !== 'undefined') || (gh.code = {});
+
+     gh.code.updateTimes = function(initialize) {
+       var date = $('#' + {{ id|json_encode|raw }} + '-picker').datepicker('getUTCDate');
+       var timeStart = $('#' + {{ id|replace({'startTime': 'endTime'})|json_encode|raw }} + '-time-start');
+       var timeEnd = $('#' + {{ id|replace({'startTime': 'endTime'})|json_encode|raw }} + '-time-end');
+
+       if (initialize === true) {
+         // Get time start and end from entity.
+         var startTime = moment($('#' + {{ id|json_encode|raw }}).val());
+         var endTime = moment($('#' + {{ id|replace({'startTime': 'endTime'})|json_encode|raw }}).val());
+         timeStart.val(startTime.format('HH:mm'));
+         timeEnd.val(endTime.format('HH:mm'));
+       }
+
+       var startTime = moment(date);
+       var tokens = timeStart.val().split(':');
+       startTime.hour(parseInt(tokens[0]));
+       startTime.minute(parseInt(tokens[1]));
+       startTime.second(0);
+
+       var endTime = moment(date);
+       tokens = timeEnd.val().split(':');
+       endTime.hour(parseInt(tokens[0]));
+       endTime.minute(parseInt(tokens[1]));
+       endTime.second(0);
+
+       $('#' + {{ id|json_encode|raw }}).val(startTime.format());
+       $('#' + {{ id|replace({'startTime': 'endTime'})|json_encode|raw }}).val(endTime.format());
+     };
+     (function ($) { $(function() {
+       gh.code.datePicker = $('#' + {{ id|json_encode|raw }} + '-picker').datepicker({
+         language: {{ locale|json_encode|raw }},
+         format: {{ form_format_date_js|json_encode|raw }},
+         startDate: 'now',
+         daysOfWeekDisabled: {{ config.daysDisabled|json_encode|raw }},
+         autoclose: true
+       }).on('changeDate', gh.code.updateTimes);
+       gh.code.updateTimes(true);
+     })}(jQuery))</script>
+
+  {% elseif easyadmin.entity.class == 'AppBundle\\Entity\\Code' and name == 'endTime' %}
+
+    {% macro time_selector(config, id) %}
+      <select class="form-control" id="{{ id }}">
+        {% for hour in config.hours.min..config.hours.max %}
+          {% for minute in config.minutes %}
+            {# Skip last minute value in last hour. @TODO: Improve this, i.e. make it more obvious #}
+            {% if not loop.last or not loop.parent.loop.last %}
+              <option>{{ '%02d:%02d'|format(hour, minute) }}</option>
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+      </select>
+    {% endmacro %}
+    {% from _self import time_selector %}
+
+    {# Time span selectors #}
+    <div class="date-time-range-time date-time-range-time-start">
+      {{ time_selector(config.startTime, id ~ '-time-start') }}
+    </div>
+    –
+    <div class="date-time-range-time date-time-range-time-end">
+      {{ time_selector(config.endTime, id ~ '-time-end') }}
+    </div>
+
+    <script>
+     (function ($) {
+       $([
+         '#' + {{ id|json_encode|raw }} + '-time-start',
+         '#' + {{ id|json_encode|raw }} + '-time-end'
+       ].join()).on('change', gh.code.updateTimes);
+     }(jQuery))</script>
+
+  {% endif %}
+</div>

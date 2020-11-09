@@ -1,0 +1,80 @@
+{% extends 'app/base.html.twig' %}
+{% set on_app_page = false %}
+
+{% block content %}
+    <div class="onboard-guide">
+        <ol class="onboard-guide-indicators">
+            <li class="indicator"></li>
+            <li class="indicator"></li>
+            <li class="indicator"></li>
+        </ol>
+        <div class="slide fade-in">
+            <div class="header">
+                <h1>{{ 'How to use this app'|trans }}</h1>
+                <p class="lead">{{ 'In a moment you will be ready to generate your first code, but first a quick guide.'|trans }}</p>
+            </div>
+            <div class="card text-center shadow">
+              <div class="card-body">
+                <img src="/images/guide-screen1.png" class="img-fluid" alt="Select area">
+                <p class="card-text">{{ 'Select the building area you want to access.'|trans }}</p>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-lg btn-block" onclick="guideSteps()">{{ 'Next'|trans }}</button>
+        </div>
+        <div class="slide fade-in slide-in">
+            <div class="header">
+                <h1>{{ 'Recieve SMS with code'|trans }}</h1>
+            </div>
+            <div class="card text-center shadow">
+              <div class="card-body">
+                <img src="/images/guide-screen2.png" class="img-fluid" alt="Select area">
+                <p class="card-text">{{ 'You now recive an SMS with the doorcode.'|trans }}</p>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-lg btn-block" onclick="guideSteps()">{{ 'Next'|trans }}</button>
+        </div>
+        <div class="slide fade-in slide-in">
+            <div class="header">
+                <h1>{{ get_configuration('app_terms_header')|default('Accept terms'|trans) }}</h1>
+                {% if get_configuration('app_terms_lead')|default(null) %}
+                    <p class="lead">{{ get_configuration('app_terms_lead') }}</p>
+                {% endif %}
+            </div>
+            <div class="card shadow">
+                <div class="card-body">
+                    {% set replacements = {} %}
+                    {{ get_configuration('app_terms_content')|replace(replacements)|raw }}
+                </div>
+            </div>
+
+            {% if guest.activatedAt == null %}
+                <form method="post" action="{{ path('app_accept', {guest: guest.id}) }}">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block" onclick="guideSteps()">{{ 'I agree'|trans }}</button>
+                </form>
+            {% else %}
+                <a class="btn btn-primary btn-lg btn-block" href="{{ path('app_code', {guest: guest.id}) }}">{{ 'OK'|trans }}</a>
+            {% endif %}
+        </div>
+    </div>
+    <script>
+        var slides = document.querySelectorAll('.slide');
+        slides = Array.prototype.slice.call(slides);
+        var currentSlide = 0;
+        var indicator = document.querySelectorAll('.indicator');
+        indicator = Array.prototype.slice.call(indicator);
+        function indicators() {
+            indicator.forEach(function(ol, index){
+                ol.className = (index === currentSlide) ? 'active':'';
+            })
+            console.log(indicator);
+        }
+        function guideSteps() {
+            slides.forEach(function(slide, index){
+                slide.style.display = (index === currentSlide) ? 'block':'none';
+            })
+            indicators();
+            currentSlide++;
+        }
+        guideSteps();
+    </script>
+{% endblock %}

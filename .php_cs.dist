@@ -1,13 +1,13 @@
 <?php
 
 $finder = PhpCsFixer\Finder::create()
-     ->in(__DIR__.'/{app,src,tests}')
+     ->in(__DIR__.'/{src,tests}')
 ;
 
 $header =<<<'HEADER'
 This file is part of Gæstehåndtering.
 
-(c) 2017–2019 ITK Development
+(c) 2017–2020 ITK Development
 
 This source file is subject to the MIT license.
 HEADER;

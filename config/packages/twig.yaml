@@ -1,0 +1,20 @@
+twig:
+    default_path: '%kernel.project_dir%/templates'
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
+    exception_controller: null
+
+    globals:
+        format_datetime: '%format_datetime%'
+        format_date: '%format_date%'
+        format_time: '%format_time%'
+        view_timezone: "%view_timezone%"
+        site_name: '%site_name%'
+        version: '%version%'
+
+# @see https://stackoverflow.com/a/41465692
+services:
+    app.twig.extension.loader:
+        class: Twig\Extension\StringLoaderExtension
+        tags:
+            - { name: 'twig.extension' }

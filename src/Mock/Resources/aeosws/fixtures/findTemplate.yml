@@ -1,0 +1,417 @@
+Template:
+    -
+        Id: 1
+        # <xs:enumeration value="OnLine"></xs:enumeration>
+        # <xs:enumeration value="OffLine"></xs:enumeration>
+        # <xs:enumeration value="SecurityLevel"></xs:enumeration>
+        # <xs:enumeration value="Soaa"></xs:enumeration>
+        UnitOfAuthType: OnLine
+        Name: Somewhere in time
+    -
+        Id: 2
+        UnitOfAuthType: OnLine
+        Name: Another place
+    -
+        Id: 3
+        UnitOfAuthType: OnLine
+        Name: My place
+    -
+        Id: 4
+        UnitOfAuthType: OnLine
+        Name: 'Kuhn, Lakin and Johnston'
+    -
+        Id: 5
+        UnitOfAuthType: OnLine
+        Name: Ryan-Moore
+    -
+        Id: 6
+        UnitOfAuthType: OnLine
+        Name: 'Ondricka LLC'
+    -
+        Id: 7
+        UnitOfAuthType: OnLine
+        Name: Pollich-Stanton
+    -
+        Id: 8
+        UnitOfAuthType: OnLine
+        Name: 'Nicolas, Walsh and Reichert'
+    -
+        Id: 9
+        UnitOfAuthType: OnLine
+        Name: 'Boyle, Volkman and Rutherford'
+    -
+        Id: 10
+        UnitOfAuthType: OnLine
+        Name: 'Ruecker, Moore and Tillman'
+    -
+        Id: 11
+        UnitOfAuthType: OnLine
+        Name: 'Cartwright, Veum and Bashirian'
+    -
+        Id: 12
+        UnitOfAuthType: OnLine
+        Name: Daniel-Upton
+    -
+        Id: 13
+        UnitOfAuthType: OnLine
+        Name: 'Jakubowski, Hettinger and Walter'
+    -
+        Id: 14
+        UnitOfAuthType: OnLine
+        Name: Schiller-Terry
+    -
+        Id: 15
+        UnitOfAuthType: OnLine
+        Name: Abshire-Bradtke
+    -
+        Id: 16
+        UnitOfAuthType: OnLine
+        Name: 'Doyle, Wisozk and Larkin'
+    -
+        Id: 17
+        UnitOfAuthType: OnLine
+        Name: 'Rohan and Sons'
+    -
+        Id: 18
+        UnitOfAuthType: OnLine
+        Name: 'Nicolas Group'
+    -
+        Id: 19
+        UnitOfAuthType: OnLine
+        Name: 'Wunsch, Lakin and Hilpert'
+    -
+        Id: 20
+        UnitOfAuthType: OnLine
+        Name: 'Glover, Huel and Herman'
+    -
+        Id: 21
+        UnitOfAuthType: OnLine
+        Name: 'Ratke Group'
+    -
+        Id: 22
+        UnitOfAuthType: OnLine
+        Name: Schuppe-Beier
+    -
+        Id: 23
+        UnitOfAuthType: OnLine
+        Name: Wilkinson-Hodkiewicz
+    -
+        Id: 24
+        UnitOfAuthType: OnLine
+        Name: 'Cronin, Hahn and Hickle'
+    -
+        Id: 25
+        UnitOfAuthType: OnLine
+        Name: 'Ledner Ltd'
+    -
+        Id: 26
+        UnitOfAuthType: OnLine
+        Name: 'Rohan, Littel and Gutmann'
+    -
+        Id: 27
+        UnitOfAuthType: OnLine
+        Name: 'Collins, Skiles and Connelly'
+    -
+        Id: 28
+        UnitOfAuthType: OnLine
+        Name: 'Lakin LLC'
+    -
+        Id: 29
+        UnitOfAuthType: OnLine
+        Name: Rowe-Douglas
+    -
+        Id: 30
+        UnitOfAuthType: OnLine
+        Name: 'Barrows and Sons'
+    -
+        Id: 31
+        UnitOfAuthType: OnLine
+        Name: Fritsch-Schaden
+    -
+        Id: 32
+        UnitOfAuthType: OnLine
+        Name: 'O''Conner LLC'
+    -
+        Id: 33
+        UnitOfAuthType: OnLine
+        Name: 'Kuhn Group'
+    -
+        Id: 34
+        UnitOfAuthType: OnLine
+        Name: 'Kshlerin, Larkin and Carter'
+    -
+        Id: 35
+        UnitOfAuthType: OnLine
+        Name: 'Waelchi and Sons'
+    -
+        Id: 36
+        UnitOfAuthType: OnLine
+        Name: 'Streich PLC'
+    -
+        Id: 37
+        UnitOfAuthType: OnLine
+        Name: 'Koss, Wilkinson and Terry'
+    -
+        Id: 38
+        UnitOfAuthType: OnLine
+        Name: 'Williamson Group'
+    -
+        Id: 39
+        UnitOfAuthType: OnLine
+        Name: 'Schoen Inc'
+    -
+        Id: 40
+        UnitOfAuthType: OnLine
+        Name: 'Hoppe, Cole and Bode'
+    -
+        Id: 41
+        UnitOfAuthType: OnLine
+        Name: Morissette-Little
+    -
+        Id: 42
+        UnitOfAuthType: OnLine
+        Name: 'Hauck, Gottlieb and Lowe'
+    -
+        Id: 43
+        UnitOfAuthType: OnLine
+        Name: 'Beer Group'
+    -
+        Id: 44
+        UnitOfAuthType: OnLine
+        Name: 'Heller Group'
+    -
+        Id: 45
+        UnitOfAuthType: OnLine
+        Name: 'Haley Ltd'
+    -
+        Id: 46
+        UnitOfAuthType: OnLine
+        Name: 'Boyle PLC'
+    -
+        Id: 47
+        UnitOfAuthType: OnLine
+        Name: 'Schaden Ltd'
+    -
+        Id: 48
+        UnitOfAuthType: OnLine
+        Name: Sanford-Mertz
+    -
+        Id: 49
+        UnitOfAuthType: OnLine
+        Name: 'Friesen, White and Gaylord'
+    -
+        Id: 50
+        UnitOfAuthType: OnLine
+        Name: 'Hand PLC'
+    -
+        Id: 51
+        UnitOfAuthType: OnLine
+        Name: 'Heaney Group'
+    -
+        Id: 52
+        UnitOfAuthType: OnLine
+        Name: 'Rowe LLC'
+    -
+        Id: 53
+        UnitOfAuthType: OnLine
+        Name: Wehner-Wolff
+    -
+        Id: 54
+        UnitOfAuthType: OnLine
+        Name: 'Windler, Bauch and Keebler'
+    -
+        Id: 55
+        UnitOfAuthType: OnLine
+        Name: 'Watsica, Bashirian and Hills'
+    -
+        Id: 56
+        UnitOfAuthType: OnLine
+        Name: Schmeler-Metz
+    -
+        Id: 57
+        UnitOfAuthType: OnLine
+        Name: 'Bayer Ltd'
+    -
+        Id: 58
+        UnitOfAuthType: OnLine
+        Name: Gleichner-Hermiston
+    -
+        Id: 59
+        UnitOfAuthType: OnLine
+        Name: 'Deckow, Kulas and Mayer'
+    -
+        Id: 60
+        UnitOfAuthType: OnLine
+        Name: 'Johnston, Wilkinson and Zemlak'
+    -
+        Id: 61
+        UnitOfAuthType: OnLine
+        Name: 'Kuvalis Group'
+    -
+        Id: 62
+        UnitOfAuthType: OnLine
+        Name: 'Kovacek, Fritsch and Gibson'
+    -
+        Id: 63
+        UnitOfAuthType: OnLine
+        Name: 'Greenholt and Sons'
+    -
+        Id: 64
+        UnitOfAuthType: OnLine
+        Name: 'Hansen, Schaden and Conroy'
+    -
+        Id: 65
+        UnitOfAuthType: OnLine
+        Name: Wiegand-Bins
+    -
+        Id: 66
+        UnitOfAuthType: OnLine
+        Name: 'Renner, Beatty and Huels'
+    -
+        Id: 67
+        UnitOfAuthType: OnLine
+        Name: 'Hand, Gusikowski and Rowe'
+    -
+        Id: 68
+        UnitOfAuthType: OnLine
+        Name: Gorczany-Gaylord
+    -
+        Id: 69
+        UnitOfAuthType: OnLine
+        Name: Robel-Brekke
+    -
+        Id: 70
+        UnitOfAuthType: OnLine
+        Name: 'Baumbach, Sawayn and Labadie'
+    -
+        Id: 71
+        UnitOfAuthType: OnLine
+        Name: 'Schuster, Rolfson and Crist'
+    -
+        Id: 72
+        UnitOfAuthType: OnLine
+        Name: Graham-Cronin
+    -
+        Id: 73
+        UnitOfAuthType: OnLine
+        Name: 'Klocko, Rohan and Kozey'
+    -
+        Id: 74
+        UnitOfAuthType: OnLine
+        Name: 'Witting and Sons'
+    -
+        Id: 75
+        UnitOfAuthType: OnLine
+        Name: Leffler-Bauch
+    -
+        Id: 76
+        UnitOfAuthType: OnLine
+        Name: Rogahn-Dicki
+    -
+        Id: 77
+        UnitOfAuthType: OnLine
+        Name: 'Auer, Jones and Wilderman'
+    -
+        Id: 78
+        UnitOfAuthType: OnLine
+        Name: 'Upton, Bechtelar and O''Hara'
+    -
+        Id: 79
+        UnitOfAuthType: OnLine
+        Name: Farrell-Lockman
+    -
+        Id: 80
+        UnitOfAuthType: OnLine
+        Name: Huel-Considine
+    -
+        Id: 81
+        UnitOfAuthType: OnLine
+        Name: Cummerata-Lind
+    -
+        Id: 82
+        UnitOfAuthType: OnLine
+        Name: 'Hamill, O''Reilly and Fay'
+    -
+        Id: 83
+        UnitOfAuthType: OnLine
+        Name: Gulgowski-Harvey
+    -
+        Id: 84
+        UnitOfAuthType: OnLine
+        Name: 'Bode Inc'
+    -
+        Id: 85
+        UnitOfAuthType: OnLine
+        Name: Conroy-Johns
+    -
+        Id: 86
+        UnitOfAuthType: OnLine
+        Name: Zboncak-Lubowitz
+    -
+        Id: 87
+        UnitOfAuthType: OnLine
+        Name: 'Beer, Bahringer and Murphy'
+    -
+        Id: 88
+        UnitOfAuthType: OnLine
+        Name: 'Roob PLC'
+    -
+        Id: 89
+        UnitOfAuthType: OnLine
+        Name: 'Kuvalis, Collins and Rath'
+    -
+        Id: 90
+        UnitOfAuthType: OnLine
+        Name: 'O''Kon LLC'
+    -
+        Id: 91
+        UnitOfAuthType: OnLine
+        Name: Simonis-Schmeler
+    -
+        Id: 92
+        UnitOfAuthType: OnLine
+        Name: 'Prosacco, Murazik and Turner'
+    -
+        Id: 93
+        UnitOfAuthType: OnLine
+        Name: 'Schoen Group'
+    -
+        Id: 94
+        UnitOfAuthType: OnLine
+        Name: 'Bradtke, Gleason and Streich'
+    -
+        Id: 95
+        UnitOfAuthType: OnLine
+        Name: 'Lubowitz, O''Hara and Labadie'
+    -
+        Id: 96
+        UnitOfAuthType: OnLine
+        Name: 'Rogahn PLC'
+    -
+        Id: 97
+        UnitOfAuthType: OnLine
+        Name: 'Nitzsche, Koch and Jones'
+    -
+        Id: 98
+        UnitOfAuthType: OnLine
+        Name: 'Wiegand, Ernser and Oberbrunner'
+    -
+        Id: 99
+        UnitOfAuthType: OnLine
+        Name: Lang-Dibbert
+    -
+        Id: 100
+        UnitOfAuthType: OnLine
+        Name: Quigley-Hauck
+    -
+        Id: 101
+        UnitOfAuthType: OnLine
+        Name: 'Walsh, Stehr and Mayert'
+    -
+        Id: 102
+        UnitOfAuthType: OnLine
+        Name: Dietrich-Johnson
+    -
+        Id: 103
+        UnitOfAuthType: OnLine
+        Name: Zboncak-Rath

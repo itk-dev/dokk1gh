@@ -1,0 +1,83 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+imports:
+    - { resource: services.local.yaml }
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    version: 1.2.0
+
+    site_name: '%env(SITE_NAME)%'
+    locale: '%env(LOCALE)%'
+    format_datetime: '%env(FORMAT_DATETIME)%'
+    format_date: '%env(FORMAT_DATE)%'
+    format_time: '%env(FORMAT_TIME)%'
+    view_timezone: '%env(VIEW_TIMEZONE)%'
+
+    mailer_name: '%env(MAILER_NAME)%'
+    mailer_email: '%env(MAILER_EMAIL)%'
+    administrator_email: '%env(ADMINISTRATOR_EMAIL)%'
+
+    error_mail_sender: '%env(ERROR_MAIL_SENDER)%'
+    error_mail_recipient: '%env(ERROR_MAIL_RECIPIENT)%'
+
+    aoes_location: '%env(AOES_LOCATION)%'
+    aoes_username: '%env(AOES_USERNAME)%'
+    aoes_password: '%env(AOES_PASSWORD)%'
+    aeos_timezone: '%env(AEOS_TIMEZONE)%'
+    aeos_context: '%env(json:AEOS_CONTEXT)%'
+    aeos_identifier_type: '%env(AEOS_IDENTIFIER_TYPE)%'
+    aeos_identifier_length: '%env(AEOS_IDENTIFIER_LENGTH)%'
+    # aeos_visitor_name_template: '%env(AEOS_VISITOR_NAME_TEMPLATE)%'
+    aeos_block_reason: '%env(AEOS_BLOCK_REASON)%'
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+        bind:
+            $aeosConfiguration:
+                client:
+                    location: '%aoes_location%'
+                    username: '%aoes_username%'
+                    password: '%aoes_password%'
+                    context: '%aeos_context%'
+                    debug: '%kernel.debug%'
+                aeos:
+                    timezone: '%aeos_timezone%'
+                    identifier_type: '%aeos_identifier_type%'
+                    identifier_length: '%aeos_identifier_length%'
+                    block_reason: '%aeos_block_reason%'
+
+            $resetPasswordControllerOptions:
+                from_email: '%mailer_email%'
+                from_name: '%mailer_name%'
+
+            $userManagerConfiguration:
+                x: 87
+
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+            - '../src/Tests/'
+
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class
+    App\Controller\:
+        resource: '../src/Controller/'
+        tags: ['controller.service_arguments']
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+
+    Craue\ConfigBundle\Util\Config: '@craue_config_default'

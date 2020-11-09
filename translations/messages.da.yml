@@ -1,0 +1,179 @@
+action:
+    edit: Rediger
+    delete: Slet
+    cancel: Annuller
+    search: Søg
+    new: Opret %entity_name%
+    save: Gem
+    list: Tilbage til oversigt
+    show: Vis
+    notify_user_created: 'Gensend oprettelsesmail'
+    reset_password: 'Nulstil adgangskode'
+    resend_app: 'Gensend app'
+
+'Show app': 'Vis app'
+'Send app': 'Send app'
+'Resend app': 'Gensend app'
+'App sent': 'App sendt'
+'App sent at %sent_at%': 'App sendt %sent_at%'
+
+User: Bruger
+Code: Kode
+Guest: Gæst
+Template: Adgangsområde
+Status: Status
+Note: Intern note
+code.note.help: Noten kan fx bruges til at finde tilbage til den oprettede kode på et senere tidspunkt. Noten bliver ikke delt med andre.
+template.find.template.help: Søg efter skabelon i AEOS. Der søges på id og navn.
+user.find.person.help: Søg efter person i AEOS. Der søges på id, for- og efternavn plus nummer (PersonnelNo).
+
+Code.status.expired: Udløbet
+Code.status.future: Fremtidig
+Code.status.active: Aktiv
+
+New code created: Ny kode oprettet
+Copy code: Kopier kode
+Code copied to clipboard: Kode kopieret til udklipsholder
+Code removed: Kode slettet
+
+Company: Firma
+Phone: Telefonnr.
+
+Enabled: Aktiv
+
+label.null: '–'
+
+ROLE_USER: Bruger
+ROLE_ADMIN: Administrator
+ROLE_USER_ADMIN: Brugeradministrator
+ROLE_GUEST_ADMIN: Gæsteadministrator
+ROLE_CONFIG_ADMIN: Konfigurationsadministrator
+ROLE_SUPER_ADMIN: Superadministrator
+
+Identifier: Identifier
+Name: Navn
+Roles: Roller
+Templates: Adgangsområder
+Last login: Seneste login
+Created at: Oprettet
+Created by: Oprettet af
+Updated at: Opdateret
+Updated by: Opdateret af
+Activated at: Aktiveret
+Activate: Aktiver
+Email: E-mailadresse
+Aeos id: AEOS-id
+Change password: Skift adgangskode
+Start time: Starttidspunkt
+End time: Sluttidspunkt
+Start date: Startdato
+End date: Slutdato
+Time ranges: Tidspunkter
+Date: Dato
+Period: Tidsrum
+Api key: Api-nøgle
+Generate api key: Generer api-nøgle
+Time range: Tidsrum
+Cancel: Annuller
+'Invalid AEOS template id: %id%': 'Ugyldigt AEOS-id: %id%'
+'Invalid AEOS person id: %id%': 'Ugyldigt AEOS-id: %id%'
+'AEOS id used by %name%': 'bruges af "%name%"'
+
+'You cannot create codes.': 'Du kan ikke oprette koder.'
+'Please contact an administrator (%administrator_email%) for help.': 'Kontakt en administrator (%administrator_email%) for hjælp.'
+
+Confirm generate new api key: Bekræft at du vil generere en ny api-nøgle.
+
+Generate new api key: Generer ny api-nøgle
+Api-key generated: Api-nøgle genereret
+Api key copied to clipboard: Api-nøgle kopieret til udklipsholder
+
+AppBundle\Entity\Code: Kode
+AppBundle\Entity\User: Bruger
+AppBundle\Entity\Template: Adgangsområde
+
+'%entity_type% %entity_name% created': '%entity_type% "%entity_name%" oprettet'
+'%entity_type% %entity_name% updated': '%entity_type% "%entity_name%" opdateret'
+'%entity_type% %entity_name% removed': '%entity_type% "%entity_name%" slettet'
+
+'User %user% notified': 'Mail om oprettelse sendt til %user%'
+
+# @TODO
+Notify user: Notify user
+
+'Please wait while the system generates the key - it can take up to a minute': 'Vent venligst mens koden oprettes - det kan tage op til et minut.'
+
+# APP
+
+Select area: Vælg område
+Press the area in Dokk1 you wish to access: Tryk på det område i Dokk1 som du vil have adgang til.
+Get new code: Bestil ny kode
+Press %request_access% to get access: Tryk på “%request_access%” for at få adgang.
+
+ID-card: ID-kort
+This is your personal identification wich grants you access to Dokk1: Dette er dit personlige ID-kort, som du vil kunne blive bedt om at fremvise, når du er på Dokk1
+Welcome: Velkommen
+In a moment you will be ready to generate your first code, but first a quick guide.: Om et øjeblik er du klar til at lave din første dørkode. Men først en kort guide.
+Next: Næste
+I agree: Jeg accepterer
+OK: OK
+Select the building area you want to access.: Tryk på området du vil have adgang til.
+You now recive an SMS with the doorcode.: Du modtager SMS med dørkoden.
+Accept terms: Accepter betingelser
+Your code has been sent: Koden er sendt
+You will recive an SMS with the code in a moment: Du modtager snart koden på SMS
+It might take up to a few minutes before you recive the code depending on your network operator.: Der kan gå op til et par minutter inden du modtager koden alt afhænging af hvilken mobiloperatør du har.
+Code gives access to: Koden giver adgang til
+Code expires at: Koden udløber
+Sms sent to tel.: SMS sendt til mobilnr.
+Finish: Færdig
+You need to read and accept the terms before you can start to use create codes.: Du skal læse og acceptere betingelserne for brug af denne service, inden du kan lave nye dørkoder.
+How to use this app: Sådan gør du
+Recieve SMS with code: Modtag sms med koden
+Request access: Send ny kode
+Card: Id-kort
+About: Om denne app
+Valid from %start_time% to %end_time%: Aktiv fra %start_time% til %end_time%
+Access times: Adgangstider
+Monday: Mandag
+Tuesday: Tirsdag
+Wednesday: Onsdag
+Thursday: Torsdag
+Friday: Fredag
+Saturday: Lørdag
+Sunday: Søndag
+
+Open app: Åbn app
+
+SMS sent to phone %guest_phone%: Sms sendt til %guest_phone%
+
+You are not allowed to request access right now: Du har ikke adgang lige nu
+Error generating code: Fejl under generering af kode
+Guest cannot request code right now: Du har ikke adgang lige nu
+Guest does not have access to template: Du har ikke adgang til det valgte område
+
+Settings: Indstillinger
+Setting: Indstilling
+Description: Beskrivelse
+Value: Værdi
+Your guest access is not valid: Din gæsteadgang er ikke aktiv
+No access: Ingen adgang
+Your app is not active: Din app er ikke aktiveret
+If you think this is an error please contact you guest access administrator at Dokk1 to have your guest access app enabled: Hvis du mener det er en fejl så kontakt venligst din gæste adgangs administrator på Dokk1 for at få din app aktiveret.
+
+
+# Settings
+app_terms_lead: Betingelser – manchet
+app_terms_header: Betingelser – overskrift
+app_terms_content: Betingelser – indhold
+
+app_about_lead: Om app'en – manchet
+app_about_header: Om app'en – overskrift
+app_about_content: Om app'en – indhold
+
+# GDPR
+
+GDPR Consent: Accepter GDPR
+Yes, I accept the terms: Ja, jeg accepterer betingelserne
+Continue: Fortsæt
+Leave: Tilbage

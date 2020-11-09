@@ -1,123 +1,120 @@
 {
-    "name": "aakb/dokk1gh",
-    "license": "MIT",
     "type": "project",
+    "license": "proprietary",
+    "require": {
+        "php": ">=7.4",
+        "ext-ctype": "*",
+        "ext-iconv": "*",
+        "composer/package-versions-deprecated": "^1.11",
+        "doctrine/doctrine-bundle": "^2.2",
+        "doctrine/doctrine-migrations-bundle": "^3.0",
+        "doctrine/orm": "^2.7",
+        "easycorp/easyadmin-bundle": "^2.3",
+        "friendsofsymfony/rest-bundle": "^3.0",
+        "itk-dev/config-bundle": "^3.0",
+        "itk-dev/database-bundle": "^1.3",
+        "itk-dev/monolog-db-bundle": "dev-develop",
+        "itk-dev/user-bundle": "2.x-dev",
+        "jms/serializer-bundle": "^3.7",
+        "nelmio/api-doc-bundle": "~3.3.1",
+        "sensio/framework-extra-bundle": "^5.6",
+        "stof/doctrine-extensions-bundle": "^1.5",
+        "suncat/mobile-detect-bundle": "^1.1",
+        "superbrave/gdpr-bundle": "^2.2",
+        "symfony/console": "4.4.*",
+        "symfony/dotenv": "4.4.*",
+        "symfony/flex": "^1.3.1",
+        "symfony/framework-bundle": "4.4.*",
+        "symfony/mailer": "4.4.*",
+        "symfony/twig-bundle": "^4.4",
+        "symfony/webpack-encore-bundle": "^1.8",
+        "symfony/yaml": "4.4.*",
+        "symfonycasts/reset-password-bundle": "^1.1"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.16",
+        "friendsoftwig/twigcs": "^4.0",
+        "squizlabs/php_codesniffer": "^3.5",
+        "symfony/maker-bundle": "^1.23",
+        "symfony/stopwatch": "^4.4",
+        "symfony/web-profiler-bundle": "^4.4"
+    },
+    "config": {
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
     "autoload": {
         "psr-4": {
-            "AppBundle\\": "src/AppBundle",
-            "ApiBundle\\": "src/ApiBundle",
-            "ActionLogBundle\\": "src/ActionLogBundle",
-            "MockBundle\\": "src/MockBundle"
-        },
-        "classmap": [
-            "app/AppKernel.php",
-            "app/AppCache.php"
-        ]
+            "App\\": "src/"
+        }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
-        },
-        "files": [
-            "vendor/symfony/symfony/src/Symfony/Component/VarDumper/Resources/functions/dump.php"
-        ]
+            "App\\Tests\\": "tests/"
+        }
     },
-    "require": {
-        "php": "~7.0.0",
-        "doctrine/doctrine-bundle": "^1.8",
-        "doctrine/doctrine-migrations-bundle": "^1.3",
-        "doctrine/orm": "^2.5",
-        "easycorp/easyadmin-bundle": "^1.17",
-        "friendsofsymfony/rest-bundle": "^2.3",
-        "friendsofsymfony/user-bundle": "^2.0",
-        "guzzlehttp/guzzle": "^6.3",
-        "incenteev/composer-parameter-handler": "^2.1",
-        "itk-dev/config-bundle": "^1.0",
-        "itk-dev/database-bundle": "^1.0",
-        "itk-dev/gdpr-bundle": "dev-master",
-        "itk-dev/monolog-db-bundle": "^1.0",
-        "jms/serializer-bundle": "^2.3",
-        "nelmio/api-doc-bundle": "^3.1",
-        "sensio/distribution-bundle": "^5.0",
-        "sensio/framework-extra-bundle": "^5.1",
-        "stof/doctrine-extensions-bundle": "^1.3",
-        "suncat/mobile-detect-bundle": "^1.1",
-        "superbrave/gdpr-bundle": "^1.0",
-        "symfony/monolog-bundle": "^3.1",
-        "symfony/polyfill-apcu": "^1.7",
-        "symfony/swiftmailer-bundle": "^3.1",
-        "symfony/symfony": "^3.4",
-        "twig/twig": "^2.4"
-    },
-    "require-dev": {
-        "allocine/twigcs": "^3.0",
-        "behat/mink-browserkit-driver": "^1.3",
-        "behat/mink-extension": "^2.3",
-        "behat/symfony2-extension": "^2.1",
-        "behatch/contexts": "^3.0",
-        "friendsofphp/php-cs-fixer": "^2.10",
-        "sensio/generator-bundle": "^3.1",
-        "squizlabs/php_codesniffer": "^3.2",
-        "symfony/phpunit-bridge": "^4.0"
+    "replace": {
+        "paragonie/random_compat": "2.*",
+        "symfony/polyfill-ctype": "*",
+        "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php71": "*",
+        "symfony/polyfill-php70": "*",
+        "symfony/polyfill-php56": "*"
     },
     "scripts": {
-        "symfony-scripts": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "Ivory\\CKEditorBundle\\Composer\\CKEditorScriptHandler::install",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
-        ],
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+        },
         "post-install-cmd": [
-            "@symfony-scripts",
-            "ln -sf ../../githooks/pre-commit .git/hooks/pre-commit"
+            "@auto-scripts",
+            "@install-git-hooks"
         ],
         "post-update-cmd": [
-            "@symfony-scripts"
+            "@auto-scripts"
         ],
-        "check-coding-standards/php-cs-fixer": [
+        "coding-standards-check/php-cs-fixer": [
             "php -n vendor/bin/php-cs-fixer --config=.php_cs.dist fix --dry-run"
         ],
-        "check-coding-standards/phpcs": [
+        "coding-standards-check/phpcs": [
             "vendor/bin/phpcs --standard=phpcs.xml.dist"
         ],
-        "check-coding-standards/twigcs": [
-            "vendor/bin/twigcs lint app/Resources/views"
+        "coding-standards-check/twigcs": [
+            "vendor/bin/twigcs templates/"
         ],
-        "check-coding-standards": [
-            "@check-coding-standards/php-cs-fixer",
-            "@check-coding-standards/phpcs"
+        "coding-standards-check": [
+            "@coding-standards-check/php-cs-fixer",
+            "@coding-standards-check/phpcs"
         ],
-        "apply-coding-standards/php-cs-fixer": [
+        "coding-standards-apply/php-cs-fixer": [
             "php -n vendor/bin/php-cs-fixer --config=.php_cs.dist fix"
         ],
-        "apply-coding-standards/phpcs": [
+        "coding-standards-apply/phpcs": [
             "vendor/bin/phpcbf --standard=phpcs.xml.dist"
         ],
-        "apply-coding-standards": [
-            "@apply-coding-standards/php-cs-fixer",
-            "@apply-coding-standards/phpcs"
+        "coding-standards-apply": [
+            "@coding-standards-apply/php-cs-fixer",
+            "@coding-standards-apply/phpcs"
         ],
         "install-git-hooks": [
             "ln -sf ../../githooks/pre-commit .git/hooks"
         ]
     },
-    "config": {
-        "sort-packages": true
+    "conflict": {
+        "symfony/symfony": "*"
     },
     "extra": {
-        "symfony-app-dir": "app",
-        "symfony-bin-dir": "bin",
-        "symfony-var-dir": "var",
-        "symfony-web-dir": "web",
-        "symfony-tests-dir": "tests",
-        "symfony-assets-install": "relative",
-        "incenteev-parameters": {
-            "file": "app/config/parameters.yml"
-        },
-        "branch-alias": null,
-        "ckeditor-clear": "drop"
+        "symfony": {
+            "allow-contrib": true,
+            "require": "4.4.*"
+        }
+    },
+    "repositories": {
+        "itk-dev/monolog-db-bundle": {
+            "type": "path",
+            "url": "packages/itk-dev/monolog-db-bundle"
+        }
     }
 }
