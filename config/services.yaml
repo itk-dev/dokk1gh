@@ -9,30 +9,6 @@ imports:
 parameters:
     version: 1.2.0
 
-    site_name: '%env(SITE_NAME)%'
-    locale: '%env(LOCALE)%'
-    format_datetime: '%env(FORMAT_DATETIME)%'
-    format_date: '%env(FORMAT_DATE)%'
-    format_time: '%env(FORMAT_TIME)%'
-    view_timezone: '%env(VIEW_TIMEZONE)%'
-
-    mailer_name: '%env(MAILER_NAME)%'
-    mailer_email: '%env(MAILER_EMAIL)%'
-    administrator_email: '%env(ADMINISTRATOR_EMAIL)%'
-
-    error_mail_sender: '%env(ERROR_MAIL_SENDER)%'
-    error_mail_recipient: '%env(ERROR_MAIL_RECIPIENT)%'
-
-    aoes_location: '%env(AOES_LOCATION)%'
-    aoes_username: '%env(AOES_USERNAME)%'
-    aoes_password: '%env(AOES_PASSWORD)%'
-    aeos_timezone: '%env(AEOS_TIMEZONE)%'
-    aeos_context: '%env(json:AEOS_CONTEXT)%'
-    aeos_identifier_type: '%env(AEOS_IDENTIFIER_TYPE)%'
-    aeos_identifier_length: '%env(AEOS_IDENTIFIER_LENGTH)%'
-    # aeos_visitor_name_template: '%env(AEOS_VISITOR_NAME_TEMPLATE)%'
-    aeos_block_reason: '%env(AEOS_BLOCK_REASON)%'
-
 services:
     # default configuration for services in *this* file
     _defaults:
