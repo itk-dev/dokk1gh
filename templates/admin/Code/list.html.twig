@@ -26,7 +26,6 @@
 {% endblock %}
 
 {% block body_javascript %}
-    <script>alert(87)</script>
   {{ parent() }}
   <script src="{{ asset('javascripts/clipboard.min.js') }}"></script>
   <script>(function($) {
@@ -37,11 +36,7 @@
      });
 
      var clipboard = new Clipboard('.clipboard-copy');
-
-console.log('clipboard', clipboard);
-
      clipboard.on('success', function(e) {
-console.log('clipboard', e);
        $(e.trigger).find('[data-toggle="popover"]').popover('show');
        setTimeout(function () {
          $(e.trigger).find('[data-toggle="popover"]').popover('hide');

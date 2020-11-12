@@ -86,7 +86,11 @@ class AdminController extends AbstractFOSRestController
      */
     public function getPeopleSearchAction(Request $request)
     {
-        return $this->searchAction($request, 'getPersons', ['Id', 'PersonnelNo', 'LastName', 'FirstName'], User::class);
+        $data = $this->searchAction($request, 'getPersons', ['Id', 'PersonnelNo', 'LastName', 'FirstName'], User::class);
+
+        $data = array_map(static fn ($item) => (array) $item, $data);
+
+        return $data;
     }
 
     /**
@@ -291,7 +295,7 @@ class AdminController extends AbstractFOSRestController
         $result = array_values($result);
 
         if (User::class === $class || Template::class === $class) {
-            $dql = 'SELECT e.'.(User::class === $class ? 'username' : 'name').' name, e.aeosId
+            $dql = 'SELECT e.'.(User::class === $class ? 'email' : 'name').' name, e.aeosId
                     FROM '.$class.' e
                     WHERE e.aeosId IS NOT NULL';
             $query = $this->getDoctrine()->getManager()->createQuery($dql);
