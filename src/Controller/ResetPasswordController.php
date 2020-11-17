@@ -22,6 +22,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\ResetPassword\Controller\ResetPasswordControllerTrait;
 use SymfonyCasts\Bundle\ResetPassword\Exception\ResetPasswordExceptionInterface;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
@@ -50,7 +51,7 @@ class ResetPasswordController extends AbstractController
      *
      * @Route("", name="app_forgot_password_request")
      */
-    public function request(Request $request, MailerInterface $mailer): Response
+    public function request(Request $request, MailerInterface $mailer, TranslatorInterface $translator): Response
     {
         $form = $this->createForm(ResetPasswordRequestFormType::class);
         $form->handleRequest($request);
@@ -62,8 +63,10 @@ class ResetPasswordController extends AbstractController
             );
         }
 
-        return $this->render('reset_password/request.html.twig', [
-            'requestForm' => $form->createView(),
+        return $this->render('@ItkDevUser/EasyAdmin-2.x/reset_password/request.html.twig', [
+            'form' => $form->createView(),
+            'username_label' => $translator->trans('E-mail'),
+            'username_form_property' => 'email',
         ]);
     }
 
@@ -79,7 +82,7 @@ class ResetPasswordController extends AbstractController
             return $this->redirectToRoute('app_forgot_password_request');
         }
 
-        return $this->render('reset_password/check_email.html.twig', [
+        return $this->render('@ItkDevUser/EasyAdmin-2.x/reset_password/check_email.html.twig', [
             'tokenLifetime' => $this->resetPasswordHelper->getTokenLifetime(),
         ]);
     }
@@ -92,7 +95,8 @@ class ResetPasswordController extends AbstractController
     public function reset(
         Request $request,
         UserPasswordEncoderInterface $passwordEncoder,
-        string $token = null
+        string $token = null,
+        TranslatorInterface $translator
     ): Response {
         if ($token) {
             // We store the token in session and remove it from the URL, to avoid the URL being
@@ -141,8 +145,10 @@ class ResetPasswordController extends AbstractController
             return $this->redirectToRoute('easyadmin');
         }
 
-        return $this->render('reset_password/reset.html.twig', [
-            'resetForm' => $form->createView(),
+        return $this->render('@ItkDevUser/EasyAdmin-2.x/reset_password/reset.html.twig', [
+            'form' => $form->createView(),
+            'password_label' => $translator->trans('Password'),
+            'password_repeat_label' => $translator->trans('Repeat password'),
         ]);
     }
 

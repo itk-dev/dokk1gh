@@ -32,7 +32,7 @@ class SecurityController extends AbstractController
         $lastUsername = $authenticationUtils->getLastUsername();
 
         // @see https://symfony.com/doc/current/bundles/EasyAdminBundle/dashboards.html#login-form-template
-        return $this->render('@EasyAdmin/page/login.html.twig', [
+        return $this->render('@ItkDevUser/EasyAdmin-2.x/page/login.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,
             // the translation_domain to use (define this option only if you are
@@ -67,6 +67,9 @@ class SecurityController extends AbstractController
 
             // the 'name' HTML attribute of the <input> used for the password field (default: '_password')
             'password_parameter' => 'password',
+
+            'reset_password_path' => $this->generateUrl('app_forgot_password_request'),
+            'reset_password_label' => 'Forgot password?',
         ]);
     }
 

@@ -19,7 +19,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Rest\Route("/api/admin", name="admin_")
+ * @Rest\Route("/api/admin", name="api_admin_")
  * @ Rest\Prefix("admin")
  * @ Rest\NamePrefix("admin_")
  */
@@ -38,8 +38,9 @@ class AdminController extends AbstractFOSRestController
      * @SWG\Response(
      *  response=200,
      *  description="List of units",
-     *  @ SWG\Schema(
-     *    type="array"
+     *  @SWG\Schema(
+     *    type="array",
+     *    @SWG\Items(type="string")
      *  )
      * )
      *
@@ -53,12 +54,15 @@ class AdminController extends AbstractFOSRestController
     }
 
     /**
+     * @Rest\Get("/people", name="get_people")
+     *
      * @SWG\Tag(name="Person")
      * @SWG\Response(
      *   response=200,
      *   description="List of persons",
      *   @SWG\Schema(
-     *     type="array"
+     *     type="array",
+     *    @SWG\Items(type="string")
      *   )
      * )
      *
@@ -67,6 +71,10 @@ class AdminController extends AbstractFOSRestController
     public function getPeopleAction(Request $request)
     {
         $result = $this->aeosService->getPersons($request->query->all());
+
+        if ($result) {
+            $result = array_map(static fn ($item) => (array) $item, $result);
+        }
 
         return $result;
     }
@@ -80,7 +88,8 @@ class AdminController extends AbstractFOSRestController
      *   response=200,
      *   description="Find people",
      *   @SWG\Schema(
-     *     type="array"
+     *     type="array",
+     *    @SWG\Items(type="string")
      *   )
      * )
      */
@@ -94,12 +103,15 @@ class AdminController extends AbstractFOSRestController
     }
 
     /**
+     * @Rest\Get("/people/{id}", name="get_people_show")
+     *
      * @SWG\Tag(name="Person")
      * @SWG\Response(
      *   response=200,
      *   description="Show details of a person",
      *   @SWG\Schema(
-     *     type="array"
+     *     type="array",
+     *    @SWG\Items(type="string")
      *   )
      * )
      *
@@ -115,12 +127,15 @@ class AdminController extends AbstractFOSRestController
     }
 
     /**
+     * @Rest\Get("/templates", name="get_templates")
+     *
      * @SWG\Tag(name="Template")
      * @SWG\Response(
      *  response=200,
      *  description="List of templates",
      *  @SWG\Schema(
-     *    type="array"
+     *    type="array",
+     *    @SWG\Items(type="string")
      *  )
      * )
      *
@@ -142,7 +157,8 @@ class AdminController extends AbstractFOSRestController
      *   response=200,
      *   description="Find templates",
      *   @SWG\Schema(
-     *     type="array"
+     *     type="array",
+     *     @SWG\Items(type="object")
      *   )
      * )
      */
@@ -150,18 +166,19 @@ class AdminController extends AbstractFOSRestController
     {
         $data = $this->searchAction($request, 'getTemplates', ['Id', 'Name'], Template::class);
 
-        $data = array_map(static fn ($item) => (array) $item, $data);
-
         return $data;
     }
 
     /**
+     * @Rest\Get("/template/{id}", name="get_template_show")
+     *
      * @SWG\Tag(name="Template")
      * @SWG\Response(
      *   response=200,
      *   description="Show details of a template",
      *   @SWG\Schema(
-     *     type="array"
+     *     type="array",
+     *    @SWG\Items(type="string")
      *   )
      * )
      *
@@ -183,7 +200,8 @@ class AdminController extends AbstractFOSRestController
      *  response=200,
      *  description="Details on code",
      *  @SWG\Schema(
-     *    type="array"
+     *    type="array",
+     *    @SWG\Items(type="string")
      *  )
      * )
      *
@@ -212,7 +230,8 @@ class AdminController extends AbstractFOSRestController
      *  response=200,
      *  description="List of visits",
      *  @SWG\Schema(
-     *    type="array"
+     *    type="array",
+     *    @SWG\Items(type="string")
      *  )
      * )
      *
@@ -231,7 +250,8 @@ class AdminController extends AbstractFOSRestController
      *  response=200,
      *  description="List of visitors",
      *  @SWG\Schema(
-     *    type="array"
+     *    type="array",
+     *    @SWG\Items(type="string")
      *  )
      * )
      *
@@ -250,7 +270,8 @@ class AdminController extends AbstractFOSRestController
      *  response=200,
      *  description="List of identifiers",
      *  @SWG\Schema(
-     *    type="array"
+     *    type="array",
+     *    @SWG\Items(type="string")
      *  )
      * )
      *

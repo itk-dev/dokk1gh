@@ -11,6 +11,8 @@ twig:
         view_timezone: "%view_timezone%"
         site_name: '%site_name%'
         version: '%version%'
+        locale: '%locale%'
+        header_image_url: '%header_image_url%'
 
 # @see https://stackoverflow.com/a/41465692
 services:

@@ -89,9 +89,15 @@ class UserController extends AdminController
         $easyadmin = $this->request->attributes->get('easyadmin');
         $user = $easyadmin['item'];
 
-        $this->userManager->notifyUserCreated($user, true);
-        $this->showInfo('User %user% notified', ['%user%' => $user]);
-
+        try {
+            $this->userManager->notifyUserCreated($user, true);
+            $this->showInfo('User %user% notified', ['%user%' => $user]);
+        } catch (\Exception $exception) {
+            $this->showError('Error notifying user %user%: %message%', [
+                '%user%' => $user,
+                '%message%' => $exception->getMessage(),
+            ]);
+        }
         $refererUrl = $this->request->query->get('referer');
 
         return $refererUrl ? $this->redirect(urldecode($refererUrl))

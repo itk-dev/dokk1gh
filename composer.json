@@ -32,6 +32,10 @@
         "symfonycasts/reset-password-bundle": "^1.1"
     },
     "require-dev": {
+        "friends-of-behat/mink": "^1.8",
+        "friends-of-behat/mink-browserkit-driver": "^1.4",
+        "friends-of-behat/mink-extension": "^2.4",
+        "friends-of-behat/symfony-extension": "^2.0",
         "friendsofphp/php-cs-fixer": "^2.16",
         "friendsoftwig/twigcs": "^4.0",
         "squizlabs/php_codesniffer": "^3.5",

@@ -13,6 +13,8 @@ easy_admin:
           - 'build/easy_admin.css'
       templates:
         list: 'admin/list.html.twig'
+        layout: 'admin/layout.html.twig'
+        label_null: 'admin/null_value.html.twig'
 
       menu:
         - entity: Code

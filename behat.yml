@@ -1,29 +1,44 @@
 default:
-    calls:
-        error_reporting: 16383 # E_ALL & ~E_USER_DREPRECATED
-
     suites:
         default:
-            type: symfony_bundle
-            bundle: AppBundle
-            # mink_session: default
-            # mink_javascript_session: selenium2
             contexts:
-                - AppBundle\Features\Context\FeatureContext:
-                        doctrine: '@doctrine'
-                        tokenStorage: '@security.token_storage'
-                - Behat\MinkExtension\Context\MinkContext
-                - Behatch\Context\RestContext
-                - Behatch\Context\JsonContext
+                - App\Tests\Behat\DemoContext
 
     extensions:
-        Behat\Symfony2Extension:
+        FriendsOfBehat\SymfonyExtension:
+            bootstrap: ~
             kernel:
-                env: acceptance
-                debug: true
-        Behat\MinkExtension:
-            sessions:
-                my_session:
-                    symfony2: ~
-            show_cmd: open -a /Applications/Firefox.app/ %s
-        Behatch\Extension: ~
+                class: ~
+                path: ~
+                environment: test
+                debug: ~
+
+# default:
+#     calls:
+#         error_reporting: 16383 # E_ALL & ~E_USER_DREPRECATED
+
+#     suites:
+#         default:
+#             type: symfony_bundle
+#             bundle: App
+#             # mink_session: default
+#             # mink_javascript_session: selenium2
+#             contexts:
+#                 - AppBundle\Features\Context\FeatureContext:
+#                         doctrine: '@doctrine'
+#                         tokenStorage: '@security.token_storage'
+#                 - Behat\MinkExtension\Context\MinkContext
+#                 - Behatch\Context\RestContext
+#                 - Behatch\Context\JsonContext
+
+#     extensions:
+#         Behat\Symfony2Extension:
+#             kernel:
+#                 env: acceptance
+#                 debug: true
+#         Behat\MinkExtension:
+#             sessions:
+#                 my_session:
+#                     symfony2: ~
+#             show_cmd: open -a /Applications/Firefox.app/ %s
+#         Behatch\Extension: ~
