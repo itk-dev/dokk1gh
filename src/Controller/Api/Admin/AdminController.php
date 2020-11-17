@@ -166,6 +166,8 @@ class AdminController extends AbstractFOSRestController
     {
         $data = $this->searchAction($request, 'getTemplates', ['Id', 'Name'], Template::class);
 
+        $data = array_map(static fn ($item) => (array) $item, $data);
+
         return $data;
     }
 
