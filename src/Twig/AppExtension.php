@@ -17,7 +17,7 @@ use Twig\TwigFunction;
 
 class AppExtension extends AbstractExtension
 {
-    /** @var \AppBundle\Service\AeosHelper */
+    /** @var AeosHelper */
     private $aeosHelper;
 
     /** @var Configuration */

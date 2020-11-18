@@ -33,9 +33,11 @@ services:
                 from_email: '%mailer_email%'
                 from_name: '%mailer_name%'
 
-            $userManagerConfiguration:
-                x: 87
+            $userManagerConfiguration: {}
 
+            $codeControllerOptions:
+                'code.defaults.startTime': '%code.defaults.startTime%'
+                'code.defaults.endTime': '%code.defaults.endTime%'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name

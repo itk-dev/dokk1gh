@@ -10,10 +10,10 @@
 
 namespace App\Controller\Api;
 
+use App\Entity\Code;
+use App\Entity\Template;
 use App\Service\AeosHelper;
 use App\Service\TemplateManager;
-use AppBundle\Entity\Code;
-use AppBundle\Entity\Template;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -30,16 +30,16 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
  */
 class CodeController extends AbstractFOSRestController
 {
-    /** @var \AppBundle\Service\AeosHelper */
+    /** @var AeosHelper */
     private $aeosHelper;
 
-    /** @var \AppBundle\Service\TemplateManager */
+    /** @var TemplateManager */
     private $templateManager;
 
-    /** @var \Doctrine\ORM\EntityManagerInterface */
+    /** @var EntityManagerInterface */
     private $entityManager;
 
-    /** @var \Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface */
+    /** @var AuthorizationCheckerInterface */
     private $authorizationChecker;
 
     public function __construct(

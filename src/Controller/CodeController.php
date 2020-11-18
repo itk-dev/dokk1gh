@@ -14,8 +14,8 @@ use App\Entity\Code;
 use App\Service\AeosHelper;
 use App\Service\TemplateManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
@@ -25,8 +25,8 @@ class CodeController extends AdminController
     /** @var AeosHelper */
     protected $aeosHelper;
 
-    /** @var \Symfony\Component\DependencyInjection\ContainerInterface */
-    protected $container;
+    /** @var array */
+    protected $options;
 
     public function __construct(
         TokenStorageInterface $tokenStorage,
@@ -34,11 +34,15 @@ class CodeController extends AdminController
         Environment $twig,
         TranslatorInterface $translator,
         AeosHelper $aeosHelper,
-        ContainerInterface $container
+        array $codeControllerOptions
     ) {
         parent::__construct($tokenStorage, $templateManager, $twig, $translator);
         $this->aeosHelper = $aeosHelper;
-        $this->container = $container;
+
+        $resolver = new OptionsResolver();
+        $this->configureOptions($resolver);
+
+        $this->options = $resolver->resolve($codeControllerOptions);
     }
 
     protected function listAction()
@@ -158,9 +162,8 @@ class CodeController extends AdminController
         $code = new Code();
 
         $timeZone = new \DateTimeZone('UTC');
-        $startTime = new \DateTime($this->container->getParameter('code.defaults.startTime'), $timeZone);
-        $endTime = new \DateTime($this->container->getParameter('code.defaults.endTime'), $timeZone);
-
+        $startTime = new \DateTime($this->options['code.defaults.startTime'], $timeZone);
+        $endTime = new \DateTime($this->options['code.defaults.endTime'], $timeZone);
         $code->setStartTime($startTime)
             ->setEndTime($endTime);
 
@@ -184,6 +187,11 @@ class CodeController extends AdminController
         if (null !== $code->getIdentifier()) {
             $this->removeAeosIdentifier($code);
         }
+    }
+
+    private function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setRequired(['code.defaults.startTime', 'code.defaults.endTime']);
     }
 
     private function createAeosIdentifier(Code $code)

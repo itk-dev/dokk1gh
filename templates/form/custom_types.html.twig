@@ -1,7 +1,7 @@
 {% extends '@EasyAdmin/form/bootstrap_4.html.twig' %}
 
 {% block datetime_widget %}
-  {% if easyadmin.entity.class == 'AppBundle\\Entity\\Code' and name matches '/(start|end)Time/' %}
+  {% if easyadmin.entity.class == 'App\\Entity\\Code' and name matches '/(start|end)Time/' %}
     {% include 'admin/form/Code/date_time_range.html.twig' with {markup: parent()} %}
   {% else %}
     {{ parent() }}
@@ -10,11 +10,11 @@
 
 {% block form_widget_simple %}
   {# @FIXME: There must be a better way to do this! #}
-  {% if easyadmin.entity.class == 'AppBundle\\Entity\\Template' and name == 'aeosId' %}
+  {% if easyadmin.entity.class == 'App\\Entity\\Template' and name == 'aeosId' %}
     {% include 'admin/form/Template/aeosId.html.twig' with {markup: parent()} %}
-  {% elseif easyadmin.entity.class == 'AppBundle\\Entity\\User' and name == 'aeosId' %}
+  {% elseif easyadmin.entity.class == 'App\\Entity\\User' and name == 'aeosId' %}
     {% include 'admin/form/User/aeosId.html.twig' with {markup: parent()} %}
-  {% elseif easyadmin.entity.class == 'AppBundle\\Entity\\Guest' and name == 'phone' %}
+  {% elseif easyadmin.entity.class == 'App\\Entity\\Guest' and name == 'phone' %}
     {% include 'admin/form/Guest/phone.html.twig' with {markup: parent()} %}
   {% else %}
     {{ parent() }}
