@@ -11,6 +11,7 @@
 namespace App\Entity;
 
 use App\Repository\TemplateRepository;
+use App\Traits\AeosDataEntity;
 use App\Traits\BlameableEntity;
 use App\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
@@ -28,8 +29,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *   message="This aeosId is already in use."
  * )
  */
-class Template
+class Template implements AeosEntityInterface
 {
+    use AeosDataEntity;
     use BlameableEntity;
     use SoftDeleteableEntity;
     use TimestampableEntity;
@@ -80,11 +82,6 @@ class Template
      * @ORM\Column(type="string", length=255)
      */
     private $aeosId;
-
-    /**
-     * Virtual property only used for displaying any AEOS template connected to this User.
-     */
-    private $aeosData;
 
     public function __toString()
     {
@@ -210,17 +207,5 @@ class Template
     public function getAeosId()
     {
         return $this->aeosId;
-    }
-
-    public function setAeosData($aeosTemplate)
-    {
-        $this->aeosData = $aeosTemplate;
-
-        return $this;
-    }
-
-    public function getAeosData()
-    {
-        return $this->aeosData;
     }
 }

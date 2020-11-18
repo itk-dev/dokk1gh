@@ -11,6 +11,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use App\Traits\AeosDataEntity;
 use App\Traits\BlameableEntity;
 use App\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -37,8 +38,9 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  *   message="This aeosId is already in use."
  * )
  */
-class User extends BaseUser implements UserInterface, Timestampable
+class User extends BaseUser implements UserInterface, Timestampable, AeosEntityInterface
 {
+    use AeosDataEntity;
     use BlameableEntity;
     use SoftDeleteableEntity;
     use TimestampableEntity;
@@ -74,11 +76,6 @@ class User extends BaseUser implements UserInterface, Timestampable
      * @ORM\Column(type="string", unique=true, nullable=true)
      */
     private $apiKey;
-
-    /**
-     * Virtual property only used for displaying any AEOS person connected to this User.
-     */
-    private $aeosData;
 
     public function __construct()
     {
@@ -148,18 +145,6 @@ class User extends BaseUser implements UserInterface, Timestampable
     public function getApiKey()
     {
         return $this->apiKey;
-    }
-
-    public function setAeosData($aeosPerson)
-    {
-        $this->aeosData = $aeosPerson;
-
-        return $this;
-    }
-
-    public function getAeosData()
-    {
-        return $this->aeosData;
     }
 
     /**
