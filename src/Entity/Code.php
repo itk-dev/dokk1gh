@@ -35,6 +35,7 @@ class Code implements Blameable
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @JMS\Groups({"api"})
      */
     private $id;
 

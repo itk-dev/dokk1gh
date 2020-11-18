@@ -11,7 +11,6 @@
 namespace App\Controller\Api;
 
 use App\Entity\Code;
-use App\Entity\Template;
 use App\Service\AeosHelper;
 use App\Service\TemplateManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -77,9 +76,8 @@ class CodeController extends AbstractFOSRestController
         if ($request->query->get('all', false) && $this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             unset($criteria['createdBy']);
         }
-        $result = $this->entityManager->getRepository(Code::class)->findBy($criteria);
 
-        return $result;
+        return $this->entityManager->getRepository(Code::class)->findBy($criteria);
     }
 
     /**

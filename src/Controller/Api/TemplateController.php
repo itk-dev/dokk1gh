@@ -45,8 +45,6 @@ class TemplateController extends AbstractFOSRestController
      */
     public function cgetAction()
     {
-        $result = $this->templateManager->getUserTemplates();
-
-        return $result;
+        return $this->templateManager->getUserTemplates();
     }
 }

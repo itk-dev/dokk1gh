@@ -18,19 +18,26 @@ security:
             entity:
                 class: App\Entity\User
                 property: email
+
+        api_user_provider:
+            entity:
+                class: App\Entity\User
+                property: apiKey
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        # api:
-        #     pattern: ^/api
-        #     simple_preauth:
-        #         authenticator: App\Security\ApiKeyAuthenticator
-        #     provider: api_key_user_provider
-        #     # @see https://symfony.com/doc/current/reference/configuration/security.html#firewall-context
-        #     context: primary_auth
-        #     logout_on_user_change: true
+        api:
+            pattern: ^/api
+            provider: api_user_provider
+            guard:
+                authenticators:
+                    - App\Security\ApiKeyAuthenticator
+            # @see https://symfony.com/doc/current/reference/configuration/security.html#firewall-context
+            context: primary_auth
+            logout_on_user_change: true
 
         mock:
             pattern: ^/mock
@@ -42,6 +49,10 @@ security:
             guard:
                 authenticators:
                     - App\Security\AppLoginFormAuthenticator
+                entry_point: App\Security\AppLoginFormAuthenticator
+            # @see https://symfony.com/doc/current/reference/configuration/security.html#firewall-context
+            context: primary_auth
+            logout_on_user_change: true
             logout:
                 path: app_logout
                 # where to redirect after logout
