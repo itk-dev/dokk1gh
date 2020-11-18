@@ -170,47 +170,8 @@ class CodeController extends AdminController
         return $code;
     }
 
-    protected function prePersistCodeEntity(Code $code)
-    {
-        $this->createAeosIdentifier($code);
-    }
-
-    protected function preUpdateCodeEntity(Code $code)
-    {
-        if (null === $code->getIdentifier()) {
-            $this->createAeosIdentifier($code);
-        }
-    }
-
-    protected function preRemoveCodeEntity(Code $code)
-    {
-        if (null !== $code->getIdentifier()) {
-            $this->removeAeosIdentifier($code);
-        }
-    }
-
     private function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setRequired(['code.defaults.startTime', 'code.defaults.endTime']);
-    }
-
-    private function createAeosIdentifier(Code $code)
-    {
-        try {
-            $this->aeosHelper->createAeosIdentifier($code);
-            $this->showSuccess('code_created.html.twig', ['code' => $code]);
-        } catch (\Exception $ex) {
-            $this->showError($ex->getMessage());
-        }
-    }
-
-    private function removeAeosIdentifier(Code $code)
-    {
-        try {
-            $this->aeosHelper->deleteAeosIdentifier($code);
-            $this->showInfo('Code removed');
-        } catch (\Exception $ex) {
-            $this->showError($ex->getMessage());
-        }
     }
 }
