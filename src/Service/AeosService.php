@@ -10,6 +10,8 @@
 
 namespace App\Service;
 
+use SoapClient;
+
 class AeosService
 {
     const ACTIVATE_VERIFICATION = 'ActivateVerification';
@@ -272,7 +274,7 @@ class AeosService
         $password = $configuration['password'];
         $debug = isset($configuration['debug']) ? $configuration['debug'] : false;
 
-        $client = new \SoapClient(
+        $client = new SoapClient(
             $location.'?wsdl',
             [
                 'location' => $location,
