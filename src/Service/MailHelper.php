@@ -12,6 +12,8 @@ namespace App\Service;
 
 use App\Entity\Guest;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
+use Symfony\Component\Mime\Email;
 
 class MailHelper
 {
@@ -43,9 +45,10 @@ class MailHelper
 
     public function sendApp(Guest $guest, $appUrl)
     {
-        $fromEmail = $this->configuration->get('guest_app_email_sender_email');
-        $fromName = $this->configuration->get('guest_app_email_sender_name');
-        $from = [$fromEmail => $fromName];
+        $from = new Address(
+            $this->configuration->get('guest_app_email_sender_email'),
+            $this->configuration->get('guest_app_email_sender_name')
+        );
         $recipient = $guest->getEmail();
         $subject = $this->twigHelper->renderTemplate(
             $this->configuration->get('guest_app_email_subject_template'),
@@ -71,10 +74,11 @@ class MailHelper
         $subject = $template->renderBlock('subject', $context);
         $bodyHtml = $template->renderBlock('body_html', $context);
 
-        $message = (new \Swift_Message($subject))
-            ->setFrom($from)
-            ->setTo($recipient)
-            ->setBody($bodyHtml, 'text/html');
+        $message = (new Email())
+            ->subject($subject)
+            ->from($from)
+            ->to($recipient)
+            ->html($bodyHtml);
 
         $this->mailer->send($message);
         $this->actionLogger->log($guest, self::MAIL_SENT, [
