@@ -11,21 +11,21 @@
 namespace App\Service;
 
 use Craue\ConfigBundle\Util\Config;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class Configuration
 {
     /** @var Config */
     private $config;
 
-    /** @var ContainerInterface */
-    private $container;
+    /** @var ParameterBagInterface */
+    private $parameters;
 
-    public function __construct(Config $config, ContainerInterface $container)
+    public function __construct(Config $config, ParameterBagInterface $parameterBag)
     {
         $this->config = $config;
-        $this->container = $container;
+        $this->parameters = $parameterBag;
     }
 
     public function get($path, $defaultValue = null)
@@ -35,14 +35,13 @@ class Configuration
             return $this->config->get($path);
         }
 
-        $parameters = $this->container->getParameterBag();
-        if ($parameters->has($path)) {
-            $config = $parameters->get($path);
+        if ($this->parameters->has($path)) {
+            $config = $this->parameters->get($path);
         } else {
             $steps = explode('.', $path);
             foreach ($steps as $index => $step) {
                 if (0 === $index) {
-                    $config = $parameters->get($step);
+                    $config = $this->parameters->get($step);
                 } elseif (!isset($config[$step])) {
                     throw new ParameterNotFoundException(implode('.', \array_slice($steps, 0, $index + 1)));
                 } else {

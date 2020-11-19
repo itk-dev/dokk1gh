@@ -14,12 +14,15 @@ use App\Entity\Code;
 use App\Entity\Guest;
 use App\Entity\Template;
 use App\Exception\AbstractException;
+use App\Repository\CodeRepository;
 use App\Service\Configuration;
 use App\Service\GuestService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Asset\Packages;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -38,10 +41,14 @@ class AppController extends AbstractController
     /** @var Configuration */
     private $configuration;
 
-    public function __construct(GuestService $guestService, Configuration $configuration)
+    /** @var SessionInterface */
+    private $session;
+
+    public function __construct(GuestService $guestService, Configuration $configuration, SessionInterface $session)
     {
         $this->guestService = $guestService;
         $this->configuration = $configuration;
+        $this->session = $session;
     }
 
     /**
@@ -156,12 +163,12 @@ class AppController extends AbstractController
     /**
      * @Route("/request/{template}", name="app_code_request_result", methods={"GET"})
      */
-    public function codeRequestResultAction(Request $request, Guest $guest, Template $template)
+    public function codeRequestResultAction(Request $request, Guest $guest, Template $template, CodeRepository $codeRepository)
     {
         list($status, $messages) = $this->getGeneratedCodeData();
         $codeId = $request->get('code');
         $code = null !== $codeId
-            ? $this->container->get('doctrine')->getRepository(Code::class)->find($codeId)
+            ? $codeRepository->find($codeId)
             : null;
 
         return $this->render('app/code/request_result.html.twig', [
@@ -176,18 +183,16 @@ class AppController extends AbstractController
     /**
      * @Route("/mainfest.json", name="app_manifest")
      */
-    public function manifestAction(Guest $guest)
+    public function manifestAction(Guest $guest, Packages $packages)
     {
-        $assets = $this->container->get('assets.packages');
-
         $manifest = [
             'short_name' => $this->configuration->get('pwa_app_short_name'),
             'name' => $this->configuration->get('pwa_app_name'),
-            'icons' => array_map(function ($width) use ($assets) {
+            'icons' => array_map(function ($width) use ($packages) {
                 $sizes = $width.'x'.$width;
 
                 return [
-                    'src' => $assets->getUrl($this->configuration->get('app_icons.'.$sizes)),
+                    'src' => $packages->getUrl($this->configuration->get('app_icons.'.$sizes)),
                     'sizes' => $sizes,
                     'type' => 'image/png',
                 ];
@@ -234,18 +239,16 @@ class AppController extends AbstractController
 
     private function setGeneratedCodeData($data)
     {
-        $session = $this->container->get('session');
-        $session->set(self::GENERATED_CODE_SESSION_KEY, $data);
+        $this->session->set(self::GENERATED_CODE_SESSION_KEY, $data);
     }
 
     private function getGeneratedCodeData($peek = false)
     {
-        $session = $this->container->get('session');
         $data = null;
-        if ($session->has(self::GENERATED_CODE_SESSION_KEY)) {
-            $data = $session->get(self::GENERATED_CODE_SESSION_KEY);
+        if ($this->session->has(self::GENERATED_CODE_SESSION_KEY)) {
+            $data = $this->session->get(self::GENERATED_CODE_SESSION_KEY);
             if (!$peek) {
-                //            $session->remove(self::GENERATED_CODE_SESSION_KEY);
+                // $this->session->remove(self::GENERATED_CODE_SESSION_KEY);
             }
         }
 
