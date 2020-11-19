@@ -40,6 +40,7 @@ easy_admin:
         class: App\Entity\Code
         templates:
             list: 'admin/Code/list.html.twig'
+            new: 'admin/Code/new.html.twig'
         disabled_actions: [show, edit]
         list:
           actions: [-show]
