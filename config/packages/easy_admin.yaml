@@ -15,6 +15,7 @@ easy_admin:
         list: 'admin/list.html.twig'
         layout: 'admin/layout.html.twig'
         label_null: 'admin/null_value.html.twig'
+        flash_messages: 'admin/flash_messages.html.twig'
 
       menu:
         - entity: Code

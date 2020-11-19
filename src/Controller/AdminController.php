@@ -101,9 +101,11 @@ class AdminController extends EasyAdminController
         if (preg_match('/\.(html|txt)\.twig$/', $message)) {
             $message = $this->twig->render($message, $parameters);
             $parameters = [];
+        } else {
+            $message = $this->translator->trans($message, $parameters);
         }
 
-        $this->addFlash($type, $this->translator->trans($message, $parameters));
+        $this->addFlash($type, $message);
     }
 
     private function limitByUser(string &$dqlFilter = null, string $entityClass, string $alias)
