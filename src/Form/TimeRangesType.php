@@ -47,10 +47,10 @@ class TimeRangesType extends AbstractType
             ->add('message', TextType::class, [
                 'required' => false,
                 'label_attr' => [
-                    'class' => 'hidden',
+                    'style' => 'display: none',
                 ],
                 'attr' => [
-                    'class' => 'hidden',
+                    'style' => 'display: none',
                 ],
             ]);
 
