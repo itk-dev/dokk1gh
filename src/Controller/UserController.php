@@ -95,7 +95,7 @@ class UserController extends AdminController
         } catch (\Exception $exception) {
             $this->showError('Error notifying user %user%: %message%', [
                 '%user%' => $user,
-                '%message%' => $exception->getMessage(),
+                '%message%' => $exception->getMessage() ?: \get_class($exception),
             ]);
         }
         $refererUrl = $this->request->query->get('referer');
