@@ -8,3 +8,9 @@
 '"{{ string }}" is not a valid AEOS person id.': '"{{ string }}" er ikke et gyldigt AEOS-person-id.'
 '"{{ string }}" is not a valid AEOS template id.': '"{{ string }}" er ikke et gyldigt AEOS-skabelon-id.'
 fos_user.password.mismatch: Adgangskoderne er ikke ens
+
+'Please specify at least one time interval': 'Angiv venligst mindst ét tidsinterval'
+'End time must be after now.': 'Sluttidspunktet skal være i fremtiden.'
+'End time must be after start time': 'Sluttidspunktet skal være efter starttidspunktet'
+'Please specify an end time': 'Vælg venligst et sluttidspunkt'
+'Please specify a start time': 'Vælg venligst et starttidspunkt'

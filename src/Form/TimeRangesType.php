@@ -20,10 +20,15 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class TimeRangesType extends AbstractType
 {
+    /** @var Configuration */
     private $configuration;
+
+    /** @var TranslatorInterface */
+    private $translator;
 
     private static $weekDayNames = [
         1 => 'Monday',
@@ -35,9 +40,10 @@ class TimeRangesType extends AbstractType
         7 => 'Sunday',
     ];
 
-    public function __construct(Configuration $configuration)
+    public function __construct(Configuration $configuration, TranslatorInterface $translator)
     {
         $this->configuration = $configuration;
+        $this->translator = $translator;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -89,18 +95,18 @@ class TimeRangesType extends AbstractType
                     $endTime = $form->get('end_time_'.$day);
 
                     if ($startTime->getData() && !$endTime->getData()) {
-                        $endTime->addError(new FormError('Please specify an end time'));
+                        $endTime->addError($this->createFormError('Please specify an end time'));
                     } elseif (!$startTime->getData() && $endTime->getData()) {
-                        $startTime->addError(new FormError('Please specify a start time'));
+                        $startTime->addError($this->createFormError('Please specify a start time'));
                     } elseif ($startTime->getData() && $endTime->getData()
                         && $endTime->getData() <= $startTime->getData()) {
-                        $endTime->addError(new FormError('End time must be after start time'));
+                        $endTime->addError($this->createFormError('End time must be after start time'));
                     } elseif ($startTime->getData() && $endTime->getData()) {
                         ++$numberOfTimeIntervals;
                     }
                 }
                 if (0 === $numberOfTimeIntervals) {
-                    $form->get('message')->addError(new FormError('Please specify at least one time interval'));
+                    $form->get('message')->addError($this->createFormError('Please specify at least one time interval'));
                 }
             });
     }
@@ -146,5 +152,10 @@ class TimeRangesType extends AbstractType
     private function getDefaultValues()
     {
         return $this->configuration->get('guest_default_timeRanges');
+    }
+
+    private function createFormError(string $message, array $parameters = [])
+    {
+        return new FormError($this->translator->trans($message, $parameters, 'validators'));
     }
 }
