@@ -53,3 +53,36 @@ form[name="user"] {
         white-space: nowrap;
     }
 }
+
+// Form tweaks.
+.field-checkbox .form-widget, .form-group.field-collection-action {
+    margin-left: calc(16% + 5px);
+}
+
+.form-group {
+    label, legend.col-form-label {
+        // Flex less (than 30%).
+        flex: 16% 0 0;
+    }
+
+    &.field-choice, &.field-entity {
+        .form-check-input {
+            margin-top: 9px;
+        }
+    }
+}
+
+.form-widget {
+    flex: 0 0 80%;
+
+    input, select, textarea {
+        &.form-control {
+            max-width: initial;
+        }
+    }
+}
+
+.input-group-prepend {
+    height: 32px;
+    margin-top: -1px;
+}
