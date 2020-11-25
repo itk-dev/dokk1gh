@@ -1,5 +1,8 @@
 {% set class_name = id|replace({'_': '-'}) %}
 <div class="input-group {{ class_name }} {{ class_name }}-{{ easyadmin.view }}">
-  <span class="input-group-addon">+{{ easyadmin.item.phoneCountryCode }}</span>
+  {# @TODO Improve styling of this #}
+  <div class="input-group-prepend" style="height: 32px;margin-top: -1px;">
+    <span class="input-group-text">+{{ easyadmin.item.phoneCountryCode }}</span>
+  </div>
   {{ markup|raw }}
 </div>
