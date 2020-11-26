@@ -177,3 +177,16 @@ GDPR Consent: Accepter GDPR
 Yes, I accept the terms: Ja, jeg accepterer betingelserne
 Continue: Fortsæt
 Leave: Tilbage
+
+'Send password reset email': 'Nulstil adgangskode'
+'E-mail': 'E-mail'
+'An email has been sent that contains a link that you can click to reset your password. This link will expire in %hours% hour(s).': 'En e-mail med et link til nulstilling af din adgangskode er blevet sendt. Linket udløber om %hours% time(r).'
+'If you don''t receive an email please check your spam folder or <a href="%password_request_url%">try again</a>.': 'Hvis du ikke modtager en e-mail, så tjek din spam-mappe eller <a href="%password_request_url%">prøv igen</a>.'
+'Your password reset request': 'Anmodning om ny adgangskode'
+'To reset your password on %site_name%, please visit the following link': 'Brug nedenstående link for at nulstille din adgangskode på %site_name%'
+'This link will expire in %hours% hour(s).': 'Linket udløber om %hours% time(r).'
+'Cheers from %site_name%': 'Venlig hilsen %site_name%'
+'Password': 'Adgangskode'
+'Repeat password': 'Gentag adgangskode'
+'resetting.create.submit': 'Opret adgangskode'
+'resetting.reset.submit': 'Nulstil adgangskode'

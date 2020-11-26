@@ -40,9 +40,10 @@ class ResetPasswordController extends AbstractController
     /** @var array */
     private $options;
 
-    public function __construct(ResetPasswordHelperInterface $resetPasswordHelper, array $resetPasswordControllerOptions)
+    public function __construct(ResetPasswordHelperInterface $resetPasswordHelper, TranslatorInterface $translator, array $resetPasswordControllerOptions)
     {
         $this->resetPasswordHelper = $resetPasswordHelper;
+        $this->translator = $translator;
         $this->options = $resetPasswordControllerOptions;
     }
 
@@ -108,7 +109,7 @@ class ResetPasswordController extends AbstractController
 
         $token = $this->getTokenFromSession();
         if (null === $token) {
-            throw $this->createNotFoundException('No reset password token found in the URL or in the session.');
+            throw $this->createNotFoundException($this->translator->trans('No reset password token found in the URL or in the session.'));
         }
 
         try {
@@ -187,7 +188,7 @@ class ResetPasswordController extends AbstractController
                 $this->options['from_name']
             ))
             ->to($user->getEmail())
-            ->subject('Your password reset request')
+            ->subject($this->translator->trans('Your password reset request'))
             ->htmlTemplate('reset_password/email.html.twig')
             ->context([
                 'resetToken' => $resetToken,
