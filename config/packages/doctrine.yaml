@@ -26,3 +26,8 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Mock/Entity'
                 prefix: 'App\Mock\Entity'
                 alias: Mock
+
+        filters:
+            softdeleteable:
+                class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
+                enabled: true
