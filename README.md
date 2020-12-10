@@ -55,6 +55,13 @@ The `app:aeos:code-cleanup` console command can be used to delete expires codes:
 bin/console app:aeos:code-cleanup --help
 ```
 
+A couple of commands can clean up guest and apps
+
+```sh
+bin/console app:expire-guests
+bin/console app:expire-inactive-apps --app-sent-before='-24 hours'
+```
+
 Set up a `cron` job to have expired codes deleted daily at 02:00
 (adjust paths to match your actual setup):
 

@@ -11,7 +11,11 @@
 namespace App\Repository;
 
 use App\Entity\Code;
+use DateTime;
+use DateTimeZone;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Criteria;
+use Doctrine\Common\Collections\Expr\Comparison;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -27,32 +31,12 @@ class CodeRepository extends ServiceEntityRepository
         parent::__construct($registry, Code::class);
     }
 
-    // /**
-    //  * @return Code[] Returns an array of Code objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findExpired()
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $now = new DateTime('now', new DateTimeZone('UTC'));
+        $criteria = (new Criteria())
+            ->where(new Comparison('endTime', Comparison::LT, $now));
 
-    /*
-    public function findOneBySomeField($value): ?Code
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        return $this->matching($criteria);
     }
-    */
 }
