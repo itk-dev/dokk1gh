@@ -1,0 +1,38 @@
+twig:
+    default_path: '%kernel.project_dir%/templates'
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
+    exception_controller: null
+
+    globals:
+        app_name: '%app_name%'
+        site_name: '%site_name%'
+        site_url: '%site_url%'
+        locale: '%locale%'
+        form_format_date: '%form_format_date%'
+        form_format_date_js: '%form_format_date_js%'
+        format_datetime: '%format_datetime%'
+        format_date: '%format_date%'
+        format_time: '%format_time%'
+        view_timezone: '%view_timezone%'
+        header_image_url: "%header_image_url%"
+        administrator_email: '%administrator_email%'
+        password_resetting:
+            subject: '%password_resetting_subject%'
+            header: '%password_resetting_header%'
+            body: '%password_resetting_body%'
+            button:
+                text: '%password_resetting_button_text%'
+            footer: '%password_resetting_footer%'
+        sender:
+            email: '%mailer_email%'
+            name: '%mailer_name%'
+        version: '%version%'
+        configuration: '@App\Service\Configuration'
+
+# @see https://stackoverflow.com/a/41465692
+services:
+    app.twig.extension.loader:
+        class: Twig\Extension\StringLoaderExtension
+        tags:
+            - { name: 'twig.extension' }

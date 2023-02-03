@@ -1,0 +1,27 @@
+{% extends '@EasyAdmin/default/layout.html.twig' %}
+
+{% block user_menu %}
+  {% if app.user %}
+    <div class="popover-content-section user-menu">
+      <a class="user-action" href="{{ path('user_apikey') }}">{{ 'Api key'|trans }}</a>
+    </div>
+  {% endif %}
+  {{ parent() }}
+{% endblock user_menu %}
+
+{% block head_stylesheets %}
+  {{ parent() }}
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" integrity="sha256-I4gvabvvRivuPAYFqevVhZl88+vNf2NksupoBxMQi04=" crossorigin="anonymous" />
+{% endblock %}
+
+{% block body_javascript %}
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js" integrity="sha256-1hjUhpc44NwiNg8OwMu2QzJXhD8kcj+sJA3aCQZoUjg=" crossorigin="anonymous"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js" integrity="sha256-TueWqYu0G+lYIimeIcMI8x1m14QH/DQVt4s9m/uuhPw=" crossorigin="anonymous"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/locales/bootstrap-datepicker.{{ locale }}.min.js" integrity="sha256-hGPm6Di+atmqnTEV1j+f1+CZHVAdpfGjUI/WBOVZlHM=" crossorigin="anonymous"></script>
+
+  <script>
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
+  </script>
+{% endblock %}

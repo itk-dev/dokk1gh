@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ruleset name="dokk1gh">
+    <description>PHP CodeSniffer configuration for Dokk1 Gæstehåndtering</description>
+
+    <file>Command/</file>
+    <file>Entity/</file>
+    <file>Handler/</file>
+
+    <!-- Show progress -->
+    <arg value="p"/>
+
+    <rule ref="vendor/squizlabs/php_codesniffer/src/Standards/PSR2"/>
+</ruleset>

@@ -11,12 +11,6 @@ docker-compose up -d
 docker-compose exec phpfpm composer install
 ```
 
-Install bundle assets:
-
-```
-docker-compose exec phpfpm bin/console assets:install --symlink
-```
-
 Set up database:
 
 ```
@@ -26,29 +20,31 @@ docker-compose exec phpfpm bin/console doctrine:migrations:migrate --no-interact
 Create super administrator:
 
 ```
-docker-compose exec phpfpm bin/console fos:user:create --super-admin super-admin super-admin@example.com
+docker-compose exec phpfpm bin/console user:create super-admin@example.com
+docker-compose exec phpfpm bin/console user:promote super-admin@example.com ROLE_SUPER_ADMIN
+docker-compose exec phpfpm bin/console user:set-password super-admin@example.com
 ```
 
 Create administrator:
 
 ```
-docker-compose exec phpfpm bin/console fos:user:create admin@example.com admin@example.com
+docker-compose exec phpfpm bin/console user:create admin@example.com
 ```
 
 ```
-docker-compose exec phpfpm bin/console fos:user:promote admin@example.com ROLE_ADMIN
+docker-compose exec phpfpm bin/console user:promote admin@example.com ROLE_ADMIN
 ```
 
 Create user:
 
 ```
-docker-compose exec phpfpm bin/console fos:user:create user user@example.com
+docker-compose exec phpfpm bin/console user:create user user@example.com
 ```
 
 Open the site:
 
 ```
-open http://dokk1gh.docker.localhost:$(docker-compose port reverse-proxy 80 | cut -d: -f2)
+open http://dokk1gh.local.itkdev.dk:$(docker-compose port nginx 80 | cut -d: -f2)
 ```
 
 # Cron jobs
@@ -57,6 +53,13 @@ The `app:aeos:code-cleanup` console command can be used to delete expires codes:
 
 ```sh
 bin/console app:aeos:code-cleanup --help
+```
+
+A couple of commands can clean up guest and apps
+
+```sh
+bin/console app:expire-guests
+bin/console app:expire-inactive-apps --app-sent-before='-24 hours'
 ```
 
 Set up a `cron` job to have expired codes deleted daily at 02:00
@@ -195,19 +198,19 @@ To watch files and refresh browser after saved changes run:
 Check code:
 
 ```sh
-composer check-coding-standards
+composer coding-standards-check
 ```
 
-Fix code (if possible):
+Apply coding standards:
 
 ```sh
-composer fix-coding-standards
+composer coding-standards-apply
 ```
 
 Linting Twig (experimental):
 
 ```sh
-composer check-coding-standards/twigcs
+composer coding-standards-check/twigcs
 ```
 
 ## Git hooks

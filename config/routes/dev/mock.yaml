@@ -1,0 +1,3 @@
+controllers:
+    resource: ../../../src/Mock/Controller/
+    type: annotation

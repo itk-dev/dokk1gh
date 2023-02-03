@@ -3,7 +3,6 @@
 <ruleset name="dokk1gh">
     <description>PHP CodeSniffer configuration for Dokk1 Gæstehåndtering</description>
 
-    <file>app/</file>
     <file>src/</file>
     <file>tests/</file>
 
@@ -13,5 +12,8 @@
     <!-- Show progress -->
     <arg value="p"/>
 
-    <rule ref="vendor/squizlabs/php_codesniffer/src/Standards/PSR2"/>
+    <rule ref="vendor/squizlabs/php_codesniffer/src/Standards/PSR2">
+        <!-- phpcs and php-cs-fixer does not agree on line lengths -->
+        <exclude name="Generic.Files.LineLength.TooLong"/>
+    </rule>
 </ruleset>
