@@ -2,7 +2,8 @@
 
 ## Purpose
 
-Verify that the app works as intended on iOS and Android devices. Also verify a basic functionality on desktop.
+Verify that the app works as intended on iOS and Android devices. Also verify a
+basic functionality on desktop.
 
 ## Desktop backend
 
