@@ -4,47 +4,47 @@ Dokk1-gæstehåndtering
 # Installation
 
 ```
-docker-compose up -d
+docker compose up -d
 ```
 
 ```
-docker-compose exec phpfpm composer install
+docker compose exec phpfpm composer install
 ```
 
 Set up database:
 
 ```
-docker-compose exec phpfpm bin/console doctrine:migrations:migrate --no-interaction
+docker compose exec phpfpm bin/console doctrine:migrations:migrate --no-interaction
 ```
 
 Create super administrator:
 
 ```
-docker-compose exec phpfpm bin/console user:create super-admin@example.com
-docker-compose exec phpfpm bin/console user:promote super-admin@example.com ROLE_SUPER_ADMIN
-docker-compose exec phpfpm bin/console user:set-password super-admin@example.com
+docker compose exec phpfpm bin/console user:create super-admin@example.com
+docker compose exec phpfpm bin/console user:promote super-admin@example.com ROLE_SUPER_ADMIN
+docker compose exec phpfpm bin/console user:set-password super-admin@example.com
 ```
 
 Create administrator:
 
 ```
-docker-compose exec phpfpm bin/console user:create admin@example.com
+docker compose exec phpfpm bin/console user:create admin@example.com
 ```
 
 ```
-docker-compose exec phpfpm bin/console user:promote admin@example.com ROLE_ADMIN
+docker compose exec phpfpm bin/console user:promote admin@example.com ROLE_ADMIN
 ```
 
 Create user:
 
 ```
-docker-compose exec phpfpm bin/console user:create user user@example.com
+docker compose exec phpfpm bin/console user:create user user@example.com
 ```
 
 Open the site:
 
 ```
-open http://dokk1gh.local.itkdev.dk:$(docker-compose port nginx 80 | cut -d: -f2)
+open "http://$(docker compose port nginx 8080)"
 ```
 
 # Cron jobs
