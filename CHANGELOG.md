@@ -7,4 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.0]
+
 - Security update.
+
+[Unreleased]: https://github.com/itk-dev/dokk1gh/1.5.0...HEAD
+[1.5.0]: https://github.com/itk-dev/dokk1gh/releases/tag/0.0.1
