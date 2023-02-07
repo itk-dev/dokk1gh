@@ -4,7 +4,6 @@
     <description>PHP CodeSniffer configuration for Dokk1 Gæstehåndtering</description>
 
     <file>src/</file>
-    <file>tests/</file>
 
     <exclude-pattern>app/App(Cache|Kernel)\.php</exclude-pattern>
     <exclude-pattern>app/DoctrineMigrations/</exclude-pattern>
