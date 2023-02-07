@@ -1,3 +1,0 @@
-<component name="DependencyValidationManager">
-  <scope name="dokk1gh" pattern="(file[htdocs]:app//*||file[htdocs]:src//*||file[htdocs]:tests//*||file[htdocs]:web//*)&amp;&amp;!file:web/config.php||file[htdocs]:githooks//*" />
-</component>
