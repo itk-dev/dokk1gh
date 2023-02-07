@@ -48,7 +48,7 @@ jobs:
       - name: Composer install with exported .env variables
         run: |
           set -a && source .env && set +a
-          APP_ENV=prod composer install --no-dev -o
+          APP_ENV=prod composer install --no-dev --optimize-autoloader --no-scripts
 
   coding-standards-php:
     runs-on: ubuntu-20.04
@@ -100,7 +100,7 @@ jobs:
       - name: Yarn install
         uses: actions/setup-node@v2
         with:
-          node-version: '16'
+          node-version: '14'
       - run: yarn install
       - name: coding-standards-check
         run: yarn coding-standards-check/markdownlint
