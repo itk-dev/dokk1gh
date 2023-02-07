@@ -85,6 +85,6 @@ class GuestController extends AdminController
     {
         $id = $this->request->query->get('id');
 
-        return  $this->em->getRepository(Guest::class)->find($id);
+        return $this->em->getRepository(Guest::class)->find($id);
     }
 }

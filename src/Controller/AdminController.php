@@ -61,7 +61,7 @@ class AdminController extends EasyAdminController
         // Use only list fields in search query.
         $this->entity['search']['fields'] = array_filter($this->entity['search']['fields'], function ($key) {
             return isset($this->entity['list']['fields'][$key]);
-        }, ARRAY_FILTER_USE_KEY);
+        }, \ARRAY_FILTER_USE_KEY);
 
         $this->limitByUser($dqlFilter, $entityClass, 'entity');
 

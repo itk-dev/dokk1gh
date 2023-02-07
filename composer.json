@@ -79,14 +79,13 @@
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
         "post-install-cmd": [
-            "@auto-scripts",
-            "@install-git-hooks"
+            "@auto-scripts"
         ],
         "post-update-cmd": [
             "@auto-scripts"
         ],
         "coding-standards-check/php-cs-fixer": [
-            "php -n vendor/bin/php-cs-fixer --config=.php_cs.dist fix --dry-run"
+            "php-cs-fixer --config=.php_cs.dist fix --dry-run"
         ],
         "coding-standards-check/phpcs": [
             "vendor/bin/phpcs --standard=phpcs.xml.dist"
@@ -99,7 +98,7 @@
             "@coding-standards-check/phpcs"
         ],
         "coding-standards-apply/php-cs-fixer": [
-            "php -n vendor/bin/php-cs-fixer --config=.php_cs.dist fix"
+            "php-cs-fixer --config=.php_cs.dist fix"
         ],
         "coding-standards-apply/phpcs": [
             "vendor/bin/phpcbf --standard=phpcs.xml.dist"
@@ -107,9 +106,6 @@
         "coding-standards-apply": [
             "@coding-standards-apply/php-cs-fixer",
             "@coding-standards-apply/phpcs"
-        ],
-        "install-git-hooks": [
-            "ln -sf ../../githooks/pre-commit .git/hooks"
         ]
     },
     "conflict": {
