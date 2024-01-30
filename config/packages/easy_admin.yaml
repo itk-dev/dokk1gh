@@ -28,9 +28,9 @@ easy_admin:
           roles: [ROLE_USER_ADMIN]
         - entity: Template
           roles: [ROLE_TEMPLATE_ADMIN]
-        - entity: Setting
-          label: Settings
-          roles: [ROLE_CONFIG_ADMIN]
+        # - entity: Setting
+        #   label: Settings
+        #   roles: [ROLE_CONFIG_ADMIN]
 
     formats:
       datetime: '%format_datetime%'
@@ -252,30 +252,30 @@ easy_admin:
               type_options:
                 required: false
 
-      Setting:
-        roles: [ROLE_CONFIG_ADMIN]
-        controller: ItkDev\ConfigBundle\Controller\SettingController
-        class: ItkDev\ConfigBundle\Entity\Setting
-        disabled_actions: [new, delete]
-        list:
-          title: Settings
-          fields:
-            - property: name
-              template: admin/translate.html.twig
-            - property: value
-              label: Value
-              template: '@ItkDevConfig/easy_admin/Setting/display_value.html.twig'
+      # Setting:
+      #   roles: [ROLE_CONFIG_ADMIN]
+      #   controller: ItkDev\ConfigBundle\Controller\SettingController
+      #   class: ItkDev\ConfigBundle\Entity\Setting
+      #   disabled_actions: [new, delete]
+      #   list:
+      #     title: Settings
+      #     fields:
+      #       - property: name
+      #         template: admin/translate.html.twig
+      #       - property: value
+      #         label: Value
+      #         template: '@ItkDevConfig/easy_admin/Setting/display_value.html.twig'
 
-        edit:
-          fields:
-            - property: name
-              type_options:
-                disabled: true
-            - property: value
-              type_options:
-                required: false
-            - property: description
-              type_options:
-                disabled: true
-                # attr:
-                #     raw: true
+      #   edit:
+      #     fields:
+      #       - property: name
+      #         type_options:
+      #           disabled: true
+      #       - property: value
+      #         type_options:
+      #           required: false
+      #       - property: description
+      #         type_options:
+      #           disabled: true
+      #           # attr:
+      #           #     raw: true

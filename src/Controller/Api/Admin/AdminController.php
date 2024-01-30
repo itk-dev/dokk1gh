@@ -97,7 +97,7 @@ class AdminController extends AbstractFOSRestController
     {
         $data = $this->searchAction($request, 'getPersons', ['Id', 'PersonnelNo', 'LastName', 'FirstName'], User::class);
 
-        $data = array_map(static fn ($item) => (array) $item, $data);
+        $data = array_map(static fn ($item) => (array) $item, $data ?? []);
 
         return $data;
     }
@@ -143,9 +143,11 @@ class AdminController extends AbstractFOSRestController
      */
     public function getTemplatesAction(Request $request)
     {
-        $result = $this->aeosService->getTemplates($request->query->all());
+        $data = $this->aeosService->getTemplates($request->query->all());
 
-        return $result;
+        $data = array_map(static fn ($item) => (array) $item, $data ?? []);
+
+        return $data;
     }
 
     /**
@@ -166,7 +168,7 @@ class AdminController extends AbstractFOSRestController
     {
         $data = $this->searchAction($request, 'getTemplates', ['Id', 'Name'], Template::class);
 
-        $data = array_map(static fn ($item) => (array) $item, $data);
+        $data = array_map(static fn ($item) => (array) $item, $data ?? []);
 
         return $data;
     }

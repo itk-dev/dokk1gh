@@ -12,6 +12,7 @@ namespace App\Mock\Controller;
 
 use App\Mock\Entity\SmsGatewayActionLogEntry;
 use App\Mock\Service\ActionLogManager;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -41,7 +42,7 @@ class SmsGatewayController extends AbstractController
     /**
      * @Route("/log", name="sms_log")
      */
-    public function logAction()
+    public function logAction(ManagerRegistry $registry)
     {
         $items = $this->manager->findAll(SmsGatewayActionLogEntry::class);
 
@@ -55,7 +56,7 @@ class SmsGatewayController extends AbstractController
      */
     public function logLastestAction()
     {
-        $items = [$this->manager->findOne(SmsGatewayActionLogEntry::class)];
+        $items = array_filter([$this->manager->findOne(SmsGatewayActionLogEntry::class)]);
 
         return $this->render('@Mock/smsgateway/index.html.twig', [
             'items' => $items,

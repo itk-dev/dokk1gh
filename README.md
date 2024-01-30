@@ -2,23 +2,32 @@
 
 ## Installation
 
-```sh
-docker compose up -d
+```shell
+docker compose pull
+docker compose up --detach
 ```
 
-```sh
+```shell
 docker compose exec phpfpm composer install
 ```
 
+Define default local settings:
+
+``` shell
+cp config/services.local.yaml.dist config/services.local.yaml
+```
+
+Edit `config/services.local.yaml` as needed (cf. [Mocks](#mocks)).
+
 Set up database:
 
-```sh
+```shell
 docker compose exec phpfpm bin/console doctrine:migrations:migrate --no-interaction
 ```
 
 Create super administrator:
 
-```sh
+```shell
 docker compose exec phpfpm bin/console user:create super-admin@example.com
 docker compose exec phpfpm bin/console user:promote super-admin@example.com ROLE_SUPER_ADMIN
 docker compose exec phpfpm bin/console user:set-password super-admin@example.com
@@ -26,36 +35,36 @@ docker compose exec phpfpm bin/console user:set-password super-admin@example.com
 
 Create administrator:
 
-```sh
+```shell
 docker compose exec phpfpm bin/console user:create admin@example.com
 ```
 
-```sh
+```shell
 docker compose exec phpfpm bin/console user:promote admin@example.com ROLE_ADMIN
 ```
 
 Create user:
 
-```sh
+```shell
 docker compose exec phpfpm bin/console user:create user user@example.com
 ```
 
 Open the site:
 
-```sh
+```shell
 open "http://$(docker compose port nginx 8080)"
 ```
 
 ## Build assets
 
-```sh
+```shell
 docker compose run --rm node yarn install
 docker compose run --rm node yarn build
 ```
 
 During development, use
 
-```sh
+```shell
 docker-compose run node yarn watch
 ```
 
@@ -65,13 +74,13 @@ to watch for changes.
 
 The `app:aeos:code-cleanup` console command can be used to delete expires codes:
 
-```sh
+```shell
 bin/console app:aeos:code-cleanup --help
 ```
 
 A couple of commands can clean up guest and apps
 
-```sh
+```shell
 bin/console app:expire-guests
 bin/console app:expire-inactive-apps --app-sent-before='-24 hours'
 ```
@@ -79,7 +88,7 @@ bin/console app:expire-inactive-apps --app-sent-before='-24 hours'
 Set up a `cron` job to have expired codes deleted daily at 02:00
 (adjust paths to match your actual setup):
 
-```sh
+```shell
 0 2 * * * /usr/bin/php /home/www/dokk1gh/htdocs/bin/console --env=prod app:aeos:code-cleanup
 ```
 
@@ -87,31 +96,31 @@ Set up a `cron` job to have expired codes deleted daily at 02:00
 
 API documentation:
 
-```sh
+```shell
 open "http://$(docker compose port nginx 8080)/api/doc"
 ```
 
 Using an `apikey`, users can get a list of available templates:
 
-```sh
+```shell
 curl "http://$(docker compose port nginx 8080)/api/templates?apikey=apikey"
 ```
 
 Get list of codes created by user:
 
-```sh
+```shell
 curl "http://$(docker compose port nginx 8080)/api/codes?apikey=apikey"
 ```
 
 An administrator can get all codes by adding `all=1`:
 
-```sh
+```shell
 curl "http://$(docker compose port nginx 8080)/api/codes?apikey=apikey&all=1"
 ```
 
 Create a code:
 
-```sh
+```shell
 curl --silent "http://$(docker compose port nginx 8080)/api/codes?apikey=apikey" --header "content-type: application/json" --data @- <<'JSON'
 {
     "template": 1,
@@ -142,45 +151,69 @@ On success the result will look like this:
 
 Debug email sent to user when created:
 
-```sh
+```shell
 bin/console app:debug notify-user-created [user email]
 ```
 
 e.g.
 
-```sh
+```shell
 bin/console app:debug notify-user-created user@example.com
+```
+
+Open test mail UI:
+
+``` shell
+open "http://$(docker compose port mail 8025)"
 ```
 
 ### Mocks
 
-```sh
-bin/console doctrine:schema:update --em=mocks --force
+```shell
+docker compose exec phpfpm bin/console doctrine:schema:update --em=mock --force --complete
 ```
 
 #### Mock AEOS web service
 
-`parameters.yml`:
+Use this during local testing and development.
 
 ```yaml
-aoes_location: 'http://nginx/mock/aeosws'
-aoes_username: null
-aoes_password: null
+# config/services.local.yaml
+parameters:
+    aoes_location: 'http://nginx:8080/mock/aeosws'
+    aoes_username: null
+    aoes_password: null
 ```
+
+* List mock AEOS templates to use when editing templates:
+
+  ```shell
+  open "http://$(docker compose port nginx 8080)/api/admin/templates"`
+  ```
+
+* List mock AEOS users to use when editing users:
+
+  ```shell
+  open "http://$(docker compose port nginx 8080)/api/admin/people"
+  ```
 
 #### Mock SMS gateway
 
+Use this during local testing and development.
+
 ```yaml
-sms_gateway_location: 'http://nginx/mock/sms
-sms_gateway_username: null
-sms_gateway_password: null
+# config/services.local.yaml
+parameters:
+    sms_gateway_location: 'http://nginx:8080/mock/sms
+    sms_gateway_username: null
+    sms_gateway_password: null
 ```
 
 ## Acceptance tests
 
 Clear out the acceptance test cache and set up the database:
 
-```sh
+```shell
 SYMFONY_ENV=acceptance bin/console cache:clear --no-warmup
 SYMFONY_ENV=acceptance bin/console cache:warmup
 SYMFONY_ENV=acceptance bin/console doctrine:database:create
@@ -188,7 +221,7 @@ SYMFONY_ENV=acceptance bin/console doctrine:database:create
 
 Run API tests:
 
-```sh
+```shell
 ./vendor/bin/behat
 ```
 
@@ -198,25 +231,25 @@ Run API tests:
 
 Check code:
 
-```sh
+```shell
 docker compose exec phpfpm composer coding-standards-check
 ```
 
 Apply coding standards:
 
-```sh
+```shell
 docker compose exec phpfpm composer coding-standards-apply
 ```
 
 ### Twig (experimental)
 
-```sh
+```shell
 docker compose exec phpfpm composer coding-standards-check/twigcs
 ```
 
 ### Markdown
 
-```sh
+```shell
 docker compose run --rm node yarn coding-standards-check
 ```
 
@@ -224,7 +257,7 @@ docker compose run --rm node yarn coding-standards-check
 
 Run
 
-```sh
+```shell
 docker compose exec phpfpm composer install-git-hooks
 ```
 
