@@ -12,9 +12,7 @@
         <meta name="description" content="{{ get_configuration('pwa_app_name') }}">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="theme-color" content="#003764">
-        <link rel="stylesheet" href="{{ asset('stylesheets/app/app.css') }}">
-        <link rel="stylesheet" href="{{ asset('static/css/fa-svg-with-js.css') }}">
-        <link rel="stylesheet" href="{{ asset('static/css/addtohomescreen.css') }}">
+        <link rel="stylesheet" href="{{ asset('build/webapp/webapp.css') }}">
 
         {% if on_app_page %}
             <!-- iOS webapp tricks -->
@@ -26,10 +24,8 @@
                 {% for size in [152, 167, 180] %}
                     <link rel="apple-touch-icon" sizes="{{ size }}x{{ size }}" href="{{ asset(app_icon(size)) }}">
                 {% endfor %}
-                <link rel="apple-touch-startup-image" media="(device-width: 375px)" href="{{ asset('static/img/splashscreen.png') }}">
-                <link rel="apple-touch-startup-image" media="(device-width: 375px) and (-webkit-device-pixel-ratio: 2)" href="{{ asset('static/img/splashscreen@2x.png') }}">
-                <script src="{{ asset('static/js/ios_stay_standalone.min.js') }}"></script>
-                <script src="{{ asset('static/js/addtohomescreen.min.js') }}"></script>
+                <link rel="apple-touch-startup-image" media="(device-width: 375px)" href="{{ asset('build/images/splashscreen.png') }}">
+                <link rel="apple-touch-startup-image" media="(device-width: 375px) and (-webkit-device-pixel-ratio: 2)" href="{{ asset('build/images/splashscreen@2x.png') }}">
                 <script>
                     addToHomescreen();
                 </script>
