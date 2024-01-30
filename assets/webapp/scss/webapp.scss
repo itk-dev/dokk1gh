@@ -2,6 +2,9 @@
 // Import custom bootstrap
 @import '_bootstrap-custom';
 
+// Import add-to-homescreen
+@import '../../../node_modules/add-to-homescreen/dist/style/addtohomescreen.css';
+
 // Import partials
 @import '_navbar';
 @import '_header';
