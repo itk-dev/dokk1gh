@@ -24,6 +24,7 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('easy_admin', './assets/easy_admin/easy_admin.js')
+    .addEntry('webapp', './assets/webapp/app.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     // .splitEntryChunks()
