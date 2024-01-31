@@ -10,13 +10,13 @@
 
 namespace App\Mock\Entity;
 
+use App\Mock\Repository\ActionLogEntryRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class AeosActionLogEntry.
  *
- * @ORM\Entity()
- * @ ORM\Table()
+ * @ORM\Entity(repositoryClass=ActionLogEntryRepository::class)
  */
 class AeosActionLogEntry extends ActionLogEntry
 {

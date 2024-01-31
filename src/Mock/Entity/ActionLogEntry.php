@@ -10,13 +10,14 @@
 
 namespace App\Mock\Entity;
 
+use App\Mock\Repository\ActionLogEntryRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class AeosEntity.
  *
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass=ActionLogEntryRepository::class)
  * @ORM\Table(name="mock_action_log_entry")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
@@ -36,9 +37,10 @@ abstract class ActionLogEntry
      * @var array
      *
      * @Assert\NotBlank()
-     * @ORM\Column(type="json_array")
+     * @ORM\Column(type="json")
      */
     protected $data;
+
     /**
      * @var int
      *

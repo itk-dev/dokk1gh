@@ -11,32 +11,44 @@
 namespace App\Mock\Service;
 
 use App\Mock\Entity\ActionLogEntry;
+use App\Mock\Repository\ActionLogEntryRepository;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ObjectRepository;
 
 class ActionLogManager
 {
     /** @var EntityManagerInterface */
     private $manager;
 
-    public function __construct(EntityManagerInterface $manager)
+    private ManagerRegistry $registry;
+
+    public function __construct(EntityManagerInterface $manager, ManagerRegistry $registry)
     {
         $this->manager = $manager;
+        $this->registry = $registry;
     }
 
     public function log(ActionLogEntry $entry)
     {
-        $this->manager->persist($entry);
-        $this->manager->flush();
+        $repository = $this->getRepository(get_class($entry));
+        assert($repository instanceof ActionLogEntryRepository);
+        $repository->persist($entry, true);
     }
 
     public function findAll($className, array $criteria = [], array $orderBy = ['createdAt' => Criteria::DESC])
     {
-        return $this->manager->getRepository($className)->findBy($criteria, $orderBy);
+        return $this->getRepository($className)->findBy($criteria, $orderBy);
     }
 
     public function findOne($className, array $criteria = [], array $orderBy = ['createdAt' => Criteria::DESC])
     {
-        return $this->manager->getRepository($className)->findOneBy($criteria, $orderBy);
+        return $this->getRepository($className)->findOneBy($criteria, $orderBy);
+    }
+
+    private function getRepository(string $className, string $persistentManagerName = 'mock'): ObjectRepository
+    {
+        return $this->registry->getRepository($className, $persistentManagerName);
     }
 }
