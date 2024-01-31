@@ -180,9 +180,9 @@ Use this during local testing and development.
 ```yaml
 # config/services.local.yaml
 parameters:
-    aoes_location: 'http://nginx:8080/mock/aeosws'
-    aoes_username: null
-    aoes_password: null
+    aeos_location: 'http://nginx:8080/mock/aeosws'
+    aeos_username: null
+    aeos_password: null
 ```
 
 * List mock AEOS templates to use when editing templates:
