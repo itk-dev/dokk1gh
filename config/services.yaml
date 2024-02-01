@@ -18,9 +18,9 @@ services:
         bind:
             $aeosConfiguration:
                 client:
-                    location: '%aoes_location%'
-                    username: '%aoes_username%'
-                    password: '%aoes_password%'
+                    location: '%aeos_location%'
+                    username: '%aeos_username%'
+                    password: '%aeos_password%'
                     context: '%aeos_context%'
                     debug: '%kernel.debug%'
                 aeos:
