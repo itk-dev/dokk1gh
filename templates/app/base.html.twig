@@ -14,7 +14,6 @@
         <meta name="description" content="{{ get_configuration('pwa_app_name') }}">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="theme-color" content="#003764">
-
         {{ encore_entry_link_tags('webapp') }}
 
         {% if on_app_page %}
@@ -63,6 +62,16 @@
             </div>
 
             {{ encore_entry_script_tags('webapp') }}
+
+            {% if on_app_page %}
+                <nav class="navbar navbar-expand navbar-light bg-light fixed-bottom">
+                    <div class="nav navbar-nav">
+                        <a class="nav-item nav-link {{ route == 'app_code' ? 'active' }}" href="{{ path('app_code', route_params) }}"><i class="fas fa-lock-open fa-fw"></i><span>{{ 'Code'|trans }}</span></a>
+                        <a class="nav-item nav-link {{ route == 'app_card' ? 'active' }}" href="{{ path('app_card', route_params) }}"><i class="fas fa-id-card fa-fw"></i><span>{{ 'Card'|trans }}</span></a>
+                        <a class="nav-item nav-link {{ route == 'app_about' ? 'active' }}" href="{{ path('app_about', route_params) }}"><i class="fas fa-info-circle fa-fw"></i><span>{{ 'About'|trans }}</span></a>
+                    </div>
+                </nav>
+            {% endif %}
 
             {% if on_app_page %}
                 {# Register serviceworker #}
