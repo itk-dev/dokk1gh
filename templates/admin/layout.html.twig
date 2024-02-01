@@ -10,11 +10,13 @@
 {% endblock user_menu %}
 
 {% block head_stylesheets %}
+  {{ encore_entry_link_tags('easy_admin') }}
   {{ parent() }}
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" integrity="sha256-I4gvabvvRivuPAYFqevVhZl88+vNf2NksupoBxMQi04=" crossorigin="anonymous" />
 {% endblock %}
 
 {% block body_javascript %}
+  {{ encore_entry_script_tags('easy_admin') }}
   <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js" integrity="sha256-1hjUhpc44NwiNg8OwMu2QzJXhD8kcj+sJA3aCQZoUjg=" crossorigin="anonymous"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js" integrity="sha256-TueWqYu0G+lYIimeIcMI8x1m14QH/DQVt4s9m/uuhPw=" crossorigin="anonymous"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/locales/bootstrap-datepicker.{{ locale }}.min.js" integrity="sha256-hGPm6Di+atmqnTEV1j+f1+CZHVAdpfGjUI/WBOVZlHM=" crossorigin="anonymous"></script>

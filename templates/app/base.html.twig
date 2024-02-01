@@ -12,7 +12,7 @@
         <meta name="description" content="{{ get_configuration('pwa_app_name') }}">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="theme-color" content="#003764">
-        <link rel="stylesheet" href="{{ asset('build/webapp/webapp.css') }}">
+        {{ encore_entry_link_tags('webapp') }}
 
         {% if on_app_page %}
             <!-- iOS webapp tricks -->
@@ -62,7 +62,6 @@
                     </div>
                 </nav>
             {% endif %}
-            <script src="{{ asset('/static/js/app.min.js') }}"></script>
 
             {% if on_app_page %}
                 {# Register serviceworker #}
@@ -80,6 +79,7 @@
                 </script>
             {% endif %}
         </div>
+        {{ encore_entry_script_tags('webapp') }}
 
         {% block body_javascript %}{% endblock %}
         {% endblock %}
