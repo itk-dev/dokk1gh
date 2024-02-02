@@ -24,9 +24,11 @@
       {% form_theme requestForm '@EasyAdmin/form/bootstrap_4.html.twig' %}
       {{ form_start(requestForm) }}
         {{ form_row(requestForm.email) }}
-        <button type="submit" class="btn btn-primary btn-lg btn-block">
-          {{ 'Send password reset email'|trans }}
-        </button>
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary btn-lg">
+            {{ 'Send password reset email'|trans }}
+          </button>
+        </div>
 
       {{ form_end(requestForm) }}
     </section>

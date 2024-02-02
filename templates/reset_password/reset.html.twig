@@ -26,9 +26,11 @@
       {% form_theme resetForm '@EasyAdmin/form/bootstrap_4.html.twig' %}
       {{ form_start(resetForm) }}
         {{ form_row(resetForm.plainPassword) }}
-        <button type="submit" class="btn btn-primary btn-lg btn-block">
-          {{ (is_create ? 'resetting.create.submit' : 'resetting.reset.submit')|trans }}
-        </button>
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary btn-lg">
+            {{ (is_create ? 'resetting.create.submit' : 'resetting.reset.submit')|trans }}
+          </button>
+        </div>
 
       {{ form_end(resetForm) }}
     </section>

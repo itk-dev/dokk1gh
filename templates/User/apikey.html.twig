@@ -27,8 +27,8 @@
               <div class="form-group">
                 {% set label = 'Generate new api key'|trans %}
 
-                <div class="form-group">
-                  <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#confirm-modal">{{ label }}</button>
+                <div class="form-group d-grid">
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirm-modal">{{ label }}</button>
                 </div>
 
                 <div class="modal fade" id="confirm-modal" tabindex="-1" aria-labelledby="confirm-modal-label" aria-hidden="true">
@@ -53,8 +53,8 @@
 
               </div>
             {% else %}
-              <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block">{{ 'Generate api key'|trans }}</button>
+              <div class="form-group d-grid">
+                <button type="submit" class="btn btn-primary">{{ 'Generate api key'|trans }}</button>
               </div>
             {% endif %}
           </form>

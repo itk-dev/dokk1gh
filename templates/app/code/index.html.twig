@@ -42,13 +42,13 @@
                         <p class="card-text description">{{ template.description }}</p>
                     {% endif %}
                 </div>
-                <div class="card-footer">
+                <div class="card-footer d-grid">
                     {% if guest_can_request_code %}
                         <form method="post" action="{{ path('app_code_request', route_params|merge({template: template.id})) }}">
-                            <button type="submit" class="btn btn-primary btn-block btn-lg">{{ 'Request access'|trans }}</button>
+                            <button type="submit" class="btn btn-primary btn-lg">{{ 'Request access'|trans }}</button>
                         </form>
                     {% else %}
-                        <button class="btn btn-secondary btn-block btn-lg" disabled>{{ 'You are not allowed to request access right now'|trans }}</button>
+                        <button class="btn btn-secondary btn-lg" disabled>{{ 'You are not allowed to request access right now'|trans }}</button>
                     {% endif %}
                 </div>
             </div>
@@ -77,22 +77,25 @@
 
     {{ parent() }}
 
-    <script>$(function() {
-            $('button[type="submit"]').on('click', function() {
-                $('.wrapper').addClass('blur');
-                $('#saving').modal( {
-                    backdrop: 'static',
-                    keyboard: false
-                });
+    {# TODO: Test if this is stille needed #}
+    <script>
+      $(function() {
+          $('button[type="submit"]').on('click', function() {
+              $('.wrapper').addClass('blur');
+              $('#saving').modal( {
+                  backdrop: 'static',
+                  keyboard: false
+              });
 
-                // @see https://stackoverflow.com/questions/41063074/bootstrap-modal-not-showing-on-submit-button-click-on-ios
-                event.preventDefault();
+              // @see https://stackoverflow.com/questions/41063074/bootstrap-modal-not-showing-on-submit-button-click-on-ios
+              event.preventDefault();
 
-                var form = $(this).closest('form');
-                setTimeout(function () {
-                    form.submit();
-                }, 500);
-            });
-        });</script>
+              var form = $(this).closest('form');
+              setTimeout(function () {
+                  form.submit();
+              }, 500);
+          });
+      });
+    </script>
 
 {% endblock %}
