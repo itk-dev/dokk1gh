@@ -4,6 +4,16 @@ import './scss/webapp.scss'
 // Fonts
 import '@fontsource/montserrat'
 
+// Fonts
+import '@fontsource/montserrat';
+
+// start the Stimulus application
+//import '../bootstrap';
+
+// jQuery
+const $ = require('jquery');
+
+console.log("TEST");
 // Fontawsome icons
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import {
