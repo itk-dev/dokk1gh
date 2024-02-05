@@ -1,10 +1,10 @@
-{% extends '@EasyAdmin/default/list.html.twig' %}
+{% extends '@EasyAdmin/crud/index.html.twig' %}
 
 {% set user_has_aeos_id = user_has_aeos_id() %}
 
-{% block content_header %}
+{% block flash_messages %}
   {% if not user_has_aeos_id %}
-    <div class="alert alert-danger">
+    <div class="alert alert-danger" role="alert">
       {{ 'You cannot create codes.'|trans }}
       {% if administrator_email|default(false) %}
         {% set subject = include(template_from_string(get_configuration('user.cannot_create_codes.subject'))) %}
@@ -17,12 +17,6 @@
     </div>
   {% endif %}
   {{ parent() }}
-{% endblock %}
-
-{% block new_action %}
-  {% if user_has_aeos_id %}
-    {{ parent() }}
-  {% endif %}
 {% endblock %}
 
 {% block body_javascript %}

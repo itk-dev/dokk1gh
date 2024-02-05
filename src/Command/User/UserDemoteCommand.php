@@ -3,20 +3,25 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2020 ITK Development
+ * (c) 2017–2024 ITK Development
  *
  * This source file is subject to the MIT license.
  */
 
 namespace App\Command\User;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(
+    name: 'user:demote',
+    description: 'Demote user'
+)]
 class UserDemoteCommand extends UserCommand
 {
-    protected static $defaultName = 'user:demote';
+    protected static $defaultName = '';
 
     protected function configure()
     {
@@ -25,7 +30,7 @@ class UserDemoteCommand extends UserCommand
             ->addArgument('roles', InputArgument::REQUIRED | InputArgument::IS_ARRAY);
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         parent::execute($input, $output);
 
@@ -41,10 +46,11 @@ class UserDemoteCommand extends UserCommand
                 )
             )
         );
-        $this->entityManager->persist($user);
-        $this->entityManager->flush();
+        $this->userRepository->persist($user, true);
 
         $output->writeln(sprintf('User %s demoted', $user->getEmail()));
         $this->showUser($user);
+
+        return static::SUCCESS;
     }
 }

@@ -3,7 +3,7 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2020 ITK Development
+ * (c) 2017–2024 ITK Development
  *
  * This source file is subject to the MIT license.
  */
@@ -24,25 +24,16 @@ use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
  */
 class ApiKeyAuthenticator extends AbstractGuardAuthenticator
 {
-    /**
-     * {@inheritdoc}
-     */
     public function supports(Request $request)
     {
         return $request->query->has('apikey');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getCredentials(Request $request)
     {
         return $request->query->get('apikey');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
         if (null === $credentials) {
@@ -57,9 +48,6 @@ class ApiKeyAuthenticator extends AbstractGuardAuthenticator
         return $userProvider->loadUserByUsername($credentials);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function checkCredentials($credentials, UserInterface $user)
     {
         // Check credentials - e.g. make sure the password is valid.

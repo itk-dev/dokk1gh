@@ -1,4 +1,5 @@
-{% extends '@EasyAdmin/form/bootstrap_4.html.twig' %}
+{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+{% extends '@EasyAdmin/crud/form_theme.html.twig' %}
 
 {% block datetime_widget %}
   {% if easyadmin.entity.class == 'App\\Entity\\Code' and name matches '/(start|end)Time/' %}
@@ -10,11 +11,11 @@
 
 {% block form_widget_simple %}
   {# @FIXME: There must be a better way to do this! #}
-  {% if easyadmin.entity.class == 'App\\Entity\\Template' and name == 'aeosId' %}
+  {% if ea.entity.fqcn == 'App\\Entity\\Template' and name == 'aeosId' %}
     {% include 'admin/form/Template/aeosId.html.twig' with {markup: parent()} %}
-  {% elseif easyadmin.entity.class == 'App\\Entity\\User' and name == 'aeosId' %}
+  {% elseif ea.entity.fqcn == 'App\\Entity\\User' and name == 'aeosId' %}
     {% include 'admin/form/User/aeosId.html.twig' with {markup: parent()} %}
-  {% elseif easyadmin.entity.class == 'App\\Entity\\Guest' and name == 'phone' %}
+  {% elseif ea.entity.fqcn == 'App\\Entity\\Guest' and name == 'phone' %}
     {% include 'admin/form/Guest/phone.html.twig' with {markup: parent()} %}
   {% else %}
     {{ parent() }}

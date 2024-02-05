@@ -3,7 +3,7 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2020 ITK Development
+ * (c) 2017–2024 ITK Development
  *
  * This source file is subject to the MIT license.
  */
@@ -11,26 +11,22 @@
 namespace App\Entity;
 
 use App\Repository\GuestRepository;
-use App\Traits\BlameableEntity;
+use App\Trait\BlameableEntity;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Superbrave\GdprBundle\Annotation\Anonymize;
+use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
-/**
- * @ORM\Entity(repositoryClass=GuestRepository::class)
- * @UniqueEntity(
- *     fields={"phone"},
- *     message="This phone number is already in use."
- * )
- * @UniqueEntity(
- *     fields={"email"},
- *     message="This email is already in use."
- * )
- */
+#[ORM\Entity(repositoryClass: GuestRepository::class)]
+#[UniqueEntity(fields: ['phone'], message: 'This phone number is already in use.')]
+#[UniqueEntity(fields: ['email'], message: 'This email is already in use.')]
 class Guest
 {
     use BlameableEntity;
@@ -38,121 +34,87 @@ class Guest
     use TimestampableEntity;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Template::class)
+     * @var \Doctrine\Common\Collections\Collection<int, \App\Entity\Template>
      */
-    protected $templates;
+    #[ORM\ManyToMany(targetEntity: Template::class)]
+    protected \Doctrine\Common\Collections\Collection $templates;
 
-    /**
-     * @var string
-     *
-     * @ORM\Id
-     * @ORM\Column(type="guid")
-     * @ORM\GeneratedValue(strategy="UUID")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\Column(type: UuidType::NAME, unique: true)]
+    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
+    #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
+    private ?Uuid $id = null;
 
-    /**
-     * @var bool
-     *
-     * @ORM\Column(type="boolean")
-     */
-    private $enabled;
+    #[ORM\Column(type: Types::BOOLEAN)]
+    private ?bool $enabled = null;
 
     /**
      * Time when app is sent to user.
-     *
-     * @var \DateTime
-     *
-     * @ORM\Column(type="datetime", nullable=true)
      */
-    private $sentAt;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $sentAt = null;
 
     /**
      * Time when user accepts terms and conditions.
-     *
-     * @var \DateTime
-     *
-     * @ORM\Column(type="datetime", nullable=true)
      */
-    private $activatedAt;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $activatedAt = null;
 
     /**
      * Time when the Guest has been expired (e.g. due to inactivity).
-     *
-     * @var \DateTime
-     *
-     * @ORM\Column(type="datetime", nullable=true)
      */
-    private $expiredAt;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $expiredAt = null;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255)
-     * @Anonymize(type="fixed", value="{id}")
+     * @todo Anonymize(type="fixed", value="{id}")
      */
-    private $name;
+    #[ORM\Column(type: Types::STRING, length: 255)]
+    private ?string $name = null;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Anonymize(type="fixed", value="{id}")
+     * @todo Anonymize(type="fixed", value="{id}")
      */
-    private $company;
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
+    private ?string $company = null;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255)
-     * @Anonymize(type="fixed", value="{id}")
+     * @todo Anonymize(type="fixed", value="{id}")
      */
-    private $phone;
+    #[ORM\Column(type: Types::STRING, length: 255)]
+    private ?string $phone = null;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255)
-     * @Anonymize(type="fixed", value="+45")
+     * @todo Anonymize(type="fixed", value="+45")
      */
-    private $phoneCountryCode;
+    #[ORM\Column(type: Types::STRING, length: 255)]
+    private ?string $phoneCountryCode = null;
 
     /**
-     * @var string
-     *
-     * @Assert\Email()
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Anonymize(type="fixed", value="{id}@example.com")
+     * @todo Anonymize(type="fixed", value="{id}@example.com")
      */
-    private $email;
+    #[Assert\Email]
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
+    private ?string $email = null;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(type="datetime")
-     */
-    private $startTime;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $startTime = null;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(type="datetime")
-     */
-    private $endTime;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $endTime = null;
 
     /**
      * @var array
-     *
-     * @ORM\Column(type="array")
      */
+    #[ORM\Column(type: Types::ARRAY)]
     private $timeRanges;
 
-    /**
-     * Get id.
-     *
-     * @return string
-     */
-    public function getId()
+    public function __construct()
+    {
+        $this->templates = new ArrayCollection();
+    }
+
+    public function getId(): ?Uuid
     {
         return $this->id;
     }
@@ -337,20 +299,15 @@ class Guest
         return $this->email;
     }
 
-    /**
-     * @return mixed
-     */
     public function getTemplates()
     {
         return $this->templates;
     }
 
     /**
-     * @param mixed $templates
-     *
      * @return Guest
      */
-    public function setTemplates($templates)
+    public function setTemplates(mixed $templates)
     {
         $this->templates = $templates;
 
@@ -408,9 +365,7 @@ class Guest
         return $this;
     }
 
-    /**
-     * @Assert\Callback()
-     */
+    #[Assert\Callback]
     public function validate(ExecutionContextInterface $context)
     {
         if (0 === $this->getTemplates()->count()) {

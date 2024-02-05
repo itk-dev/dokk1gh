@@ -1,61 +1,41 @@
 {
-    "name": "itk-dev/dokk1gh",
-    "description": "Dokk1-gæstehåndtering",
     "type": "project",
     "license": "proprietary",
+    "minimum-stability": "stable",
+    "prefer-stable": true,
     "require": {
-        "php": ">=7.4",
+        "php": ">=8.2",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-soap": "*",
-        "composer/package-versions-deprecated": "^1.11",
-        "doctrine/doctrine-bundle": "^2.2",
-        "doctrine/doctrine-migrations-bundle": "^3.0",
-        "doctrine/orm": "^2.7",
-        "easycorp/easyadmin-bundle": "^2.3",
-        "friendsofsymfony/rest-bundle": "^3.0",
-        "guzzlehttp/guzzle": "^7.2",
-        "itk-dev/config-bundle": "^3.0",
-        "itk-dev/database-bundle": "^1.3",
-        "itk-dev/monolog-db-bundle": "*",
-        "itk-dev/user-bundle": "2.x-dev",
-        "jms/serializer-bundle": "^3.7",
-        "nelmio/api-doc-bundle": "~3.3.1",
-        "sensio/framework-extra-bundle": "^5.6",
-        "stof/doctrine-extensions-bundle": "^1.5",
-        "suncat/mobile-detect-bundle": "^1.1",
-        "superbrave/gdpr-bundle": "^2.2",
-        "symfony/console": "4.4.*",
-        "symfony/dotenv": "4.4.*",
-        "symfony/flex": "^1.3.1",
-        "symfony/framework-bundle": "4.4.*",
-        "symfony/mailer": "4.4.*",
-        "symfony/options-resolver": "4.4.*",
-        "symfony/twig-bundle": "^4.4",
-        "symfony/webpack-encore-bundle": "^1.8",
-        "symfony/yaml": "4.4.*",
-        "symfonycasts/reset-password-bundle": "^1.1"
-    },
-    "require-dev": {
-        "friends-of-behat/mink": "^1.8",
-        "friends-of-behat/mink-browserkit-driver": "^1.4",
-        "friends-of-behat/mink-extension": "^2.4",
-        "friends-of-behat/symfony-extension": "^2.0",
-        "friendsofphp/php-cs-fixer": "^2.16",
-        "friendsoftwig/twigcs": "^4.0",
-        "squizlabs/php_codesniffer": "^3.5",
-        "symfony/maker-bundle": "^1.23",
-        "symfony/stopwatch": "^4.4",
-        "symfony/web-profiler-bundle": "^4.4"
+        "doctrine/doctrine-migrations-bundle": "^3.3",
+        "easycorp/easyadmin-bundle": "^4.8",
+        "gedmo/doctrine-extensions": "^3.14",
+        "jms/serializer": "^3.29",
+        "stof/doctrine-extensions-bundle": "^1.10",
+        "symfony/console": "7.0.*",
+        "symfony/dotenv": "7.0.*",
+        "symfony/flex": "^2",
+        "symfony/framework-bundle": "7.0.*",
+        "symfony/mailer": "7.0.*",
+        "symfony/options-resolver": "7.0.*",
+        "symfony/runtime": "7.0.*",
+        "symfony/security-bundle": "7.0.*",
+        "symfony/translation": "7.0.*",
+        "symfony/twig-bundle": "7.0.*",
+        "symfony/yaml": "7.0.*",
+        "symfonycasts/reset-password-bundle": "^1.20",
+        "tattali/mobile-detect-bundle": "^2.3",
+        "twig/extra-bundle": "^2.12|^3.0",
+        "twig/twig": "^2.12|^3.0"
     },
     "config": {
-        "preferred-install": {
-            "*": "dist"
-        },
-        "sort-packages": true,
         "allow-plugins": {
-            "symfony/flex": true
-        }
+            "php-http/discovery": true,
+            "symfony/flex": true,
+            "symfony/runtime": true
+        },
+        "sort-packages": true
     },
     "autoload": {
         "psr-4": {
@@ -68,12 +48,14 @@
         }
     },
     "replace": {
-        "paragonie/random_compat": "2.*",
         "symfony/polyfill-ctype": "*",
         "symfony/polyfill-iconv": "*",
-        "symfony/polyfill-php71": "*",
-        "symfony/polyfill-php70": "*",
-        "symfony/polyfill-php56": "*"
+        "symfony/polyfill-php72": "*",
+        "symfony/polyfill-php73": "*",
+        "symfony/polyfill-php74": "*",
+        "symfony/polyfill-php80": "*",
+        "symfony/polyfill-php81": "*",
+        "symfony/polyfill-php82": "*"
     },
     "scripts": {
         "auto-scripts": {
@@ -87,27 +69,37 @@
             "@auto-scripts"
         ],
         "coding-standards-check/php-cs-fixer": [
-            "php-cs-fixer --config=.php_cs.dist fix --dry-run"
-        ],
-        "coding-standards-check/phpcs": [
-            "vendor/bin/phpcs --standard=phpcs.xml.dist"
+            "php-cs-fixer --config=.php-cs-fixer.dist.php fix --dry-run"
         ],
         "coding-standards-check/twigcs": [
-            "vendor/bin/twigcs templates/"
+            "twigcs templates"
         ],
         "coding-standards-check": [
             "@coding-standards-check/php-cs-fixer",
-            "@coding-standards-check/phpcs"
+            "@coding-standards-check/twigcs"
         ],
         "coding-standards-apply/php-cs-fixer": [
-            "php-cs-fixer --config=.php_cs.dist fix"
-        ],
-        "coding-standards-apply/phpcs": [
-            "vendor/bin/phpcbf --standard=phpcs.xml.dist"
+            "php-cs-fixer --config=.php-cs-fixer.dist.php fix"
         ],
         "coding-standards-apply": [
-            "@coding-standards-apply/php-cs-fixer",
-            "@coding-standards-apply/phpcs"
+            "@coding-standards-apply/php-cs-fixer"
+        ],
+        "code-analysis/phpstan": [
+            "phpstan analyse src tests"
+        ],
+        "code-analysis/psalm": [
+            "psalm src tests"
+        ],
+        "code-analysis": [
+            "@code-analysis/phpstan",
+            "@code-analysis/psalm"
+        ],
+        "update-translations": [
+            "# We need a translation from en to en (!) (without prefix) to be able to process placeholders in en.",
+            "DEFAULT_LOCALE=en bin/console translation:extract --clean --force en --prefix=''",
+            "DEFAULT_LOCALE=en bin/console translation:extract --clean --force da",
+            "# Mark default translations (prefixed with `__`) as “Needs work” in Danish translations",
+            "sed --in-place='' 's/<target>__/<target state=\"needs-l10n\">__/' translations/*.da.*xlf"
         ]
     },
     "conflict": {
@@ -116,15 +108,15 @@
     "extra": {
         "symfony": {
             "allow-contrib": true,
-            "require": "4.4.*"
+            "require": "7.0.*",
+            "docker": true
         }
     },
-    "repositories": {
-        "itk-dev/monolog-db-bundle": {
-            "type": "path",
-            "url": "packages/itk-dev/monolog-db-bundle"
-        }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.48",
+        "friendsoftwig/twigcs": "^6.4",
+        "rector/rector": "^0.19.2",
+        "symfony/maker-bundle": "^1.52",
+        "symfony/web-profiler-bundle": "7.0.*"
+    }
 }

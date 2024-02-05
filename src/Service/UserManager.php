@@ -3,7 +3,7 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2020 ITK Development
+ * (c) 2017–2024 ITK Development
  *
  * This source file is subject to the MIT license.
  */
@@ -25,33 +25,17 @@ class UserManager
      */
     private $tokenGenerator;
 
-    /** @var EntityManagerInterface */
-    private $entityManager;
-
     /** @var \Twig_Environment */
     private $twig;
 
-    /** @var \Symfony\Component\Routing\RouterInterface */
-    private $router;
-
-    /** @var MailerInterface */
-    private $mailer;
-
-    /** @var array */
-    private $configuration;
-
     public function __construct(
-        EntityManagerInterface $entityManager,
+        private readonly EntityManagerInterface $entityManager,
         Environment $twig,
-        RouterInterface $router,
-        MailerInterface $mailer,
-        array $userManagerConfiguration
+        private readonly RouterInterface $router,
+        private readonly MailerInterface $mailer,
+        private readonly array $userManagerConfiguration
     ) {
-        $this->entityManager = $entityManager;
         $this->twig = $twig;
-        $this->router = $router;
-        $this->mailer = $mailer;
-        $this->configuration = $userManagerConfiguration;
     }
 
     public function createUser()
@@ -104,7 +88,7 @@ class UserManager
             'create' => true,
         ], UrlGeneratorInterface::ABSOLUTE_URL);
 
-        $config = $this->configuration->user_created;
+        $config = $this->userManagerConfiguration->user_created;
         $sender = $config->sender;
         $template = $config->user;
 

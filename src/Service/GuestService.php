@@ -3,7 +3,7 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2020 ITK Development
+ * (c) 2017–2024 ITK Development
  *
  * This source file is subject to the MIT license.
  */
@@ -20,42 +20,22 @@ use Superbrave\GdprBundle\Anonymize\Anonymizer;
 
 class GuestService
 {
-    /** @var AeosHelper */
-    private $aeosHelper;
-
-    /** @var EntityManagerInterface */
-    private $manager;
-
     /** @var Anonymizer */
     private $anonymizer;
-
-    /** @var TwigHelper */
-    private $twig;
-
-    /** @var Configuration */
-    private $configuration;
-
-    /** @var SmsHelper */
-    private $smsHelper;
 
     /** @var MailerInterface */
     private $mailHelper;
 
     public function __construct(
-        AeosHelper $aeosHelper,
-        EntityManagerInterface $manager,
-        Anonymizer $anonymizer,
-        TwigHelper $twig,
-        Configuration $configuration,
-        SmsHelper $smsHelper,
+        private readonly AeosHelper $aeosHelper,
+        private readonly EntityManagerInterface $manager,
+        //        Anonymizer $anonymizer,
+        private readonly TwigHelper $twig,
+        private readonly Configuration $configuration,
+        private readonly SmsHelper $smsHelper,
         MailHelper $mailHelper
     ) {
-        $this->aeosHelper = $aeosHelper;
-        $this->manager = $manager;
-        $this->anonymizer = $anonymizer;
-        $this->twig = $twig;
-        $this->configuration = $configuration;
-        $this->smsHelper = $smsHelper;
+        //        $this->anonymizer = $anonymizer;
         $this->mailHelper = $mailHelper;
     }
 
@@ -129,8 +109,8 @@ class GuestService
         $timeRanges = $guest->getTimeRanges();
         $day = $now->format('N');
         if (!isset($timeRanges['start_time_'.$day], $timeRanges['end_time_'.$day])
-            || !preg_match('/^(?<hours>\d{2}):(?<minutes>\d{2})$/', $timeRanges['start_time_'.$day], $startTimeData)
-            || !preg_match('/^(?<hours>\d{2}):(?<minutes>\d{2})$/', $timeRanges['end_time_'.$day], $endTimeData)) {
+            || !preg_match('/^(?<hours>\d{2}):(?<minutes>\d{2})$/', (string) $timeRanges['start_time_'.$day], $startTimeData)
+            || !preg_match('/^(?<hours>\d{2}):(?<minutes>\d{2})$/', (string) $timeRanges['end_time_'.$day], $endTimeData)) {
             return false;
         }
 
@@ -164,8 +144,8 @@ class GuestService
         $day = $now->format('N');
 
         if (!isset($timeRanges['start_time_'.$day], $timeRanges['end_time_'.$day])
-            || !preg_match('/^(?<hours>\d{2}):(?<minutes>\d{2})$/', $timeRanges['start_time_'.$day], $startTimeData)
-            || !preg_match('/^(?<hours>\d{2}):(?<minutes>\d{2})$/', $timeRanges['end_time_'.$day], $endTimeData)) {
+            || !preg_match('/^(?<hours>\d{2}):(?<minutes>\d{2})$/', (string) $timeRanges['start_time_'.$day], $startTimeData)
+            || !preg_match('/^(?<hours>\d{2}):(?<minutes>\d{2})$/', (string) $timeRanges['end_time_'.$day], $endTimeData)) {
             return null;
         }
 
@@ -205,7 +185,7 @@ class GuestService
             $this->manager->flush();
 
             return $code;
-        } catch (\Exception $ex) {
+        } catch (\Exception) {
             throw new GuestException('Cannot generate code');
         }
     }

@@ -1,7 +1,9 @@
+{# ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+
 {% set class_name = id|replace({'_': '-'}) %}
-<div class="input-group {{ class_name }} {{ class_name }}-{{ easyadmin.view }}">
+<div class="input-group {{ class_name }} {{ class_name }}-{{ ea.crud.currentPage }}">
   <div class="input-group-prepend">
-    <span class="input-group-text">+{{ easyadmin.item.phoneCountryCode }}</span>
+    <span class="input-group-text">+{{ ea.entity.instance.phoneCountryCode }}</span>
   </div>
   {{ markup|raw }}
 </div>

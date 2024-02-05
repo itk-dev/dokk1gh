@@ -3,7 +3,7 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2020 ITK Development
+ * (c) 2017–2024 ITK Development
  *
  * This source file is subject to the MIT license.
  */
@@ -15,12 +15,8 @@ use Symfony\Component\Yaml\Yaml;
 
 class AeosWebService
 {
-    /** @var ActionLogManager */
-    private $logger;
-
-    public function __construct(ActionLogManager $logger)
+    public function __construct(private readonly ActionLogManager $logger)
     {
-        $this->logger = $logger;
     }
 
     public function addVisit($params)
@@ -128,11 +124,8 @@ class AeosWebService
 
     /**
      * Filter by first (only?) property in $params.
-     *
-     * @param mixed $data
-     * @param mixed $params
      */
-    private function filter($data, $params)
+    private function filter(mixed $data, mixed $params)
     {
         $dataKeys = array_keys(get_object_vars($data));
         if (1 === \count($dataKeys)) {
@@ -144,10 +137,10 @@ class AeosWebService
                 $data->{$dataKey} = array_values(array_filter($data->{$dataKey}, function ($item) use ($filter) {
                     foreach ($filter as $key => $value) {
                         if (isset($item->{$key}) && (
-                                // Starts with match on string value.
-                                (\is_string($item->{$key}) && 0 !== stripos($item->{$key}, $value))
-                                // Exact match on non-string value.
-                                || (!\is_string($item->{$key}) && $item->{$key} !== $value)
+                            // Starts with match on string value.
+                            (\is_string($item->{$key}) && 0 !== stripos($item->{$key}, (string) $value))
+                            // Exact match on non-string value.
+                            || (!\is_string($item->{$key}) && $item->{$key} !== $value)
                         )) {
                             return false;
                         }
@@ -163,8 +156,8 @@ class AeosWebService
 
     private function slice($data, $range)
     {
-        $length = isset($range->nrOfRecords) ? $range->nrOfRecords : null;
-        $offset = isset($range->startRecordNo) ? $range->startRecordNo : 0;
+        $length = $range->nrOfRecords ?? null;
+        $offset = $range->startRecordNo ?? 0;
 
         $dataKeys = array_keys(get_object_vars($data));
         if (1 === \count($dataKeys)) {

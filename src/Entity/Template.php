@@ -3,7 +3,7 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2020 ITK Development
+ * (c) 2017–2024 ITK Development
  *
  * This source file is subject to the MIT license.
  */
@@ -11,8 +11,8 @@
 namespace App\Entity;
 
 use App\Repository\TemplateRepository;
-use App\Traits\AeosDataEntity;
-use App\Traits\BlameableEntity;
+use App\Trait\AeosDataEntity;
+use App\Trait\BlameableEntity;
 use App\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -21,69 +21,50 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use JMS\Serializer\Annotation as JMS;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-/**
- * @ORM\Entity(repositoryClass=TemplateRepository::class)
- * @Gedmo\SoftDeleteable
- * @UniqueEntity(
- *   fields="aeosId",
- *   message="This aeosId is already in use."
- * )
- */
-class Template implements AeosEntityInterface
+#[ORM\Entity(repositoryClass: TemplateRepository::class)]
+#[UniqueEntity(fields: 'aeosId', message: 'This aeosId is already in use.')]
+#[Gedmo\SoftDeleteable]
+class Template implements AeosEntityInterface, \Stringable
 {
     use AeosDataEntity;
     use BlameableEntity;
     use SoftDeleteableEntity;
     use TimestampableEntity;
 
-    /**
-     * @var bool
-     * @ORM\Column(type="boolean")
-     */
-    protected $enabled = true;
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
+    protected ?bool $enabled = true;
 
     /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
      * @JMS\Groups({"api"})
      */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
+    private ?int $id = null;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255)
      * @JMS\Groups({"api"})
      */
-    private $name;
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255)]
+    private ?string $name = null;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255, nullable=true)
      * @JMS\Groups({"api"})
      */
-    private $level;
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255, nullable: true)]
+    private ?string $level = null;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(type="text", nullable=true)
      * @JMS\Groups({"api"})
      */
-    private $description;
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT, nullable: true)]
+    private ?string $description = null;
 
-    /**
-     * @var string
-     *
-     * @Assert\AeosTemplateId()
-     *
-     * @ORM\Column(type="string", length=255)
-     */
-    private $aeosId;
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255)]
+    #[Assert\AeosTemplateId()]
+    private ?string $aeosId = null;
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->getName();
     }
@@ -188,11 +169,9 @@ class Template implements AeosEntityInterface
     /**
      * Set aeosId.
      *
-     * @param string $aeosId
-     *
      * @return Template
      */
-    public function setAeosId($aeosId)
+    public function setAeosId(string $aeosId): static
     {
         $this->aeosId = $aeosId;
 
@@ -201,10 +180,8 @@ class Template implements AeosEntityInterface
 
     /**
      * Get aeosId.
-     *
-     * @return string
      */
-    public function getAeosId()
+    public function getAeosId(): ?string
     {
         return $this->aeosId;
     }

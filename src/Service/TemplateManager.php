@@ -3,7 +3,7 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2020 ITK Development
+ * (c) 2017–2024 ITK Development
  *
  * This source file is subject to the MIT license.
  */
@@ -61,7 +61,7 @@ class TemplateManager
 
         // Non-admins can only use specified templates.
         $userTemplates = $this->authorizationChecker->isGranted('ROLE_ADMIN')
-            ? $this->entityManager->getRepository(Template::class)->findAll(['enabled' => true])
+            ? $this->entityManager->getRepository(Template::class)->findAll()
             : $this->tokenStorage->getToken()->getUser()->getTemplates();
 
         foreach ($userTemplates as $userTemplate) {
@@ -73,8 +73,6 @@ class TemplateManager
 
     /**
      * Get a user template by id.
-     *
-     * @param $id
      *
      * @return null|Template
      */

@@ -3,7 +3,7 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2020 ITK Development
+ * (c) 2017–2024 ITK Development
  *
  * This source file is subject to the MIT license.
  */
@@ -17,30 +17,18 @@ use Symfony\Component\Mime\Email;
 
 class MailHelper
 {
-    const MAIL_SENT = 'MAIL_SENT';
+    final public const MAIL_SENT = 'MAIL_SENT';
 
     /** @var MailerInterface */
     protected $mailer;
 
-    /** @var EntityActionLogger */
-    private $actionLogger;
-
-    /** @var Configuration */
-    private $configuration;
-
-    /** @var TwigHelper */
-    private $twigHelper;
-
     public function __construct(
         MailerInterface $mailer,
-        EntityActionLogger $actionLogger,
-        Configuration $configuration,
-        TwigHelper $twigHelper
+        private readonly EntityActionLogger $actionLogger,
+        private readonly Configuration $configuration,
+        private readonly TwigHelper $twigHelper
     ) {
         $this->mailer = $mailer;
-        $this->actionLogger = $actionLogger;
-        $this->twigHelper = $twigHelper;
-        $this->configuration = $configuration;
     }
 
     public function sendApp(Guest $guest, $appUrl)

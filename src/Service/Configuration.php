@@ -3,42 +3,36 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2020 ITK Development
+ * (c) 2017–2024 ITK Development
  *
  * This source file is subject to the MIT license.
  */
 
 namespace App\Service;
 
-use Craue\ConfigBundle\Util\Config;
+use App\Repository\SettingRepository;
 use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class Configuration
 {
-    /** @var Config */
-    private $config;
-
-    /** @var ParameterBagInterface */
-    private $parameters;
-
-    public function __construct(Config $config, ParameterBagInterface $parameterBag)
-    {
-        $this->config = $config;
-        $this->parameters = $parameterBag;
+    public function __construct(
+        private readonly SettingRepository $settingRepository,
+        private readonly ParameterBagInterface $parameters
+    ) {
     }
 
     public function get($path, $defaultValue = null)
     {
-        $settings = $this->config->all();
-        if (\array_key_exists($path, $settings)) {
-            return $this->config->get($path);
+        $settings = $this->settingRepository->all();
+        if (isset($settings[$path])) {
+            return $settings[$path];
         }
 
         if ($this->parameters->has($path)) {
             $config = $this->parameters->get($path);
         } else {
-            $steps = explode('.', $path);
+            $steps = explode('.', (string) $path);
             foreach ($steps as $index => $step) {
                 if (0 === $index) {
                     $config = $this->parameters->get($step);
@@ -54,7 +48,7 @@ class Configuration
             $config['daysDisabled'] = array_values(
                 array_diff(
                     range(0, 6),
-                    isset($config['daysEnabled']) ? $config['daysEnabled'] : []
+                    $config['daysEnabled'] ?? []
                 )
             );
         }

@@ -3,7 +3,7 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2020 ITK Development
+ * (c) 2017–2024 ITK Development
  *
  * This source file is subject to the MIT license.
  */
@@ -26,7 +26,7 @@ class EntityActionLogger
 
     public function log($entity, $message, array $context = null)
     {
-        list($entityType, $entityId) = $this->getEntityTypeAndId($entity);
+        [$entityType, $entityId] = $this->getEntityTypeAndId($entity);
         $entry = new EntityActionLogEntry($entityType, $entityId, $message, $context);
         $this->manager->persist($entry);
         $this->manager->flush();
@@ -34,7 +34,7 @@ class EntityActionLogger
 
     public function getActionLogEntries($entity, array $criteria = [], array $orderBy = null)
     {
-        list($entityType, $entityId) = $this->getEntityTypeAndId($entity);
+        [$entityType, $entityId] = $this->getEntityTypeAndId($entity);
         $criteria += [
             'entityType' => $entityType,
             'entityId' => $entityId,
@@ -51,7 +51,7 @@ class EntityActionLogger
         if (!\is_object($entity)) {
             throw new \RuntimeException('Entity must be an object');
         }
-        $entityType = \get_class($entity);
+        $entityType = $entity::class;
 
         if (method_exists($entity, 'getId')) {
             $entityId = $entity->getId();

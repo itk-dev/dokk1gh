@@ -1,5 +1,8 @@
-{% for template in value %}
-	<a href="{{ path('easyadmin', {entity: 'Template', action: 'edit', id: template.id}) }}">{{ template.name }}</a>{% if not loop.last %},{% endif %}
+{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+{# @var field \EasyCorp\Bundle\EasyAdminBundle\Dto\FieldDto #}
+{# @var entity \EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto #}
+{% for template in field.value %}
+    <a href="{{ path('admin', {entity: 'Template', action: 'edit', id: template.id}) }}">{{ template.name }}</a>{% if not loop.last %},{% endif %}
 {% else %}
-	–
+    –
 {% endfor %}

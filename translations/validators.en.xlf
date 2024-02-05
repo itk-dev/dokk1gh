@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="VKDowX6" resname="Error">
+        <source>Error</source>
+        <target>Error</target>
+      </trans-unit>
+      <trans-unit id="kDjokpF" resname="This email is already in use.">
+        <source>This email is already in use.</source>
+        <target>This email is already in use.</target>
+      </trans-unit>
+      <trans-unit id="df8VHej" resname="This aeosId is already in use.">
+        <source>This aeosId is already in use.</source>
+        <target>This aeosId is already in use.</target>
+      </trans-unit>
+      <trans-unit id="cjNO.TU" resname="This phone number is already in use.">
+        <source>This phone number is already in use.</source>
+        <target>This phone number is already in use.</target>
+      </trans-unit>
+      <trans-unit id="Fe2zEyl" resname="Please enter your email">
+        <source>Please enter your email</source>
+        <target>Please enter your email</target>
+      </trans-unit>
+      <trans-unit id="YXZ26gK" resname="Please enter a password">
+        <source>Please enter a password</source>
+        <target>Please enter a password</target>
+      </trans-unit>
+      <trans-unit id=".esazsm" resname="Your password should be at least {{ limit }} characters">
+        <source>Your password should be at least {{ limit }} characters</source>
+        <target>Your password should be at least {{ limit }} characters</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

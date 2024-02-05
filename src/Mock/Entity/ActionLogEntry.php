@@ -3,112 +3,73 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2020 ITK Development
+ * (c) 2017–2024 ITK Development
  *
  * This source file is subject to the MIT license.
  */
 
 namespace App\Mock\Entity;
 
+use App\Mock\Repository\ActionLogEntryRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * Class AeosEntity.
- *
- * @ORM\Entity()
- * @ORM\Table(name="mock_action_log_entry")
- * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"aeos" = "AeosActionLogEntry", "sms" = "SmsGatewayActionLogEntry"})
- */
+#[ORM\Table(name: 'mock_action_log_entry')]
+#[ORM\Entity(repositoryClass: ActionLogEntryRepository::class)]
+#[ORM\InheritanceType('SINGLE_TABLE')]
+#[ORM\DiscriminatorColumn(name: 'discr', type: 'string')]
+#[ORM\DiscriminatorMap(['aeos' => 'AeosActionLogEntry', 'sms' => 'SmsGatewayActionLogEntry'])]
 abstract class ActionLogEntry
 {
-    /**
-     * @var string
-     *
-     * @Assert\NotBlank()
-     * @ORM\Column(type="string")
-     */
-    protected $type;
+    #[ORM\Column(type: Types::INTEGER)]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    protected ?int $id = null;
 
-    /**
-     * @var array
-     *
-     * @Assert\NotBlank()
-     * @ORM\Column(type="json_array")
-     */
-    protected $data;
-    /**
-     * @var int
-     *
-     * @ORM\Column(type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
+    #[Assert\NotBlank]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+    protected ?\DateTimeInterface $createdAt = null;
 
-    /**
-     * @var \DateTime
-     *
-     * @Assert\NotBlank()
-     * @ORM\Column(type="datetime")
-     */
-    private $createdAt;
-
-    public function __construct($type = null, array $data = null)
-    {
-        $this->createdAt = new \DateTime();
-        $this->type = $type;
-        $this->data = $data;
+    public function __construct(
+        #[Assert\NotBlank]
+        #[ORM\Column(type: Types::STRING)]
+        protected string $type,
+        #[Assert\NotBlank]
+        #[ORM\Column(type: Types::JSON)]
+        protected array $data
+    ) {
+        $this->createdAt = new \DateTimeImmutable();
     }
 
-    /**
-     * @return int
-     */
-    public function getId()
+    public function getId(): ?id
     {
         return $this->id;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getCreatedAt()
+    public function getCreatedAt(): \DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    /**
-     * @return string
-     */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @return AbstractEntity
-     */
-    public function setType(string $type)
+    public function setType(string $type): static
     {
         $this->type = $type;
 
         return $this;
     }
 
-    /**
-     * @return array
-     */
-    public function getData()
+    public function getData(): array
     {
         return $this->data;
     }
 
-    /**
-     * @return AbstractEntity
-     */
-    public function setData(array $data)
+    public function setData(array $data): static
     {
         $this->data = $data;
 

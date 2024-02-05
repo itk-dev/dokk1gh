@@ -3,7 +3,7 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2020 ITK Development
+ * (c) 2017–2024 ITK Development
  *
  * This source file is subject to the MIT license.
  */
@@ -14,30 +14,14 @@ use App\Entity\Code;
 use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class AeosHelper
+final readonly class AeosHelper
 {
-    /** @var \App\Service\AeosService */
-    protected $aeosService;
-
-    /** @var \Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface */
-    protected $tokenStorage;
-
-    /** @var TwigHelper */
-    protected $twigHelper;
-
-    /** @var Configuration */
-    protected $configuration;
-
     public function __construct(
-        AeosService $aeosService,
-        TokenStorageInterface $tokenStorage,
-        TwigHelper $twigHelper,
-        Configuration $configuration
+        private AeosService $aeosService,
+        private TokenStorageInterface $tokenStorage,
+        private TwigHelper $twigHelper,
+        private Configuration $configuration
     ) {
-        $this->aeosService = $aeosService;
-        $this->tokenStorage = $tokenStorage;
-        $this->twigHelper = $twigHelper;
-        $this->configuration = $configuration;
     }
 
     public function createAeosIdentifier(Code $code, $visitorName = null)
@@ -51,7 +35,7 @@ class AeosHelper
             throw new \Exception('Code has no template');
         }
         if (!$template->getAeosId()) {
-            throw new \Exception('Template has no aeos id');
+            throw new \Exception('Template has no AEOS id');
         }
 
         $aeosContactPerson = $this->aeosService->getPerson($user->getAeosId());
@@ -72,10 +56,10 @@ class AeosHelper
                         'code' => $code,
                         'user' => $user,
                     ]);
-            } catch (\Exception $e) {
+            } catch (\Exception) {
             }
         }
-        $visitorName = trim($visitorName);
+        $visitorName = trim((string) $visitorName);
 
         $visitor = $this->aeosService->createVisitor([
             'UnitId' => $aeosContactPerson->UnitId,
@@ -116,11 +100,12 @@ class AeosHelper
     {
         try {
             if (null === $user) {
-                $user = $this->tokenStorage->getToken()->getUser();
+                $user = $this->tokenStorage->getToken()?->getUser();
             }
 
-            return null !== $this->aeosService->getPerson($user->getAeosId());
-        } catch (\Exception $ex) {
+            return null !== $user
+                && null !== $this->aeosService->getPerson($user->getAeosId());
+        } catch (\Exception) {
         }
 
         return false;

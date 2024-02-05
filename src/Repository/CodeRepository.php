@@ -3,7 +3,7 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2020 ITK Development
+ * (c) 2017–2024 ITK Development
  *
  * This source file is subject to the MIT license.
  */
@@ -11,8 +11,6 @@
 namespace App\Repository;
 
 use App\Entity\Code;
-use DateTime;
-use DateTimeZone;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Collections\Expr\Comparison;
@@ -33,7 +31,7 @@ class CodeRepository extends ServiceEntityRepository
 
     public function findExpired()
     {
-        $now = new DateTime('now', new DateTimeZone('UTC'));
+        $now = new \DateTime('now', new \DateTimeZone('UTC'));
         $criteria = (new Criteria())
             ->where(new Comparison('endTime', Comparison::LT, $now));
 

@@ -3,7 +3,7 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2020 ITK Development
+ * (c) 2017–2024 ITK Development
  *
  * This source file is subject to the MIT license.
  */
@@ -15,30 +15,22 @@ use App\Entity\Guest;
 
 class SmsHelper
 {
-    const SMS_SENT = 'SMS_SENT';
+    final public const SMS_SENT = 'SMS_SENT';
 
-    /** @var \App\Service\SmsServiceInterface */
+    /** @var SmsServiceInterface */
     protected $smsService;
-
-    /** @var EntityActionLogger */
-    private $actionLogger;
-
-    /** @var Configuration */
-    private $configuration;
 
     /** @var \Twig_Environment */
     private $twigHelper;
 
     public function __construct(
         SmsServiceInterface $smsService,
-        EntityActionLogger $actionLogger,
-        Configuration $configuration,
+        private readonly EntityActionLogger $actionLogger,
+        private readonly Configuration $configuration,
         TwigHelper $twigHelper
     ) {
         $this->smsService = $smsService;
-        $this->actionLogger = $actionLogger;
         $this->twigHelper = $twigHelper;
-        $this->configuration = $configuration;
     }
 
     public function sendApp(Guest $guest, $appUrl)

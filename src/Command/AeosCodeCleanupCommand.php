@@ -3,7 +3,7 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2020 ITK Development
+ * (c) 2017–2024 ITK Development
  *
  * This source file is subject to the MIT license.
  */
@@ -13,25 +13,20 @@ namespace App\Command;
 use App\Entity\Code;
 use App\Service\AeosHelper;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(
+    name: 'app:aeos:code-cleanup',
+    description: 'Create user'
+)]
 class AeosCodeCleanupCommand extends Command
 {
-    protected static $defaultName = 'app:aeos:code-cleanup';
-
-    /** @var EntityManagerInterface */
-    private $entityManager;
-
-    /** @var AeosHelper */
-    private $aeosHelper;
-
-    public function __construct(EntityManagerInterface $entityManager, AeosHelper $aeosHelper)
+    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly AeosHelper $aeosHelper)
     {
-        $this->entityManager = $entityManager;
-        $this->aeosHelper = $aeosHelper;
         parent::__construct();
     }
 
@@ -41,7 +36,7 @@ class AeosCodeCleanupCommand extends Command
             ->addOption('dry-run', null, InputOption::VALUE_NONE, 'Don\'t do anything. Just show what will be done.');
     }
 
-    public function execute(InputInterface $input, OutputInterface $output)
+    public function execute(InputInterface $input, OutputInterface $output): int
     {
         $dryRun = $input->getOption('dry-run');
         $expiredCodes = $this->entityManager->getRepository(Code::class)->findExpired();
@@ -72,5 +67,7 @@ class AeosCodeCleanupCommand extends Command
                 }
             }
         }
+
+        return static::SUCCESS;
     }
 }

@@ -1,57 +1,66 @@
 <div style="display: none">{{ markup|raw }}</div>
 
-<div class="find-aeos-data">
-  <select id="aeos-data-select"></select>
-  {% if messages.help|default(false) %}
-    <p class="help-block"><i class="fa fa-info-circle"></i> {{ messages.help|trans }}</p>
-  {% endif %}
+<div class="find-aeos-data find-aeos-data-{{ id }}">
+    {% set element_id = 'aeos-data-select-' ~ id %}
+    <select id="{{ element_id }}"></select>
+    {% if messages.help|default(false) %}
+        <p class="help-block"><i class="fa fa-info-circle"></i> {{ messages.help|trans }}</p>
+    {% endif %}
 
-  <script>(function ($) { $(function() {
-     var render = function(template, data) {
-       return template.replace(new RegExp('%([a-z0-9_]+)%', 'gi'), function(match, key) {
-         return data[key];
-       });
-     },
-         renderResult = function (result) {
-           if (result.loading || result.selected || result.id === 0) {
-             return result.text;
-           }
+    <script>(function () {
+            const render = function (template, data) {
+                    return template.replace(new RegExp('%([a-z0-9_]+)%', 'gi'), function (match, key) {
+                        return data[key];
+                    });
+                },
+                renderResult = function (result) {
+                    if (result.loading || result.selected || result.id === 0) {
+                        return result.text;
+                    }
 
-           var value = render({{ item_template|json_encode|raw }}, result);
-           if (result._usedBy) {
-             value += ' ' + render('(' + {{ 'AEOS id used by %name%'|trans({'%name%': '%_usedBy%'})|json_encode|raw }} + ')', result);
-           }
+                    var value = render({{ item_template|json_encode|raw }}, result);
+                    if (result._usedBy) {
+                        value += ' ' + render('(' + {{ 'AEOS id used by {name}'|trans({'name': '%_usedBy%'})|json_encode|raw }} +')', result);
+                    }
 
-           return value;
-         };
-     $('#aeos-data-select').select2({
-       placeholder: {{ (data ? data : {'id': 0, 'text': (messages.invalid_id|trans({'%id%': value}))})|json_encode|raw }},
-       ajax: {
-         url: {{ path(search_path)|json_encode|raw }},
-         dataType: 'json',
-         delay: 250,
-         data: function (params) {
-           return {
-             query: params.term
-           };
-         },
-         processResults: function (data, params) {
-           data.forEach(function (item) {
-             item.id = item.Id;
-             item.disabled = !!item._usedBy;
-           });
+                    return value;
+                };
 
-           return {
-             results: data
-           };
-         },
-         cache: true
-       },
-       minimumInputLength: 1,
-       templateResult: renderResult,
-       templateSelection: renderResult
-     }).on('select2:select', function (event) {
-       $('#' + {{ id|json_encode|raw }}).val(event.params.data.Id);
-     });
-   }) }(jQuery))</script>
+            {# @see https://tom-select.js.org/ #}
+            const tom = new TomSelect({{ ('#' ~ element_id)|json_encode|raw }}, {
+                placeholder: renderResult({{ (data ?: {'id': 0, 'text': (messages.invalid_id|trans({'%id%': value}))})|json_encode|raw }}),
+                // @see https://tom-select.js.org/examples/remote/
+                valueField: 'Id',
+                labelField: 'PersonnelNo',
+                searchField: [],
+                // fetch remote data
+                load: function(query, callback) {
+                    var url = new URL({{ url(search_path)|json_encode|raw }})
+                    url.searchParams.set('query', query)
+                    fetch(url.toString())
+                        .then(response => response.json())
+                        .then(json => {
+                            callback(json);
+                        }).catch(()=>{
+                        callback();
+                    });
+                },
+                // custom rendering functions for options and items
+                render: {
+                    option: function(item, escape) {
+                        return `<div class="py-2 d-flex">
+							<div class="me-3">${renderResult(item)}</div>
+						</div>`;
+                    },
+                    item: function(item, escape) {
+                        return `<div class="py-2 d-flex">
+							<div class="me-3">${renderResult(item)}</div>
+						</div>`;
+                    }
+                },
+                onChange: (value) => {
+                    document.getElementById({{ id|json_encode|raw }}).value = value
+                }
+            })
+        })()</script>
 </div>

@@ -3,7 +3,7 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2020 ITK Development
+ * (c) 2017–2024 ITK Development
  *
  * This source file is subject to the MIT license.
  */
@@ -30,19 +30,14 @@ class AppLoginFormAuthenticator extends AbstractFormLoginAuthenticator implement
 {
     use TargetPathTrait;
 
-    public const LOGIN_ROUTE = 'app_login';
-
-    private $urlGenerator;
-    private $csrfTokenManager;
+    final public const LOGIN_ROUTE = 'app_login';
     private $passwordEncoder;
 
     public function __construct(
-        UrlGeneratorInterface $urlGenerator,
-        CsrfTokenManagerInterface $csrfTokenManager,
+        private readonly UrlGeneratorInterface $urlGenerator,
+        private readonly CsrfTokenManagerInterface $csrfTokenManager,
         UserPasswordEncoderInterface $passwordEncoder
     ) {
-        $this->urlGenerator = $urlGenerator;
-        $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
     }
 
@@ -93,10 +88,8 @@ class AppLoginFormAuthenticator extends AbstractFormLoginAuthenticator implement
 
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
-     *
-     * @param mixed $credentials
      */
-    public function getPassword($credentials): ?string
+    public function getPassword(mixed $credentials): ?string
     {
         return $credentials['password'];
     }

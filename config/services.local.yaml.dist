@@ -1,0 +1,161 @@
+parameters:
+    aeos_location: 'http://nginx:8080/mock/aeosws'
+    aeos_username: null
+    aeos_password: null
+
+    aeos_timezone: Europe/Copenhagen
+    aeos_context:
+        ssl:
+            verify_peer: false
+            verify_peer_name: false
+            allow_self_signed: true
+    aeos_identifier_type: 16509
+    aeos_identifier_length: 8
+
+    sms_gateway_url: 'http://nginx:8080/mock/sms/send'
+    sms_gateway_username: test
+    sms_gateway_password: test
+
+    app_name: Gæstehåndtering
+    site_name: '%env(SITE_NAME)%'
+    site_url: '%env(SITE_URL)%'
+    router.request_context.scheme: http
+    router.request_context.host: dokk1gh.local.itkdev.dk
+    mailer_name: '%env(MAILER_FROM_NAME)%'
+    mailer_email: '%env(MAILER_FROM_EMAIL)%'
+    administrator_email: admin@dokk1.gh.vm
+    error_mail_sender: error@dokk1gh.vm
+    error_mail_recipient:
+        - error@dokk1gh.vm
+    aeos_vistor_name_template: 'Code {{ code.id|default(''–'') }}; {{ ''now''|date(''Y-m-d H:i'') }}; {{ code.createdBy.email|default(user.email)|default('''') }}'
+    aeos_block_reason: 2
+    header_image_url: /images/logo.png
+    locale: da
+    format_datetime: 'd/m/Y H:i'
+    format_date: d/m/Y
+    format_time: 'H:i'
+    view_timezone: Europe/Copenhagen
+    form_format_date: d/m/Y
+    form_format_date_js: dd/mm/yyyy
+    api_title: 'Gæstehåndtering – API'
+    api_description: 'The API'
+    user_created_user_subject: '{{ site_name }} – brugeroprettelse'
+    user_created_user_header: 'Bruger oprettet på {{ site_name }}'
+    user_created_user_body: "<p style='margin: 0;'>Du er blevet oprettet som bruger på {{ site_name }} med e-mailadressen {{ user.email }}.</p>\n<p style='margin: 0;'>For at komme i gang skal du angive en adgangskode.</p>\n<p style='margin: 0;'>Du kan efterfølgende logge ind med din e-mailadresse ({{ user.email }}) og den valgte adgangskode.</p>"
+    user_created_user_button_text: 'Angiv adgangskode'
+    user_created_user_footer: '<p style="margin: 0;">Venlig hilsen<br/> {{ sender.name }}</p>'
+    password_resetting_subject: '{{ site_name }} – nulstilling af adgangskode'
+    password_resetting_header: 'Nulstilling af adgangskode på {{ site_name }}'
+    password_resetting_body: '<p style=''margin: 0;''>Du kan skifte adgangskoden for {{ user.email }} ved at gå til <a href="{{ confirmationUrl }}">{{ confirmationUrl }}</a> og vælge en ny adgangskode.</p>'
+    password_resetting_button_text: 'Skift adgangskode'
+    password_resetting_footer: '<p style="margin: 0;">Venlig hilsen<br/> {{ sender.name }}</p>'
+    code_generate_email.subject: 'Adgangskode til Dokk1'
+    code_generate_email.body: "Her er din adgangskode til Dokk1: {{ code.identifier }}\n\nKoden indtastes på tal-panelet ved siden af døren eller inde i elevatoren. OBS: Når du taster koden skal du huske at afslutte med E, dvs. du skal taste “{{ code.identifier }}E”.\n\nKoden giver adgang til “{{ code.template.name }}” i tidsrummet {% if (code.startTime | date('Y-m-d')) == (code.endTime | date('Y-m-d')) -%}\n{{ code.startTime | date(format_date, view_timezone) }} {{ code.startTime | date(format_time, view_timezone) }}-{{ code.endTime | date(format_time, view_timezone) }}\n{%- else -%}\n{{ code.startTime | date(format_datetime, view_timezone) }}-{{ code.endTime | date(format_datetime, view_timezone) }}\n{%- endif -%}.\n\nBemærk at der kan gå op til 30 minutter før koden er aktiv.\n\nVenlig hilsen\n{{ site_name }}"
+    code_generate_sms.body: "Her er din adgangskode til Dokk1: {{ code.identifier }}\n\nKoden indtastes på tal-panelet ved siden af døren eller inde i elevatoren. OBS: Når du taster koden skal du huske at afslutte med E, dvs. du skal taste “{{ code.identifier }}E”.\n\nKoden giver adgang til “{{ code.template.name }}” i tidsrummet {% if (code.startTime | date('Y-m-d')) == (code.endTime | date('Y-m-d')) -%}\n{{ code.startTime | date(format_date, view_timezone) }} {{ code.startTime | date(format_time, view_timezone) }}-{{ code.endTime | date(format_time, view_timezone) }}\n{%- else -%}\n{{ code.startTime | date(format_datetime, view_timezone) }}-{{ code.endTime | date(format_datetime, view_timezone) }}\n{%- endif -%}.\n\nBemærk at der kan gå op til 30 minutter før koden er aktiv.\n\nVenlig hilsen\n{{ site_name }}"
+    code_valid_time_period: "{% if (code.startTime | date('Y-m-d')) == (code.endTime | date('Y-m-d')) -%}\n{{ code.startTime | date(format_date, view_timezone) }} {{ code.startTime | date(format_time, view_timezone) }}–{{ code.endTime | date(format_time, view_timezone) }}\n{%- else -%}\n{{ code.startTime | date(format_datetime, view_timezone) }}–{{ code.endTime | date(format_datetime, view_timezone) }}\n{%- endif -%}"
+    code.config:
+        startTime:
+            hours:
+                min: 8
+                max: 21
+            minutes:
+                - 0
+                - 30
+        endTime:
+            hours:
+                min: 9
+                max: 22
+            minutes:
+                - 0
+                - 30
+        daysEnabled:
+            - 0
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+            - 6
+    code.defaults.startTime: 'today +7 hours'
+    code.defaults.endTime: 'today +14 hours'
+    user.cannot_create_codes.subject: 'Bruger {{ app.user.email }} kan ikke oprette koder på {{ site_name }}'
+    user.cannot_create_codes.body: 'Bruger {{ app.user.email }} kan ikke oprette koder på {{ site_name }} ({{ site_url }}).'
+    guest_code_duration: null
+    guest_code_name_template: '{{ ''now'' | date(format_datetime) }}: {{ guest.name }}; {{ guest.company }}; {{ guest.phone }}; {{ guest.email }}'
+    guest_code_sms_template: '%code_generate_sms.body%'
+    pwa_app_short_name: Code2Dokk1
+    pwa_app_name: 'Code2Dokk1 - Generer dørkoder'
+
+    guest_timeRanges_min: '06:00'
+    guest_timeRanges_max: '22:00'
+    guest_timeRanges_step: 30M
+    guest_default_phone_country_code: '45'
+    guest_default_startTime: today
+    guest_default_endTime: 'today + 7 days'
+    guest_default_timeRanges:
+        1:
+            - '06:00'
+            - '15:00'
+        2:
+            - '06:00'
+            - '15:00'
+        3:
+            - '06:00'
+            - '15:00'
+        4:
+            - '06:00'
+            - '15:00'
+        5:
+            - '06:00'
+            - '14:00'
+        6: null
+        7: null
+    guest_app_email_sender_email: '%mailer_email%'
+    guest_app_email_sender_name: '%mailer_name%'
+    guest_app_email_subject_template: 'Gæstehåndtering – App''en'
+    guest_app_email_body_template: "<p>\nDu kan åbne din helt personlige app på: <a href=\"{{ app_url }}\">{{ app_url }}</a>.\n</p>\n\n<p>\nVenlig hilsen<br/>\n{{ site_name }}\n</p>"
+    guest_app_sms_body_template: "Du kan åbne din helt personlige app på: {{ app_url }}.\n\nVenlig hilsen\n{{ site_name }}"
+    app_icons:
+        20x20: images/code2dokk1_launcher_ic_20.png
+        29x29: images/code2dokk1_launcher_ic_29.png
+        40x40: images/code2dokk1_launcher_ic_40.png
+        48x48: images/code2dokk1_launcher_ic_48.png
+        58x58: images/code2dokk1_launcher_ic_58.png
+        60x60: images/code2dokk1_launcher_ic_60.png
+        72x72: images/code2dokk1_launcher_ic_72.png
+        76x76: images/code2dokk1_launcher_ic_76.png
+        80x80: images/code2dokk1_launcher_ic_80.png
+        87x87: images/code2dokk1_launcher_ic_87.png
+        96x96: images/code2dokk1_launcher_ic_96.png
+        120x120: images/code2dokk1_launcher_ic_120.png
+        144x144: images/code2dokk1_launcher_ic_144.png
+        152x152: images/code2dokk1_launcher_ic_152.png
+        167x167: images/code2dokk1_launcher_ic_167.png
+        180x180: images/code2dokk1_launcher_ic_180.png
+        192x192: images/code2dokk1_launcher_ic_192.png
+        512x512: images/code2dokk1_launcher_ic_512.png
+        1024x1024: images/code2dokk1_launcher_ic_1024.png
+
+
+    # aeos_visitor_name_template: 'Code {{ code.id|default(''–'') }}; {{ ''now''|date(''Y-m-d H:i'') }}; {{ code.createdBy.email|default(user.email)|default('''') }}'
+    # code_generate_email:
+    #     subject: 'Adgangskode til Dokk1'
+    #     body: |
+    #         Her er din adgangskode til Dokk1: {{ code.identifier }}
+
+    #         Koden indtastes på tal-panelet ved siden af døren eller inde i
+    #         elevatoren.  OBS: Når du taster koden skal du huske at afslutte med
+    #         E, dvs. du skal taste “{{ code.identifier }}E”.
+
+    #         Koden giver adgang til “{{ code.template.name }}” i tidsrummet
+    #         {% if (code.startTime | date('Y-m-d')) == (code.endTime | date('Y-m-d')) -%}
+    #         {{ code.startTime | date(format_date, view_timezone) }} {{ code.startTime | date(format_time, view_timezone) }}–{{ code.endTime | date(format_time, view_timezone) }}
+    #         {%- else -%}
+    #         {{ code.startTime | date(format_datetime, view_timezone) }}–{{ code.endTime | date(format_datetime, view_timezone) }}
+    #         {%- endif -%}.
+
+    #         Venlig hilsen
+    #         {{ site_name }}
+
+
+    # guest_timeRanges_min: '06:00'

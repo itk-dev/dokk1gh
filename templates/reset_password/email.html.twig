@@ -2,6 +2,6 @@
 
 <p><a href="{{ url('app_reset_password', {token: resetToken.token}) }}">{{ url('app_reset_password', {token: resetToken.token}) }}</a></p>
 
-<p>{{ 'This link will expire in %hours% hour(s).'|trans({'%hours%': tokenLifetime|date('g') }) }}</p>
+<p>{{ 'This link will expire in %hours% hour(s).'|trans({'%hours%': tokenLifetime|date('g')}) }}</p>
 
-<p>{{ 'Cheers from %site_name%'|trans({'%site_name%': site_name }) }}</p>
+<p>{{ 'Cheers from %site_name%'|trans({'%site_name%': site_name}) }}</p>

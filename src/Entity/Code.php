@@ -3,7 +3,7 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2020 ITK Development
+ * (c) 2017–2024 ITK Development
  *
  * This source file is subject to the MIT license.
  */
@@ -11,7 +11,7 @@
 namespace App\Entity;
 
 use App\Repository\CodeRepository;
-use App\Traits\BlameableEntity;
+use App\Trait\BlameableEntity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Blameable\Blameable;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -22,72 +22,57 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
- * @ORM\Entity(repositoryClass=CodeRepository::class)
  * @Gedmo\SoftDeleteable()
  */
-class Code implements Blameable
+#[ORM\Entity(repositoryClass: CodeRepository::class)]
+class Code implements Blameable, \Stringable
 {
     use BlameableEntity;
     use SoftDeleteableEntity;
     use TimestampableEntity;
 
     /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
      * @JMS\Groups({"api"})
      */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
+    private ?int $id = null;
+
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255, unique: true, nullable: true)]
+    private ?string $aeosId = null;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255, unique=true, nullable=true)
-     */
-    private $aeosId;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(type="datetime")
      * @JMS\Groups({"api"})
      */
-    private $startTime;
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $startTime = null;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(type="datetime")
      * @JMS\Groups({"api"})
      */
-    private $endTime;
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $endTime = null;
 
     /**
-     * @var \App\Entity\Template
-     *
-     * @ORM\ManyToOne(targetEntity=Template::class)
-     * @ORM\JoinColumn(nullable=false)
      * @JMS\Groups({"api"})
      */
-    private $template;
+    #[ORM\ManyToOne(targetEntity: Template::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Template $template = null;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(type="string", nullable=true)
      * @JMS\Groups({"api"})
+     *
      * @JMS\SerializedName("code")
      */
-    private $identifier;
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, nullable: true)]
+    private ?string $identifier = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $note;
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT, nullable: true)]
+    private ?string $note = null;
 
-    public function __toString()
+    public function __toString(): string
     {
         $timeRange = ($this->getStartTime() ? $this->getStartTime()->format(\DateTime::W3C) : null)
             .'–'
@@ -153,8 +138,6 @@ class Code implements Blameable
     /**
      * Set template.
      *
-     * @param \App\Entity\Template $template
-     *
      * @return Code
      */
     public function setTemplate(Template $template = null)
@@ -167,7 +150,7 @@ class Code implements Blameable
     /**
      * Get template.
      *
-     * @return \App\Entity\Template
+     * @return Template
      */
     public function getTemplate()
     {
@@ -176,8 +159,6 @@ class Code implements Blameable
 
     /**
      * Set identifier.
-     *
-     * @param string $identifier
      *
      * @return Code
      */
@@ -225,8 +206,6 @@ class Code implements Blameable
     /**
      * Set note.
      *
-     * @param string $note
-     *
      * @return Code
      */
     public function setNote(string $note = null)
@@ -258,9 +237,7 @@ class Code implements Blameable
         return 'active';
     }
 
-    /**
-     * @Assert\Callback
-     */
+    #[Assert\Callback]
     public function validate(ExecutionContextInterface $context)
     {
         if (null === $this->getId()) {
