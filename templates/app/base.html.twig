@@ -7,14 +7,15 @@
 {% endif %}
 <html lang="en">
     <head>
+        <title>{{ get_configuration('pwa_app_name') }}</title>
+
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="description" content="{{ get_configuration('pwa_app_name') }}">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="theme-color" content="#003764">
-        <link rel="stylesheet" href="{{ asset('stylesheets/app/app.css') }}">
-        <link rel="stylesheet" href="{{ asset('static/css/fa-svg-with-js.css') }}">
-        <link rel="stylesheet" href="{{ asset('static/css/addtohomescreen.css') }}">
+
+        {{ encore_entry_link_tags('webapp') }}
 
         {% if on_app_page %}
             <!-- iOS webapp tricks -->
@@ -26,13 +27,8 @@
                 {% for size in [152, 167, 180] %}
                     <link rel="apple-touch-icon" sizes="{{ size }}x{{ size }}" href="{{ asset(app_icon(size)) }}">
                 {% endfor %}
-                <link rel="apple-touch-startup-image" media="(device-width: 375px)" href="{{ asset('static/img/splashscreen.png') }}">
-                <link rel="apple-touch-startup-image" media="(device-width: 375px) and (-webkit-device-pixel-ratio: 2)" href="{{ asset('static/img/splashscreen@2x.png') }}">
-                <script src="{{ asset('static/js/ios_stay_standalone.min.js') }}"></script>
-                <script src="{{ asset('static/js/addtohomescreen.min.js') }}"></script>
-                <script>
-                    addToHomescreen();
-                </script>
+                <link rel="apple-touch-startup-image" media="(device-width: 375px)" href="{{ asset('build/images/splashscreen.png') }}">
+                <link rel="apple-touch-startup-image" media="(device-width: 375px) and (-webkit-device-pixel-ratio: 2)" href="{{ asset('build/images/splashscreen@2x.png') }}">
             {% endif %}
 
             <!-- Webapp manifest -->
@@ -40,33 +36,33 @@
                 <link rel="manifest" href="{{ path('app_manifest', {guest: guest.id}) }}">
             {% endif %}
         {% endif %}
-
-        <title>{{ get_configuration('pwa_app_name') }}</title>
     </head>
     <body>
         {% block body %}
-        <div class="wrapper">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-12">
-                        {% block content %}{% endblock %}
+            <div class="wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            {% block content %}{% endblock %}
+                        </div>
                     </div>
                 </div>
+
+                {% set route = app.request.attributes.get('_route')|default(null) %}
+                {% set route_params = app.request.attributes.get('_route_params')|default({}) %}
+
+                {% if on_app_page %}
+                    <nav class="navbar navbar-expand navbar-light bg-light fixed-bottom justify-content-center">
+                        <div class="nav navbar-nav w-100 row justify-content-evenly">
+                            <a class="nav-item nav-link col {{ route == 'app_code' ? 'active' }}" href="{{ path('app_code', route_params) }}"><i class="fa-solid fa-lock-open fa-fw"></i><span>{{ 'Code'|trans }}</span></a>
+                            <a class="nav-item nav-link col {{ route == 'app_card' ? 'active' }}" href="{{ path('app_card', route_params) }}"><i class="fa-solid fa-id-card fa-fw"></i><span>{{ 'Card'|trans }}</span></a>
+                            <a class="nav-item nav-link col {{ route == 'app_about' ? 'active' }}" href="{{ path('app_about', route_params) }}"><i class="fa-solid fa-info-circle fa-fw"></i><span>{{ 'About'|trans }}</span></a>
+                        </div>
+                    </nav>
+                {% endif %}
             </div>
 
-            {% set route = app.request.attributes.get('_route')|default(null) %}
-            {% set route_params = app.request.attributes.get('_route_params')|default({}) %}
-
-            {% if on_app_page %}
-                <nav class="navbar navbar-expand navbar-light bg-light fixed-bottom">
-                    <div class="nav navbar-nav">
-                        <a class="nav-item nav-link {{ route == 'app_code' ? 'active' }}" href="{{ path('app_code', route_params) }}"><i class="fas fa-lock-open fa-fw"></i><span>{{ 'Code'|trans }}</span></a>
-                        <a class="nav-item nav-link {{ route == 'app_card' ? 'active' }}" href="{{ path('app_card', route_params) }}"><i class="fas fa-id-card fa-fw"></i><span>{{ 'Card'|trans }}</span></a>
-                        <a class="nav-item nav-link {{ route == 'app_about' ? 'active' }}" href="{{ path('app_about', route_params) }}"><i class="fas fa-info-circle fa-fw"></i><span>{{ 'About'|trans }}</span></a>
-                    </div>
-                </nav>
-            {% endif %}
-            <script src="{{ asset('/static/js/app.min.js') }}"></script>
+            {{ encore_entry_script_tags('webapp') }}
 
             {% if on_app_page %}
                 {# Register serviceworker #}
@@ -82,10 +78,16 @@
                         }
                     }
                 </script>
-            {% endif %}
-        </div>
 
-        {% block body_javascript %}{% endblock %}
+                <!-- iOS webapp tricks -->
+                {% if is_ios() %}
+                    <script>
+                      addToHomescreen();
+                    </script>
+                {% endif %}
+            {% endif %}
+
+            {% block body_javascript %}{% endblock %}
         {% endblock %}
     </body>
 </html>

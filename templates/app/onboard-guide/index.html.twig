@@ -15,11 +15,13 @@
             </div>
             <div class="card text-center shadow">
               <div class="card-body">
-                <img src="/images/guide-screen1.png" class="img-fluid" alt="Select area">
+                <img src="{{ assets('/build/images/guide-screen1.png')}}" class="img-fluid" alt="Select area">
                 <p class="card-text">{{ 'Select the building area you want to access.'|trans }}</p>
               </div>
             </div>
-            <button class="btn btn-primary btn-lg btn-block" onclick="guideSteps()">{{ 'Next'|trans }}</button>
+            <div class="d-grid">
+              <button class="btn btn-primary btn-lg" onclick="guideSteps()">{{ 'Next'|trans }}</button>
+            </div>
         </div>
         <div class="slide fade-in slide-in">
             <div class="header">
@@ -27,32 +29,39 @@
             </div>
             <div class="card text-center shadow">
               <div class="card-body">
-                <img src="/images/guide-screen2.png" class="img-fluid" alt="Select area">
+                <img src="{{ assets('/build/images/guide-screen2.png')}}" class="img-fluid" alt="Select area">
                 <p class="card-text">{{ 'You now recive an SMS with the doorcode.'|trans }}</p>
               </div>
             </div>
-            <button class="btn btn-primary btn-lg btn-block" onclick="guideSteps()">{{ 'Next'|trans }}</button>
+            <div class="d-grid">
+              <button class="btn btn-primary btn-lg" onclick="guideSteps()">{{ 'Next'|trans }}</button>
+            </div>
         </div>
         <div class="slide fade-in slide-in">
             <div class="header">
-                <h1>{{ get_configuration('app_terms_header')|default('Accept terms'|trans) }}</h1>
+                {# TODO: Get configutation to work so we dont need to comment out the below code #}
+                {# <h1>{{ get_configuration('app_terms_header')|default('Accept terms'|trans) }}</h1>
                 {% if get_configuration('app_terms_lead')|default(null) %}
                     <p class="lead">{{ get_configuration('app_terms_lead') }}</p>
-                {% endif %}
+                {% endif %} #}
             </div>
             <div class="card shadow">
                 <div class="card-body">
                     {% set replacements = {} %}
-                    {{ get_configuration('app_terms_content')|replace(replacements)|raw }}
+                    {# {{ get_configuration('app_terms_content')|replace(replacements)|raw }} #}
                 </div>
             </div>
 
             {% if guest.activatedAt == null %}
                 <form method="post" action="{{ path('app_accept', {guest: guest.id}) }}">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block" onclick="guideSteps()">{{ 'I agree'|trans }}</button>
+                  <div class="d-grid">
+                    <button type="submit" class="btn btn-primary btn-lg" onclick="guideSteps()">{{ 'I agree'|trans }}</button>
+                  </div>
                 </form>
             {% else %}
-                <a class="btn btn-primary btn-lg btn-block" href="{{ path('app_code', {guest: guest.id}) }}">{{ 'OK'|trans }}</a>
+              <div class="d-grid">
+                <a class="btn btn-primary btn-lg" href="{{ path('app_code', {guest: guest.id}) }}">{{ 'OK'|trans }}</a>
+              </div>
             {% endif %}
         </div>
     </div>

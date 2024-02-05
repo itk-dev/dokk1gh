@@ -2,8 +2,8 @@
 var urlsToCache =
     {{ [
         path('app_offline', route_params),
-        asset('/stylesheets/app/app.css'),
-        asset('/static/js/app.min.js')
+        asset('/build/webapp/webapp.css'),
+        asset('/build/webapp/webapp.js')
     ]|json_encode|raw }};
 
 self.addEventListener("install", function(e) {

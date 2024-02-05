@@ -37,7 +37,7 @@ docker compose exec phpfpm bin/console user:promote admin@example.com ROLE_ADMIN
 Create user:
 
 ```sh
-docker compose exec phpfpm bin/console user:create user user@example.com
+docker compose exec phpfpm bin/console user:create user@example.com
 ```
 
 Open the site:
@@ -163,9 +163,9 @@ bin/console doctrine:schema:update --em=mocks --force
 `parameters.yml`:
 
 ```yaml
-aoes_location: 'http://nginx/mock/aeosws'
-aoes_username: null
-aoes_password: null
+aeos_location: 'http://nginx/mock/aeosws'
+aeos_username: null
+aeos_password: null
 ```
 
 #### Mock SMS gateway
