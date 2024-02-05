@@ -4,12 +4,12 @@ security:
             - !php/enum App\Entity\Role::USER->value
         !php/enum App\Entity\Role::USER_ADMIN->value:
             - !php/enum App\Entity\Role::USER->value
-            - ROLE_API_ADMIN
+            - ROLE_ADMIN_API
         !php/enum App\Entity\Role::CONFIG_ADMIN->value:
             - !php/enum App\Entity\Role::USER->value
         !php/enum App\Entity\Role::TEMPLATE_ADMIN->value:
             - !php/enum App\Entity\Role::USER->value
-            - ROLE_API_ADMIN
+            - ROLE_ADMIN_API
         !php/enum App\Entity\Role::ADMIN->value:
             - !php/enum App\Entity\Role::USER_ADMIN->value
             - !php/enum App\Entity\Role::GUEST_ADMIN->value
@@ -85,7 +85,7 @@ security:
         - { path: ^/login$, roles: PUBLIC_ACCESS }
         - { path: ^/register, roles: PUBLIC_ACCESS }
         - { path: ^/reset-password, roles: PUBLIC_ACCESS }
-        - { path: ^/api/admin, roles: [ROLE_ADMIN_API] }
+        - { path: ^/api/admin, roles: ROLE_ADMIN_API }
         - { path: ^/, roles: ROLE_USER }
 
 when@test:

@@ -17,19 +17,6 @@ services:
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
         bind:
-            $aeosConfiguration:
-                client:
-                    location: '%aeos_location%'
-                    username: '%aeos_username%'
-                    password: '%aeos_password%'
-                    context: '%aeos_context%'
-                    debug: '%kernel.debug%'
-                aeos:
-                    timezone: '%aeos_timezone%'
-                    identifier_type: '%aeos_identifier_type%'
-                    identifier_length: '%aeos_identifier_length%'
-                    block_reason: '%aeos_block_reason%'
-
             # $resetPasswordControllerOptions:
             #     from_email: '%mailer_email%'
             #     from_name: '%mailer_name%'
@@ -51,6 +38,33 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    App\Service\SmsService:
+        arguments:
+            $options:
+                sms_gateway_url: '%env(SMS_GATEWAY_URL)%'
+                sms_gateway_username: '%env(SMS_GATEWAY_USERNAME)%'
+                sms_gateway_password: '%env(SMS_GATEWAY_PASSWORD)%'
+
+    App\Service\AeosService:
+        arguments:
+            $options:
+                client:
+                    location: '%env(AEOSWS_LOCATION)%'
+                    username: '%env(AEOSWS_USERNAME)%'
+                    password: '%env(AEOSWS_PASSWORD)%'
+                    context: '%env(json:AEOSWS_CONTEXT)%'
+                    debug: '%kernel.debug%'
+                aeos:
+                    timezone: '%env(AEOSWS_TIMEZONE)%'
+                    identifier_type: '%env(int:AEOSWS_IDENTIFIER_TYPE)%'
+                    identifier_length: '%env(int:AEOSWS_IDENTIFIER_LENGTH)%'
+                    block_reason: '%env(int:AEOSWS_BLOCK_REASON)%'
+
+    App\Service\AeosHelper:
+        arguments:
+            $options:
+                aeos_visitor_name_template: '%env(AEOSWS_VISITOR_NAME_TEMPLATE)%'
 
     # https://twig.symfony.com/doc/3.x/functions/template_from_string.html
     Twig\Extension\StringLoaderExtension:

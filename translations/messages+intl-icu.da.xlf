@@ -159,15 +159,11 @@
       </trans-unit>
       <trans-unit id=".CF63kN" resname="Get new code">
         <source>Get new code</source>
-        <target state="needs-l10n">__Get new code</target>
-      </trans-unit>
-      <trans-unit id="brJOrFj" resname="Press %request_access% to get access">
-        <source>Press %request_access% to get access</source>
-        <target state="needs-l10n">__Press %request_access% to get access</target>
+        <target state="translated">Bestil ny kode</target>
       </trans-unit>
       <trans-unit id="sG8WYtp" resname="Request access">
         <source>Request access</source>
-        <target state="needs-l10n">__Request access</target>
+        <target state="translated">Send ny kode</target>
       </trans-unit>
       <trans-unit id="ULDg8Rk" resname="Select area">
         <source>Select area</source>
@@ -179,7 +175,7 @@
       </trans-unit>
       <trans-unit id="tEbn97v" resname="You are not allowed to request access right now">
         <source>You are not allowed to request access right now</source>
-        <target state="needs-l10n">__You are not allowed to request access right now</target>
+        <target state="translated">Du har ikke adgang lige nu</target>
       </trans-unit>
       <trans-unit id="EIpMTtK" resname="Level %level%">
         <source>Level %level%</source>
@@ -405,18 +401,6 @@
         <source>Next</source>
         <target state="needs-l10n">__Next</target>
       </trans-unit>
-      <trans-unit id="NekK0jf" resname="Recieve SMS with code">
-        <source>Recieve SMS with code</source>
-        <target state="needs-l10n">__Recieve SMS with code</target>
-      </trans-unit>
-      <trans-unit id="qyssnca" resname="You now recive an SMS with the doorcode.">
-        <source>You now recive an SMS with the doorcode.</source>
-        <target state="needs-l10n">__You now recive an SMS with the doorcode.</target>
-      </trans-unit>
-      <trans-unit id="CrY_XoG" resname="Accept terms">
-        <source>Accept terms</source>
-        <target state="needs-l10n">__Accept terms</target>
-      </trans-unit>
       <trans-unit id="mZVbdeB" resname="I agree">
         <source>I agree</source>
         <target state="needs-l10n">__I agree</target>
@@ -456,6 +440,22 @@
       <trans-unit id="718iPw6" resname="ROLE_ADMIN">
         <source>ROLE_ADMIN</source>
         <target state="translated">Administrator</target>
+      </trans-unit>
+      <trans-unit id="F8Lb9pj" resname="Show app">
+        <source>Show app</source>
+        <target state="needs-l10n">__Show app</target>
+      </trans-unit>
+      <trans-unit id="MCLZFem" resname="Press {request_access} to get access">
+        <source>Press {request_access} to get access</source>
+        <target state="translated">Tryk på “{request_access}” for at få adgang</target>
+      </trans-unit>
+      <trans-unit id="_4rcyUW" resname="Receive SMS with code">
+        <source>Receive SMS with code</source>
+        <target state="needs-l10n">__Receive SMS with code</target>
+      </trans-unit>
+      <trans-unit id="sj4IdsB" resname="You now receive an SMS with the doorcode.">
+        <source>You now receive an SMS with the doorcode.</source>
+        <target state="needs-l10n">__You now receive an SMS with the doorcode.</target>
       </trans-unit>
     </body>
   </file>

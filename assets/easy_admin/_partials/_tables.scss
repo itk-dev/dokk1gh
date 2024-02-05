@@ -1,0 +1,12 @@
+/* Color code status */
+.list-code { 
+    .code-status-expired {
+        color: $color-status-expired;
+    }
+    .code-status-future {
+        color: $color-status-future;
+    }
+     .code-status-active {
+        color: $color-status-active;
+    }
+}

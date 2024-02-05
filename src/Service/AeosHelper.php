@@ -17,10 +17,10 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 final readonly class AeosHelper
 {
     public function __construct(
-        private AeosService $aeosService,
-        private TokenStorageInterface $tokenStorage,
-        private TwigHelper $twigHelper,
-        private Configuration $configuration
+        private readonly AeosService $aeosService,
+        private readonly TokenStorageInterface $tokenStorage,
+        private readonly TwigHelper $twigHelper,
+        private readonly array $options
     ) {
     }
 
@@ -50,7 +50,7 @@ final readonly class AeosHelper
 
         if (null === $visitorName) {
             try {
-                $template = $this->configuration->get('aeos_vistor_name_template');
+                $template = $this->options['aeos_visitor_name_template'];
                 $visitorName = $this->twigHelper
                     ->renderTemplate($template, [
                         'code' => $code,

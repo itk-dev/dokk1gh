@@ -31,8 +31,11 @@ class SettingRepository extends ServiceEntityRepository
 
     public function all()
     {
-        $items = $this->findAll();
         $all = [];
+
+        foreach ($this->findAll() as $item) {
+            $all[$item->getName()] = $item->getValue();
+        }
 
         return $all;
     }

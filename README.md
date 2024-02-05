@@ -207,16 +207,32 @@ parameters:
   open "http://$(docker compose port nginx 8080)/api/admin/people"
   ```
 
+See messages sent to the mock AEOS web service:
+
+```shell
+open "http://$(docker compose port nginx 8080)/mock/aeosws/log"
+```
+
+Show only the latest message:
+
+```shell
+open "http://$(docker compose port nginx 8080)/mock/aeosws/log/latest"
+```
+
 #### Mock SMS gateway
 
 Use this during local testing and development.
 
-```yaml
-# config/services.local.yaml
-parameters:
-    sms_gateway_location: 'http://nginx:8080/mock/sms'
-    sms_gateway_username: null
-    sms_gateway_password: null
+See messages sent to the mock SMS gateway:
+
+```shell
+open "http://$(docker compose port nginx 8080)/mock/sms/log"
+```
+
+Show only the latest message:
+
+```shell
+open "http://$(docker compose port nginx 8080)/mock/sms/log/latest"
 ```
 
 ## Acceptance tests

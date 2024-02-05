@@ -18,8 +18,9 @@ class AeosService
     private $lastRequest;
     private $lastResponse;
 
-    public function __construct(private array $aeosConfiguration)
-    {
+    public function __construct(
+        private readonly array $options
+    ) {
     }
 
     public function setVerificationState($carrier, bool $activated)
@@ -49,7 +50,7 @@ class AeosService
         [$query, $searchRange] = $this->splitQuery($query);
         // findToken requires at least one search value.
         $query += [
-            'IdentifierType' => $this->aeosConfiguration['aeos']['identifier_type'],
+            'IdentifierType' => $this->options['aeos']['identifier_type'],
         ];
 
         $result = $this->invoke('findToken', (object) ['IdentifierSearch' => $query, 'SearchRange' => $searchRange]);
@@ -77,7 +78,7 @@ class AeosService
 
     public function blockIdentifier($identifier)
     {
-        $reason = $this->aeosConfiguration['aeos']['block_reason'];
+        $reason = $this->options['aeos']['block_reason'];
         $result = $this->invoke(
             'blockToken',
             (object) [
@@ -166,7 +167,7 @@ class AeosService
     {
         $badgeNumber = $this->generateBadgeNumber();
         $data = [
-            'IdentifierType' => $this->aeosConfiguration['aeos']['identifier_type'],
+            'IdentifierType' => $this->options['aeos']['identifier_type'],
             'BadgeNumber' => $badgeNumber,
             'UnitId' => $contactPerson->UnitId,
             'CarrierId' => $visitor->Id,
@@ -259,7 +260,7 @@ class AeosService
 
     private function invoke($method)
     {
-        $configuration = $this->aeosConfiguration['client'];
+        $configuration = $this->options['client'];
         $options = $configuration['context'] ?? [];
         $context = stream_context_create($options);
 
@@ -298,7 +299,7 @@ class AeosService
     private function generateBadgeNumber($length = null)
     {
         if (null === $length) {
-            $length = $this->aeosConfiguration['aeos']['identifier_length'] ?? 8;
+            $length = $this->options['aeos']['identifier_length'] ?? 8;
         }
 
         // Loop until we find an unused code or time out.
@@ -331,7 +332,7 @@ class AeosService
     {
         $dateFormat = 'Y-m-d\TH:i:s';
         $date = clone $date;
-        $timeZone = new \DateTimeZone($this->aeosConfiguration['aeos']['timezone']);
+        $timeZone = new \DateTimeZone($this->options['aeos']['timezone']);
         $date->setTimezone($timeZone);
 
         return $date->format($dateFormat);

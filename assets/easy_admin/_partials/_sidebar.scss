@@ -1,0 +1,16 @@
+/* hide sidebar on login */
+.sidebar-collapse .no-menu aside.main-sidebar,
+.no-menu aside.main-sidebar {
+	display: none !important;
+}
+.sidebar-collapse .no-menu header .sidebar-toggle,
+.no-menu header .sidebar-toggle {
+	width: 0 !important;
+	padding-right: 0 !important;
+	overflow: hidden;
+	display: none;
+}
+.sidebar-collapse .no-menu .content-wrapper,
+.no-menu .content-wrapper {
+	margin-left: 0 !important;
+}

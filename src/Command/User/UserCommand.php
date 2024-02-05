@@ -18,6 +18,7 @@ use Symfony\Component\Console\Exception\RuntimeException;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
 use Symfony\Contracts\Service\Attribute\Required;
 
 abstract class UserCommand extends Command
@@ -29,11 +30,18 @@ abstract class UserCommand extends Command
     protected $output;
 
     protected UserRepository $userRepository;
+    protected RoleHierarchyInterface $roleHierarchy;
 
     #[Required]
     public function setUserRepository(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
+    }
+
+    #[Required]
+    public function setRoleHierarchy(RoleHierarchyInterface $roleHierarchy)
+    {
+        $this->roleHierarchy = $roleHierarchy;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -67,6 +75,7 @@ abstract class UserCommand extends Command
         $headers = [
             'email',
             'roles',
+            'assigned roles',
         ];
         if ($firstUser instanceof TimestampabUser) {
             $headers[] = 'created at';
@@ -77,6 +86,7 @@ abstract class UserCommand extends Command
             $row = [
                 $user->getEmail(),
                 implode(', ', $user->getRoles()),
+                implode(', ', $this->roleHierarchy->getReachableRoleNames($user->getRoles())),
             ];
             if ($user instanceof Timestampable) {
                 $row[] = $user->getCreatedAt()->format(\DateTimeInterface::ATOM);

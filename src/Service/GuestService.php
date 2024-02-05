@@ -16,27 +16,17 @@ use App\Entity\Template;
 use App\Exception\GuestException;
 use App\Exception\InvalidTemplateException;
 use Doctrine\ORM\EntityManagerInterface;
-use Superbrave\GdprBundle\Anonymize\Anonymizer;
 
 class GuestService
 {
-    /** @var Anonymizer */
-    private $anonymizer;
-
-    /** @var MailerInterface */
-    private $mailHelper;
-
     public function __construct(
         private readonly AeosHelper $aeosHelper,
         private readonly EntityManagerInterface $manager,
-        //        Anonymizer $anonymizer,
         private readonly TwigHelper $twig,
         private readonly Configuration $configuration,
         private readonly SmsHelper $smsHelper,
-        MailHelper $mailHelper
+        private readonly MailHelper $mailHelper
     ) {
-        //        $this->anonymizer = $anonymizer;
-        $this->mailHelper = $mailHelper;
     }
 
     /**
@@ -201,7 +191,14 @@ class GuestService
     public function expire(Guest $guest)
     {
         if (null !== $guest && null === $guest->getExpiredAt()) {
-            $this->anonymizer->anonymize($guest);
+            // Anonymize guest.
+            $guest
+                ->setName($guest->getId())
+                ->setCompany($guest->getId())
+                ->setPhone($guest->getId())
+                ->setPhoneContryCode('+45')
+                ->setEmail($guest->getId().'@example.com');
+
             $guest
                 ->setEnabled(false)
                 ->setExpiredAt(new \DateTime());

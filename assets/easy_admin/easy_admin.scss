@@ -1,0 +1,88 @@
+@import '_partials/_colors';
+@import '_partials/_buttons';
+@import '_partials/_alerts';
+@import '_partials/_tables';
+@import '_partials/_forms';
+@import '_partials/_header';
+@import '_partials/_login';
+@import '_partials/_gdpr';
+@import '_partials/_sidebar';
+@import '_partials/_date_time_range';
+@import '_partials/_user_page';
+@import '_partials/_modal';
+
+// @see https://symfony.com/doc/2.x/bundles/EasyAdminBundle/book/design-configuration.html#customizing-the-backend-design
+:root {
+    /* make the backend contents as wide as the browser window */
+    --body-max-width: 100%;
+}
+
+// /* Global */
+// body {
+//   font-size: 16px;
+//  padding-bottom: 40px;
+//  background-color: $color-grey-light;
+//  color: $color-font-primary;
+// }
+
+#edit-setting-form {
+    .setting-name {
+        font-weight: bold;
+    }
+
+    .form-control-label {
+        display: none;
+    }
+
+    .setting-description {
+        border: solid 1px #aaa;
+        padding: 1em;
+    }
+}
+
+
+form[name="template"],
+form[name="user"] {
+    .select2-container {
+        width: 100% !important;
+    }
+}
+
+.actions {
+    a {
+        white-space: nowrap;
+    }
+}
+
+// Form tweaks.
+.field-checkbox .form-widget, .form-group.field-collection-action {
+    margin-left: calc(16% + 5px);
+}
+
+.form-group {
+    label, legend.col-form-label {
+        // Flex less (than 30%).
+        flex: 16% 0 0;
+    }
+
+    &.field-choice, &.field-entity {
+        .form-check-input {
+            margin-top: 9px;
+        }
+    }
+}
+
+.form-widget {
+    flex: 0 0 80%;
+
+    input, select, textarea {
+        &.form-control {
+            max-width: initial;
+        }
+    }
+}
+
+.input-group-prepend {
+    height: 32px;
+    margin-top: -1px;
+}

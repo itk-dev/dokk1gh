@@ -1,0 +1,19 @@
+// Base colors
+$color-white: #FFF;
+$color-grey-light: #F5F5F5;
+$color-grey: #4A4A4A;
+$color-black: #000;
+
+// Theme colors
+$color-primary: #003764;
+$color-font-primary: $color-grey;
+
+// Status colors
+$color-status-expired: #D0021B;
+$color-status-future: #F5A623;
+$color-status-active: #009C00;
+
+// Button colors
+$color-btn-primary: #579711;
+$color-btn-primary-border: darken($color-btn-primary, 5%);
+$color-btn-primary-hover: $color-btn-primary-border;

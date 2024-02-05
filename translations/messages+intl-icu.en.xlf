@@ -161,10 +161,6 @@
         <source>Get new code</source>
         <target>Get new code</target>
       </trans-unit>
-      <trans-unit id="brJOrFj" resname="Press %request_access% to get access">
-        <source>Press %request_access% to get access</source>
-        <target>Press %request_access% to get access</target>
-      </trans-unit>
       <trans-unit id="sG8WYtp" resname="Request access">
         <source>Request access</source>
         <target>Request access</target>
@@ -405,18 +401,6 @@
         <source>Next</source>
         <target>Next</target>
       </trans-unit>
-      <trans-unit id="NekK0jf" resname="Recieve SMS with code">
-        <source>Recieve SMS with code</source>
-        <target>Recieve SMS with code</target>
-      </trans-unit>
-      <trans-unit id="qyssnca" resname="You now recive an SMS with the doorcode.">
-        <source>You now recive an SMS with the doorcode.</source>
-        <target>You now recive an SMS with the doorcode.</target>
-      </trans-unit>
-      <trans-unit id="CrY_XoG" resname="Accept terms">
-        <source>Accept terms</source>
-        <target>Accept terms</target>
-      </trans-unit>
       <trans-unit id="mZVbdeB" resname="I agree">
         <source>I agree</source>
         <target>I agree</target>
@@ -456,6 +440,22 @@
       <trans-unit id="718iPw6" resname="ROLE_ADMIN">
         <source>ROLE_ADMIN</source>
         <target>ROLE_ADMIN</target>
+      </trans-unit>
+      <trans-unit id="F8Lb9pj" resname="Show app">
+        <source>Show app</source>
+        <target>Show app</target>
+      </trans-unit>
+      <trans-unit id="MCLZFem" resname="Press {request_access} to get access">
+        <source>Press {request_access} to get access</source>
+        <target>Press {request_access} to get access</target>
+      </trans-unit>
+      <trans-unit id="_4rcyUW" resname="Receive SMS with code">
+        <source>Receive SMS with code</source>
+        <target>Receive SMS with code</target>
+      </trans-unit>
+      <trans-unit id="sj4IdsB" resname="You now receive an SMS with the doorcode.">
+        <source>You now receive an SMS with the doorcode.</source>
+        <target>You now receive an SMS with the doorcode.</target>
       </trans-unit>
     </body>
   </file>

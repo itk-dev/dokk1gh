@@ -100,7 +100,7 @@ jobs:
       - name: Yarn install
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '18'
       - run: yarn install
       - name: coding-standards-check
         run: yarn coding-standards-check/markdownlint

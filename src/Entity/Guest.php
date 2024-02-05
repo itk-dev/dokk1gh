@@ -17,7 +17,6 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Superbrave\GdprBundle\Annotation\Anonymize;
 use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Uid\Uuid;
@@ -66,33 +65,18 @@ class Guest
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $expiredAt = null;
 
-    /**
-     * @todo Anonymize(type="fixed", value="{id}")
-     */
     #[ORM\Column(type: Types::STRING, length: 255)]
     private ?string $name = null;
 
-    /**
-     * @todo Anonymize(type="fixed", value="{id}")
-     */
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $company = null;
 
-    /**
-     * @todo Anonymize(type="fixed", value="{id}")
-     */
     #[ORM\Column(type: Types::STRING, length: 255)]
     private ?string $phone = null;
 
-    /**
-     * @todo Anonymize(type="fixed", value="+45")
-     */
     #[ORM\Column(type: Types::STRING, length: 255)]
     private ?string $phoneCountryCode = null;
 
-    /**
-     * @todo Anonymize(type="fixed", value="{id}@example.com")
-     */
     #[Assert\Email]
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $email = null;

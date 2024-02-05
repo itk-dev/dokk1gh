@@ -44,16 +44,16 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToCrud(new TranslatableMessage('Code'), 'fas fa-id-card', Code::class);
         yield MenuItem::linkToCrud(new TranslatableMessage('Guest'), 'fas fa-users', Guest::class)
-//            ->setPermission(Role::GUEST_ADMIN->value)
+            ->setPermission(Role::GUEST_ADMIN->value)
         ;
         yield MenuItem::linkToCrud(new TranslatableMessage('User'), 'fas fa-user', User::class)
-//            ->setPermission(Role::USER_ADMIN->value)
+            ->setPermission(Role::USER_ADMIN->value)
         ;
         yield MenuItem::linkToCrud(new TranslatableMessage('Template'), 'fas fa-folder-open', Template::class)
-//            ->setPermission(Role::TEMPLATE_ADMIN->value)
+            ->setPermission(Role::TEMPLATE_ADMIN->value)
         ;
         yield MenuItem::linkToCrud(new TranslatableMessage('Settings'), 'fas fa-cog', Setting::class)
-//           ->setPermission(Role::SETTINGS_ADMIN->value)
+           ->setPermission(Role::CONFIG_ADMIN->value)
         ;
     }
 }

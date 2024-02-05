@@ -1,0 +1,14 @@
+/* Alerts */
+#flash-messages {
+	padding-top: 15px;
+	.alert {
+		margin: 0 15px 15px 15px;
+		.popover {
+			color: $color-black;
+		}
+		&.alert-success {
+			background-color: $color-btn-primary-hover !important;
+			border-color: $color-btn-primary-border;
+		}
+	}
+}

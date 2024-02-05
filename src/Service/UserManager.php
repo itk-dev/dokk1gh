@@ -25,17 +25,13 @@ class UserManager
      */
     private $tokenGenerator;
 
-    /** @var \Twig_Environment */
-    private $twig;
-
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
-        Environment $twig,
+        private readonly Environment $twig,
         private readonly RouterInterface $router,
         private readonly MailerInterface $mailer,
         private readonly array $userManagerConfiguration
     ) {
-        $this->twig = $twig;
     }
 
     public function createUser()

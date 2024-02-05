@@ -70,7 +70,6 @@ class UserCrudController extends AbstractCrudController
             ])
         ;
 
-        return;
         yield AssociationField::new('templates', new TranslatableMessage('Templates'))
             ->setTemplatePath('admin/templates.html.twig')
             ->setFormTypeOptions([

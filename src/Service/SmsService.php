@@ -10,25 +10,26 @@
 
 namespace App\Service;
 
-use GuzzleHttp\Client;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class SmsService implements SmsServiceInterface
 {
-    public function __construct(private readonly Configuration $configuration)
-    {
+    public function __construct(
+        private readonly HttpClientInterface $client,
+        private readonly array $options
+    ) {
     }
 
     public function send($number, $message, $countryCode)
     {
         try {
-            $client = new Client();
-            $res = $client->request(
+            $this->client->request(
                 'POST',
-                $this->configuration->get('sms_gateway_url'),
+                $this->options['sms_gateway_url'],
                 [
-                    'form_params' => [
-                        'user' => $this->configuration->get('sms_gateway_username'),
-                        'pass' => $this->configuration->get('sms_gateway_password'),
+                    'body' => [
+                        'user' => $this->options['sms_gateway_username'],
+                        'pass' => $this->options['sms_gateway_password'],
                         'countrycode' => $countryCode,
                         'number' => $number,
                         'message' => $message,
@@ -38,8 +39,8 @@ class SmsService implements SmsServiceInterface
             );
 
             return true;
-        } catch (\Exception $ex) {
-            throw $ex;
+        } catch (\Exception $exception) {
+            throw $exception;
             // @TODO: Log exception.
         }
 

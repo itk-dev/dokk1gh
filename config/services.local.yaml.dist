@@ -1,21 +1,4 @@
 parameters:
-    aeos_location: 'http://nginx:8080/mock/aeosws'
-    aeos_username: null
-    aeos_password: null
-
-    aeos_timezone: Europe/Copenhagen
-    aeos_context:
-        ssl:
-            verify_peer: false
-            verify_peer_name: false
-            allow_self_signed: true
-    aeos_identifier_type: 16509
-    aeos_identifier_length: 8
-
-    sms_gateway_url: 'http://nginx:8080/mock/sms/send'
-    sms_gateway_username: test
-    sms_gateway_password: test
-
     app_name: Gæstehåndtering
     site_name: '%env(SITE_NAME)%'
     site_url: '%env(SITE_URL)%'
@@ -27,8 +10,6 @@ parameters:
     error_mail_sender: error@dokk1gh.vm
     error_mail_recipient:
         - error@dokk1gh.vm
-    aeos_vistor_name_template: 'Code {{ code.id|default(''–'') }}; {{ ''now''|date(''Y-m-d H:i'') }}; {{ code.createdBy.email|default(user.email)|default('''') }}'
-    aeos_block_reason: 2
     header_image_url: /images/logo.png
     locale: da
     format_datetime: 'd/m/Y H:i'
@@ -137,7 +118,6 @@ parameters:
         1024x1024: images/code2dokk1_launcher_ic_1024.png
 
 
-    # aeos_visitor_name_template: 'Code {{ code.id|default(''–'') }}; {{ ''now''|date(''Y-m-d H:i'') }}; {{ code.createdBy.email|default(user.email)|default('''') }}'
     # code_generate_email:
     #     subject: 'Adgangskode til Dokk1'
     #     body: |

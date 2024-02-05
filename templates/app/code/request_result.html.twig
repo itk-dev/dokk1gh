@@ -24,7 +24,7 @@
     {% if code|default(null) %}
         <div class="card shadow">
             <div class="card-body">
-                <p class="text-center"><i class="fas fa-check-square fa-3x text-primary"></i></p>
+                <p class="text-center"><i class="fa-solid fa-check-square fa-3x text-primary"></i></p>
                 {% if status['sms_sent']|default(false) %}
                     <p class="card-text text-center"><b>{{ 'SMS sent to phone %guest_phone%'|trans({'%guest_phone%': guest.phone}) }}</b></p>
                 {% endif %}
@@ -41,8 +41,8 @@
         <p class="mt-3 text-center text-muted">{{ 'It might take up to a few minutes before you recive the code depending on your network operator.'|trans }}</p>
     {% endif %}
 
-    <div>
-        <a class="btn btn-primary btn-lg btn-block" href="{{ path('app_code', {'guest': guest.id}) }}">{{ 'Finish'|trans }}</a>
+    <div class="d-grid">
+        <a class="btn btn-primary btn-lg" href="{{ path('app_code', {'guest': guest.id}) }}">{{ 'Finish'|trans }}</a>
     </div>
 
 {% endblock %}
