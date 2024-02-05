@@ -4,15 +4,8 @@ import './scss/webapp.scss';
 // Fonts
 import '@fontsource/montserrat';
 
-// start the Stimulus application
-//import '../bootstrap';
-
-// jQuery
-const $ = require('jquery');
-
-console.log("TEST");
 // Fontawsome icons
-import '@fortawesome/fontawesome-svg-core';
+import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import {
     faLockOpen,
     faIdCard,
@@ -31,9 +24,9 @@ library.add(
     faCheckSquare,
     faCircleNotch
 );
+dom.watch();
 
 // JavaScrips
 import 'add-to-homescreen';
 import 'clipboard';
 import './js/ios_stay_standalone';
-
