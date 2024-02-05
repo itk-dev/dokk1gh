@@ -40,25 +40,10 @@ final class Version20240129191326 extends AbstractMigration
 
         // Migrate binary UUIDs to real UUIDs.
         $this->addSql('ALTER TABLE guest_template DROP FOREIGN KEY FK_E84AD7FC9A4AA658');
-        // $this->addSql('ALTER TABLE guest_template DROP FOREIGN KEY FK_E84AD7FC5DA0FB8');
-        // $this->addSql('ALTER TABLE code DROP FOREIGN KEY FK_771530985DA0FB8');
-        // $this->addSql('ALTER TABLE user_template DROP FOREIGN KEY FK_77EDFB835DA0FB8');
-
-        // $this->addSql('ALTER TABLE code ADD id_binary BINARY(16) DEFAULT NULL COMMENT "(DC2Type:uuid)"');
-        // $this->addSql('UPDATE code SET id_binary = UNHEX(REPLACE(id, "-", ""))');
-        // $this->addSql('ALTER TABLE code DROP id, RENAME COLUMN id_binary TO id');
-
-        // $this->addSql('ALTER TABLE code ADD template_id_binary BINARY(16) DEFAULT NULL COMMENT "(DC2Type:uuid)"');
-        // $this->addSql('UPDATE code SET template_id_binary = UNHEX(REPLACE(template_id, "-", ""))');
-        // $this->addSql('ALTER TABLE code DROP template_id, RENAME COLUMN template_id_binary TO template_id');
 
         $this->addSql('ALTER TABLE guest ADD id_binary BINARY(16) DEFAULT NULL COMMENT "(DC2Type:uuid)"');
         $this->addSql('UPDATE guest SET id_binary = UNHEX(REPLACE(id, "-", ""))');
         $this->addSql('ALTER TABLE guest DROP id, RENAME COLUMN id_binary TO id, ADD PRIMARY KEY(id)');
-
-        // $this->addSql('ALTER TABLE template ADD id_binary BINARY(16) DEFAULT NULL COMMENT "(DC2Type:uuid)"');
-        // $this->addSql('UPDATE template SET id_binary = UNHEX(REPLACE(id, "-", ""))');
-        // $this->addSql('ALTER TABLE template DROP id, RENAME COLUMN id_binary TO id, ADD PRIMARY KEY(id)');
 
         $this->addSql('ALTER TABLE guest_template DROP PRIMARY KEY');
 
@@ -66,19 +51,11 @@ final class Version20240129191326 extends AbstractMigration
         $this->addSql('UPDATE guest_template SET guest_id_binary = UNHEX(REPLACE(guest_id, "-", ""))');
         $this->addSql('ALTER TABLE guest_template DROP guest_id, RENAME COLUMN guest_id_binary TO guest_id');
 
-        // $this->addSql('ALTER TABLE guest_template ADD template_id_binary BINARY(16) DEFAULT NULL COMMENT "(DC2Type:uuid)"');
-        // $this->addSql('UPDATE guest_template SET template_id_binary = UNHEX(REPLACE(template_id, "-", ""))');
-        // $this->addSql('ALTER TABLE guest_template DROP template_id, RENAME COLUMN template_id_binary TO template_id');
-
         $this->addSql('ALTER TABLE guest_template ADD PRIMARY KEY(guest_id, template_id)');
 
         $this->addSql('ALTER TABLE guest_template ADD CONSTRAINT FK_E84AD7FC9A4AA658 FOREIGN KEY (guest_id) REFERENCES guest (id) ON DELETE CASCADE');
-        // $this->addSql('ALTER TABLE guest_template ADD CONSTRAINT FK_E84AD7FC5DA0FB8 FOREIGN KEY (template_id) REFERENCES template (id) ON DELETE CASCADE');
-        // $this->addSql('ALTER TABLE code ADD CONSTRAINT FK_771530985DA0FB8 FOREIGN KEY (template_id) REFERENCES template (id)');
-        // $this->addSql('ALTER TABLE user_template ADD CONSTRAINT FK_77EDFB835DA0FB8 FOREIGN KEY (template_id) REFERENCES template (id) ON DELETE CASCADE');
 
         $this->addSql('ALTER TABLE itkdev_entity_action_log_entry CHANGE context context JSON DEFAULT NULL COMMENT \'(DC2Type:json)\'');
-        // $this->addSql('ALTER TABLE user DROP enabled, DROP last_logged_in_at, CHANGE roles roles JSON NOT NULL COMMENT \'(DC2Type:json)\'');
     }
 
     public function down(Schema $schema): void
