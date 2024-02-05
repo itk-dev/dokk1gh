@@ -14,21 +14,24 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Translation\TranslatableMessage;
 
 class SecurityController extends AbstractController
 {
     #[Route(path: '/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // get the login error if there is one
+        // @see https://symfony.com/bundles/EasyAdminBundle/current/dashboards.html#login-form-template
         $error = $authenticationUtils->getLastAuthenticationError();
-
-        // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/login.html.twig', [
-            'last_username' => $lastUsername,
+        return $this->render('@EasyAdmin/page/login.html.twig', [
+            // parameters usually defined in Symfony login forms
             'error' => $error,
+            'last_username' => $lastUsername,
+
+            'csrf_token_intention' => 'authenticate',
+            'username_label' => new TranslatableMessage('Email'),
         ]);
     }
 
