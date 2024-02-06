@@ -79,6 +79,21 @@ docker compose run --rm node yarn watch
 
 to watch for changes.
 
+## Fixtures
+
+Load fixtures to populate your test database:
+
+``` shell
+docker compose exec phpfpm composer fixtures:load
+```
+
+After loading fixtures, the following users exist (cf. [`fixtures/user.yaml`](fixtures/user.yaml)):
+
+| Email                     | Password        | Roles            | API key      |
+|---------------------------|-----------------|------------------|--------------|
+| `super-admin@example.com` | `password`      | ROLE_SUPER_ADMIN |              |
+| `user@example.com`        | `user-password` | ROLE_USER        | user-api-key |
+
 ## Cron jobs
 
 The `app:aeos:code-cleanup` console command can be used to delete expires codes:
@@ -103,34 +118,39 @@ Set up a `cron` job to have expired codes deleted daily at 02:00
 
 ## API
 
+A user can create an API key via the user menu: @TODO
+
 API documentation:
 
 ```shell
 open "http://$(docker compose port nginx 8080)/api/doc"
 ```
 
-Using an `apikey`, users can get a list of available templates:
+In the following examples, the API key of the fixture user `user@example.com` is
+used.
+
+Get a list of templates available to the user:
 
 ```shell
-curl "http://$(docker compose port nginx 8080)/api/templates?apikey=apikey"
+curl --silent --header "Authorization: Bearer user-api-key" "http://$(docker compose port nginx 8080)/api/templates"
 ```
 
 Get list of codes created by user:
 
 ```shell
-curl "http://$(docker compose port nginx 8080)/api/codes?apikey=apikey"
+curl --silent --header "Authorization: Bearer user-api-key" "http://$(docker compose port nginx 8080)/api/codes"
 ```
 
 An administrator can get all codes by adding `all=1`:
 
 ```shell
-curl "http://$(docker compose port nginx 8080)/api/codes?apikey=apikey&all=1"
+curl --silent --header "Authorization: Bearer user-api-key" "http://$(docker compose port nginx 8080)/api/codes?all=1"
 ```
 
 Create a code:
 
 ```shell
-curl --silent "http://$(docker compose port nginx 8080)/api/codes?apikey=apikey" --header "content-type: application/json" --data @- <<'JSON'
+curl --silent --silent --header "Authorization: Bearer user-api-key" "http://$(docker compose port nginx 8080)/api/codes" --header "content-type: application/json" --data @- <<'JSON'
 {
     "template": 1,
     "startTime": "2017-08-14T08:00:00+02:00",
@@ -197,13 +217,13 @@ parameters:
 * List mock AEOS templates to use when editing templates:
 
   ```shell
-  open "http://$(docker compose port nginx 8080)/api/admin/templates"
+  open "http://$(docker compose port nginx 8080)/admin/api/templates"
   ```
 
 * List mock AEOS users to use when editing users:
 
   ```shell
-  open "http://$(docker compose port nginx 8080)/api/admin/people"
+  open "http://$(docker compose port nginx 8080)/admin/api/people"
   ```
 
 See messages sent to the mock AEOS web service:

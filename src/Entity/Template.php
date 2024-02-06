@@ -18,8 +18,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use JMS\Serializer\Annotation as JMS;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: TemplateRepository::class)]
 #[UniqueEntity(fields: 'aeosId', message: 'This aeosId is already in use.')]
@@ -34,30 +34,22 @@ class Template implements AeosEntityInterface, \Stringable
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
     protected ?bool $enabled = true;
 
-    /**
-     * @JMS\Groups({"api"})
-     */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
+    #[Groups('api')]
     private ?int $id = null;
 
-    /**
-     * @JMS\Groups({"api"})
-     */
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255)]
+    #[Groups('api')]
     private ?string $name = null;
 
-    /**
-     * @JMS\Groups({"api"})
-     */
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255, nullable: true)]
+    #[Groups('api')]
     private ?string $level = null;
 
-    /**
-     * @JMS\Groups({"api"})
-     */
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT, nullable: true)]
+    #[Groups('api')]
     private ?string $description = null;
 
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255)]

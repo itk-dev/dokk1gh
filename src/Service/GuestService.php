@@ -39,7 +39,7 @@ class GuestService
         $guest = new Guest();
         $guest
             ->setEnabled(true)
-            ->setPhoneContryCode($this->configuration->get('guest_default_phone_country_code'))
+            ->setPhoneCountryCode($this->configuration->get('guest_default_phone_country_code'))
             ->setStartTime(new \DateTime($this->configuration->get('guest_default_startTime')))
             ->setEndTime(new \DateTime($this->configuration->get('guest_default_endTime')));
 
@@ -196,7 +196,7 @@ class GuestService
                 ->setName($guest->getId())
                 ->setCompany($guest->getId())
                 ->setPhone($guest->getId())
-                ->setPhoneContryCode('+45')
+                ->setPhoneCountryCode('+45')
                 ->setEmail($guest->getId().'@example.com');
 
             $guest

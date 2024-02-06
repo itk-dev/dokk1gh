@@ -17,7 +17,7 @@ use Gedmo\Blameable\Blameable;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use JMS\Serializer\Annotation as JMS;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
@@ -31,42 +31,30 @@ class Code implements Blameable, \Stringable
     use SoftDeleteableEntity;
     use TimestampableEntity;
 
-    /**
-     * @JMS\Groups({"api"})
-     */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
+    #[Groups('api')]
     private ?int $id = null;
 
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255, unique: true, nullable: true)]
     private ?string $aeosId = null;
 
-    /**
-     * @JMS\Groups({"api"})
-     */
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_MUTABLE)]
+    #[Groups('api')]
     private ?\DateTimeInterface $startTime = null;
 
-    /**
-     * @JMS\Groups({"api"})
-     */
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_MUTABLE)]
+    #[Groups('api')]
     private ?\DateTimeInterface $endTime = null;
 
-    /**
-     * @JMS\Groups({"api"})
-     */
     #[ORM\ManyToOne(targetEntity: Template::class)]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups('api')]
     private ?Template $template = null;
 
-    /**
-     * @JMS\Groups({"api"})
-     *
-     * @JMS\SerializedName("code")
-     */
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, nullable: true)]
+    #[Groups('api')]
     private ?string $identifier = null;
 
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT, nullable: true)]

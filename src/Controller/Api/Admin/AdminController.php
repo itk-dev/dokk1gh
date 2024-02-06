@@ -10,17 +10,17 @@
 
 namespace App\Controller\Api\Admin;
 
+use App\Controller\Api\AbstractApiController;
 use App\Entity\Template;
 use App\Entity\User;
 use App\Service\AeosService;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/api/admin', name: 'api_admin_')]
-class AdminController extends AbstractController
+#[Route('/admin/api', name: 'api_admin_')]
+class AdminController extends AbstractApiController
 {
     public function __construct(
         private readonly AeosService $aeosService,
@@ -121,19 +121,5 @@ class AdminController extends AbstractController
         }
 
         return $result;
-    }
-
-    private function createResponse($data = null): JsonResponse
-    {
-        $data ??= [];
-        $data = (array) $data;
-        if (array_is_list($data)) {
-            $data = array_map(
-                static fn ($item) => (array) $item,
-                $data
-            );
-        }
-
-        return new JsonResponse($data);
     }
 }

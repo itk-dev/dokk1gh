@@ -242,7 +242,7 @@ class Guest
      *
      * @return Guest
      */
-    public function setPhoneContryCode($phoneCountryCode)
+    public function setPhoneCountryCode($phoneCountryCode)
     {
         $this->phoneCountryCode = $phoneCountryCode;
 
@@ -288,12 +288,18 @@ class Guest
         return $this->templates;
     }
 
-    /**
-     * @return Guest
-     */
-    public function setTemplates(mixed $templates)
+    public function addTemplate(Template $template): static
     {
-        $this->templates = $templates;
+        if (!$this->templates->contains($template)) {
+            $this->templates->add($template);
+        }
+
+        return $this;
+    }
+
+    public function removeTemplate(Template $template): static
+    {
+        $this->templates->removeElement($template);
 
         return $this;
     }

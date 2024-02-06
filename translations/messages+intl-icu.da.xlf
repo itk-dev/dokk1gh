@@ -445,57 +445,21 @@
         <source>You now receive an SMS with the doorcode.</source>
         <target state="translated">Du modtager nu en SMS med dørkoden.</target>
       </trans-unit>
-      <trans-unit id="WfpDeb4" resname="Reset your password">
-        <source>Reset your password</source>
-        <target state="translated">Nulstil adgangskode</target>
+      <trans-unit id="FvDuR.m" resname="API key">
+        <source>API key</source>
+        <target state="translated">Api-nøgle</target>
       </trans-unit>
-      <trans-unit id="y2XxXvP" resname="Send password reset email">
-        <source>Send password reset email</source>
-        <target state="translated">Send e-mail med link til nulstilling af adgangskode</target>
-      </trans-unit>
-      <trans-unit id="U28cTzJ" resname="Password Reset Email Sent">
-        <source>Password Reset Email Sent</source>
-        <target state="translated">E-mail med link til nulstilling af adgangskode sendt</target>
-      </trans-unit>
-      <trans-unit id="U843nOG" resname="If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password. This link will expire in {expirationMessage}.">
-        <source>If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password. This link will expire in {expirationMessage}.</source>
-        <target state="translated">Hvis en konto med din e-mailadresse findes, så har vi sendt en e-mail med et link til at nulstille din adgangskode. Linket udløber om {expirationMessage}.</target>
-      </trans-unit>
-      <trans-unit id="7LnnofM" resname="If you don't receive an email please check your spam folder or &lt;a href=&quot;{password_request_url}&quot;>try again&lt;/a>.">
-        <source>If you don't receive an email please check your spam folder or &lt;a href="{password_request_url}"&gt;try again&lt;/a&gt;.</source>
-        <target state="translated"><![CDATA[Hvis du ikke modtager en e-mail, så tjek din “Uønsket mail”-mappe eller <a href="{password_request_url}">prøv igen</a>.]]></target>
-      </trans-unit>
-      <trans-unit id="_hrBFRr" resname="Create password">
-        <source>Create password</source>
-        <target state="translated">Opret adgangskode</target>
-      </trans-unit>
-      <trans-unit id="4O3_s6c" resname="Reset password">
-        <source>Reset password</source>
-        <target state="translated">Nulstill adgangskode</target>
-      </trans-unit>
-      <trans-unit id="ATJ8qA9" resname="Your password reset request">
-        <source>Your password reset request</source>
-        <target state="translated">Nulstilling af din adgangskode</target>
-      </trans-unit>
-      <trans-unit id="M3bG0Rh" resname="To reset your password on {site_name}, please visit the following link">
-        <source>To reset your password on {site_name}, please visit the following link</source>
-        <target state="translated">Nulstil din adgangskode på {site_name} ved at åbne følgende link</target>
-      </trans-unit>
-      <trans-unit id="k8OegrE" resname="This link will expire in {expirationMessage}.">
-        <source>This link will expire in {expirationMessage}.</source>
-        <target state="translated">Linket udløber om {expirationMessage}.</target>
-      </trans-unit>
-      <trans-unit id="emutV_R" resname="Cheers from {site_name}">
-        <source>Cheers from {site_name}</source>
-        <target state="translated">Venlig hilsen {site_name}</target>
+      <trans-unit id="k2xBbNj" resname="You do not yet have an api key">
+        <source>You do not yet have an api key</source>
+        <target state="needs-l10n">__You do not yet have an api key</target>
       </trans-unit>
       <trans-unit id="588_9PF" resname="Password">
         <source>Password</source>
-        <target state="translated">Adgangskode</target>
+        <target state="needs-l10n">__Password</target>
       </trans-unit>
       <trans-unit id="wYmEDPf" resname="Log in">
         <source>Log in</source>
-        <target state="translated">Log ind</target>
+        <target state="needs-l10n">__Log in</target>
       </trans-unit>
       <trans-unit id="r9Jf3xf" resname="Forgot your password?">
         <source>Forgot your password?</source>
@@ -503,7 +467,59 @@
       </trans-unit>
       <trans-unit id="IVbSFop" resname="Password sucessfully reset">
         <source>Password sucessfully reset</source>
-        <target state="translated">Adgangskode nulstillet.</target>
+        <target state="needs-l10n">__Password sucessfully reset</target>
+      </trans-unit>
+      <trans-unit id="ATJ8qA9" resname="Your password reset request">
+        <source>Your password reset request</source>
+        <target state="needs-l10n">__Your password reset request</target>
+      </trans-unit>
+      <trans-unit id="WfpDeb4" resname="Reset your password">
+        <source>Reset your password</source>
+        <target state="needs-l10n">__Reset your password</target>
+      </trans-unit>
+      <trans-unit id="y2XxXvP" resname="Send password reset email">
+        <source>Send password reset email</source>
+        <target state="needs-l10n">__Send password reset email</target>
+      </trans-unit>
+      <trans-unit id="U28cTzJ" resname="Password Reset Email Sent">
+        <source>Password Reset Email Sent</source>
+        <target state="needs-l10n">__Password Reset Email Sent</target>
+      </trans-unit>
+      <trans-unit id="U843nOG" resname="If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password. This link will expire in {expirationMessage}.">
+        <source>If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password. This link will expire in {expirationMessage}.</source>
+        <target state="needs-l10n">__If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password. This link will expire in {expirationMessage}.</target>
+      </trans-unit>
+      <trans-unit id="7LnnofM" resname="If you don't receive an email please check your spam folder or &lt;a href=&quot;{password_request_url}&quot;>try again&lt;/a>.">
+        <source>If you don't receive an email please check your spam folder or &lt;a href="{password_request_url}"&gt;try again&lt;/a&gt;.</source>
+        <target state="needs-l10n"><![CDATA[__If you don't receive an email please check your spam folder or <a href="{password_request_url}">try again</a>.]]></target>
+      </trans-unit>
+      <trans-unit id="_hrBFRr" resname="Create password">
+        <source>Create password</source>
+        <target state="translated">Opret adgangskode</target>
+      </trans-unit>
+      <trans-unit id="4O3_s6c" resname="Reset password">
+        <source>Reset password</source>
+        <target state="needs-l10n">__Reset password</target>
+      </trans-unit>
+      <trans-unit id="M3bG0Rh" resname="To reset your password on {site_name}, please visit the following link">
+        <source>To reset your password on {site_name}, please visit the following link</source>
+        <target state="needs-l10n">__To reset your password on {site_name}, please visit the following link</target>
+      </trans-unit>
+      <trans-unit id="k8OegrE" resname="This link will expire in {expirationMessage}.">
+        <source>This link will expire in {expirationMessage}.</source>
+        <target state="needs-l10n">__This link will expire in {expirationMessage}.</target>
+      </trans-unit>
+      <trans-unit id="emutV_R" resname="Cheers from {site_name}">
+        <source>Cheers from {site_name}</source>
+        <target state="translated">Venlig hilsen {site_name}</target>
+      </trans-unit>
+      <trans-unit id="fZ63rLE" resname="Close">
+        <source>Close</source>
+        <target state="translated">Luk</target>
+      </trans-unit>
+      <trans-unit id="yFNUejp" resname="API key generated">
+        <source>API key generated</source>
+        <target state="translated">Api-nøgle oprettet</target>
       </trans-unit>
     </body>
   </file>

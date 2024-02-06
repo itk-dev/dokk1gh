@@ -135,10 +135,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, AeosEnt
         return $this;
     }
 
-    /**
-     * @see PasswordAuthenticatedUserInterface
-     */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
@@ -186,9 +183,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, AeosEnt
         return $this->templates;
     }
 
-    public function setTemplates(Collection $templates): static
+    public function addTemplate(Template $template): static
     {
-        $this->templates = $templates;
+        if (!$this->templates->contains($template)) {
+            $this->templates->add($template);
+        }
+
+        return $this;
+    }
+
+    public function removeTemplate(Template $template): static
+    {
+        $this->templates->removeElement($template);
 
         return $this;
     }
