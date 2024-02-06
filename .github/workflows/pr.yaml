@@ -19,11 +19,11 @@ jobs:
         run: git diff --exit-code origin/${{ github.base_ref }} -- CHANGELOG.md && exit 1 || exit 0
 
   test-composer-install:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        php: [ '7.4' ]
+        php: [ '8.2' ]
     name: Validate composer (${{ matrix.php}})
     steps:
       - name: Checkout
@@ -51,12 +51,12 @@ jobs:
           APP_ENV=prod composer install --no-dev --optimize-autoloader --no-scripts
 
   coding-standards-php:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        php: [ '7.4' ]
-    name: PHP coding Standards (${{ matrix.php }})
+        php: [ '8.2' ]
+    name: PHP coding standards (${{ matrix.php }})
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -78,10 +78,40 @@ jobs:
       - name: Install Dependencies
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
       - name: coding-standards-check
-        run: composer coding-standards-check
+        run: composer coding-standards-check/php-cs-fixer
+
+  coding-standards-twig:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: [ '8.2' ]
+    name: Twig coding standards
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup PHP, with composer and extensions
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php}}
+          extensions: apcu, ctype, iconv, imagick, json, redis, soap, xmlreader, zip
+          coverage: none
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+      - name: Cache composer dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ matrix.php }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ matrix.php }}-composer-
+      - name: Install Dependencies
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+      - name: coding-standards-check
+        run: composer coding-standards-check/twigcs
 
   coding-standards-markdown:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     name: Markdown coding standards
     steps:
       - name: Checkout

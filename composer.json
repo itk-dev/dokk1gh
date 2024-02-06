@@ -1,4 +1,6 @@
 {
+    "name": "itk-dev/dokk1gh",
+    "description": "Gæstehåndtering for Dokk1",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "stable",

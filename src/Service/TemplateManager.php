@@ -52,7 +52,7 @@ class TemplateManager
      *
      * @return ArrayCollection
      */
-    public function getUserTemplates(Template $default = null)
+    public function getUserTemplates(?Template $default = null)
     {
         $templates = new ArrayCollection();
         if ($default) {

@@ -64,7 +64,6 @@ docker compose exec phpfpm composer update-translations
 open translations/messages+intl-icu.da.xlf
 ```
 
-
 ## Build assets
 
 ```shell

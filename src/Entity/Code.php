@@ -140,7 +140,7 @@ class Code implements Blameable, \Stringable
      *
      * @return Code
      */
-    public function setTemplate(Template $template = null)
+    public function setTemplate(?Template $template = null)
     {
         $this->template = $template;
 
@@ -162,7 +162,7 @@ class Code implements Blameable, \Stringable
      *
      * @return Code
      */
-    public function setIdentifier(string $identifier = null)
+    public function setIdentifier(?string $identifier = null)
     {
         $this->identifier = $identifier;
 
@@ -208,7 +208,7 @@ class Code implements Blameable, \Stringable
      *
      * @return Code
      */
-    public function setNote(string $note = null)
+    public function setNote(?string $note = null)
     {
         $this->note = $note;
 

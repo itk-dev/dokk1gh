@@ -14,7 +14,7 @@ class AbstractException extends \Exception
 {
     protected $context;
 
-    public function __construct($message = '', array $context = null, $code = 0, \Throwable $previous = null)
+    public function __construct($message = '', ?array $context = null, $code = 0, ?\Throwable $previous = null)
     {
         $this->context = $context;
         parent::__construct($message, $code, $previous);

@@ -24,7 +24,7 @@ class EntityActionLogger
         $this->manager = $manager;
     }
 
-    public function log($entity, $message, array $context = null)
+    public function log($entity, $message, ?array $context = null)
     {
         [$entityType, $entityId] = $this->getEntityTypeAndId($entity);
         $entry = new EntityActionLogEntry($entityType, $entityId, $message, $context);
@@ -32,7 +32,7 @@ class EntityActionLogger
         $this->manager->flush();
     }
 
-    public function getActionLogEntries($entity, array $criteria = [], array $orderBy = null)
+    public function getActionLogEntries($entity, array $criteria = [], ?array $orderBy = null)
     {
         [$entityType, $entityId] = $this->getEntityTypeAndId($entity);
         $criteria += [

@@ -96,7 +96,7 @@ final readonly class AeosHelper
         }
     }
 
-    public function userHasAeosId(User $user = null)
+    public function userHasAeosId(?User $user = null)
     {
         try {
             if (null === $user) {
