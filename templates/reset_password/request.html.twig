@@ -1,36 +1,25 @@
-{% extends 'admin/layout.html.twig' %}
+{% extends 'admin/page/login.html.twig' %}
 
 {% block title %}{{ 'Reset your password'|trans }}{% endblock %}
 
 {% block body_class 'page-login reset-password' %}
 
-{% block wrapper_wrapper %}
-  <div class="login-wrapper">
-    <header class="main-header mb-4">
-      <div id="header-logo">
-        {% block header_logo %}
-          <a class="logo {{ easyadmin_config('site_name')|length > 14 ? 'logo-long' }}" title="{{ easyadmin_config('site_name')|striptags }}" href="{{ path('easyadmin') }}">
-            {{ easyadmin_config('site_name')|raw }}
-          </a>
-        {% endblock header_logo %}
-      </div>
-    </header>
-    {% if error|default(false) %}
-      <div class="w-100 alert alert-danger">
-        {{ error.messageKey|trans(error.messageData, 'security') }}
-      </div>
-    {% endif %}
-    <section class="content">
-      {% form_theme requestForm '@EasyAdmin/form/bootstrap_4.html.twig' %}
-      {{ form_start(requestForm) }}
-        {{ form_row(requestForm.email) }}
-        <div class="d-grid">
-          <button type="submit" class="btn btn-primary btn-lg">
-            {{ 'Send password reset email'|trans }}
-          </button>
-        </div>
+{# @see @EasyAdmin/page/login.html.twig #}
+{% block content %}
+  {% if error|default(false) %}
+    <div class="w-100 alert alert-danger">
+      {{ error.messageKey|trans(error.messageData, 'security') }}
+    </div>
+  {% endif %}
 
-      {{ form_end(requestForm) }}
-    </section>
+  {% form_theme requestForm '@EasyAdmin/symfony-form-themes/bootstrap_5_layout.html.twig' %}
+  {{ form_start(requestForm) }}
+  {{ form_row(requestForm.email) }}
+  <div class="d-grid">
+    <button type="submit" class="btn btn-primary btn-lg">
+      {{ 'Send password reset email'|trans }}
+    </button>
   </div>
+
+  {{ form_end(requestForm) }}
 {% endblock %}

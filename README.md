@@ -46,7 +46,7 @@ docker compose exec phpfpm bin/console user:promote admin@example.com ROLE_ADMIN
 Create user:
 
 ```shell
-docker compose exec phpfpm bin/console user:create user user@example.com
+docker compose exec phpfpm bin/console user:create user@example.com
 ```
 
 Open the site:

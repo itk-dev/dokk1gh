@@ -101,7 +101,7 @@
             "DEFAULT_LOCALE=en bin/console translation:extract --clean --force en --prefix=''",
             "DEFAULT_LOCALE=en bin/console translation:extract --clean --force da",
             "# Mark default translations (prefixed with `__`) as “Needs work” in Danish translations",
-            "sed --in-place='' 's/<target>__/<target state=\"needs-l10n\">__/' translations/*.da.*xlf"
+            "sed --in-place='' --regexp-extended 's/<target>((<!\\[CDATA\\[)?__)/<target state=\"needs-l10n\">\\1/' translations/*.da.*xlf"
         ]
     },
     "conflict": {

@@ -66,5 +66,11 @@ services:
             $options:
                 aeos_visitor_name_template: '%env(AEOSWS_VISITOR_NAME_TEMPLATE)%'
 
+    App\Controller\ResetPasswordController:
+        arguments:
+            $options:
+                from_email: '%env(MAILER_FROM_EMAIL)%'
+                from_name: '%env(MAILER_FROM_NAME)%'
+
     # https://twig.symfony.com/doc/3.x/functions/template_from_string.html
     Twig\Extension\StringLoaderExtension:
