@@ -34,7 +34,7 @@
                 <div class="card-body">
                     <h2 class="card-title area-name">{{ template.name }}</h2>
                     {% if template.level %}
-                        <h4 class="location">{{ 'Level %level%'|trans({'%level%': template.level}) }}</h4>
+                        <h4 class="location">{{ 'Level %level%'|trans({'%level%': template.level}, '') }}</h4>
                     {% endif %}
                     {% if template.description %}
                         <p class="card-text description">{{ template.description }}</p>
