@@ -25,13 +25,19 @@ class SecurityController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('@EasyAdmin/page/login.html.twig', [
+        return $this->render('admin/page/login.html.twig', [
             // parameters usually defined in Symfony login forms
             'error' => $error,
             'last_username' => $lastUsername,
 
             'csrf_token_intention' => 'authenticate',
             'username_label' => new TranslatableMessage('Email'),
+            'password_label' => new TranslatableMessage('Password'),
+            'sign_in_label' => new TranslatableMessage('Log in'),
+
+            'forgot_password_enabled' => true,
+            'forgot_password_path' => $this->generateUrl('app_forgot_password_request'),
+            'forgot_password_label' => new TranslatableMessage('Forgot your password?'),
         ]);
     }
 
