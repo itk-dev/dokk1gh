@@ -441,6 +441,10 @@
         <source>You now receive an SMS with the doorcode.</source>
         <target>You now receive an SMS with the doorcode.</target>
       </trans-unit>
+      <trans-unit id="FvDuR.m" resname="API key">
+        <source>API key</source>
+        <target>API key</target>
+      </trans-unit>
       <trans-unit id="UlLJwyj" resname="This is your personal identification which grants you access to Dokk1">
         <source>This is your personal identification which grants you access to Dokk1</source>
         <target>This is your personal identification which grants you access to Dokk1</target>
@@ -457,6 +461,10 @@
         <source>Password Reset Email Sent</source>
         <target>Password Reset Email Sent</target>
       </trans-unit>
+      <trans-unit id="k2xBbNj" resname="You do not yet have an api key">
+        <source>You do not yet have an api key</source>
+        <target>You do not yet have an api key</target>
+      </trans-unit>
       <trans-unit id="U843nOG" resname="If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password. This link will expire in {expirationMessage}.">
         <source>If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password. This link will expire in {expirationMessage}.</source>
         <target>If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password. This link will expire in {expirationMessage}.</target>
@@ -464,30 +472,6 @@
       <trans-unit id="7LnnofM" resname="If you don't receive an email please check your spam folder or &lt;a href=&quot;{password_request_url}&quot;&gt;try again&lt;/a&gt;.">
         <source>If you don't receive an email please check your spam folder or &lt;a href="{password_request_url}"&gt;try again&lt;/a&gt;.</source>
         <target><![CDATA[If you don't receive an email please check your spam folder or <a href="{password_request_url}">try again</a>.]]></target>
-      </trans-unit>
-      <trans-unit id="_hrBFRr" resname="Create password">
-        <source>Create password</source>
-        <target>Create password</target>
-      </trans-unit>
-      <trans-unit id="4O3_s6c" resname="Reset password">
-        <source>Reset password</source>
-        <target>Reset password</target>
-      </trans-unit>
-      <trans-unit id="ATJ8qA9" resname="Your password reset request">
-        <source>Your password reset request</source>
-        <target>Your password reset request</target>
-      </trans-unit>
-      <trans-unit id="M3bG0Rh" resname="To reset your password on {site_name}, please visit the following link">
-        <source>To reset your password on {site_name}, please visit the following link</source>
-        <target>To reset your password on {site_name}, please visit the following link</target>
-      </trans-unit>
-      <trans-unit id="k8OegrE" resname="This link will expire in {expirationMessage}.">
-        <source>This link will expire in {expirationMessage}.</source>
-        <target>This link will expire in {expirationMessage}.</target>
-      </trans-unit>
-      <trans-unit id="emutV_R" resname="Cheers from {site_name}">
-        <source>Cheers from {site_name}</source>
-        <target>Cheers from {site_name}</target>
       </trans-unit>
       <trans-unit id="588_9PF" resname="Password">
         <source>Password</source>
@@ -504,6 +488,38 @@
       <trans-unit id="IVbSFop" resname="Password sucessfully reset">
         <source>Password sucessfully reset</source>
         <target>Password sucessfully reset</target>
+      </trans-unit>
+      <trans-unit id="ATJ8qA9" resname="Your password reset request">
+        <source>Your password reset request</source>
+        <target>Your password reset request</target>
+      </trans-unit>
+      <trans-unit id="_hrBFRr" resname="Create password">
+        <source>Create password</source>
+        <target>Create password</target>
+      </trans-unit>
+      <trans-unit id="4O3_s6c" resname="Reset password">
+        <source>Reset password</source>
+        <target>Reset password</target>
+      </trans-unit>
+      <trans-unit id="M3bG0Rh" resname="To reset your password on {site_name}, please visit the following link">
+        <source>To reset your password on {site_name}, please visit the following link</source>
+        <target>To reset your password on {site_name}, please visit the following link</target>
+      </trans-unit>
+      <trans-unit id="k8OegrE" resname="This link will expire in {expirationMessage}.">
+        <source>This link will expire in {expirationMessage}.</source>
+        <target>This link will expire in {expirationMessage}.</target>
+      </trans-unit>
+      <trans-unit id="emutV_R" resname="Cheers from {site_name}">
+        <source>Cheers from {site_name}</source>
+        <target>Cheers from {site_name}</target>
+      </trans-unit>
+      <trans-unit id="fZ63rLE" resname="Close">
+        <source>Close</source>
+        <target>Close</target>
+      </trans-unit>
+      <trans-unit id="yFNUejp" resname="API key generated">
+        <source>API key generated</source>
+        <target>API key generated</target>
       </trans-unit>
     </body>
   </file>

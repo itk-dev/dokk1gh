@@ -38,6 +38,13 @@ class Setting
         return $this->name;
     }
 
+    public function setName(string $name): static
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
     public function getDescription(): string
     {
         return $this->description;
@@ -55,9 +62,23 @@ class Setting
         return $this->type;
     }
 
+    public function setType(string $type): static
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
     public function getFormType(): string
     {
         return $this->formType;
+    }
+
+    public function setFormType(string $formType): static
+    {
+        $this->formType = $formType;
+
+        return $this;
     }
 
     public function getValue(): mixed

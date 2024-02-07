@@ -13,7 +13,6 @@
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "easycorp/easyadmin-bundle": "^4.8",
         "gedmo/doctrine-extensions": "^3.14",
-        "jms/serializer": "^3.29",
         "stof/doctrine-extensions-bundle": "^1.10",
         "symfony/console": "7.0.*",
         "symfony/dotenv": "7.0.*",
@@ -24,6 +23,7 @@
         "symfony/options-resolver": "7.0.*",
         "symfony/runtime": "7.0.*",
         "symfony/security-bundle": "7.0.*",
+        "symfony/serializer": "7.0.*",
         "symfony/translation": "7.0.*",
         "symfony/twig-bundle": "7.0.*",
         "symfony/webpack-encore-bundle": "^2.1",
@@ -98,6 +98,9 @@
             "@code-analysis/phpstan",
             "@code-analysis/psalm"
         ],
+        "fixtures:load": [
+          "php bin/console hautelook:fixtures:load --no-interaction"
+        ],
         "update-translations": [
             "# We need a translation from en to en (!) (without prefix) to be able to process placeholders in en.",
             "DEFAULT_LOCALE=en bin/console translation:extract --clean --force en --prefix=''",
@@ -119,6 +122,7 @@
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.48",
         "friendsoftwig/twigcs": "^6.4",
+        "hautelook/alice-bundle": "^2.13",
         "rector/rector": "^0.19.2",
         "symfony/maker-bundle": "^1.52",
         "symfony/web-profiler-bundle": "7.0.*"

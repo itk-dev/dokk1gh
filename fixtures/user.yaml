@@ -1,0 +1,13 @@
+App\Entity\User:
+  super-admin@example.com:
+    email: super-admin@example.com
+    password: '<password(@self, "password")>'
+    roles: [ROLE_SUPER_ADMIN]
+
+  user@example.com:
+    email: user@example.com
+    password: '<password(@self, "user-password")>'
+    aeosId: 1
+    apiKey: user-api-key
+    templates:
+      - '@template-1'

@@ -12,40 +12,31 @@ namespace App\Controller\Api;
 
 use App\Service\TemplateManager;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use Swagger\Annotations as SWG;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * Class TemplateController.
  *
- * @Rest\Route("/api/templates", name="api_template_")
- *
  * @Rest\View(serializerGroups={"api"})
  */
-class TemplateController extends AbstractController
+#[Route('/api/templates', name: 'api_template_')]
+class TemplateController extends AbstractApiController
 {
-    public function __construct(private readonly TemplateManager $templateManager)
-    {
+    public function __construct(
+        private readonly TemplateManager $templateManager
+    ) {
     }
 
-    /**
-     * @Rest\Get("", name="cget")
-     *
-     * @SWG\Tag(name="Template")
-     *
-     * @SWG\Response(
-     *  response=200,
-     *  description="List of templates",
-     *
-     *  @SWG\Schema(
-     *    type="array",
-     *
-     *    @SWG\Items(type="object")
-     *  )
-     * )
-     */
-    public function cget()
+    #[Route('', name: 'index')]
+    public function index(SerializerInterface $serializer)
     {
-        return $this->templateManager->getUserTemplates();
+        $templates = $this->templateManager->getUserTemplates();
+
+        return $this->createResponse(
+            json_decode(
+                $serializer->serialize($templates, 'json', ['groups' => 'api'])
+            )
+        );
     }
 }

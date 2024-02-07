@@ -40,6 +40,17 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+
+        api:
+            pattern: ^/api
+            provider: api_user_provider
+            access_token:
+                token_handler: App\Security\AccessTokenHandler
+
+        mock:
+            pattern: ^/mock
+            security: false
+
         main:
             lazy: true
             provider: app_user_provider
@@ -58,23 +69,6 @@ security:
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
 
-        api:
-            pattern: ^/api
-            provider: api_user_provider
-            # @todo
-            # guard:
-            #     authenticators:
-            #         - App\Security\ApiKeyAuthenticator
-            # # @see https://symfony.com/doc/current/reference/configuration/security.html#firewall-context
-            # @todo
-            # context: primary_auth
-            # @todo
-            # logout_on_user_change: true
-
-        mock:
-            pattern: ^/mock
-            security: false
-
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
@@ -85,7 +79,7 @@ security:
         - { path: ^/login$, roles: PUBLIC_ACCESS }
         - { path: ^/register, roles: PUBLIC_ACCESS }
         - { path: ^/reset-password, roles: PUBLIC_ACCESS }
-        - { path: ^/api/admin, roles: ROLE_ADMIN_API }
+        - { path: ^/admin/api, roles: ROLE_ADMIN_API }
         - { path: ^/, roles: ROLE_USER }
 
 when@test:

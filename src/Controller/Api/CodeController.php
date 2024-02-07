@@ -11,57 +11,49 @@
 namespace App\Controller\Api;
 
 use App\Entity\Code;
+use App\Entity\Role;
 use App\Service\AeosHelper;
 use App\Service\TemplateManager;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Swagger\Annotations as SWG;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Intl\Exception\NotImplementedException;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * Class CodeController.
- *
- * @Rest\Route("/api/codes", name="api_code_")
- *
- * @Rest\View(serializerGroups={"api"})
  */
-class CodeController extends AbstractController
+#[Route('/api/codes', name: 'api_code_')]
+class CodeController extends AbstractApiController
 {
     public function __construct(private readonly AeosHelper $aeosHelper, private readonly TemplateManager $templateManager, private readonly EntityManagerInterface $entityManager, private readonly AuthorizationCheckerInterface $authorizationChecker)
     {
     }
 
-    /**
-     * @Rest\Get("", name="cget")
-     *
-     * @SWG\Tag(name="Code")
-     *
-     * @SWG\Response(
-     *  response=200,
-     *  description="List of codes",
-     *
-     *  @SWG\Schema(
-     *    type="array",
-     *
-     *    @SWG\Items(type="object")
-     *  )
-     * )
-     */
-    public function cget(Request $request)
+    #[Route('', name: 'index', methods: [Request::METHOD_GET])]
+    public function index(Request $request, SerializerInterface $serializer)
     {
         $user = $this->getUser();
         $criteria = [
             'createdBy' => $user ? $user->getId() : 0,
         ];
-        // If "all" is set and user is administrator, list all codes.
-        if ($request->query->get('all', false) && $this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+        // List all codes if query parameter `all` is truthy and user is administrator.
+        if (filter_var($request->query->get('all', false), \FILTER_VALIDATE_BOOLEAN)
+            && $this->authorizationChecker->isGranted(Role::ADMIN->value)) {
             unset($criteria['createdBy']);
         }
 
-        return $this->entityManager->getRepository(Code::class)->findBy($criteria);
+        $codes = $this->entityManager->getRepository(Code::class)->findBy($criteria);
+
+        return $this->createResponse(
+            json_decode(
+                $serializer->serialize($codes, 'json', ['groups' => 'api'])
+            )
+        );
     }
 
     /**
@@ -88,19 +80,30 @@ class CodeController extends AbstractController
      *
      * @return array
      */
-    public function post(Request $request)
+    #[Route('', name: 'create', methods: [Request::METHOD_POST])]
+    public function create(Request $request)
     {
-        $data = $request->request->all();
+        try {
+            $data = json_decode($request->getContent(), true);
+        } catch (\Throwable) {
+            return $this->createHttpExceptionResponse(
+                new BadRequestHttpException('Invalid data')
+            );
+        }
 
         foreach (['template', 'startTime', 'endTime'] as $key) {
             if (!isset($data[$key])) {
-                throw new \Exception('Missing data: '.$key);
+                return $this->createHttpExceptionResponse(
+                    new BadRequestHttpException(sprintf('Missing data: %s', $key))
+                );
             }
         }
 
         $template = $this->templateManager->getUserTemplate($data['template']);
         if (!$template) {
-            throw new \Exception('Invalid template: '.$data['template']);
+            return $this->createHttpExceptionResponse(
+                new BadRequestHttpException(sprintf('Invalid template: %s', $data['template']))
+            );
         }
         $startTime = new \DateTime($data['startTime']);
         $endTime = new \DateTime($data['endTime']);
@@ -122,29 +125,6 @@ class CodeController extends AbstractController
             'endTime' => $endTime->format(\DateTime::W3C),
         ];
 
-        return $result;
-    }
-
-    /**
-     * @Rest\Delete("/{code}", name="delete")
-     *
-     * @SWG\Tag(name="Code")
-     *
-     * @ SWG\Parameter(name="template", type="integer", description="Template id", in="body")
-     *
-     * @ SWG\Parameter(name="startTime", type="datetime", description="The start time", in="body")
-     *
-     * @ SWG\Parameter(name="endTime", type="datetime", description="The end time", in="body")
-     *
-     * @SWG\Response(
-     *  response=204,
-     *  description="Code deleted"
-     * )
-     *
-     * @return array
-     */
-    public function delete(mixed $code): never
-    {
-        throw new NotImplementedException(__METHOD__);
+        return $this->createResponse($result, Response::HTTP_CREATED);
     }
 }

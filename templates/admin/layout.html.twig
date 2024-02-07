@@ -1,14 +1,5 @@
 {% extends '@EasyAdmin/page/content.html.twig' %}
 
-{% block user_menu %}
-  {% if app.user %}
-    <div class="popover-content-section user-menu">
-      <a class="user-action" href="{{ path('user_apikey') }}">{{ 'Api key'|trans }}</a>
-    </div>
-  {% endif %}
-  {{ parent() }}
-{% endblock user_menu %}
-
 {% block head_stylesheets %}
   {{ encore_entry_link_tags('easy_admin') }}
   {{ parent() }}

@@ -15,13 +15,14 @@ use Doctrine\Bundle\DoctrineBundle\Attribute\AsEntityListener;
 use Doctrine\ORM\Event\PrePersistEventArgs;
 use Doctrine\ORM\Events;
 
-#[AsEntityListener(event: Events::prePersist, method: 'setPassword', entity: User::class)]
+#[AsEntityListener(event: Events::prePersist, method: 'prePersist', entity: User::class)]
 class UserEventListener
 {
-    public function setPassword(User $user, PrePersistEventArgs $args)
+    public function prePersist(User $user, PrePersistEventArgs $args)
     {
-        $user
-            ->setPassword(sha1(uniqid('', true)))
-            ->setEnabled(true);
+        if (null === $user->getPassword()) {
+            $user->setPassword(sha1(uniqid('', true)));
+        }
+        $user->setEnabled(true);
     }
 }
