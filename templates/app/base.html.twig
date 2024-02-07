@@ -81,9 +81,11 @@
 
                 <!-- iOS webapp tricks -->
                 {% if is_ios() %}
-                    <script>
+                  <script>
+                    document.addEventListener("DOMContentLoaded", () => {
                       addToHomescreen();
-                    </script>
+                    });
+                  </script>
                 {% endif %}
             {% endif %}
 
