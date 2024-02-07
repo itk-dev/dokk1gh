@@ -10,9 +10,7 @@
         {% set subject = include(template_from_string(get_configuration('user.cannot_create_codes.subject'))) %}
         {% set body = include(template_from_string(get_configuration('user.cannot_create_codes.body'))) %}
         {% set url = 'mailto:' ~ administrator_email ~ '?' ~ ({subject: subject, body: body}|url_encode) %}
-        <a href="{{ url }}">{{ 'Please contact an administrator (%administrator_email%) for help.'|trans({'%administrator_email%': administrator_email}) }}</a>
-
-        <a class="btn btn-link btn-xs" href="{{ url }}"><span class="fa fa-envelope"></span></a>
+        <a href="{{ url }}">{{ 'Please contact an administrator ({administrator_email}) for help.'|trans({administrator_email: administrator_email}) }} <span class="fa fa-envelope"></span></a>
       {% endif %}
     </div>
   {% endif %}

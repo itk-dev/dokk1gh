@@ -389,10 +389,6 @@
         <source>You cannot create codes.</source>
         <target state="translated">Du kan ikke oprette koder.</target>
       </trans-unit>
-      <trans-unit id="tFSXM6c" resname="Please contact an administrator (%administrator_email%) for help.">
-        <source>Please contact an administrator (%administrator_email%) for help.</source>
-        <target state="translated">Kontakt en administrator (%administrator_email%) for hjælp.</target>
-      </trans-unit>
       <trans-unit id="lk4EzjZ" resname="AEOS id">
         <source>AEOS id</source>
         <target state="translated">AEOS-id</target>
@@ -516,6 +512,10 @@
       <trans-unit id="ws_LTU4" resname="Generate API key">
         <source>Generate API key</source>
         <target state="translated">Generér api-nøgle</target>
+      </trans-unit>
+      <trans-unit id="S_0L9CD" resname="Please contact an administrator ({administrator_email}) for help.">
+        <source>Please contact an administrator ({administrator_email}) for help.</source>
+        <target state="translated">Kontakt en administrator ({administrator_email}) for hjælp</target>
       </trans-unit>
     </body>
   </file>
