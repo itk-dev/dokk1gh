@@ -10,6 +10,7 @@
 
 namespace App\Controller\Admin;
 
+use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController as BaseAbstractCrudController;
 
@@ -22,5 +23,11 @@ abstract class AbstractCrudController extends BaseAbstractCrudController
             ->setDateFormat('dd-MM-yyyy')
             ->setTimeFormat('HH:mm:ss')
             ->setDateTimeFormat('dd-MM-yyyy HH:mm:ss');
+    }
+
+    public function configureAssets(Assets $assets): Assets
+    {
+        return parent::configureAssets($assets)
+            ->addWebpackEncoreEntry('easy_admin');
     }
 }

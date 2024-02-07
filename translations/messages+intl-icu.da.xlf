@@ -225,29 +225,9 @@
         <source>New code created</source>
         <target state="translated">Ny kode oprettet</target>
       </trans-unit>
-      <trans-unit id="K4eLnnO" resname="Api key">
-        <source>Api key</source>
-        <target state="translated">Api-nøgle</target>
-      </trans-unit>
-      <trans-unit id="4MVr5pv" resname="Api key copied to clipboard">
-        <source>Api key copied to clipboard</source>
-        <target state="translated">Api-nøgle kopieret til udklipsholder</target>
-      </trans-unit>
-      <trans-unit id="q8HKNw9" resname="Generate new api key">
-        <source>Generate new api key</source>
-        <target state="translated">Generér ny api-nøgle</target>
-      </trans-unit>
-      <trans-unit id="iqCLqa5" resname="Confirm generate new api key">
-        <source>Confirm generate new api key</source>
-        <target state="translated">Bekræft at du vil generere en ny api-nøgle</target>
-      </trans-unit>
       <trans-unit id="GXZu1sy" resname="Cancel">
         <source>Cancel</source>
         <target state="translated">Annuller</target>
-      </trans-unit>
-      <trans-unit id="9.aopz5" resname="Generate api key">
-        <source>Generate api key</source>
-        <target state="translated">Generér api-nøgle</target>
       </trans-unit>
       <trans-unit id="2cFxQHs" resname="Code copied to clipboard">
         <source>Code copied to clipboard</source>
@@ -449,10 +429,6 @@
         <source>API key</source>
         <target state="translated">Api-nøgle</target>
       </trans-unit>
-      <trans-unit id="k2xBbNj" resname="You do not yet have an api key">
-        <source>You do not yet have an api key</source>
-        <target state="needs-l10n">__You do not yet have an api key</target>
-      </trans-unit>
       <trans-unit id="588_9PF" resname="Password">
         <source>Password</source>
         <target state="needs-l10n">__Password</target>
@@ -520,6 +496,26 @@
       <trans-unit id="yFNUejp" resname="API key generated">
         <source>API key generated</source>
         <target state="translated">Api-nøgle oprettet</target>
+      </trans-unit>
+      <trans-unit id="SZdMoyQ" resname="API key copied to clipboard">
+        <source>API key copied to clipboard</source>
+        <target state="translated">Api-nøgle kopieret til udklipsholder</target>
+      </trans-unit>
+      <trans-unit id="UT6MwFc" resname="Generate new API key">
+        <source>Generate new API key</source>
+        <target state="translated">Generér ny api-nøgle</target>
+      </trans-unit>
+      <trans-unit id="5cOwZ97" resname="Confirm generate new API key">
+        <source>Confirm generate new API key</source>
+        <target state="translated">Bekræft at du vil lave en ny api-nøgle</target>
+      </trans-unit>
+      <trans-unit id="xVICefY" resname="You do not yet have an API key">
+        <source>You do not yet have an API key</source>
+        <target state="needs-l10n">__You do not yet have an API key</target>
+      </trans-unit>
+      <trans-unit id="ws_LTU4" resname="Generate API key">
+        <source>Generate API key</source>
+        <target state="translated">Generér api-nøgle</target>
       </trans-unit>
     </body>
   </file>

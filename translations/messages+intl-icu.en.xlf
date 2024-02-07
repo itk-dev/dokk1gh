@@ -221,29 +221,9 @@
         <source>New code created</source>
         <target>New code created</target>
       </trans-unit>
-      <trans-unit id="K4eLnnO" resname="Api key">
-        <source>Api key</source>
-        <target>Api key</target>
-      </trans-unit>
-      <trans-unit id="4MVr5pv" resname="Api key copied to clipboard">
-        <source>Api key copied to clipboard</source>
-        <target>Api key copied to clipboard</target>
-      </trans-unit>
-      <trans-unit id="q8HKNw9" resname="Generate new api key">
-        <source>Generate new api key</source>
-        <target>Generate new api key</target>
-      </trans-unit>
-      <trans-unit id="iqCLqa5" resname="Confirm generate new api key">
-        <source>Confirm generate new api key</source>
-        <target>Confirm generate new api key</target>
-      </trans-unit>
       <trans-unit id="GXZu1sy" resname="Cancel">
         <source>Cancel</source>
         <target>Cancel</target>
-      </trans-unit>
-      <trans-unit id="9.aopz5" resname="Generate api key">
-        <source>Generate api key</source>
-        <target>Generate api key</target>
       </trans-unit>
       <trans-unit id="2cFxQHs" resname="Code copied to clipboard">
         <source>Code copied to clipboard</source>
@@ -461,10 +441,6 @@
         <source>Password Reset Email Sent</source>
         <target>Password Reset Email Sent</target>
       </trans-unit>
-      <trans-unit id="k2xBbNj" resname="You do not yet have an api key">
-        <source>You do not yet have an api key</source>
-        <target>You do not yet have an api key</target>
-      </trans-unit>
       <trans-unit id="U843nOG" resname="If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password. This link will expire in {expirationMessage}.">
         <source>If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password. This link will expire in {expirationMessage}.</source>
         <target>If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password. This link will expire in {expirationMessage}.</target>
@@ -520,6 +496,26 @@
       <trans-unit id="yFNUejp" resname="API key generated">
         <source>API key generated</source>
         <target>API key generated</target>
+      </trans-unit>
+      <trans-unit id="SZdMoyQ" resname="API key copied to clipboard">
+        <source>API key copied to clipboard</source>
+        <target>API key copied to clipboard</target>
+      </trans-unit>
+      <trans-unit id="UT6MwFc" resname="Generate new API key">
+        <source>Generate new API key</source>
+        <target>Generate new API key</target>
+      </trans-unit>
+      <trans-unit id="5cOwZ97" resname="Confirm generate new API key">
+        <source>Confirm generate new API key</source>
+        <target>Confirm generate new API key</target>
+      </trans-unit>
+      <trans-unit id="xVICefY" resname="You do not yet have an API key">
+        <source>You do not yet have an API key</source>
+        <target>You do not yet have an API key</target>
+      </trans-unit>
+      <trans-unit id="ws_LTU4" resname="Generate API key">
+        <source>Generate API key</source>
+        <target>Generate API key</target>
       </trans-unit>
     </body>
   </file>
