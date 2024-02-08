@@ -170,11 +170,10 @@ class AppController extends AbstractController
                 $value['purpose'] = 'maskable';
             }
         });
-
         $manifest = [
             'short_name' => $this->configuration->get('pwa_app_short_name'),
             'name' => $this->configuration->get('pwa_app_name'),
-            'icons' => $icons,
+            'icons' => array_values($icons),
             'start_url' => $this->generateUrl('app_code', [
                 'guest' => $guest->getId(),
                 'utm_source' => 'homescreen',
