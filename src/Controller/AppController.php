@@ -170,7 +170,7 @@ class AppController extends AbstractController
                     'type' => 'image/png',
                     'maskable' => true,
                 ];
-            }, [20, 29, 40, 48, 58, 60, 72, 76, 80, 87, 96, 120, 144, 152, 167, 180, 192, 512, 1024]),
+            }, [20, 29, 36, 40, 48, 58, 60, 72, 76, 80, 87, 96, 120, 144, 152, 167, 180, 192, 512, 1024]),
             'start_url' => $this->generateUrl('app_code', [
                 'guest' => $guest->getId(),
                 'utm_source' => 'homescreen',
