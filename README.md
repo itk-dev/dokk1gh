@@ -303,3 +303,9 @@ docker compose run --rm node yarn coding-standards-check
 ```shell
 docker compose exec phpfpm vendor/bin/rector process
 ```
+
+## Code analysis
+
+```shell
+docker compose exec phpfpm composer code-analysis
+```
