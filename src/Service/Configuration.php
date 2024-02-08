@@ -31,7 +31,7 @@ class Configuration
 
         if ($this->parameters->has($path)) {
             $config = $this->parameters->get($path);
-        } else {
+        } elseif (str_contains($path, '.')) {
             $steps = explode('.', (string) $path);
             foreach ($steps as $index => $step) {
                 if (0 === $index) {
@@ -53,6 +53,6 @@ class Configuration
             );
         }
 
-        return $config;
+        return $config ?? $defaultValue;
     }
 }

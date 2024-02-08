@@ -168,6 +168,7 @@ class AppController extends AbstractController
                     'src' => $packages->getUrl($this->configuration->get('app_icons.'.$sizes)),
                     'sizes' => $sizes,
                     'type' => 'image/png',
+                    'maskable' => true,
                 ];
             }, [20, 29, 40, 48, 58, 60, 72, 76, 80, 87, 96, 120, 144, 152, 167, 180, 192, 512, 1024]),
             'start_url' => $this->generateUrl('app_code', [
@@ -176,9 +177,9 @@ class AppController extends AbstractController
             ]),
             'display' => 'standalone',
             'orientation' => 'portrait',
-            'background_color' => '#003764',
-            'theme_color' => '#003764',
-            'lang' => 'da',
+            'background_color' => $this->configuration->get('app_background_color', '#003764'),
+            'theme_color' => $this->configuration->get('app_theme_color', '#003764'),
+            'lang' => $this->configuration->get('app_lang', 'da'),
         ];
 
         return new JsonResponse($manifest);
