@@ -1,4 +1,4 @@
-{% extends '@EasyAdmin/default/new.html.twig' %}
+{% extends '@EasyAdmin/crud/new.html.twig' %}
 
 {% block body_javascript %}
 
@@ -19,22 +19,5 @@
 
 {{ parent() }}
 
-<script>$(function() {
-   $('.action-save').on('click', function() {
-     $('.wrapper').addClass('blur');
-     $('#saving').modal( {
-       backdrop: 'static',
-       keyboard: false
-     });
-
-     // @see https://stackoverflow.com/questions/41063074/bootstrap-modal-not-showing-on-submit-button-click-on-ios
-     event.preventDefault();
-
-     var form = $(this).closest('form');
-     setTimeout(function () {
-       form.submit();
-     }, 500);
-   });
-});</script>
 
 {% endblock %}

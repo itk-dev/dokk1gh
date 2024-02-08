@@ -13,6 +13,7 @@ namespace App\Controller\Admin;
 use App\Entity\Code;
 use App\Entity\Role;
 use App\Service\AeosHelper;
+use App\Service\TemplateManager;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -25,7 +26,8 @@ use Symfony\Component\Translation\TranslatableMessage;
 class CodeCrudController extends AbstractCrudController
 {
     public function __construct(
-        private readonly AeosHelper $aeosHelper
+        private readonly AeosHelper $aeosHelper,
+        private readonly TemplateManager $templateManager
     ) {
     }
 
@@ -71,7 +73,12 @@ class CodeCrudController extends AbstractCrudController
             yield DateTimeField::new('startTime', new TranslatableMessage('Start time'));
             yield DateTimeField::new('endTime', new TranslatableMessage('End time'));
         }
-        yield AssociationField::new('template', new TranslatableMessage('Template'));
+
+        yield AssociationField::new('template', new TranslatableMessage('Template'))
+            ->setFormTypeOptions([
+                'placeholder' => new TranslatableMessage('Select template'),
+                'choices' => $this->templateManager->getUserTemplates(),
+        ]);
         yield TextareaField::new('note', new TranslatableMessage('Note'));
         yield DateTimeField::new('createdAt', new TranslatableMessage('Created at'))
             ->onlyOnIndex();

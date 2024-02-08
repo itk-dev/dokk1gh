@@ -20,6 +20,7 @@ class UserEventListener
 {
     public function prePersist(User $user, PrePersistEventArgs $args)
     {
+        // Password may have been already set when loading fixtures.
         if (null === $user->getPassword()) {
             $user->setPassword(sha1(uniqid('', true)));
         }

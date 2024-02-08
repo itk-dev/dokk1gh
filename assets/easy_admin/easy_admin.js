@@ -28,5 +28,28 @@ addEventListener('load', () => {
             el.hidden = true
         }
     })
+
+    if (document.body.classList.contains('ea-new-Code')) {
+        // Show modal when creating a new code.
+        document.querySelectorAll('button[name="ea[newForm][btn]"]').forEach((el) => {
+            el.addEventListener('click', function(event) {
+                const wrapper= document.querySelector('.wrapper')
+                if (wrapper) {
+                    wrapper.classList.add('blur')
+                }
+                const modalElement = document.getElementById('saving')
+                if (modalElement) {
+                    // https://getbootstrap.com/docs/5.3/components/modal/#via-javascript
+                    new bootstrap
+                        .Modal(modalElement, {
+                            backdrop: 'static',
+                            keyboard: false
+                        })
+                        .show()
+                }
+            });
+        });
+    }
+
 })
 

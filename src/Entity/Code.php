@@ -69,160 +69,92 @@ class Code implements Blameable, \Stringable
         return '['.$this->getIdentifier().'; '.$this->getTemplate()->getName().'; '.$timeRange.']';
     }
 
-    /**
-     * Get id.
-     *
-     * @return int
-     */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * Set startTime.
-     *
-     * @return Code
-     */
-    public function setStartTime(\DateTime $startTime)
+    public function setStartTime(\DateTimeInterface $startTime): static
     {
         $this->startTime = $startTime;
 
         return $this;
     }
 
-    /**
-     * Get startTime.
-     *
-     * @return \DateTime
-     */
-    public function getStartTime()
+    public function getStartTime(): ?\DateTimeInterface
     {
         return $this->startTime;
     }
 
-    /**
-     * Set endTime.
-     *
-     * @return Code
-     */
-    public function setEndTime(\DateTime $endTime)
+    public function setEndTime(\DateTimeInterface $endTime): static
     {
         $this->endTime = $endTime;
 
         return $this;
     }
 
-    /**
-     * Get endTime.
-     *
-     * @return \DateTime
-     */
-    public function getEndTime()
+    public function getEndTime(): ?\DateTimeInterface
     {
         return $this->endTime;
     }
 
-    /**
-     * Set template.
-     *
-     * @return Code
-     */
-    public function setTemplate(?Template $template = null)
+    public function setTemplate(Template $template): static
     {
         $this->template = $template;
 
         return $this;
     }
 
-    /**
-     * Get template.
-     *
-     * @return Template
-     */
-    public function getTemplate()
+    public function getTemplate(): ?Template
     {
         return $this->template;
     }
 
-    /**
-     * Set identifier.
-     *
-     * @return Code
-     */
-    public function setIdentifier(?string $identifier = null)
+    public function setIdentifier(string $identifier): static
     {
         $this->identifier = $identifier;
 
         return $this;
     }
 
-    /**
-     * Get identifier.
-     *
-     * @return string
-     */
-    public function getIdentifier()
+    public function getIdentifier(): ?string
     {
         return $this->identifier;
     }
 
-    /**
-     * Set aeosId.
-     *
-     * @param string $aeosId
-     *
-     * @return \App\Entity\Code|\App\Entity\Template
-     */
-    public function setAeosId($aeosId)
+    public function setAeosId(string $aeosId): static
     {
         $this->aeosId = $aeosId;
 
         return $this;
     }
 
-    /**
-     * Get aeosId.
-     *
-     * @return string
-     */
-    public function getAeosId()
+    public function getAeosId(): ?string
     {
         return $this->aeosId;
     }
 
-    /**
-     * Set note.
-     *
-     * @return Code
-     */
-    public function setNote(?string $note = null)
+    public function setNote(?string $note = null): static
     {
         $this->note = $note;
 
         return $this;
     }
 
-    /**
-     * Get note.
-     *
-     * @return string
-     */
-    public function getNote()
+    public function getNote(): ?string
     {
         return $this->note;
     }
 
     public function getStatus()
     {
-        $now = new \DateTime();
-        if ($this->getStartTime() > $now) {
-            return 'future';
-        } elseif ($this->getEndTime() < $now) {
-            return 'expired';
-        }
+        $now = new \DateTimeImmutable();
 
-        return 'active';
+        return match (true) {
+            $this->getStartTime() > $now => 'future',
+            $this->getEndTime() < $now => 'expired',
+            default => 'active'
+        };
     }
 
     #[Assert\Callback]
