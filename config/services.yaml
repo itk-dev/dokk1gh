@@ -12,6 +12,7 @@ parameters:
     app_icons:
         20x20: build/images/app_icon_20.png
         29x29: build/images/app_icon_29.png
+        36x36: build/images/app_icon_36.png
         40x40: build/images/app_icon_40.png
         48x48: build/images/app_icon_48.png
         58x58: build/images/app_icon_58.png

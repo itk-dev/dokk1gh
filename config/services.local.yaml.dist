@@ -64,8 +64,6 @@ parameters:
     guest_code_duration: null
     guest_code_name_template: '{{ ''now'' | date(format_datetime) }}: {{ guest.name }}; {{ guest.company }}; {{ guest.phone }}; {{ guest.email }}'
     guest_code_sms_template: '%code_generate_sms.body%'
-    pwa_app_short_name: Code2Dokk1
-    pwa_app_name: 'Code2Dokk1 - Generer dørkoder'
 
     guest_timeRanges_min: '06:00'
     guest_timeRanges_max: '22:00'
@@ -97,6 +95,11 @@ parameters:
     guest_app_email_body_template: "<p>\nDu kan åbne din helt personlige app på: <a href=\"{{ app_url }}\">{{ app_url }}</a>.\n</p>\n\n<p>\nVenlig hilsen<br/>\n{{ site_name }}\n</p>"
     guest_app_sms_body_template: "Du kan åbne din helt personlige app på: {{ app_url }}.\n\nVenlig hilsen\n{{ site_name }}"
 
+    pwa_app_short_name: Code2Dokk1
+    pwa_app_name: 'Code2Dokk1 - Generer dørkoder'
+    # Optional
+    # pwa_app_background_color: '#ffffff'
+    # pwa_app_theme_color: '#003764'
 
     # code_generate_email:
     #     subject: 'Adgangskode til Dokk1'
