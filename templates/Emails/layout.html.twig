@@ -1,3 +1,15 @@
+{# Default page properties.  You can override these in the `page` block of your child templates. #}
+{% set button = button|default({})|merge({
+    url: app_url,
+    text: 'Open app'|trans
+}) %}
+
+{% set wrapper_classes = wrapper_classes|default({})|merge([
+  'no-menu',
+  'user-page'
+]) %}
+
+
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
   <head>
@@ -122,6 +134,7 @@
   <body width="100%" bgcolor="#F5F5F5" style="margin: 0; mso-line-height-rule: exactly;">
     <center style="width: 100%; background: #F5F5F5; text-align: left;">
       {% block content %}
+
 
         {% set _block = block('header') %}
         {% if _block %}

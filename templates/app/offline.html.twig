@@ -1,5 +1,8 @@
 {% extends 'app/base.html.twig' %}
-{% set on_app_page = false %}
+
+{% block page %}
+    {{ parent() }}
+{% endblock %}
 
 {% block content %}
     <div class="header">
