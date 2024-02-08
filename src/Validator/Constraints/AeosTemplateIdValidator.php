@@ -21,8 +21,12 @@ class AeosTemplateIdValidator extends ConstraintValidator
     ) {
     }
 
-    public function validate($value, Constraint $constraint)
+    /**
+     * {@inheritdoc}
+     */
+    public function validate(mixed $value, Constraint $constraint)
     {
+        assert($constraint instanceof AeosTemplateId);
         $template = $value ? $this->aeosService->getTemplate($value) : null;
         if (!$template) {
             $this->context->buildViolation($constraint->message)

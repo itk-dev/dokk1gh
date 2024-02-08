@@ -15,5 +15,5 @@ use Symfony\Component\Validator\Constraint;
 #[\Attribute]
 class AeosPersonId extends Constraint
 {
-    public $message = '"{{ string }}" is not a valid AEOS person id.';
+    public string $message = '"{{ string }}" is not a valid AEOS person id.';
 }

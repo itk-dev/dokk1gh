@@ -15,5 +15,5 @@ use Symfony\Component\Validator\Constraint;
 #[\Attribute]
 class AeosTemplateId extends Constraint
 {
-    public $message = '"{{ string }}" is not a valid AEOS template id.';
+    public string $message = '"{{ string }}" is not a valid AEOS template id.';
 }
