@@ -155,7 +155,7 @@ class AppController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/mainfest.json', name: 'app_manifest')]
+    #[Route(path: '/manifest.json', name: 'app_manifest')]
     public function manifest(Guest $guest, Packages $packages)
     {
         $manifest = [
