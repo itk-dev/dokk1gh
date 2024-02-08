@@ -96,26 +96,6 @@ parameters:
     guest_app_email_subject_template: 'Gæstehåndtering – App''en'
     guest_app_email_body_template: "<p>\nDu kan åbne din helt personlige app på: <a href=\"{{ app_url }}\">{{ app_url }}</a>.\n</p>\n\n<p>\nVenlig hilsen<br/>\n{{ site_name }}\n</p>"
     guest_app_sms_body_template: "Du kan åbne din helt personlige app på: {{ app_url }}.\n\nVenlig hilsen\n{{ site_name }}"
-    app_icons:
-        20x20: build/images/app_icon_20.png
-        29x29: build/images/app_icon_29.png
-        40x40: build/images/app_icon_40.png
-        48x48: build/images/app_icon_48.png
-        58x58: build/images/app_icon_58.png
-        60x60: build/images/app_icon_60.png
-        72x72: build/images/app_icon_72.png
-        76x76: build/images/app_icon_76.png
-        80x80: build/images/app_icon_80.png
-        87x87: build/images/app_icon_87.png
-        96x96: build/images/app_icon_96.png
-        120x120: build/images/app_icon_120.png
-        144x144: build/images/app_icon_144.png
-        152x152: build/images/app_icon_152.png
-        167x167: build/images/app_icon_167.png
-        180x180: build/images/app_icon_180.png
-        192x192: build/images/app_icon_192.png
-        512x512: build/images/app_icon_512.png
-        1024x1024: build/images/app_icon_1024.png
 
 
     # code_generate_email:
