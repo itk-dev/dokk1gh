@@ -2,10 +2,17 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of Gæstehåndtering.
+ *
+ * (c) 2017–2024 ITK Development
+ *
+ * This source file is subject to the MIT license.
+ */
+
 namespace DoctrineMigrations;
 
 use Doctrine\DBAL\ArrayParameterType;
-use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
@@ -30,7 +37,7 @@ final class Version20240208143029 extends AbstractMigration
             ],
             [
                 'category' => ParameterType::STRING,
-                'names' => ArrayParameterType::STRING
+                'names' => ArrayParameterType::STRING,
             ]
         );
 

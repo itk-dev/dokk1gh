@@ -11,7 +11,7 @@
 namespace App\Command\User;
 
 use App\Entity\User;
-use App\Repository\UserRepository;
+use App\Service\UserManager;
 use Gedmo\Timestampable\Timestampable;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\RuntimeException;
@@ -29,13 +29,13 @@ abstract class UserCommand extends Command
     /** @var OutputInterface */
     protected $output;
 
-    protected UserRepository $userRepository;
+    protected UserManager $userManager;
     protected RoleHierarchyInterface $roleHierarchy;
 
     #[Required]
-    public function setUserRepository(UserRepository $userRepository)
+    public function setUserManager(UserManager $userManager)
     {
-        $this->userRepository = $userRepository;
+        $this->userManager = $userManager;
     }
 
     #[Required]
@@ -54,7 +54,7 @@ abstract class UserCommand extends Command
 
     protected function getUser(string $email)
     {
-        $user = $this->userRepository->findOneBy(['email' => $email]);
+        $user = $this->userManager->findUser($email);
 
         if (null === $user) {
             throw new RuntimeException(sprintf('Cannot find user %s', $email));
@@ -65,9 +65,12 @@ abstract class UserCommand extends Command
 
     protected function getUsers()
     {
-        return $this->userRepository->findAll();
+        return $this->userManager->findBy([]);
     }
 
+    /**
+     * @param array|User[] $users
+     */
     protected function showUsers(array $users)
     {
         $table = new Table($this->output);
@@ -76,8 +79,9 @@ abstract class UserCommand extends Command
             'email',
             'roles',
             'assigned roles',
+            'AEOS ID',
         ];
-        if ($firstUser instanceof TimestampabUser) {
+        if ($firstUser instanceof Timestampable) {
             $headers[] = 'created at';
             $headers[] = 'updated at';
         }
@@ -87,6 +91,7 @@ abstract class UserCommand extends Command
                 $user->getEmail(),
                 implode(', ', $user->getRoles()),
                 implode(', ', $this->roleHierarchy->getReachableRoleNames($user->getRoles())),
+                $user->getAeosId(),
             ];
             if ($user instanceof Timestampable) {
                 $row[] = $user->getCreatedAt()->format(\DateTimeInterface::ATOM);

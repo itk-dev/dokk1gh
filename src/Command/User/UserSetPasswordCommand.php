@@ -15,7 +15,6 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[AsCommand(
     name: 'user:set-password',
@@ -23,12 +22,6 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 )]
 class UserSetPasswordCommand extends UserCommand
 {
-    public function __construct(
-        private readonly UserPasswordHasherInterface $passwordHasher
-    ) {
-        parent::__construct();
-    }
-
     protected function configure()
     {
         $this
@@ -51,11 +44,8 @@ class UserSetPasswordCommand extends UserCommand
                 ->ask($input, $output, $question);
         }
 
-        $user->setPassword($this->passwordHasher->hashPassword(
-            $user,
-            $password
-        ));
-        $this->userRepository->persist($user, true);
+        $this->userManager->setPassword($user, $password);
+        $this->userManager->updateUser($user, true);
 
         $output->writeln(sprintf('Password set for user %s', $user->getEmail()));
         $this->showUser($user);

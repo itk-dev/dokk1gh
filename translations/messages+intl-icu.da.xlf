@@ -217,10 +217,6 @@
         <source>Please wait while we load the app</source>
         <target state="translated">Vent venligst mens app'en indlæses</target>
       </trans-unit>
-      <trans-unit id="5RxrSPu" resname="Open app">
-        <source>Open app</source>
-        <target state="translated">Åbn app</target>
-      </trans-unit>
       <trans-unit id="cOHehA0" resname="New code created">
         <source>New code created</source>
         <target state="translated">Ny kode oprettet</target>
@@ -540,6 +536,18 @@
       <trans-unit id="CrY_XoG" resname="Accept terms">
         <source>Accept terms</source>
         <target state="needs-l10n">__Accept terms</target>
+      </trans-unit>
+      <trans-unit id="o3bnC_9" resname="Expire app">
+        <source>Expire app</source>
+        <target state="needs-l10n">__Expire app</target>
+      </trans-unit>
+      <trans-unit id="XSH0tCd" resname="App sent to {guest}">
+        <source>App sent to {guest}</source>
+        <target state="needs-l10n">__App sent to {guest}</target>
+      </trans-unit>
+      <trans-unit id="_si4RkF" resname="Guest {guest} expired">
+        <source>Guest {guest} expired</source>
+        <target state="needs-l10n">__Guest {guest} expired</target>
       </trans-unit>
     </body>
   </file>

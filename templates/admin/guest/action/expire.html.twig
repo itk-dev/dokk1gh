@@ -1,0 +1,16 @@
+{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+{# @var action \EasyCorp\Bundle\EasyAdminBundle\Dto\ActionDto #}
+{# @var entity \EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto #}
+
+{# cf. @easyadmin-bundle/src/Resources/views/crud/action.html.twig #}
+
+{% set message = 'Confirm expiration of {guest}'|trans({guest: entity.instance.name}) %}
+
+<form action="{{ action.linkUrl }}" method="POST" data-confirm="{{ message }})" onclick="return confirm(this.dataset.confirm)">
+  <button class="btn {{ action.cssClass }}" {% for name, value in action.htmlAttributes %}{{ name }}="{{ (value.trans is defined ? value|trans : value)|e('html_attr') }}" {% endfor %}>
+    <span class="btn-label">
+      {%- if action.icon %}<i class="action-icon {{ action.icon }}"></i> {% endif -%}
+      {%- if action.label is not empty -%}<span class="action-label">{{ action.label|trans|raw }}</span>{%- endif -%}
+    </span>
+  </button>
+</form>

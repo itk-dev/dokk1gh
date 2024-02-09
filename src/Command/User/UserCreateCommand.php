@@ -10,13 +10,12 @@
 
 namespace App\Command\User;
 
-use App\Entity\User;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Exception\RuntimeException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[AsCommand(
     name: 'user:create',
@@ -24,16 +23,11 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 )]
 class UserCreateCommand extends UserCommand
 {
-    public function __construct(
-        private readonly UserPasswordHasherInterface $passwordHasher
-    ) {
-        parent::__construct();
-    }
-
     protected function configure()
     {
         $this
-            ->addArgument('email', InputArgument::REQUIRED);
+            ->addArgument('email', InputArgument::REQUIRED)
+            ->addOption('notify', null, InputOption::VALUE_NONE, 'Notify user');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -50,14 +44,17 @@ class UserCreateCommand extends UserCommand
             throw new RuntimeException(sprintf('User %s already exists', $user->getUserIdentifier()));
         }
 
-        $user = new User();
-        $user
-            ->setEmail($email)
-            ->setPassword(sha1(uniqid((string) $email, true)));
-        $this->userRepository->persist($user, true);
+        $user = $this->userManager
+            ->createUser()
+            ->setEmail($email);
+        $this->userManager->updateUser($user, true);
 
         $output->writeln(sprintf('User %s created', $user->getEmail()));
         $this->showUser($user);
+
+        if ($input->getOption('notify')) {
+            $this->userManager->notifyUserCreated($user);
+        }
 
         return static::SUCCESS;
     }

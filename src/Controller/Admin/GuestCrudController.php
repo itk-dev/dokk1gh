@@ -20,6 +20,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -30,6 +31,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Translation\TranslatableMessage;
 
 class GuestCrudController extends AbstractCrudController
@@ -60,29 +63,29 @@ class GuestCrudController extends AbstractCrudController
                     ->linkToCrudAction('showApp')
             );
 
-        // @todo This should only be added if app has not already been sent.
         $sendAction = Action::new('sendApp', new TranslatableMessage('Send app'))
             ->linkToCrudAction('sendApp');
         $sendAction
             ->getAsDto()
             ->setDisplayCallable(static fn (Guest $guest) => null === $guest->getSentAt());
 
-         $actions->add(Crud::PAGE_INDEX, $sendAction);
+        $actions->add(Crud::PAGE_INDEX, $sendAction);
 
-        // @todo This should only be added if app has already been sent.
         $resendAction = Action::new('resendApp', new TranslatableMessage('Resend app'))
             ->linkToCrudAction('resendApp');
         $resendAction
             ->getAsDto()
             ->setDisplayCallable(static fn (Guest $guest) => null !== $guest->getSentAt());
 
-         $actions->add(Crud::PAGE_INDEX, $resendAction);
+        $actions->add(Crud::PAGE_INDEX, $resendAction);
 
         // @todo Ask for confirmation before expiring an app
-        // $actions->add(Crud::PAGE_INDEX,
-        //     Action::new('expireApp', new TranslatableMessage('Expire app'))
-        //         ->linkToCrudAction('expireApp')
-        // );
+        $actions->add(
+            Crud::PAGE_INDEX,
+            Action::new('expireApp', new TranslatableMessage('Expire app'))
+                ->linkToCrudAction('expireApp')
+                ->setTemplatePath('admin/guest/action/expire.html.twig')
+        );
 
         return $actions;
     }
@@ -99,7 +102,7 @@ class GuestCrudController extends AbstractCrudController
         $guest = $this->getGuest();
         if (null !== $guest) {
             if ($this->guestService->sendApp($guest)) {
-                $this->addFlash('info', 'App sent');
+                $this->showInfo(new TranslatableMessage('App sent to {guest}', ['guest' => $guest->getName()]));
             }
         }
 
@@ -113,18 +116,24 @@ class GuestCrudController extends AbstractCrudController
         return $this->sendApp();
     }
 
-    public function expireApp()
+    public function expireApp(AdminContext $context)
     {
-        $guest = $this->getGuest();
-        if (null !== $guest) {
-            if ($this->guestService->expire($guest)) {
-                $this->addFlash('info', 'Guest '.$guest->getId().' expired');
+        if (Request::METHOD_POST === $context->getRequest()->getMethod()) {
+            $guest = $this->getGuest();
+            if (null !== $guest) {
+                // Expiring an app will anonymize data, so we need to keep a useful guest name.
+                $message = new TranslatableMessage('Guest {guest} expired', ['guest' => (string) $guest->getName()]);
+                if ($this->guestService->expire($guest)) {
+                    $this->showInfo($message);
+                }
             }
+
+            return $this->redirect(
+                $this->container->get(AdminUrlGenerator::class)->setAction(Action::INDEX)->generateUrl()
+            );
         }
 
-        return $this->redirect(
-            $this->container->get(AdminUrlGenerator::class)->setAction(Action::INDEX)->generateUrl()
-        );
+        throw new BadRequestHttpException();
     }
 
     public function createIndexQueryBuilder(

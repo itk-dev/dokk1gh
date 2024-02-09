@@ -13,6 +13,7 @@ namespace App\Controller\Admin;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController as BaseAbstractCrudController;
+use Symfony\Component\Translation\TranslatableMessage;
 
 abstract class AbstractCrudController extends BaseAbstractCrudController
 {
@@ -29,5 +30,30 @@ abstract class AbstractCrudController extends BaseAbstractCrudController
     {
         return parent::configureAssets($assets)
             ->addWebpackEncoreEntry('easy_admin');
+    }
+
+    protected function showSuccess(string $message, array $parameters = [])
+    {
+        $this->showMessage('success', $message, $parameters);
+    }
+
+    protected function showInfo(string|TranslatableMessage $message, array $parameters = [])
+    {
+        $this->showMessage('info', $message, $parameters);
+    }
+
+    protected function showWarning(string $message, array $parameters = [])
+    {
+        $this->showMessage('warning', $message, $parameters);
+    }
+
+    protected function showError(string $message, array $parameters = [])
+    {
+        $this->showMessage('error', $message, $parameters);
+    }
+
+    protected function showMessage(string $type, string|TranslatableMessage $message, array $parameters = [])
+    {
+        $this->addFlash($type, $message);
     }
 }

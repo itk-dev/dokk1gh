@@ -44,7 +44,7 @@ class UserPromoteCommand extends UserCommand
                 )
             )
         );
-        $this->userRepository->persist($user, true);
+        $this->userManager->updateUser($user, true);
 
         $output->writeln(sprintf('User %s promoted', $user->getEmail()));
         $this->showUser($user);

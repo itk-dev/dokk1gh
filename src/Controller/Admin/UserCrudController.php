@@ -12,6 +12,8 @@ namespace App\Controller\Admin;
 
 use App\Entity\Role;
 use App\Entity\User;
+use App\Service\UserManager;
+use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
@@ -26,6 +28,11 @@ use Symfony\Component\Translation\TranslatableMessage;
 
 class UserCrudController extends AbstractCrudController
 {
+    public function __construct(
+        private readonly UserManager $userManager
+    ) {
+    }
+
     public static function getEntityFqcn(): string
     {
         return User::class;
@@ -49,6 +56,19 @@ class UserCrudController extends AbstractCrudController
             // @see https://www.jsdelivr.com/package/npm/tom-select?path=dist
             ->addJsFile('https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js')
             ->addCssFile('https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.min.css');
+    }
+
+    public function createEntity(string $entityFqcn)
+    {
+        return $this->userManager->createUser();
+    }
+
+    public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    {
+        parent::persistEntity($entityManager, $entityInstance);
+        \assert($entityInstance instanceof User);
+        $this->userManager->notifyUserCreated($entityInstance, false);
+        $this->showInfo('User {user} notified', ['user' => $entityInstance->getEmail()]);
     }
 
     public function configureFields(string $pageName): iterable

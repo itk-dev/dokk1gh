@@ -51,8 +51,6 @@ class GuestService
     /**
      * Send app url to user via sms and email.
      *
-     * @param string $appUrl
-     *
      * @return bool
      */
     public function sendApp(Guest $guest)

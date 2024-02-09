@@ -27,8 +27,7 @@ class SettingCrudController extends AbstractCrudController
 {
     public function __construct(
         private readonly TranslatorInterface $translator
-    )
-    {
+    ) {
     }
 
     public static function getEntityFqcn(): string
