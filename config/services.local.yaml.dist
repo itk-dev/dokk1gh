@@ -64,8 +64,6 @@ parameters:
     guest_code_duration: null
     guest_code_name_template: '{{ ''now'' | date(format_datetime) }}: {{ guest.name }}; {{ guest.company }}; {{ guest.phone }}; {{ guest.email }}'
     guest_code_sms_template: '%code_generate_sms.body%'
-    pwa_app_short_name: Code2Dokk1
-    pwa_app_name: 'Code2Dokk1 - Generer dørkoder'
 
     guest_timeRanges_min: '06:00'
     guest_timeRanges_max: '22:00'
@@ -96,27 +94,12 @@ parameters:
     guest_app_email_subject_template: 'Gæstehåndtering – App''en'
     guest_app_email_body_template: "<p>\nDu kan åbne din helt personlige app på: <a href=\"{{ app_url }}\">{{ app_url }}</a>.\n</p>\n\n<p>\nVenlig hilsen<br/>\n{{ site_name }}\n</p>"
     guest_app_sms_body_template: "Du kan åbne din helt personlige app på: {{ app_url }}.\n\nVenlig hilsen\n{{ site_name }}"
-    app_icons:
-        20x20: images/code2dokk1_launcher_ic_20.png
-        29x29: images/code2dokk1_launcher_ic_29.png
-        40x40: images/code2dokk1_launcher_ic_40.png
-        48x48: images/code2dokk1_launcher_ic_48.png
-        58x58: images/code2dokk1_launcher_ic_58.png
-        60x60: images/code2dokk1_launcher_ic_60.png
-        72x72: images/code2dokk1_launcher_ic_72.png
-        76x76: images/code2dokk1_launcher_ic_76.png
-        80x80: images/code2dokk1_launcher_ic_80.png
-        87x87: images/code2dokk1_launcher_ic_87.png
-        96x96: images/code2dokk1_launcher_ic_96.png
-        120x120: images/code2dokk1_launcher_ic_120.png
-        144x144: images/code2dokk1_launcher_ic_144.png
-        152x152: images/code2dokk1_launcher_ic_152.png
-        167x167: images/code2dokk1_launcher_ic_167.png
-        180x180: images/code2dokk1_launcher_ic_180.png
-        192x192: images/code2dokk1_launcher_ic_192.png
-        512x512: images/code2dokk1_launcher_ic_512.png
-        1024x1024: images/code2dokk1_launcher_ic_1024.png
 
+    pwa_app_short_name: Code2Dokk1
+    pwa_app_name: 'Code2Dokk1 - Generer dørkoder'
+    # Optional
+    # pwa_app_background_color: '#ffffff'
+    # pwa_app_theme_color: '#003764'
 
     # code_generate_email:
     #     subject: 'Adgangskode til Dokk1'

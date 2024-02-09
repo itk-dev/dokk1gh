@@ -155,30 +155,34 @@ class AppController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/mainfest.json', name: 'app_manifest')]
+    #[Route(path: '/manifest.json', name: 'app_manifest')]
     public function manifest(Guest $guest, Packages $packages)
     {
+        $icons = $this->configuration->get('app_icons');
+        array_walk($icons, static function (&$value, $size) use ($packages) {
+            $value = [
+                'src' => $packages->getUrl($value),
+                'sizes' => $size,
+                'type' => 'image/png',
+            ];
+
+            if ('512x512' === $size) {
+                $value['purpose'] = 'maskable';
+            }
+        });
         $manifest = [
             'short_name' => $this->configuration->get('pwa_app_short_name'),
             'name' => $this->configuration->get('pwa_app_name'),
-            'icons' => array_map(function ($width) use ($packages) {
-                $sizes = $width.'x'.$width;
-
-                return [
-                    'src' => $packages->getUrl($this->configuration->get('app_icons.'.$sizes)),
-                    'sizes' => $sizes,
-                    'type' => 'image/png',
-                ];
-            }, [20, 29, 40, 48, 58, 60, 72, 76, 80, 87, 96, 120, 144, 152, 167, 180, 192, 512, 1024]),
+            'icons' => array_values($icons),
             'start_url' => $this->generateUrl('app_code', [
                 'guest' => $guest->getId(),
                 'utm_source' => 'homescreen',
             ]),
             'display' => 'standalone',
             'orientation' => 'portrait',
-            'background_color' => '#003764',
-            'theme_color' => '#003764',
-            'lang' => 'da',
+            'background_color' => $this->configuration->get('pwa_app_background_color', '#003764'),
+            'theme_color' => $this->configuration->get('pwa_app_theme_color', '#003764'),
+            'lang' => $this->configuration->get('pwa_app_lang', 'da'),
         ];
 
         return new JsonResponse($manifest);

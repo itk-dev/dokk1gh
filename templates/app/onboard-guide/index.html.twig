@@ -1,5 +1,8 @@
 {% extends 'app/base.html.twig' %}
-{% set on_app_page = false %}
+
+{% block page %}
+    {{ parent() }}
+{% endblock %}
 
 {% block content %}
     <div class="onboard-guide">
@@ -39,16 +42,15 @@
         </div>
         <div class="slide fade-in slide-in">
             <div class="header">
-                {# TODO: Get configutation to work so we dont need to comment out the below code #}
-                {# <h1>{{ get_configuration('app_terms_header')|default('Accept terms'|trans) }}</h1>
+                <h1>{{ get_configuration('app_terms_header')|default('Accept terms'|trans) }}</h1>
                 {% if get_configuration('app_terms_lead')|default(null) %}
                     <p class="lead">{{ get_configuration('app_terms_lead') }}</p>
-                {% endif %} #}
+                {% endif %}
             </div>
             <div class="card shadow">
                 <div class="card-body">
                     {% set replacements = {} %}
-                    {# {{ get_configuration('app_terms_content')|replace(replacements)|raw }} #}
+                    {{ get_configuration('app_terms_content')|replace(replacements)|raw }}
                 </div>
             </div>
 

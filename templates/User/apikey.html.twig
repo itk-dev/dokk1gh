@@ -1,7 +1,8 @@
 {% extends 'admin/layout.html.twig' %}
 
-{# Variable `wrapper_classes` is used by parent template #}
-{% set wrapper_classes = ['no-menu', 'user-page'] %}
+{% block page %}
+  {{ parent() }}
+{% endblock %}
 
 {% block main %}
   <div class="container">
