@@ -99,7 +99,11 @@
             "@code-analysis/psalm"
         ],
         "fixtures:load": [
-          "php bin/console hautelook:fixtures:load --no-interaction"
+            "php bin/console hautelook:fixtures:load --no-interaction",
+            "# Re-run the migration with default settings",
+            "php bin/console doctrine:migrations:version --no-interaction --delete 'DoctrineMigrations\\Version20240205133803'",
+            "php bin/console doctrine:migrations:version --no-interaction --delete 'DoctrineMigrations\\Version20240208143029'",
+            "php bin/console doctrine:migrations:migrate --no-interaction"
         ],
         "update-translations": [
             "# We need a translation from en to en (!) (without prefix) to be able to process placeholders in en.",

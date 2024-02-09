@@ -461,7 +461,7 @@
         <source>If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password. This link will expire in {expirationMessage}.</source>
         <target state="needs-l10n">__If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password. This link will expire in {expirationMessage}.</target>
       </trans-unit>
-      <trans-unit id="7LnnofM" resname="If you don't receive an email please check your spam folder or &lt;a href=&quot;{password_request_url}&quot;>try again&lt;/a>.">
+      <trans-unit id="7LnnofM" resname="If you don't receive an email please check your spam folder or &lt;a href=&quot;{password_request_url}&quot;&gt;try again&lt;/a&gt;.">
         <source>If you don't receive an email please check your spam folder or &lt;a href="{password_request_url}"&gt;try again&lt;/a&gt;.</source>
         <target state="needs-l10n"><![CDATA[__If you don't receive an email please check your spam folder or <a href="{password_request_url}">try again</a>.]]></target>
       </trans-unit>
@@ -516,6 +516,30 @@
       <trans-unit id="S_0L9CD" resname="Please contact an administrator ({administrator_email}) for help.">
         <source>Please contact an administrator ({administrator_email}) for help.</source>
         <target state="translated">Kontakt en administrator ({administrator_email}) for hjælp</target>
+      </trans-unit>
+      <trans-unit id="jlYzC3I" resname="Select template">
+        <source>Select template</source>
+        <target state="needs-l10n">__Select template</target>
+      </trans-unit>
+      <trans-unit id="KSwG8AR" resname="Category">
+        <source>Category</source>
+        <target state="translated">Kategori</target>
+      </trans-unit>
+      <trans-unit id="W5X_9ex" resname="category.admin">
+        <source>category.admin</source>
+        <target state="translated">Administration</target>
+      </trans-unit>
+      <trans-unit id="H3wDT1m" resname="category.app">
+        <source>category.app</source>
+        <target state="translated">App</target>
+      </trans-unit>
+      <trans-unit id="G2kPg8J" resname="category.guest">
+        <source>category.guest</source>
+        <target state="translated">Gæst</target>
+      </trans-unit>
+      <trans-unit id="CrY_XoG" resname="Accept terms">
+        <source>Accept terms</source>
+        <target state="needs-l10n">__Accept terms</target>
       </trans-unit>
     </body>
   </file>

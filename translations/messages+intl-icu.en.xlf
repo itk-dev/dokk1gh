@@ -517,6 +517,30 @@
         <source>Please contact an administrator ({administrator_email}) for help.</source>
         <target>Please contact an administrator ({administrator_email}) for help.</target>
       </trans-unit>
+      <trans-unit id="jlYzC3I" resname="Select template">
+        <source>Select template</source>
+        <target>Select template</target>
+      </trans-unit>
+      <trans-unit id="KSwG8AR" resname="Category">
+        <source>Category</source>
+        <target>Category</target>
+      </trans-unit>
+      <trans-unit id="W5X_9ex" resname="category.admin">
+        <source>category.admin</source>
+        <target>category.admin</target>
+      </trans-unit>
+      <trans-unit id="H3wDT1m" resname="category.app">
+        <source>category.app</source>
+        <target>category.app</target>
+      </trans-unit>
+      <trans-unit id="G2kPg8J" resname="category.guest">
+        <source>category.guest</source>
+        <target>category.guest</target>
+      </trans-unit>
+      <trans-unit id="CrY_XoG" resname="Accept terms">
+        <source>Accept terms</source>
+        <target>Accept terms</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

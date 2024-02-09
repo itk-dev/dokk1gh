@@ -3,6 +3,7 @@ App\Entity\Guest:
     name: 'Guest 1'
     phoneCountryCode: '45'
     phone: 11111111
+    email: 'guest@example.com'
     enabled: true
     startTime: <(new \DateTime('2100-01-01'))>
     endTime: <(new \DateTime('2101-01-01'))>

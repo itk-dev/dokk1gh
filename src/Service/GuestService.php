@@ -16,6 +16,7 @@ use App\Entity\Template;
 use App\Exception\GuestException;
 use App\Exception\InvalidTemplateException;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class GuestService
 {
@@ -25,7 +26,8 @@ class GuestService
         private readonly TwigHelper $twig,
         private readonly Configuration $configuration,
         private readonly SmsHelper $smsHelper,
-        private readonly MailHelper $mailHelper
+        private readonly MailHelper $mailHelper,
+        private readonly UrlGeneratorInterface $urlGenerator
     ) {
     }
 
@@ -53,8 +55,10 @@ class GuestService
      *
      * @return bool
      */
-    public function sendApp(Guest $guest, $appUrl)
+    public function sendApp(Guest $guest)
     {
+        $appUrl = $this->urlGenerator->generate('app_code', ['guest' => $guest->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
+
         if (null !== $guest->getPhone()) {
             $this->smsHelper->sendApp($guest, $appUrl);
         }

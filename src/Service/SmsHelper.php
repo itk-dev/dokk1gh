@@ -42,7 +42,6 @@ class SmsHelper
             [
                 'guest' => $guest,
                 'app_url' => $appUrl,
-                'guest_name' => $guest->getName(),
             ]
         );
         $this->smsService->send($number, $message, $countryCode);

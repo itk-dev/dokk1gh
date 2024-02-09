@@ -21,9 +21,16 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Symfony\Component\Translation\TranslatableMessage;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SettingCrudController extends AbstractCrudController
 {
+    public function __construct(
+        private readonly TranslatorInterface $translator
+    )
+    {
+    }
+
     public static function getEntityFqcn(): string
     {
         return Setting::class;
@@ -51,7 +58,10 @@ class SettingCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         yield TextField::new('name', new TranslatableMessage('Name'))
-            ->formatValue(static fn ($value) => new TranslatableMessage($value))
+            ->formatValue(fn ($value) => $this->translator->trans($value))
+            ->onlyOnIndex();
+        yield TextField::new('category', new TranslatableMessage('Category'))
+            ->formatValue(fn ($value) => $this->translator->trans('category.'.$value))
             ->onlyOnIndex();
 
         if (Crud::PAGE_INDEX === $pageName) {

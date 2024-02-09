@@ -61,16 +61,22 @@ class GuestCrudController extends AbstractCrudController
             );
 
         // @todo This should only be added if app has not already been sent.
-        // $actions->add(Crud::PAGE_INDEX,
-        //     Action::new('sendApp', new TranslatableMessage('Send app'))
-        //         ->linkToCrudAction('sendApp')
-        // );
+        $sendAction = Action::new('sendApp', new TranslatableMessage('Send app'))
+            ->linkToCrudAction('sendApp');
+        $sendAction
+            ->getAsDto()
+            ->setDisplayCallable(static fn (Guest $guest) => null === $guest->getSentAt());
+
+         $actions->add(Crud::PAGE_INDEX, $sendAction);
 
         // @todo This should only be added if app has already been sent.
-        // $actions->add(Crud::PAGE_INDEX,
-        //     Action::new('resendApp', new TranslatableMessage('Resend app'))
-        //         ->linkToCrudAction('resendApp')
-        // );
+        $resendAction = Action::new('resendApp', new TranslatableMessage('Resend app'))
+            ->linkToCrudAction('resendApp');
+        $resendAction
+            ->getAsDto()
+            ->setDisplayCallable(static fn (Guest $guest) => null !== $guest->getSentAt());
+
+         $actions->add(Crud::PAGE_INDEX, $resendAction);
 
         // @todo Ask for confirmation before expiring an app
         // $actions->add(Crud::PAGE_INDEX,
@@ -92,8 +98,7 @@ class GuestCrudController extends AbstractCrudController
     {
         $guest = $this->getGuest();
         if (null !== $guest) {
-            $appUrl = $this->generateUrl('app_code', ['guest' => $guest->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
-            if ($this->guestService->sendApp($guest, $appUrl)) {
+            if ($this->guestService->sendApp($guest)) {
                 $this->addFlash('info', 'App sent');
             }
         }

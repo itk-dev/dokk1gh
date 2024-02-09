@@ -22,7 +22,7 @@ final class Version20240205133803 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Create default settings';
     }
 
     public function up(Schema $schema): void
@@ -92,14 +92,14 @@ The app expired content
 
 Placeholders:
 
-%expired_on%: The date on which the app expired.
-%expired_at%: The date and time at which the app expired.
+{expired_on}: The date on which the app expired.
+{expired_at}: The date and time at which the app expired.
 DESCRIPTION,
             'type' => 'text',
             'form_type' => 'texteditor',
             'value' => json_encode(
                 <<<'CONTENT'
-<p>Din Dokk1 app udløb %expired_on%</p>
+<p>Din Dokk1 app udløb {expired_on}</p>
 CONTENT
             )]);
 
@@ -234,13 +234,7 @@ DESCRIPTION,
                 <<<'CONTENT'
 Hej {{ guest.name }}
 
-Her er din adgangskode til Dokk1: {{ code.identifier }}
-
-Koden indtastes på tal-panelet ved siden af døren eller inde i elevatoren. OBS: Når du taster koden skal du huske at afslutte med E, dvs. du skal taste “{{ code.identifier }}E”.
-
-Koden giver adgang til “{{ code.template.name }}” i tidsrummet {{ code_valid_time_period }}.
-
-Bemærk at der kan gå op til 30 minutter før koden er aktiv.
+Hent din personlige Dokk1-gæste-app inden 24 timer på {{ app_url }}
 
 Venlig hilsen
 {{ site_name }}

@@ -33,6 +33,9 @@ class Setting
     #[ORM\Column(type: Types::JSON)]
     private mixed $value = null;
 
+    #[ORM\Column(length: 255)]
+    private string $category;
+
     public function getName(): string
     {
         return $this->name;
@@ -89,6 +92,18 @@ class Setting
     public function setValue(mixed $value): static
     {
         $this->value = $value;
+
+        return $this;
+    }
+
+    public function getCategory(): ?string
+    {
+        return $this->category;
+    }
+
+    public function setCategory(string $category): static
+    {
+        $this->category = $category;
 
         return $this;
     }
