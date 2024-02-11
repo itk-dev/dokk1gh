@@ -51,5 +51,18 @@ addEventListener('load', () => {
         });
     }
 
-})
+    // Hook up expire actions to submit via modal (cf. vendor/easycorp/easyadmin-bundle/assets/js/app.js)
+    document.querySelectorAll('.action-expire-app').forEach((actionElement) => {
+        actionElement.addEventListener('click', (event) => {
+            event.preventDefault();
 
+            document.querySelector('#modal-expire-app-button').addEventListener('click', () => {
+                const formAction = actionElement.getAttribute('formaction');
+                const form = document.querySelector('#expire-app-form');
+                form.setAttribute('action', formAction);
+                form.submit();
+            });
+        });
+    });
+
+})

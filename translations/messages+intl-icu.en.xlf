@@ -61,10 +61,6 @@
         <source>Activated at</source>
         <target>Activated at</target>
       </trans-unit>
-      <trans-unit id="G5mZ4l0" resname="Edit setting {name}">
-        <source>Edit setting {name}</source>
-        <target>Edit setting {name}</target>
-      </trans-unit>
       <trans-unit id="FwkwXJ_" resname="Level">
         <source>Level</source>
         <target>Level</target>
@@ -256,10 +252,6 @@
       <trans-unit id="Suq5sgc" resname="This page does not exist!">
         <source>This page does not exist!</source>
         <target>This page does not exist!</target>
-      </trans-unit>
-      <trans-unit id="jjeVPSP" resname="Value">
-        <source>Value</source>
-        <target>Value</target>
       </trans-unit>
       <trans-unit id="exIYwei" resname="admin_gdpr">
         <source>admin_gdpr</source>
@@ -517,10 +509,6 @@
         <source>Select template</source>
         <target>Select template</target>
       </trans-unit>
-      <trans-unit id="KSwG8AR" resname="Category">
-        <source>Category</source>
-        <target>Category</target>
-      </trans-unit>
       <trans-unit id="W5X_9ex" resname="category.admin">
         <source>category.admin</source>
         <target>category.admin</target>
@@ -545,9 +533,17 @@
         <source>App sent to {guest}</source>
         <target>App sent to {guest}</target>
       </trans-unit>
-      <trans-unit id="_si4RkF" resname="Guest {guest} expired">
-        <source>Guest {guest} expired</source>
-        <target>Guest {guest} expired</target>
+      <trans-unit id="Ure4EZP" resname="App {guest} expired">
+        <source>App {guest} expired</source>
+        <target>App {guest} expired</target>
+      </trans-unit>
+      <trans-unit id="j9n2aRH" resname="Are you sure you want to expire this app?">
+        <source>Are you sure you want to expire this app?</source>
+        <target>Are you sure you want to expire this app?</target>
+      </trans-unit>
+      <trans-unit id="YS8g7nX" resname="The guest will no longer have access and all guest data will be anonymized.">
+        <source>The guest will no longer have access and all guest data will be anonymized.</source>
+        <target>The guest will no longer have access and all guest data will be anonymized.</target>
       </trans-unit>
     </body>
   </file>

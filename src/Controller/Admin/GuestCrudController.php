@@ -50,6 +50,7 @@ class GuestCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return parent::configureCrud($crud)
+            ->overrideTemplate('crud/index', 'admin/guest/crud/index.html.twig')
             ->addFormTheme('admin/form/form.html.twig');
     }
 
@@ -68,7 +69,6 @@ class GuestCrudController extends AbstractCrudController
         $sendAction
             ->getAsDto()
             ->setDisplayCallable(static fn (Guest $guest) => null === $guest->getSentAt());
-
         $actions->add(Crud::PAGE_INDEX, $sendAction);
 
         $resendAction = Action::new('resendApp', new TranslatableMessage('Resend app'))
@@ -76,16 +76,12 @@ class GuestCrudController extends AbstractCrudController
         $resendAction
             ->getAsDto()
             ->setDisplayCallable(static fn (Guest $guest) => null !== $guest->getSentAt());
-
         $actions->add(Crud::PAGE_INDEX, $resendAction);
 
-        // @todo Ask for confirmation before expiring an app
-        $actions->add(
-            Crud::PAGE_INDEX,
-            Action::new('expireApp', new TranslatableMessage('Expire app'))
-                ->linkToCrudAction('expireApp')
-                ->setTemplatePath('admin/guest/action/expire.html.twig')
-        );
+        $expireAction = Action::new('expireApp', new TranslatableMessage('Expire app'))
+            ->linkToCrudAction('expireApp')
+            ->setTemplatePath('admin/guest/action/expire.html.twig');
+        $actions->add(Crud::PAGE_INDEX, $expireAction);
 
         return $actions;
     }
@@ -122,7 +118,7 @@ class GuestCrudController extends AbstractCrudController
             $guest = $this->getGuest();
             if (null !== $guest) {
                 // Expiring an app will anonymize data, so we need to keep a useful guest name.
-                $message = new TranslatableMessage('Guest {guest} expired', ['guest' => (string) $guest->getName()]);
+                $message = new TranslatableMessage('App {guest} expired', ['guest' => (string) $guest->getName()]);
                 if ($this->guestService->expire($guest)) {
                     $this->showInfo($message);
                 }

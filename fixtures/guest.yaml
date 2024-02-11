@@ -24,3 +24,29 @@ App\Entity\Guest:
       end_time_6: ~
       start_time_7: ~
       end_time_7: ~
+
+  guest-2:
+    name: 'Guest 2'
+    phoneCountryCode: '45'
+    phone: 22222222
+    email: 'guest@example.com'
+    enabled: true
+    startTime: <(new \DateTime('2100-01-01'))>
+    endTime: <(new \DateTime('2101-01-01'))>
+    templates:
+      - '@template-2'
+    time_ranges:
+      start_time_1: '12:30'
+      end_time_1: '16:30'
+      start_time_2: ~
+      end_time_2: ~
+      start_time_3: '10:00'
+      end_time_3: '16:00'
+      start_time_4: ~
+      end_time_4: ~
+      start_time_5: ~
+      end_time_5: ~
+      start_time_6: ~
+      end_time_6: ~
+      start_time_7: ~
+      end_time_7: ~
