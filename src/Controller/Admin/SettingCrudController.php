@@ -10,6 +10,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Role;
 use App\Entity\Setting;
 use Doctrine\DBAL\Types\Types;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
@@ -45,6 +46,7 @@ class SettingCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return parent::configureCrud($crud)
+            ->setEntityPermission(Role::CONFIG_ADMIN->value)
             ->setPageTitle(Crud::PAGE_INDEX, new TranslatableMessage('Settings'))
             ->setPageTitle(Crud::PAGE_EDIT, function () {
                 /** @var Setting $setting */

@@ -10,6 +10,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Role;
 use App\Entity\Template;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -31,6 +32,7 @@ class TemplateCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return parent::configureCrud($crud)
+            ->setEntityPermission(Role::TEMPLATE_ADMIN->value)
             ->addFormTheme('admin/form/form.html.twig');
     }
 

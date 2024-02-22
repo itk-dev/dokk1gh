@@ -39,6 +39,7 @@ class CodeCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return parent::configureCrud($crud)
+            ->setEntityPermission(Role::USER->value)
             ->overrideTemplates([
                 'crud/index' => 'admin/Code/list.html.twig',
                 'crud/new' => 'admin/Code/new.html.twig',
@@ -70,8 +71,8 @@ class CodeCrudController extends AbstractCrudController
             yield DateTimeField::new('startTime', new TranslatableMessage('Time range'))
                 ->setTemplatePath('admin/Code/date_time_range.html.twig');
         } else {
-            yield DateTimeField::new('startTime', new TranslatableMessage('Start time'));
-            yield DateTimeField::new('endTime', new TranslatableMessage('End time'));
+            yield DateTimeField::new('startTime', new TranslatableMessage('Date'));
+            yield DateTimeField::new('endTime', new TranslatableMessage('Time range'));
         }
 
         yield AssociationField::new('template', new TranslatableMessage('Template'))

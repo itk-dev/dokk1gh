@@ -49,6 +49,29 @@ window.addEventListener('load', () => {
         }
       })
     })
+
+    const updateTimerange = () => {
+      const startTime = document.getElementById('Code_startTime-picker').valueAsDate
+      const endTime = new Date(startTime.getTime())
+      const timeStart = document.getElementById('Code_endTime-time-start').value
+      const timeEnd = document.getElementById('Code_endTime-time-end').value
+
+      let numbers = timeStart.split(':').map(s => parseInt(s))
+      startTime.setHours(numbers[0], numbers[1], 0)
+
+      numbers = timeEnd.split(':').map(s => parseInt(s))
+      endTime.setHours(numbers[0], numbers[1], 0)
+
+      document.getElementById('Code_startTime').valueAsDate = startTime
+      document.getElementById('Code_endTime').valueAsDate = endTime
+    }
+
+    [
+      'Code_startTime-picker',
+      'Code_endTime-time-start',
+      'Code_endTime-time-end'
+    ].forEach(id => document.getElementById(id)?.addEventListener('change', updateTimerange))
+    updateTimerange()
   }
 
   // Hook up expire actions to submit via modal (cf. vendor/easycorp/easyadmin-bundle/assets/js/app.js)

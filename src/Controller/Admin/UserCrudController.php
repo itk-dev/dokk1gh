@@ -41,6 +41,7 @@ class UserCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return parent::configureCrud($crud)
+            ->setEntityPermission(Role::USER_ADMIN->value)
             ->addFormTheme('admin/form/form.html.twig');
     }
 

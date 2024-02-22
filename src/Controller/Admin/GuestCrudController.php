@@ -50,8 +50,8 @@ class GuestCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return parent::configureCrud($crud)
-            ->overrideTemplate('crud/index', 'admin/guest/crud/index.html.twig')
-            ->addFormTheme('admin/form/form.html.twig');
+            ->setEntityPermission(Role::GUEST_ADMIN->value)
+            ->overrideTemplate('crud/index', 'admin/guest/crud/index.html.twig');
     }
 
     public function configureActions(Actions $actions): Actions

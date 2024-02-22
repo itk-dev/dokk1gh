@@ -23,7 +23,8 @@ abstract class AbstractCrudController extends BaseAbstractCrudController
             ->showEntityActionsInlined()
             ->setDateFormat('dd-MM-yyyy')
             ->setTimeFormat('HH:mm:ss')
-            ->setDateTimeFormat('dd-MM-yyyy HH:mm:ss');
+            ->setDateTimeFormat('dd-MM-yyyy HH:mm:ss')
+            ->addFormTheme('admin/form/form.html.twig');
     }
 
     public function configureAssets(Assets $assets): Assets

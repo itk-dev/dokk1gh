@@ -2,7 +2,7 @@
 {% extends '@EasyAdmin/crud/form_theme.html.twig' %}
 
 {% block datetime_widget %}
-  {% if easyadmin.entity.class == 'App\\Entity\\Code' and name matches '/(start|end)Time/' %}
+  {% if ea.entity.fqcn|default(false) == 'App\\Entity\\Code' and name matches '/(start|end)Time/' %}
     {% include 'admin/form/Code/date_time_range.html.twig' with {markup: parent()} %}
   {% else %}
     {{ parent() }}
