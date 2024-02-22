@@ -1,5 +1,10 @@
 {% extends '@EasyAdmin/page/login.html.twig' %}
 
+{# Our parent template sets `_target_path on the login form, but we want to let Symfony handle redirect after login
+ # (cf. https://symfony.com/doc/current/security/form_login.html#control-the-redirect-using-request-parameters).
+ #}
+{% set target_path_parameter = '_' %}
+
 {# Lifted from @EasyAdmin/page/login.html.twig and extended with the `content_wrapper` and `content` blocks #}
 {% block wrapper_wrapper %}
   {% set page_title = block('page_title') %}
