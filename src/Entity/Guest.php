@@ -13,6 +13,7 @@ namespace App\Entity;
 use App\Repository\GuestRepository;
 use App\Trait\BlameableEntity;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
@@ -36,7 +37,7 @@ class Guest
      * @var \Doctrine\Common\Collections\Collection<int, \App\Entity\Template>
      */
     #[ORM\ManyToMany(targetEntity: Template::class)]
-    protected \Doctrine\Common\Collections\Collection $templates;
+    protected Collection $templates;
 
     #[ORM\Id]
     #[ORM\Column(type: UuidType::NAME, unique: true)]
@@ -115,167 +116,98 @@ class Guest
         return $this;
     }
 
-    /**
-     * @return null|\DateTime
-     */
-    public function getSentAt()
+    public function getSentAt(): ?\DateTimeInterface
     {
         return $this->sentAt;
     }
 
-    public function setSentAt(\DateTime $sentAt)
+    public function setSentAt(\DateTimeInterface $sentAt)
     {
         $this->sentAt = $sentAt;
 
         return $this;
     }
 
-    /**
-     * @return null|\DateTime
-     */
-    public function getActivatedAt()
+    public function getActivatedAt(): ?\DateTimeInterface
     {
         return $this->activatedAt;
     }
 
-    public function setActivatedAt(\DateTime $activatedAt)
+    public function setActivatedAt(\DateTimeInterface $activatedAt)
     {
         $this->activatedAt = $activatedAt;
 
         return $this;
     }
 
-    /**
-     * @return null|\DateTime
-     */
-    public function getExpiredAt()
+    public function getExpiredAt(): ?\DateTimeInterface
     {
         return $this->expiredAt;
     }
 
-    public function setExpiredAt(\DateTime $expiredAt)
+    public function setExpiredAt(\DateTimeInterface $expiredAt)
     {
         $this->expiredAt = $expiredAt;
 
         return $this;
     }
 
-    /**
-     * Set name.
-     *
-     * @param string $name
-     *
-     * @return Guest
-     */
-    public function setName($name)
+    public function setName(string $name): static
     {
         $this->name = $name;
 
         return $this;
     }
 
-    /**
-     * Get name.
-     *
-     * @return string
-     */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * Set company.
-     *
-     * @param string $company
-     *
-     * @return Guest
-     */
-    public function setCompany($company)
+    public function setCompany(string $company): static
     {
         $this->company = $company;
 
         return $this;
     }
 
-    /**
-     * Get company.
-     *
-     * @return string
-     */
-    public function getCompany()
+    public function getCompany(): ?string
     {
         return $this->company;
     }
 
-    /**
-     * Set phone.
-     *
-     * @param string $phone
-     *
-     * @return Guest
-     */
-    public function setPhone($phone)
+    public function setPhone(string $phone): static
     {
         $this->phone = $phone;
 
         return $this;
     }
 
-    /**
-     * Get phone.
-     *
-     * @return string
-     */
-    public function getPhone()
+    public function getPhone(): ?string
     {
         return $this->phone;
     }
 
-    /**
-     * Set phone country code.
-     *
-     * @param string $phoneCountryCode
-     *
-     * @return Guest
-     */
-    public function setPhoneCountryCode($phoneCountryCode)
+    public function setPhoneCountryCode(string $phoneCountryCode): static
     {
         $this->phoneCountryCode = $phoneCountryCode;
 
         return $this;
     }
 
-    /**
-     * Get phone country code.
-     *
-     * @return string
-     */
-    public function getPhoneCountryCode()
+    public function getPhoneCountryCode(): ?string
     {
         return $this->phoneCountryCode;
     }
 
-    /**
-     * Set email.
-     *
-     * @param string $email
-     *
-     * @return Guest
-     */
-    public function setEmail($email)
+    public function setEmail(string $email): static
     {
         $this->email = $email;
 
         return $this;
     }
 
-    /**
-     * Get email.
-     *
-     * @return string
-     */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->email;
     }
@@ -301,36 +233,24 @@ class Guest
         return $this;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getStartTime()
+    public function getStartTime(): ?\DateTimeInterface
     {
         return $this->startTime;
     }
 
-    /**
-     * @return Guest
-     */
-    public function setStartTime(\DateTime $startTime)
+    public function setStartTime(\DateTime $startTime): static
     {
         $this->startTime = $startTime;
 
         return $this;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getEndTime()
+    public function getEndTime(): ?\DateTimeInterface
     {
         return $this->endTime;
     }
 
-    /**
-     * @return Guest
-     */
-    public function setEndTime(\DateTime $endTime)
+    public function setEndTime(\DateTime $endTime): static
     {
         $this->endTime = $endTime;
 

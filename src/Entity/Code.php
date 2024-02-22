@@ -161,7 +161,7 @@ class Code implements Blameable, \Stringable
     public function validate(ExecutionContextInterface $context)
     {
         if (null === $this->getId()) {
-            if ($this->getStartTime() <= new \DateTime('-1 hour')) {
+            if ($this->getStartTime() <= new \DateTimeImmutable('-1 hour')) {
                 $context->buildViolation('Start time must be after one hour ago.')
                     ->atPath('startTime')
                     ->addViolation();
