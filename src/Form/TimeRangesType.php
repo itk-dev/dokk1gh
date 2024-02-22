@@ -34,8 +34,10 @@ class TimeRangesType extends AbstractType
         7 => 'Sunday',
     ];
 
-    public function __construct(private readonly Configuration $configuration, private readonly TranslatorInterface $translator)
-    {
+    public function __construct(
+        private readonly Configuration $configuration,
+        private readonly TranslatorInterface $translator
+    ) {
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -64,12 +66,12 @@ class TimeRangesType extends AbstractType
         $endTimeChoices = array_combine($timeOptions, $timeOptions);
         array_shift($endTimeChoices);
 
-        for ($day = 1; $day <= 7; ++$day) {
+        foreach (self::$weekDayNames as $day => $name) {
             $builder
                 ->add('start_time_'.$day, ChoiceType::class, [
                     'required' => false,
                     'choices' => $startTimeChoices,
-                    'label' => 'Start time '.self::$weekDayNames[$day],
+                    'label' => 'Start time '.$name,
                 ])
                 ->add('end_time_'.$day, ChoiceType::class, [
                     'required' => false,
@@ -82,7 +84,7 @@ class TimeRangesType extends AbstractType
             ->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
                 $form = $event->getForm();
                 $numberOfTimeIntervals = 0;
-                for ($day = 1; $day <= 7; ++$day) {
+                foreach (self::$weekDayNames as $day => $name) {
                     $startTime = $form->get('start_time_'.$day);
                     $endTime = $form->get('end_time_'.$day);
 
