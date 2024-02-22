@@ -87,11 +87,8 @@ class Guest
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $endTime = null;
 
-    /**
-     * @var array
-     */
-    #[ORM\Column(type: Types::ARRAY)]
-    private $timeRanges;
+    #[ORM\Column(type: Types::JSON)]
+    private array $timeRanges = [];
 
     public function __construct()
     {
@@ -340,10 +337,7 @@ class Guest
         return $this;
     }
 
-    /**
-     * @return array
-     */
-    public function getTimeRanges()
+    public function getTimeRanges(): array
     {
         return $this->timeRanges;
     }
