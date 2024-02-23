@@ -168,7 +168,7 @@ On success the result will look like this:
    "endTime" : "2017-08-14T16:00:00+0200",
    "startTime" : "2017-08-14T08:00:00+0200",
    "template" : {
-      "name" : "G<E6>st ITK",
+      "name" : "Gæst ITK",
       "id" : 1
    }
 }

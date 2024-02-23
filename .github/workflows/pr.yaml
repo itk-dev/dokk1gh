@@ -160,7 +160,7 @@ jobs:
       - name: coding-standards-check
         run: yarn coding-standards-check/standard
 
-code-analysis-phpstan:
+  code-analysis-phpstan:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
