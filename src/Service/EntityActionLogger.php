@@ -16,15 +16,12 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class EntityActionLogger
 {
-    /** @var EntityManagerInterface */
-    protected $manager;
-
-    public function __construct(EntityManagerInterface $manager)
-    {
-        $this->manager = $manager;
+    public function __construct(
+        private readonly EntityManagerInterface $manager
+    ) {
     }
 
-    public function log($entity, $message, ?array $context = null)
+    public function log(object $entity, string $message, ?array $context = null): void
     {
         [$entityType, $entityId] = $this->getEntityTypeAndId($entity);
         $entry = new EntityActionLogEntry($entityType, $entityId, $message, $context);
@@ -32,7 +29,7 @@ class EntityActionLogger
         $this->manager->flush();
     }
 
-    public function getActionLogEntries($entity, array $criteria = [], ?array $orderBy = null)
+    public function getActionLogEntries(object $entity, array $criteria = [], ?array $orderBy = null): array
     {
         [$entityType, $entityId] = $this->getEntityTypeAndId($entity);
         $criteria += [
@@ -46,11 +43,8 @@ class EntityActionLogger
         return $this->manager->getRepository(EntityActionLogEntry::class)->findBy($criteria, $orderBy);
     }
 
-    private function getEntityTypeAndId($entity)
+    private function getEntityTypeAndId(object $entity): array
     {
-        if (!\is_object($entity)) {
-            throw new \RuntimeException('Entity must be an object');
-        }
         $entityType = $entity::class;
 
         if (method_exists($entity, 'getId')) {

@@ -24,7 +24,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class TimeRangesType extends AbstractType
 {
-    private static $weekDayNames = [
+    private static array $weekDayNames = [
         1 => 'Monday',
         2 => 'Tuesday',
         3 => 'Wednesday',
@@ -117,7 +117,7 @@ class TimeRangesType extends AbstractType
         return 'app_time_ranges';
     }
 
-    private function getTimeOptions()
+    private function getTimeOptions(): array
     {
         $min = $this->configuration->get('guest_timeRanges_min');
         $max = $this->configuration->get('guest_timeRanges_max');
@@ -137,12 +137,12 @@ class TimeRangesType extends AbstractType
         return $choices;
     }
 
-    private function getDefaultValues()
+    private function getDefaultValues(): array
     {
         return $this->configuration->get('guest_default_timeRanges');
     }
 
-    private function createFormError(string $message, array $parameters = [])
+    private function createFormError(string $message, array $parameters = []): FormError
     {
         return new FormError($this->translator->trans($message, $parameters, 'validators'));
     }

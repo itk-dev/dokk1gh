@@ -71,7 +71,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, AeosEnt
     private ?string $aeosId = null;
 
     #[ORM\Column(type: Types::STRING, unique: true, nullable: true)]
-    private $apiKey;
+    private ?string $apiKey;
 
     /**
      * The hashed password.
@@ -211,14 +211,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, AeosEnt
         return $this;
     }
 
-    public function getApiKey()
+    public function getApiKey(): ?string
     {
         return $this->apiKey;
     }
 
-    public function setApiKey($apiKey): void
+    public function setApiKey(string $apiKey): static
     {
         $this->apiKey = $apiKey;
+
+        return $this;
     }
 
     public function isEnabled(): bool
@@ -234,7 +236,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, AeosEnt
     }
 
     #[Callback]
-    public function validate(ExecutionContextInterface $context)
+    public function validate(ExecutionContextInterface $context): void
     {
         if (0 === $this->getTemplates()->count()) {
             $context->buildViolation('At least one template is required.')

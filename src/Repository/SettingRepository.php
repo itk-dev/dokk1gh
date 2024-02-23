@@ -29,7 +29,7 @@ class SettingRepository extends ServiceEntityRepository
         parent::__construct($registry, Setting::class);
     }
 
-    public function all()
+    public function all(): array
     {
         $all = [];
 

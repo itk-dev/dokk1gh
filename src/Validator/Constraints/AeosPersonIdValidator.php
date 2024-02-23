@@ -21,8 +21,9 @@ class AeosPersonIdValidator extends ConstraintValidator
     ) {
     }
 
-    public function validate($value, Constraint $constraint)
+    public function validate(mixed $value, Constraint $constraint)
     {
+        \assert($constraint instanceof AeosPersonId);
         $person = $value ? $this->aeosService->getPerson($value) : null;
         if (!$person) {
             $this->context->buildViolation($constraint->message)

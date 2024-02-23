@@ -20,7 +20,7 @@ class SmsService implements SmsServiceInterface
     ) {
     }
 
-    public function send($number, $message, $countryCode)
+    public function send(string $number, string $message, string $countryCode)
     {
         try {
             $this->client->request(
@@ -40,7 +40,6 @@ class SmsService implements SmsServiceInterface
 
             return true;
         } catch (\Exception $exception) {
-            throw $exception;
             // @TODO: Log exception.
         }
 

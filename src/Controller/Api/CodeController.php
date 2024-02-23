@@ -35,9 +35,9 @@ class CodeController extends AbstractApiController
     }
 
     #[Route('', name: 'index', methods: [Request::METHOD_GET])]
-    public function index(Request $request, SerializerInterface $serializer)
+    public function index(Request $request, SerializerInterface $serializer): Response
     {
-        $user = $this->getUser();
+        $user = $this->getCurrentUser();
         $criteria = [
             'createdBy' => $user ? $user->getId() : 0,
         ];
@@ -77,11 +77,9 @@ class CodeController extends AbstractApiController
      *    @SWG\Items(type="object")
      *  )
      * )
-     *
-     * @return array
      */
     #[Route('', name: 'create', methods: [Request::METHOD_POST])]
-    public function create(Request $request)
+    public function create(Request $request): Response
     {
         try {
             $data = json_decode($request->getContent(), true);
@@ -99,7 +97,7 @@ class CodeController extends AbstractApiController
             }
         }
 
-        $template = $this->templateManager->getUserTemplate($data['template']);
+        $template = $this->templateManager->getUserTemplate((int) $data['template']);
         if (!$template) {
             return $this->createHttpExceptionResponse(
                 new BadRequestHttpException(sprintf('Invalid template: %s', $data['template']))
@@ -112,7 +110,7 @@ class CodeController extends AbstractApiController
         $code->setTemplate($template)
             ->setStartTime($startTime)
             ->setEndTime($endTime)
-            ->setCreatedBy($this->getUser());
+            ->setCreatedBy($this->getCurrentUser());
         $this->aeosHelper->createAeosIdentifier($code);
         $this->entityManager->persist($code);
         $this->entityManager->flush();

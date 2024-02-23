@@ -12,6 +12,7 @@ namespace App\Entity;
 
 use App\Repository\CodeRepository;
 use App\Trait\BlameableEntity;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Blameable\Blameable;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -33,31 +34,31 @@ class Code implements Blameable, \Stringable
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
+    #[ORM\Column(type: Types::INTEGER)]
     #[Groups('api')]
     private ?int $id = null;
 
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255, unique: true, nullable: true)]
+    #[ORM\Column(type: Types::STRING, length: 255, unique: true, nullable: true)]
     private ?string $aeosId = null;
 
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Groups('api')]
-    private ?\DateTimeInterface $startTime = null;
+    private ?\DateTime $startTime = null;
 
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Groups('api')]
-    private ?\DateTimeInterface $endTime = null;
+    private ?\DateTime $endTime = null;
 
     #[ORM\ManyToOne(targetEntity: Template::class)]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups('api')]
     private ?Template $template = null;
 
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, nullable: true)]
+    #[ORM\Column(type: Types::STRING, nullable: true)]
     #[Groups('api')]
     private ?string $identifier = null;
 
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT, nullable: true)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $note = null;
 
     public function __toString(): string
@@ -74,26 +75,26 @@ class Code implements Blameable, \Stringable
         return $this->id;
     }
 
-    public function setStartTime(\DateTimeInterface $startTime): static
+    public function setStartTime(\DateTime $startTime): static
     {
         $this->startTime = $startTime;
 
         return $this;
     }
 
-    public function getStartTime(): ?\DateTimeInterface
+    public function getStartTime(): ?\DateTime
     {
         return $this->startTime;
     }
 
-    public function setEndTime(\DateTimeInterface $endTime): static
+    public function setEndTime(\DateTime $endTime): static
     {
         $this->endTime = $endTime;
 
         return $this;
     }
 
-    public function getEndTime(): ?\DateTimeInterface
+    public function getEndTime(): ?\DateTime
     {
         return $this->endTime;
     }
@@ -146,7 +147,7 @@ class Code implements Blameable, \Stringable
         return $this->note;
     }
 
-    public function getStatus()
+    public function getStatus(): string
     {
         $now = new \DateTimeImmutable();
 
@@ -158,7 +159,7 @@ class Code implements Blameable, \Stringable
     }
 
     #[Assert\Callback]
-    public function validate(ExecutionContextInterface $context)
+    public function validate(ExecutionContextInterface $context): void
     {
         if (null === $this->getId()) {
             if ($this->getStartTime() <= new \DateTimeImmutable('-1 hour')) {

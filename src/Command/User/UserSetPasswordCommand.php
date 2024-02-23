@@ -11,6 +11,7 @@
 namespace App\Command\User;
 
 use Symfony\Component\Console\Attribute\AsCommand;
+use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -40,8 +41,9 @@ class UserSetPasswordCommand extends UserCommand
         while (null === $password) {
             $question = (new Question('Password: '))
                 ->setHidden(true);
-            $password = $this->getHelper('question')
-                ->ask($input, $output, $question);
+            $helper = $this->getHelper('question');
+            \assert($helper instanceof QuestionHelper);
+            $password = $helper->ask($input, $output, $question);
         }
 
         $this->userManager->setPassword($user, $password);

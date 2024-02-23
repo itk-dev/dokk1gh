@@ -101,15 +101,12 @@ class Guest
         return $this->id;
     }
 
-    /**
-     * @return bool
-     */
-    public function isEnabled()
+    public function isEnabled(): bool
     {
         return $this->enabled;
     }
 
-    public function setEnabled(bool $enabled)
+    public function setEnabled(bool $enabled): static
     {
         $this->enabled = $enabled;
 
@@ -121,7 +118,7 @@ class Guest
         return $this->sentAt;
     }
 
-    public function setSentAt(\DateTimeInterface $sentAt)
+    public function setSentAt(\DateTimeInterface $sentAt): static
     {
         $this->sentAt = $sentAt;
 
@@ -133,7 +130,7 @@ class Guest
         return $this->activatedAt;
     }
 
-    public function setActivatedAt(\DateTimeInterface $activatedAt)
+    public function setActivatedAt(\DateTimeInterface $activatedAt): static
     {
         $this->activatedAt = $activatedAt;
 
@@ -145,7 +142,7 @@ class Guest
         return $this->expiredAt;
     }
 
-    public function setExpiredAt(\DateTimeInterface $expiredAt)
+    public function setExpiredAt(\DateTimeInterface $expiredAt): static
     {
         $this->expiredAt = $expiredAt;
 
@@ -212,7 +209,7 @@ class Guest
         return $this->email;
     }
 
-    public function getTemplates()
+    public function getTemplates(): Collection
     {
         return $this->templates;
     }
@@ -262,7 +259,7 @@ class Guest
         return $this->timeRanges;
     }
 
-    public function setTimeRanges(array $timeRanges)
+    public function setTimeRanges(array $timeRanges): static
     {
         $this->timeRanges = $timeRanges;
 
@@ -270,7 +267,7 @@ class Guest
     }
 
     #[Assert\Callback]
-    public function validate(ExecutionContextInterface $context)
+    public function validate(ExecutionContextInterface $context): void
     {
         if (0 === $this->getTemplates()->count()) {
             $context->buildViolation('At least one template is required.')

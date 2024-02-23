@@ -32,8 +32,8 @@ class AppExtension extends AbstractExtension
         ];
     }
 
-    public function getAppIcon($size)
+    public function getAppIcon(int $size): string
     {
-        return $this->configuration->get('app_icons.'.$size.'x'.$size);
+        return (string) $this->configuration->get('app_icons.'.$size.'x'.$size);
     }
 }

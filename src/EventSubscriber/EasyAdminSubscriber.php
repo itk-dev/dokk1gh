@@ -39,9 +39,9 @@ class EasyAdminSubscriber implements EventSubscriberInterface
     ) {
     }
 
-    public function setAeosData(BeforeCrudActionEvent $event)
+    public function setAeosData(BeforeCrudActionEvent $event): void
     {
-        $entity = $event->getAdminContext()->getEntity()?->getInstance();
+        $entity = $event->getAdminContext()->getEntity()->getInstance();
         if ($entity instanceof AeosEntityInterface) {
             $id = $entity->getAeosId();
             $data = match ($entity::class) {
@@ -53,7 +53,7 @@ class EasyAdminSubscriber implements EventSubscriberInterface
         }
     }
 
-    public function setCodeIdentifier(BeforeEntityPersistedEvent|BeforeEntityUpdatedEvent $event)
+    public function setCodeIdentifier(BeforeEntityPersistedEvent|BeforeEntityUpdatedEvent $event): void
     {
         $entity = $event->getEntityInstance();
         if (!($entity instanceof Code)) {
@@ -65,7 +65,7 @@ class EasyAdminSubscriber implements EventSubscriberInterface
         }
     }
 
-    public function removeCodeIdentifier(BeforeEntityDeletedEvent $event)
+    public function removeCodeIdentifier(BeforeEntityDeletedEvent $event): void
     {
         $entity = $event->getEntityInstance();
         if (!($entity instanceof Code)) {
@@ -77,7 +77,7 @@ class EasyAdminSubscriber implements EventSubscriberInterface
         }
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             BeforeCrudActionEvent::class => ['setAeosData'],
@@ -87,27 +87,27 @@ class EasyAdminSubscriber implements EventSubscriberInterface
         ];
     }
 
-    protected function showSuccess(string $message, array $parameters = [])
+    protected function showSuccess(string $message, array $parameters = []): void
     {
         $this->showMessage('success', $message, $parameters);
     }
 
-    protected function showInfo(string $message, array $parameters = [])
+    protected function showInfo(string $message, array $parameters = []): void
     {
         $this->showMessage('info', $message, $parameters);
     }
 
-    protected function showWarning(string $message, array $parameters = [])
+    protected function showWarning(string $message, array $parameters = []): void
     {
         $this->showMessage('warning', $message, $parameters);
     }
 
-    protected function showError(string $message, array $parameters = [])
+    protected function showError(string $message, array $parameters = []): void
     {
         $this->showMessage('error', $message, $parameters);
     }
 
-    protected function showMessage(string $type, string $message, array $parameters = [])
+    protected function showMessage(string $type, string $message, array $parameters = []): void
     {
         $session = $this->requestStack->getSession();
         if ($session instanceof FlashBagAwareSessionInterface) {
@@ -121,7 +121,7 @@ class EasyAdminSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function createAeosIdentifier(Code $code)
+    private function createAeosIdentifier(Code $code): void
     {
         try {
             $this->aeosHelper->createAeosIdentifier($code);
@@ -131,7 +131,7 @@ class EasyAdminSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function removeAeosIdentifier(Code $code)
+    private function removeAeosIdentifier(Code $code): void
     {
         try {
             $this->aeosHelper->deleteAeosIdentifier($code);

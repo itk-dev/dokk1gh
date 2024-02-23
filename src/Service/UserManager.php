@@ -25,6 +25,9 @@ use Twig\Environment;
 
 class UserManager
 {
+    /**
+     * @phpstan-param array<string, mixed> $options
+     */
     public function __construct(
         private readonly UserRepository $userRepository,
         private readonly UserPasswordHasherInterface $passwordHasher,
@@ -36,7 +39,7 @@ class UserManager
     ) {
     }
 
-    public function createUser()
+    public function createUser(): User
     {
         return (new User())
             ->setPassword(sha1(uniqid('', true)))
@@ -48,12 +51,15 @@ class UserManager
         return $this->userRepository->findOneBy(['email' => $email]);
     }
 
-    public function findBy(array $criteria, ?array $orderBy = null, $limit = null, $offset = null): array
+    /**
+     * @return array|User[]
+     */
+    public function findBy(array $criteria, ?array $orderBy = null, ?int $limit = null, ?int $offset = null): array
     {
         return $this->userRepository->findBy($criteria, $orderBy, $limit, $offset);
     }
 
-    public function updateUser(User $user, $flush = true)
+    public function updateUser(User $user, bool $flush = true): void
     {
         $this->userRepository->persist($user, $flush);
     }
@@ -66,7 +72,7 @@ class UserManager
         ));
     }
 
-    public function notifyUserCreated(User $user, $flush = true)
+    public function notifyUserCreated(User $user, bool $flush = true): void
     {
         $resetToken = $this->resetPasswordHelper->generateResetToken($user);
         $message = $this->createUserCreatedMessage($user, $resetToken);

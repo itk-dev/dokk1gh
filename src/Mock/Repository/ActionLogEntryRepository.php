@@ -15,7 +15,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 abstract class ActionLogEntryRepository extends ServiceEntityRepository
 {
-    public function persist(ActionLogEntry $entity, bool $flush = false)
+    public function persist(ActionLogEntry $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
         if ($flush) {

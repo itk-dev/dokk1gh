@@ -10,8 +10,8 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Repository\UserRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Translation\TranslatableMessage;
@@ -27,9 +27,10 @@ class UserController extends AbstractController
     }
 
     #[Route(path: '/user/apikey', name: 'user_apikey_generate', methods: ['POST'])]
-    public function apiKeyPost(UserRepository $userRepository)
+    public function apiKeyPost(UserRepository $userRepository): Response
     {
         $user = $this->getUser();
+        \assert($user instanceof User);
         $apiKey = $this->generateApiKey();
         $user->setApiKey($apiKey);
         $userRepository->persist($user, true);

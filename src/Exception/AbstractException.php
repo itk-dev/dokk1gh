@@ -12,9 +12,9 @@ namespace App\Exception;
 
 class AbstractException extends \Exception
 {
-    protected $context;
+    protected ?array $context;
 
-    public function __construct($message = '', ?array $context = null, $code = 0, ?\Throwable $previous = null)
+    public function __construct(string $message = '', ?array $context = null, int $code = 0, ?\Throwable $previous = null)
     {
         $this->context = $context;
         parent::__construct($message, $code, $previous);

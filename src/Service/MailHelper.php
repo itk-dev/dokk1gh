@@ -31,7 +31,7 @@ class MailHelper
         $this->mailer = $mailer;
     }
 
-    public function sendApp(Guest $guest, $appUrl)
+    public function sendApp(Guest $guest, string $appUrl): void
     {
         $from = new Address(
             $this->configuration->get('guest_app_email_sender_email'),

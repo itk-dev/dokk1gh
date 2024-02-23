@@ -33,13 +33,13 @@ abstract class UserCommand extends Command
     protected RoleHierarchyInterface $roleHierarchy;
 
     #[Required]
-    public function setUserManager(UserManager $userManager)
+    public function setUserManager(UserManager $userManager): void
     {
         $this->userManager = $userManager;
     }
 
     #[Required]
-    public function setRoleHierarchy(RoleHierarchyInterface $roleHierarchy)
+    public function setRoleHierarchy(RoleHierarchyInterface $roleHierarchy): void
     {
         $this->roleHierarchy = $roleHierarchy;
     }
@@ -52,7 +52,7 @@ abstract class UserCommand extends Command
         return static::SUCCESS;
     }
 
-    protected function getUser(string $email)
+    protected function getUser(string $email): User
     {
         $user = $this->userManager->findUser($email);
 
@@ -63,7 +63,7 @@ abstract class UserCommand extends Command
         return $user;
     }
 
-    protected function getUsers()
+    protected function getUsers(): array
     {
         return $this->userManager->findBy([]);
     }
@@ -71,7 +71,7 @@ abstract class UserCommand extends Command
     /**
      * @param array|User[] $users
      */
-    protected function showUsers(array $users)
+    protected function showUsers(array $users): void
     {
         $table = new Table($this->output);
         $firstUser = reset($users);
@@ -102,8 +102,8 @@ abstract class UserCommand extends Command
         $table->render();
     }
 
-    protected function showUser(User $user)
+    protected function showUser(User $user): void
     {
-        return $this->showUsers([$user]);
+        $this->showUsers([$user]);
     }
 }

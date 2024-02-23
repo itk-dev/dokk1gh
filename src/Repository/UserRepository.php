@@ -20,8 +20,6 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 /**
  * @extends ServiceEntityRepository<User>
  *
- * @implements PasswordUpgraderInterface<User>
- *
  * @method null|User find($id, $lockMode = null, $lockVersion = null)
  * @method null|User findOneBy(array $criteria, array $orderBy = null)
  * @method User[]    findAll()
@@ -48,7 +46,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->getEntityManager()->flush();
     }
 
-    public function persist(User $user, bool $flush = false)
+    public function persist(User $user, bool $flush = false): void
     {
         $this->getEntityManager()->persist($user);
         if ($flush) {

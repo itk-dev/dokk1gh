@@ -15,20 +15,20 @@ class AeosService
     final public const ACTIVATE_VERIFICATION = 'ActivateVerification';
 
     // Debugging.
-    private $lastRequest;
-    private $lastResponse;
+    private ?string $lastRequest;
+    private ?string $lastResponse;
 
     public function __construct(
         private readonly array $options
     ) {
     }
 
-    public function setVerificationState($carrier, bool $activated)
+    public function setVerificationState(object $carrier, bool $activated): mixed
     {
         return $this->setCarrierState($carrier, self::ACTIVATE_VERIFICATION, $activated);
     }
 
-    public function setCarrierState($carrier, string $state, bool $activated)
+    public function setCarrierState(object $carrier, string $state, bool $activated): mixed
     {
         return $this->invoke(
             'changeCarrierAttribute',
@@ -40,12 +40,12 @@ class AeosService
         );
     }
 
-    public function getCarrierStates($carrier)
+    public function getCarrierStates(object $carrier): mixed
     {
         return $this->invoke('findCarrierStates', $carrier->Id);
     }
 
-    public function getIdentifiers(array $query = [])
+    public function getIdentifiers(array $query = []): ?array
     {
         [$query, $searchRange] = $this->splitQuery($query);
         // findToken requires at least one search value.
@@ -69,14 +69,14 @@ class AeosService
             : [$result->IdentifierAndCarrierId]);
     }
 
-    public function getIdentifierByBadgeNumber($badgeNumber)
+    public function getIdentifierByBadgeNumber(string $badgeNumber): ?object
     {
         $result = $this->getIdentifiers(['BadgeNumber' => $badgeNumber]);
 
         return ($result && 1 === \count($result)) ? $result[0] : null;
     }
 
-    public function blockIdentifier($identifier)
+    public function blockIdentifier(object $identifier): object
     {
         $reason = $this->options['aeos']['block_reason'];
         $result = $this->invoke(
@@ -91,12 +91,12 @@ class AeosService
         return $result;
     }
 
-    public function isBlocked($identifier)
+    public function isBlocked(?object $identifier): bool
     {
         return $identifier && isset($identifier->Blocked) && true === $identifier->Blocked;
     }
 
-    public function getVisitors(array $query = [])
+    public function getVisitors(array $query = []): ?array
     {
         [$query, $searchRange] = $this->splitQuery($query);
         $result = $this->invoke('findVisitor', (object) ['VisitorInfo' => $query, 'SearchRange' => $searchRange]);
@@ -111,26 +111,26 @@ class AeosService
         );
     }
 
-    public function getVisitor($id)
+    public function getVisitor(string $id): ?object
     {
         $result = $this->getVisitors(['Id' => $id]);
 
         return ($result && 1 === \count($result)) ? $result[0] : null;
     }
 
-    public function getVisitorByIdentifier($identifier)
+    public function getVisitorByIdentifier(object $identifier): ?object
     {
         return isset($identifier->CarrierId) ? $this->getVisitor($identifier->CarrierId) : null;
     }
 
-    public function deleteVisitor($visitor)
+    public function deleteVisitor(object $visitor): object
     {
         $result = $this->invoke('removeVisitor', $visitor->Id);
 
         return $result;
     }
 
-    public function getVisits(array $query = [])
+    public function getVisits(array $query = []): ?array
     {
         [$query, $searchRange] = $this->splitQuery($query);
         $query['SearchRange'] = $searchRange;
@@ -139,31 +139,31 @@ class AeosService
         return !isset($result->Visit) ? null : (\is_array($result->Visit) ? $result->Visit : [$result->Visit]);
     }
 
-    public function getVisit($id)
+    public function getVisit(string $id): ?object
     {
         $result = $this->getVisits(['Id' => $id]);
 
         return ($result && 1 === \count($result)) ? $result[0] : null;
     }
 
-    public function getVisitByVisitor($visitor)
+    public function getVisitByVisitor(object $visitor): ?object
     {
         $result = $this->getVisits(['VisitorId' => $visitor->Id]);
 
         return ($result && 1 === \count($result)) ? $result[0] : null;
     }
 
-    public function deleteVisit($visit)
+    public function deleteVisit(object $visit): object
     {
         return $this->invoke('removeVisit', $visit->Id);
     }
 
-    public function createVisitor(array $data)
+    public function createVisitor(array $data): object
     {
         return (object) $this->invoke('addVisitor', $data);
     }
 
-    public function createIdentifier($visitor, $contactPerson)
+    public function createIdentifier(object $visitor, object $contactPerson): object
     {
         $badgeNumber = $this->generateBadgeNumber();
         $data = [
@@ -176,14 +176,7 @@ class AeosService
         return (object) $this->invoke('assignToken', $data);
     }
 
-    public function updateVisitor($id, array $data)
-    {
-        $data['Id'] = $id;
-
-        return $this->invoke('changeVisitor', $data);
-    }
-
-    public function createVisit($visitor, $contactPerson, \DateTime $beginVisit, \DateTime $endVisit, $template)
+    public function createVisit(object $visitor, object $contactPerson, \DateTime $beginVisit, \DateTime $endVisit, object $template): object
     {
         $startTime = $this->formatDateTime($beginVisit);
         $endTime = $this->formatDateTime($endVisit);
@@ -205,7 +198,7 @@ class AeosService
         return $this->invoke('addVisit', (object) $data);
     }
 
-    public function getUnits(array $query = [])
+    public function getUnits(array $query = []): ?array
     {
         [$query, $searchRange] = $this->splitQuery($query);
         $result = $this->invoke('findUnit', (object) ['UnitSearchInfo' => $query, 'SearchRange' => $searchRange]);
@@ -213,7 +206,7 @@ class AeosService
         return !isset($result->Unit) ? null : (\is_array($result->Unit) ? $result->Unit : [$result->Unit]);
     }
 
-    public function getPersons(array $query = [])
+    public function getPersons(array $query = []): ?array
     {
         [$query, $searchRange] = $this->splitQuery($query);
         $result = $this->invoke('findPerson', (object) ['PersonInfo' => $query, 'SearchRange' => $searchRange]);
@@ -221,14 +214,14 @@ class AeosService
         return !isset($result->Person) ? null : (\is_array($result->Person) ? $result->Person : [$result->Person]);
     }
 
-    public function getPerson($id)
+    public function getPerson(?string $id): ?object
     {
         $result = $this->getPersons(['Id' => $id]);
 
         return ($result && 1 === \count($result)) ? $result[0] : null;
     }
 
-    public function getTemplates(array $query = [])
+    public function getTemplates(array $query = []): ?array
     {
         [$query, $searchRange] = $this->splitQuery($query);
         $query += [
@@ -241,24 +234,24 @@ class AeosService
             : (\is_array($result->Template) ? $result->Template : [$result->Template]);
     }
 
-    public function getTemplate($id)
+    public function getTemplate(?string $id): ?object
     {
         $result = $this->getTemplates(['Id' => $id]);
 
         return ($result && 1 === \count($result)) ? $result[0] : null;
     }
 
-    public function getLastRequest()
+    public function getLastRequest(): ?string
     {
         return $this->lastRequest;
     }
 
-    public function getLastResponse()
+    public function getLastResponse(): ?string
     {
         return $this->lastResponse;
     }
 
-    private function invoke($method)
+    private function invoke(string $method): object
     {
         $configuration = $this->options['client'];
         $options = $configuration['context'] ?? [];
@@ -296,7 +289,7 @@ class AeosService
         return $result;
     }
 
-    private function generateBadgeNumber($length = null)
+    private function generateBadgeNumber(?int $length = null): string
     {
         if (null === $length) {
             $length = $this->options['aeos']['identifier_length'] ?? 8;
@@ -318,11 +311,6 @@ class AeosService
         throw new \RuntimeException('Cannot generate unique code');
     }
 
-    private function identifierExists($code)
-    {
-        return $this->getIdentifierByBadgeNumber($code);
-    }
-
     /**
      * Format date and time for AEOS service.
      *
@@ -341,7 +329,7 @@ class AeosService
     /**
      * Split a query into a query and a search range.
      */
-    private function splitQuery(array $query)
+    private function splitQuery(array $query): array
     {
         $searchRange = [
             'nrOfRecords' => 25,

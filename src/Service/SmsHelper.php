@@ -17,23 +17,15 @@ class SmsHelper
 {
     final public const SMS_SENT = 'SMS_SENT';
 
-    /** @var SmsServiceInterface */
-    protected $smsService;
-
-    /** @var \Twig_Environment */
-    private $twigHelper;
-
     public function __construct(
-        SmsServiceInterface $smsService,
+        private readonly SmsServiceInterface $smsService,
         private readonly EntityActionLogger $actionLogger,
         private readonly Configuration $configuration,
-        TwigHelper $twigHelper
+        private readonly TwigHelper $twigHelper
     ) {
-        $this->smsService = $smsService;
-        $this->twigHelper = $twigHelper;
     }
 
-    public function sendApp(Guest $guest, $appUrl)
+    public function sendApp(Guest $guest, string $appUrl): void
     {
         $number = $guest->getPhone();
         $countryCode = $guest->getPhoneCountryCode();
@@ -52,7 +44,7 @@ class SmsHelper
         ]);
     }
 
-    public function sendCode(Guest $guest, Code $code)
+    public function sendCode(Guest $guest, Code $code): void
     {
         $number = $guest->getPhone();
         $countryCode = $guest->getPhoneCountryCode();

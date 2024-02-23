@@ -32,6 +32,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Translation\TranslatableMessage;
 
@@ -86,14 +87,14 @@ class GuestCrudController extends AbstractCrudController
         return $actions;
     }
 
-    public function showApp()
+    public function showApp(): Response
     {
         $guest = $this->getGuest();
 
         return $this->redirectToRoute('app_code', ['guest' => $guest->getId()]);
     }
 
-    public function sendApp()
+    public function sendApp(): Response
     {
         $guest = $this->getGuest();
         if (null !== $guest) {
@@ -107,12 +108,12 @@ class GuestCrudController extends AbstractCrudController
         );
     }
 
-    public function resendApp()
+    public function resendApp(): Response
     {
         return $this->sendApp();
     }
 
-    public function expireApp(AdminContext $context)
+    public function expireApp(AdminContext $context): Response
     {
         if (Request::METHOD_POST === $context->getRequest()->getMethod()) {
             $guest = $this->getGuest();
@@ -174,7 +175,7 @@ class GuestCrudController extends AbstractCrudController
             ->setPermission(Role::ADMIN->name);
     }
 
-    public function createEntity(string $entityFqcn)
+    public function createEntity(string $entityFqcn): Guest
     {
         return $this->guestService->createNewGuest();
     }

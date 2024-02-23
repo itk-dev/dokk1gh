@@ -23,67 +23,53 @@ class EntityActionLogEntry
     #[ORM\GeneratedValue(strategy: 'AUTO')]
     protected ?int $id = null;
 
-    /**
-     * @var \DateTimeInterface
-     */
     #[ORM\Column(name: 'created_at', type: Types::DATETIME_MUTABLE)]
-    protected $createdAt;
+    protected \DateTimeInterface $createdAt;
 
     /**
      * @param string $entityType
      * @param string $entityId
      * @param string $message
      */
-    public function __construct(#[ORM\Column(name: 'entity_type', type: Types::STRING, length: 255)]
-        private $entityType, #[ORM\Column(name: 'entity_id', type: Types::STRING, length: 255)]
-        private $entityId, #[ORM\Column(name: 'message', type: Types::STRING, length: 255)]
-        private $message, #[ORM\Column(name: 'context', type: Types::JSON, nullable: true)]
-        private ?array $context = null)
-    {
-        $this->createdAt = new \DateTime('now', new \DateTimeZone('UTC'));
+    public function __construct(
+        #[ORM\Column(name: 'entity_type', type: Types::STRING, length: 255)]
+        private $entityType,
+        #[ORM\Column(name: 'entity_id', type: Types::STRING, length: 255)]
+        private $entityId,
+        #[ORM\Column(name: 'message', type: Types::STRING, length: 255)]
+        private $message,
+        #[ORM\Column(name: 'context', type: Types::JSON, nullable: true)]
+        private ?array $context = null
+    ) {
+        $this->createdAt = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
     }
 
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getCreatedAt()
+    public function getCreatedAt(): \DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    /**
-     * @return string
-     */
-    public function getEntityType()
+    public function getEntityType(): string
     {
         return $this->entityType;
     }
 
-    /**
-     * @return string
-     */
-    public function getEntityId()
+    public function getEntityId(): string
     {
         return $this->entityId;
     }
 
-    /**
-     * @return string
-     */
-    public function getMessage()
+    public function getMessage(): string
     {
         return $this->message;
     }
 
-    /**
-     * @return array
-     */
-    public function getContext()
+    public function getContext(): array
     {
         return $this->context;
     }

@@ -22,7 +22,7 @@ class Configuration
     ) {
     }
 
-    public function get($path, $defaultValue = null)
+    public function get(string $path, mixed $defaultValue = null): mixed
     {
         $settings = $this->settingRepository->all();
         if (isset($settings[$path])) {
