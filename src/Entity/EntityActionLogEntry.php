@@ -34,12 +34,16 @@ class EntityActionLogEntry
      * @param string $entityId
      * @param string $message
      */
-    public function __construct(#[ORM\Column(name: 'entity_type', type: Types::STRING, length: 255)]
-        private $entityType, #[ORM\Column(name: 'entity_id', type: Types::STRING, length: 255)]
-        private $entityId, #[ORM\Column(name: 'message', type: Types::STRING, length: 255)]
-        private $message, #[ORM\Column(name: 'context', type: Types::JSON, nullable: true)]
-        private ?array $context = null)
-    {
+    public function __construct(
+        #[ORM\Column(name: 'entity_type', type: Types::STRING, length: 255)]
+        private $entityType,
+        #[ORM\Column(name: 'entity_id', type: Types::STRING, length: 255)]
+        private $entityId,
+        #[ORM\Column(name: 'message', type: Types::STRING, length: 255)]
+        private $message,
+        #[ORM\Column(name: 'context', type: Types::JSON, nullable: true)]
+        private ?array $context = null
+    ) {
         $this->createdAt = new \DateTime('now', new \DateTimeZone('UTC'));
     }
 

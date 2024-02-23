@@ -42,11 +42,11 @@ class Code implements Blameable, \Stringable
 
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_MUTABLE)]
     #[Groups('api')]
-    private ?\DateTimeInterface $startTime = null;
+    private ?\DateTime $startTime = null;
 
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_MUTABLE)]
     #[Groups('api')]
-    private ?\DateTimeInterface $endTime = null;
+    private ?\DateTime $endTime = null;
 
     #[ORM\ManyToOne(targetEntity: Template::class)]
     #[ORM\JoinColumn(nullable: false)]
@@ -74,26 +74,26 @@ class Code implements Blameable, \Stringable
         return $this->id;
     }
 
-    public function setStartTime(\DateTimeInterface $startTime): static
+    public function setStartTime(\DateTime $startTime): static
     {
         $this->startTime = $startTime;
 
         return $this;
     }
 
-    public function getStartTime(): ?\DateTimeInterface
+    public function getStartTime(): ?\DateTime
     {
         return $this->startTime;
     }
 
-    public function setEndTime(\DateTimeInterface $endTime): static
+    public function setEndTime(\DateTime $endTime): static
     {
         $this->endTime = $endTime;
 
         return $this;
     }
 
-    public function getEndTime(): ?\DateTimeInterface
+    public function getEndTime(): ?\DateTime
     {
         return $this->endTime;
     }

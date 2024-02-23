@@ -99,7 +99,7 @@ class CodeController extends AbstractApiController
             }
         }
 
-        $template = $this->templateManager->getUserTemplate($data['template']);
+        $template = $this->templateManager->getUserTemplate((int) $data['template']);
         if (!$template) {
             return $this->createHttpExceptionResponse(
                 new BadRequestHttpException(sprintf('Invalid template: %s', $data['template']))

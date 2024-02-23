@@ -24,9 +24,12 @@ final readonly class AeosHelper
     ) {
     }
 
-    public function createAeosIdentifier(Code $code, $visitorName = null)
+    /**
+     * Create AEOS identifier and set it on Code.
+     */
+    public function createAeosIdentifier(Code $code, ?string $visitorName = null): void
     {
-        $user = $code->getCreatedBy() ?? $this->tokenStorage->getToken()->getUser();
+        $user = $code->getCreatedBy() ?? $this->getUser();
         if (!$user) {
             throw new \Exception('Code has no user');
         }
@@ -79,7 +82,7 @@ final readonly class AeosHelper
         $code->setIdentifier($identifier->BadgeNumber);
     }
 
-    public function deleteAeosIdentifier(Code $code)
+    public function deleteAeosIdentifier(Code $code): void
     {
         $identifier = $this->aeosService->getIdentifierByBadgeNumber($code->getIdentifier());
         $visitor = $identifier ? $this->aeosService->getVisitorByIdentifier($identifier) : null;
@@ -96,18 +99,24 @@ final readonly class AeosHelper
         }
     }
 
-    public function userHasAeosId(?User $user = null)
+    public function userHasAeosId(?User $user = null): bool
     {
         try {
-            if (null === $user) {
-                $user = $this->tokenStorage->getToken()?->getUser();
-            }
+            $user ??= $this->getUser();
 
-            return null !== $user
-                && null !== $this->aeosService->getPerson($user->getAeosId());
+            if (null !== $user) {
+                return null !== $this->aeosService->getPerson($user->getAeosId());
+            }
         } catch (\Exception) {
         }
 
         return false;
+    }
+
+    private function getUser(): ?User
+    {
+        $user = $this->tokenStorage->getToken()?->getUser();
+
+        return $user instanceof User ? $user : null;
     }
 }

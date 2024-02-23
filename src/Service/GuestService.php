@@ -71,14 +71,14 @@ class GuestService
         return true;
     }
 
-    public function activate(Guest $guest)
+    public function activate(Guest $guest): void
     {
         $guest->setActivatedAt(new \DateTime());
         $this->manager->persist($guest);
         $this->manager->flush();
     }
 
-    public function isValid(Guest $guest)
+    public function isValid(Guest $guest): bool
     {
         $now = new \DateTime();
 
@@ -89,7 +89,7 @@ class GuestService
             && $now <= $guest->getEndTime();
     }
 
-    public function canRequestCode(Guest $guest)
+    public function canRequestCode(Guest $guest): bool
     {
         if (!$this->isValid($guest)) {
             return false;
@@ -107,9 +107,9 @@ class GuestService
         }
 
         $startTime = clone $now;
-        $startTime->setTime($startTimeData['hours'], $startTimeData['minutes']);
+        $startTime->setTime((int) $startTimeData['hours'], (int) $startTimeData['minutes']);
         $endTime = clone $now;
-        $endTime->setTime($endTimeData['hours'], $endTimeData['minutes']);
+        $endTime->setTime((int) $endTimeData['hours'], (int) $endTimeData['minutes']);
 
         if ($now < $startTime || $endTime < $now) {
             return false;
@@ -121,7 +121,7 @@ class GuestService
     /**
      * Get end time for a new code.
      */
-    public function getEndTime(Guest $guest)
+    public function getEndTime(Guest $guest): \DateTime
     {
         $duration = $this->configuration->get('guest_code_duration');
         if (null !== $duration) {
@@ -138,17 +138,17 @@ class GuestService
         if (!isset($timeRanges['start_time_'.$day], $timeRanges['end_time_'.$day])
             || !preg_match('/^(?<hours>\d{2}):(?<minutes>\d{2})$/', (string) $timeRanges['start_time_'.$day], $startTimeData)
             || !preg_match('/^(?<hours>\d{2}):(?<minutes>\d{2})$/', (string) $timeRanges['end_time_'.$day], $endTimeData)) {
-            return null;
+            throw new \RuntimeException('Cannot get guest end time');
         }
 
         $endTime = clone $now;
-        $endTime->setTime($endTimeData['hours'], $endTimeData['minutes']);
+        $endTime->setTime((int) $endTimeData['hours'], (int) $endTimeData['minutes']);
         $endTime->setTimeZone(new \DateTimeZone('UTC'));
 
         return $endTime;
     }
 
-    public function generateCode(Guest $guest, Template $template, $note = null)
+    public function generateCode(Guest $guest, Template $template, ?string $note = null): string
     {
         if (!$this->canRequestCode($guest)) {
             throw new GuestException('Guest cannot request code right now', ['guest' => $guest]);
@@ -182,7 +182,7 @@ class GuestService
         }
     }
 
-    public function sendCode(Guest $guest, Code $code)
+    public function sendCode(Guest $guest, Code $code): void
     {
         $this->smsHelper->sendCode($guest, $code);
     }
@@ -190,7 +190,7 @@ class GuestService
     /**
      * Expire a Guest by anonymizing data and setting the expired at time.
      */
-    public function expire(Guest $guest)
+    public function expire(Guest $guest): bool
     {
         if (null !== $guest && null === $guest->getExpiredAt()) {
             // Anonymize guest.
