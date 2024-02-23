@@ -12,11 +12,12 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Translation\TranslatableMessage;
 
-class UserController extends AbstractController
+class UserController extends AbstractDashboardController
 {
     #[Route(path: '/user/apikey', name: 'user_apikey', methods: ['GET'])]
     public function apiKeyGet(): Response

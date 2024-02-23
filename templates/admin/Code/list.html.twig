@@ -16,26 +16,3 @@
   {% endif %}
   {{ parent() }}
 {% endblock %}
-
-{% block body_javascript %}
-  {{ parent() }}
-  <script src="{{ asset('javascripts/clipboard.min.js') }}"></script>
-  <script>(function($) {
-     $('.code-note').popover();
-
-     $('.clipboard-copy a').popover({
-       trigger: 'manual'
-     });
-
-     var clipboard = new Clipboard('.clipboard-copy');
-     clipboard.on('success', function(e) {
-       $(e.trigger).find('[data-toggle="popover"]').popover('show');
-       setTimeout(function () {
-         $(e.trigger).find('[data-toggle="popover"]').popover('hide');
-       }, 1000);
-     });
-     clipboard.on('error', function(e) {
-       console.debug(e);
-     });
-   }(jQuery))</script>
-{% endblock %}
