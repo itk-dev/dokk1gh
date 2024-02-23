@@ -1,6 +1,9 @@
+/* global bootstrap */
 import './easy_admin.scss'
 
-import bootstrap from 'bootstrap/dist/js/bootstrap.bundle'
+// @TODO This import breaks the EasyAdmin UI like dropdown menus and the like.
+// import bootstrap from 'bootstrap/dist/js/bootstrap.bundle'
+// However, it seems that EasyAdmin imports all of Bootstrap so we can use it.
 
 // @see https://getbootstrap.com/docs/5.3/components/tooltips/#enable-tooltips
 document.querySelectorAll('[data-bs-toggle="tooltip"]')
