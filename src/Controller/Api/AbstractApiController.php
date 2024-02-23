@@ -10,14 +10,14 @@
 
 namespace App\Controller\Api;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 abstract class AbstractApiController extends AbstractController
 {
-    protected function createResponse($data = null, int $status = Response::HTTP_OK): JsonResponse
+    protected function createResponse(mixed $data, int $status = Response::HTTP_OK): JsonResponse
     {
         $data ??= [];
         $data = (array) $data;

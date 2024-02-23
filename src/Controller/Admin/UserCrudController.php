@@ -59,12 +59,12 @@ class UserCrudController extends AbstractCrudController
             ->addCssFile('https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.min.css');
     }
 
-    public function createEntity(string $entityFqcn)
+    public function createEntity(string $entityFqcn): User
     {
         return $this->userManager->createUser();
     }
 
-    public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    public function persistEntity(EntityManagerInterface $entityManager, mixed $entityInstance): void
     {
         parent::persistEntity($entityManager, $entityInstance);
         \assert($entityInstance instanceof User);

@@ -42,7 +42,7 @@ abstract class ActionLogEntry
         $this->createdAt = new \DateTimeImmutable();
     }
 
-    public function getId(): ?id
+    public function getId(): ?int
     {
         return $this->id;
     }

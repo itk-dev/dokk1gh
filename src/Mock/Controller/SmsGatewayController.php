@@ -54,7 +54,7 @@ class SmsGatewayController extends AbstractController
     }
 
     #[Route(path: '/send', methods: ['GET', 'POST'])]
-    public function send(Request $request)
+    public function send(Request $request): Response
     {
         $username = $request->get('user');
         $password = $request->get('pass');
@@ -103,11 +103,11 @@ class SmsGatewayController extends AbstractController
             curl_close($ch);
         }
 
-        return new Response($status);
+        return new Response((string) $status);
     }
 
     #[Route(path: '/send/callback', methods: ['GET'])]
-    public function sendCallback(Request $request)
+    public function sendCallback(Request $request): Response
     {
         $messageId = $request->get('msg_id');
         $status = $request->get('status');

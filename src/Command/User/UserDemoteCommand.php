@@ -21,8 +21,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 )]
 class UserDemoteCommand extends UserCommand
 {
-    protected static $defaultName = '';
-
     protected function configure()
     {
         $this

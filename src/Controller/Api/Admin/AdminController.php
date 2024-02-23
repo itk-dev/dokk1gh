@@ -17,6 +17,7 @@ use App\Service\AeosService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/admin/api', name: 'api_admin_')]
@@ -35,7 +36,7 @@ class AdminController extends AbstractApiController
     }
 
     #[Route('/people/search', name: 'get_people_search')]
-    public function getPeopleSearch(Request $request)
+    public function getPeopleSearch(Request $request): Response
     {
         return $this->createResponse(
             $this->searchAction($request, 'getPersons', ['Id', 'PersonnelNo', 'LastName', 'FirstName'], User::class)
@@ -43,7 +44,7 @@ class AdminController extends AbstractApiController
     }
 
     #[Route('/people/{id}', name: 'get_people_show')]
-    public function getPerson($id)
+    public function getPerson(string $id): Response
     {
         $result = $this->aeosService->getPerson($id);
 
@@ -51,7 +52,7 @@ class AdminController extends AbstractApiController
     }
 
     #[Route('/templates', name: 'get_templates')]
-    public function getTemplates(Request $request)
+    public function getTemplates(Request $request): Response
     {
         return $this->createResponse(
             $this->aeosService->getTemplates($request->query->all())
@@ -59,7 +60,7 @@ class AdminController extends AbstractApiController
     }
 
     #[Route('/templates/search', name: 'get_templates_search')]
-    public function getTemplatesSearch(Request $request)
+    public function getTemplatesSearch(Request $request): Response
     {
         return $this->createResponse(
             $data = $this->searchAction($request, 'getTemplates', ['Id', 'Name'], Template::class)
@@ -67,14 +68,14 @@ class AdminController extends AbstractApiController
     }
 
     #[Route('/templates/{id}', name: 'get_template_show')]
-    public function getTemplate($id)
+    public function getTemplate(string $id): Response
     {
         return $this->createResponse(
             $result = $this->aeosService->getTemplate($id)
         );
     }
 
-    private function searchAction(Request $request, string $method, array $keys, $class)
+    private function searchAction(Request $request, string $method, array $keys, string $class): ?array
     {
         $query = $request->query->get('query');
 

@@ -148,7 +148,7 @@ class GuestService
         return $endTime;
     }
 
-    public function generateCode(Guest $guest, Template $template, ?string $note = null): string
+    public function generateCode(Guest $guest, Template $template, ?string $note = null): Code
     {
         if (!$this->canRequestCode($guest)) {
             throw new GuestException('Guest cannot request code right now', ['guest' => $guest]);

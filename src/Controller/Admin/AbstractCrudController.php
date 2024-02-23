@@ -33,27 +33,27 @@ abstract class AbstractCrudController extends BaseAbstractCrudController
             ->addWebpackEncoreEntry('easy_admin');
     }
 
-    protected function showSuccess(string $message, array $parameters = [])
+    protected function showSuccess(string $message, array $parameters = []): void
     {
         $this->showMessage('success', $message, $parameters);
     }
 
-    protected function showInfo(string|TranslatableMessage $message, array $parameters = [])
+    protected function showInfo(string|TranslatableMessage $message, array $parameters = []): void
     {
         $this->showMessage('info', $message, $parameters);
     }
 
-    protected function showWarning(string $message, array $parameters = [])
+    protected function showWarning(string $message, array $parameters = []): void
     {
         $this->showMessage('warning', $message, $parameters);
     }
 
-    protected function showError(string $message, array $parameters = [])
+    protected function showError(string $message, array $parameters = []): void
     {
         $this->showMessage('error', $message, $parameters);
     }
 
-    protected function showMessage(string $type, string|TranslatableMessage $message, array $parameters = [])
+    protected function showMessage(string $type, string|TranslatableMessage $message, array $parameters = []): void
     {
         $this->addFlash($type, $message);
     }

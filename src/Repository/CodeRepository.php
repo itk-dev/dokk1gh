@@ -39,4 +39,12 @@ class CodeRepository extends ServiceEntityRepository
 
         return $this->matching($criteria);
     }
+
+    public function remove(Code $code, bool $flush = false): void
+    {
+        $this->getEntityManager()->remove($code);
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
 }

@@ -10,9 +10,8 @@
 
 namespace App\Command;
 
-use App\Entity\Code;
+use App\Repository\CodeRepository;
 use App\Service\AeosHelper;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -25,8 +24,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 )]
 class AeosCodeCleanupCommand extends Command
 {
-    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly AeosHelper $aeosHelper)
-    {
+    public function __construct(
+        private readonly CodeRepository $codeRepository,
+        private readonly AeosHelper $aeosHelper
+    ) {
         parent::__construct();
     }
 
@@ -39,7 +40,7 @@ class AeosCodeCleanupCommand extends Command
     public function execute(InputInterface $input, OutputInterface $output): int
     {
         $dryRun = $input->getOption('dry-run');
-        $expiredCodes = $this->entityManager->getRepository(Code::class)->findExpired();
+        $expiredCodes = $this->codeRepository->findExpired();
         if ($output->isVerbose()) {
             $output->writeln('#expired codes: '.\count($expiredCodes));
         }
@@ -53,8 +54,7 @@ class AeosCodeCleanupCommand extends Command
 
                 try {
                     $this->aeosHelper->deleteAeosIdentifier($code);
-                    $this->entityManager->remove($code);
-                    $this->entityManager->flush();
+                    $this->codeRepository->remove($code, true);
                     if ($output->isVerbose()) {
                         $output->writeln('Done');
                     }

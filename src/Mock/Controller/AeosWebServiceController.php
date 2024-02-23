@@ -20,12 +20,13 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/mock/aeosws')]
 class AeosWebServiceController extends AbstractController
 {
-    public function __construct(private readonly ActionLogManager $manager)
-    {
+    public function __construct(
+        private readonly ActionLogManager $manager
+    ) {
     }
 
     #[Route]
-    public function index(AeosWebService $aeosWebService)
+    public function index(AeosWebService $aeosWebService): Response
     {
         $server = new \SoapServer(__DIR__.'/../Resources/aeosws/wsdl/aeosws.wsdl');
         $server->setObject($aeosWebService);

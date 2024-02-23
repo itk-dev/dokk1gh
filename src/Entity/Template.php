@@ -14,6 +14,7 @@ use App\Repository\TemplateRepository;
 use App\Trait\AeosDataEntity;
 use App\Trait\BlameableEntity;
 use App\Validator\Constraints as Assert;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
@@ -31,28 +32,28 @@ class Template implements AeosEntityInterface, \Stringable
     use SoftDeleteableEntity;
     use TimestampableEntity;
 
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
+    #[ORM\Column(type: Types::BOOLEAN)]
     protected ?bool $enabled = true;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
+    #[ORM\Column(type: Types::INTEGER)]
     #[Groups('api')]
     private ?int $id = null;
 
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255)]
+    #[ORM\Column(type: Types::STRING, length: 255)]
     #[Groups('api')]
     private ?string $name = null;
 
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255, nullable: true)]
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     #[Groups('api')]
     private ?string $level = null;
 
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT, nullable: true)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     #[Groups('api')]
     private ?string $description = null;
 
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255)]
+    #[ORM\Column(type: Types::STRING, length: 255)]
     #[Assert\AeosTemplateId()]
     private ?string $aeosId = null;
 
@@ -61,108 +62,59 @@ class Template implements AeosEntityInterface, \Stringable
         return $this->getName();
     }
 
-    /**
-     * Get id.
-     *
-     * @return int
-     */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function setEnabled(bool $enabled)
+    public function setEnabled(bool $enabled): static
     {
         $this->enabled = $enabled;
 
         return $this;
     }
 
-    /**
-     * @return bool
-     */
-    public function isEnabled()
+    public function isEnabled(): bool
     {
         return $this->enabled;
     }
 
-    /**
-     * Set name.
-     *
-     * @param string $name
-     *
-     * @return Template
-     */
-    public function setName($name)
+    public function setName(string $name): static
     {
         $this->name = $name;
 
         return $this;
     }
 
-    /**
-     * Get name.
-     *
-     * @return string
-     */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * Set level.
-     *
-     * @param string $level
-     *
-     * @return Template
-     */
-    public function setLevel($level)
+    public function setLevel(string $level): static
     {
         $this->level = $level;
 
         return $this;
     }
 
-    /**
-     * Get level.
-     *
-     * @return string
-     */
-    public function getLevel()
+    public function getLevel(): ?string
     {
         return $this->level;
     }
 
-    /**
-     * Set description.
-     *
-     * @param string $description
-     *
-     * @return Template
-     */
-    public function setDescription($description)
+    public function setDescription(string $description): static
     {
         $this->description = $description;
 
         return $this;
     }
 
-    /**
-     * Get description.
-     *
-     * @return string
-     */
-    public function getDescription()
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    /**
-     * Set aeosId.
-     *
-     * @return Template
-     */
     public function setAeosId(string $aeosId): static
     {
         $this->aeosId = $aeosId;
@@ -170,9 +122,6 @@ class Template implements AeosEntityInterface, \Stringable
         return $this;
     }
 
-    /**
-     * Get aeosId.
-     */
     public function getAeosId(): ?string
     {
         return $this->aeosId;

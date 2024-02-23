@@ -16,9 +16,9 @@ use App\Exception\AbstractException;
 use App\Repository\CodeRepository;
 use App\Service\Configuration;
 use App\Service\GuestService;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
@@ -41,7 +41,7 @@ class AppController extends AbstractController
     }
 
     #[Route(path: '/code', name: 'app_code', methods: ['GET'])]
-    public function code(Guest $guest)
+    public function code(Guest $guest): Response
     {
         if (null !== $guest->getExpiredAt()) {
             return $this->render('app/expired.html.twig', ['guest' => $guest], new Response('', Response::HTTP_NOT_FOUND));
@@ -93,7 +93,7 @@ class AppController extends AbstractController
     }
 
     #[Route(path: '/guide', name: 'app_accept', methods: ['POST'])]
-    public function accept(Guest $guest): \Symfony\Component\HttpFoundation\RedirectResponse
+    public function accept(Guest $guest): RedirectResponse
     {
         $this->guestService->activate($guest);
         $this->addFlash('success', 'Guest accepted');
@@ -104,7 +104,7 @@ class AppController extends AbstractController
     }
 
     #[Route(path: '/request/{template}', name: 'app_code_request', methods: ['POST'])]
-    public function codeRequest(Guest $guest, Template $template)
+    public function codeRequest(Guest $guest, Template $template): Response
     {
         if (!$guest->isEnabled() || null !== $guest->getExpiredAt()) {
             throw new AccessDeniedHttpException();
@@ -126,12 +126,11 @@ class AppController extends AbstractController
                 'message' => $exception->getMessage(),
                 'guest' => $guest,
             ]);
-            $messages['danger'][] = $exception->getMessage();
         }
         $this->setGeneratedCodeData([$status, $messages]);
 
         return $this->redirectToRoute('app_code_request_result', [
-            'code' => $code ? $code->getId() : null,
+            'code' => $code->getId(),
             'guest' => $guest->getId(),
             'template' => $template->getId(),
         ]);
@@ -156,7 +155,7 @@ class AppController extends AbstractController
     }
 
     #[Route(path: '/manifest.json', name: 'app_manifest')]
-    public function manifest(Guest $guest, Packages $packages)
+    public function manifest(Guest $guest, Packages $packages): Response
     {
         $icons = $this->configuration->get('app_icons');
         array_walk($icons, static function (&$value, $size) use ($packages) {
@@ -201,19 +200,19 @@ class AppController extends AbstractController
     }
 
     #[Route(path: '/serviceworker.js', name: 'app_serviceworker')]
-    public function serviceworker()
+    public function serviceworker(): Response
     {
         $content = $this->renderView('app/javascripts/sw.js.twig');
 
         return new Response($content, Response::HTTP_OK, ['content-type' => 'text/javascript']);
     }
 
-    private function setGeneratedCodeData($data)
+    private function setGeneratedCodeData(array $data): void
     {
         $this->requestStack->getSession()->set(self::GENERATED_CODE_SESSION_KEY, $data);
     }
 
-    private function getGeneratedCodeData($peek = false)
+    private function getGeneratedCodeData(bool $peek = false): ?array
     {
         $session = $this->requestStack->getSession();
         $data = null;
