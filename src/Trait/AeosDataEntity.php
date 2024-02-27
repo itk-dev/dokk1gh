@@ -14,11 +14,13 @@ trait AeosDataEntity
 {
     /**
      * Virtual property only used for displaying any AEOS template connected to this entity.
-     * Set by AeosEventSubscriber.
+     * Set by EasyAdminSubscriber.
+     *
+     * @see \App\EventSubscriber\AeosEventSubscriber::setAeosData().
      *
      * @phpstan-var array<string, mixed>
      */
-    private array $aeosData;
+    private ?array $aeosData = null;
 
     /**
      * @phpstan-param array<string, mixed> $aeosData
