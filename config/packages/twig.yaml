@@ -26,6 +26,7 @@ twig:
             name: '%mailer_name%'
         version: '%version%'
         configuration: '@App\Service\Configuration'
+        site_header_message: '%env(SITE_HEADER_MESSAGE)%'
 
 when@dev:
     twig:

@@ -24,7 +24,8 @@ abstract class AbstractCrudController extends BaseAbstractCrudController
             ->setDateFormat('dd-MM-yyyy')
             ->setTimeFormat('HH:mm:ss')
             ->setDateTimeFormat('dd-MM-yyyy HH:mm:ss')
-            ->addFormTheme('admin/form/form.html.twig');
+            ->addFormTheme('admin/form/form.html.twig')
+            ->overrideTemplate('layout', 'admin/layout.html.twig');
     }
 
     public function configureAssets(Assets $assets): Assets

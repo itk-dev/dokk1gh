@@ -1,0 +1,9 @@
+{% extends '@EasyAdmin/layout.html.twig' %}
+
+{% block wrapper_wrapper %}
+  {% if site_header_message %}
+    {{ site_header_message|raw }}
+  {% endif %}
+
+  {{ parent() }}
+{% endblock %}
