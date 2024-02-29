@@ -105,5 +105,13 @@ services:
                     button:
                         text: '%user_created_user_button_text%'
                     footer: '%user_created_user_footer%'
+
+    App\Service\GdprHelper:
+        arguments:
+            $options:
+                accept_route: gdpr_show
+                accept_route_parameters: {}
+                user_gdpr_property: gdprAcceptedAt
+
     # https://twig.symfony.com/doc/3.x/functions/template_from_string.html
     Twig\Extension\StringLoaderExtension:

@@ -168,7 +168,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, AeosEnt
         return $this;
     }
 
-    public function getGdprAcceptedAt(): \DateTime
+    public function getGdprAcceptedAt(): ?\DateTime
     {
         return $this->gdprAcceptedAt;
     }
