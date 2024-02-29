@@ -545,6 +545,34 @@
         <source>The guest will no longer have access and all guest data will be anonymized.</source>
         <target>The guest will no longer have access and all guest data will be anonymized.</target>
       </trans-unit>
+      <trans-unit id="mcQKtAW" resname="Date">
+        <source>Date</source>
+        <target>Date</target>
+      </trans-unit>
+      <trans-unit id="G5mZ4l0" resname="Edit setting {name}">
+        <source>Edit setting {name}</source>
+        <target>Edit setting {name}</target>
+      </trans-unit>
+      <trans-unit id="KSwG8AR" resname="Category">
+        <source>Category</source>
+        <target>Category</target>
+      </trans-unit>
+      <trans-unit id="jjeVPSP" resname="Value">
+        <source>Value</source>
+        <target>Value</target>
+      </trans-unit>
+      <trans-unit id="QDJf5WW" resname="You must accept GDPR to continue">
+        <source>You must accept GDPR to continue</source>
+        <target>You must accept GDPR to continue</target>
+      </trans-unit>
+      <trans-unit id="CA6tt8y" resname="Accept GDPR">
+        <source>Accept GDPR</source>
+        <target>Accept GDPR</target>
+      </trans-unit>
+      <trans-unit id="iXE7nJw" resname="Accept">
+        <source>Accept</source>
+        <target>Accept</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

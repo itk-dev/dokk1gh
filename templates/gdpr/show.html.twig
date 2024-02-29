@@ -1,0 +1,12 @@
+{% extends '@EasyAdmin/page/login.html.twig' %}
+
+{% block wrapper_wrapper %}
+  <div class="container">
+    <div class="gdpr-terms">
+      {{ get_configuration('admin_gdpr')|raw }}
+    </div>
+
+    {% form_theme form '@EasyAdmin/symfony-form-themes/bootstrap_5_layout.html.twig' %}
+    {{ form(form) }}
+  </div>
+{% endblock %}

@@ -415,11 +415,11 @@
       </trans-unit>
       <trans-unit id="588_9PF" resname="Password">
         <source>Password</source>
-        <target state="needs-l10n">__Password</target>
+        <target state="translated">Adgangskode</target>
       </trans-unit>
       <trans-unit id="wYmEDPf" resname="Log in">
         <source>Log in</source>
-        <target state="needs-l10n">__Log in</target>
+        <target state="translated">Log ind</target>
       </trans-unit>
       <trans-unit id="r9Jf3xf" resname="Forgot your password?">
         <source>Forgot your password?</source>
@@ -427,7 +427,7 @@
       </trans-unit>
       <trans-unit id="IVbSFop" resname="Password sucessfully reset">
         <source>Password sucessfully reset</source>
-        <target state="needs-l10n">__Password sucessfully reset</target>
+        <target state="translated">Adgangskode nulstillet</target>
       </trans-unit>
       <trans-unit id="ATJ8qA9" resname="Your password reset request">
         <source>Your password reset request</source>
@@ -435,21 +435,21 @@
       </trans-unit>
       <trans-unit id="WfpDeb4" resname="Reset your password">
         <source>Reset your password</source>
-        <target state="needs-l10n">__Reset your password</target>
+        <target state="translated">Nulstil din adgangskode</target>
       </trans-unit>
       <trans-unit id="y2XxXvP" resname="Send password reset email">
         <source>Send password reset email</source>
-        <target state="needs-l10n">__Send password reset email</target>
+        <target state="translated">Send e-mail til nulstilling af adgangskode</target>
       </trans-unit>
       <trans-unit id="U28cTzJ" resname="Password Reset Email Sent">
         <source>Password Reset Email Sent</source>
-        <target state="needs-l10n">__Password Reset Email Sent</target>
+        <target state="translated">E-mail til nulstilling af adgangskode sendt</target>
       </trans-unit>
       <trans-unit id="U843nOG" resname="If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password. This link will expire in {expirationMessage}.">
         <source>If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password. This link will expire in {expirationMessage}.</source>
         <target state="needs-l10n">__If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password. This link will expire in {expirationMessage}.</target>
       </trans-unit>
-      <trans-unit id="7LnnofM" resname="If you don't receive an email please check your spam folder or &lt;a href=&quot;{password_request_url}&quot;&gt;try again&lt;/a&gt;.">
+      <trans-unit id="7LnnofM" resname="If you don't receive an email please check your spam folder or &lt;a href=&quot;{password_request_url}&quot;>try again&lt;/a>.">
         <source>If you don't receive an email please check your spam folder or &lt;a href="{password_request_url}"&gt;try again&lt;/a&gt;.</source>
         <target state="needs-l10n"><![CDATA[__If you don't receive an email please check your spam folder or <a href="{password_request_url}">try again</a>.]]></target>
       </trans-unit>
@@ -459,15 +459,15 @@
       </trans-unit>
       <trans-unit id="4O3_s6c" resname="Reset password">
         <source>Reset password</source>
-        <target state="needs-l10n">__Reset password</target>
+        <target state="translated">Nulstil adgangskode</target>
       </trans-unit>
       <trans-unit id="M3bG0Rh" resname="To reset your password on {site_name}, please visit the following link">
         <source>To reset your password on {site_name}, please visit the following link</source>
-        <target state="needs-l10n">__To reset your password on {site_name}, please visit the following link</target>
+        <target state="translated">Brug følgende link for at nulstille din adgangskode på {site_name}</target>
       </trans-unit>
       <trans-unit id="k8OegrE" resname="This link will expire in {expirationMessage}.">
         <source>This link will expire in {expirationMessage}.</source>
-        <target state="needs-l10n">__This link will expire in {expirationMessage}.</target>
+        <target state="translated">Dette link udløber om {expirationMessage}.</target>
       </trans-unit>
       <trans-unit id="emutV_R" resname="Cheers from {site_name}">
         <source>Cheers from {site_name}</source>
@@ -495,7 +495,7 @@
       </trans-unit>
       <trans-unit id="xVICefY" resname="You do not yet have an API key">
         <source>You do not yet have an API key</source>
-        <target state="needs-l10n">__You do not yet have an API key</target>
+        <target state="translated">Du har endnu ikke en api-nøgle</target>
       </trans-unit>
       <trans-unit id="ws_LTU4" resname="Generate API key">
         <source>Generate API key</source>
@@ -507,7 +507,7 @@
       </trans-unit>
       <trans-unit id="jlYzC3I" resname="Select template">
         <source>Select template</source>
-        <target state="needs-l10n">__Select template</target>
+        <target state="translated">Vælg adgangsområde</target>
       </trans-unit>
       <trans-unit id="W5X_9ex" resname="category.admin">
         <source>category.admin</source>
@@ -523,27 +523,55 @@
       </trans-unit>
       <trans-unit id="CrY_XoG" resname="Accept terms">
         <source>Accept terms</source>
-        <target state="needs-l10n">__Accept terms</target>
+        <target state="translated">Acceptér betingelser</target>
       </trans-unit>
       <trans-unit id="o3bnC_9" resname="Expire app">
         <source>Expire app</source>
-        <target state="needs-l10n">__Expire app</target>
+        <target state="translated">Slet app</target>
       </trans-unit>
       <trans-unit id="XSH0tCd" resname="App sent to {guest}">
         <source>App sent to {guest}</source>
-        <target state="needs-l10n">__App sent to {guest}</target>
+        <target state="translated">App sendt til {guest}</target>
       </trans-unit>
       <trans-unit id="Ure4EZP" resname="App {guest} expired">
         <source>App {guest} expired</source>
-        <target state="needs-l10n">__App {guest} expired</target>
+        <target state="translated">App {guest} slettet</target>
       </trans-unit>
       <trans-unit id="j9n2aRH" resname="Are you sure you want to expire this app?">
         <source>Are you sure you want to expire this app?</source>
-        <target state="needs-l10n">__Are you sure you want to expire this app?</target>
+        <target state="translated">Er du sikker på at du vil slette denne app?</target>
       </trans-unit>
       <trans-unit id="YS8g7nX" resname="The guest will no longer have access and all guest data will be anonymized.">
         <source>The guest will no longer have access and all guest data will be anonymized.</source>
-        <target state="needs-l10n">__The guest will no longer have access and all guest data will be anonymized.</target>
+        <target state="translated">Gæsten vil ikke længere have adgang og oplysninger om gæsten vil blive anonymiseret.</target>
+      </trans-unit>
+      <trans-unit id="mcQKtAW" resname="Date">
+        <source>Date</source>
+        <target state="translated">Dato</target>
+      </trans-unit>
+      <trans-unit id="G5mZ4l0" resname="Edit setting {name}">
+        <source>Edit setting {name}</source>
+        <target state="translated">Rediger indstilling {name}</target>
+      </trans-unit>
+      <trans-unit id="KSwG8AR" resname="Category">
+        <source>Category</source>
+        <target state="translated">Kategori</target>
+      </trans-unit>
+      <trans-unit id="jjeVPSP" resname="Value">
+        <source>Value</source>
+        <target state="translated">Værdi</target>
+      </trans-unit>
+      <trans-unit id="QDJf5WW" resname="You must accept GDPR to continue">
+        <source>You must accept GDPR to continue</source>
+        <target state="translated">Du skal acceptere GDPR for at fortsætte</target>
+      </trans-unit>
+      <trans-unit id="CA6tt8y" resname="Accept GDPR">
+        <source>Accept GDPR</source>
+        <target state="translated">Acceptér GDPR</target>
+      </trans-unit>
+      <trans-unit id="iXE7nJw" resname="Accept">
+        <source>Accept</source>
+        <target state="translated">Acceptér</target>
       </trans-unit>
     </body>
   </file>

@@ -60,6 +60,9 @@
             "fixtures/.gitignore"
         ]
     },
+    "itk-dev/gdpr-bundle": {
+        "version": "dev-main"
+    },
     "nelmio/alice": {
         "version": "3.13",
         "recipe": {
