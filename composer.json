@@ -20,6 +20,7 @@
         "symfony/framework-bundle": "7.0.*",
         "symfony/http-client": "7.0.*",
         "symfony/mailer": "7.0.*",
+        "symfony/monolog-bundle": "^3.10",
         "symfony/options-resolver": "7.0.*",
         "symfony/runtime": "7.0.*",
         "symfony/security-bundle": "7.0.*",
