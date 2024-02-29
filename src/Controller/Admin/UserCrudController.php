@@ -101,12 +101,15 @@ class UserCrudController extends AbstractCrudController
         yield TextField::new('aeosId', new TranslatableMessage('AEOS id'));
 
         yield DateTimeField::new('lastLoggedInAt', new TranslatableMessage('Last logged in at'))
+            ->setTimezone($this->getParameter('view_timezone'))
             ->onlyOnIndex();
         yield DateTimeField::new('createdAt', new TranslatableMessage('Created at'))
+            ->setTimezone($this->getParameter('view_timezone'))
             ->onlyOnIndex();
         yield AssociationField::new('createdBy', new TranslatableMessage('Created by'))
             ->onlyOnIndex();
         yield DateTimeField::new('updatedAt', new TranslatableMessage('Updated at'))
+            ->setTimezone($this->getParameter('view_timezone'))
             ->onlyOnIndex();
         yield AssociationField::new('updatedBy', new TranslatableMessage('Updated by'))
             ->onlyOnIndex();

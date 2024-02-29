@@ -82,6 +82,7 @@ class CodeCrudController extends AbstractCrudController
         ]);
         yield TextareaField::new('note', new TranslatableMessage('Note'));
         yield DateTimeField::new('createdAt', new TranslatableMessage('Created at'))
+            ->setTimezone($this->getParameter('view_timezone'))
             ->onlyOnIndex();
         yield AssociationField::new('createdBy', new TranslatableMessage('Created by'))
             ->onlyOnIndex()

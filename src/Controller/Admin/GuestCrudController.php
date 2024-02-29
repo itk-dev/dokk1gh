@@ -167,8 +167,10 @@ class GuestCrudController extends AbstractCrudController
             ->setFormType(TimeRangesType::class)
         ;
         yield DateTimeField::new('createdAt', new TranslatableMessage('Created at'))
+            ->setTimezone($this->getParameter('view_timezone'))
             ->onlyOnIndex();
         yield DateTimeField::new('activatedAt', new TranslatableMessage('Activated at'))
+            ->setTimezone($this->getParameter('view_timezone'))
             ->onlyOnIndex();
         yield AssociationField::new('createdBy', new TranslatableMessage('Created by'))
             ->onlyOnIndex()
