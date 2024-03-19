@@ -27,7 +27,7 @@ class AeosPersonIdValidator extends ConstraintValidator
         $person = $value ? $this->aeosService->getPerson($value) : null;
         if (!$person) {
             $this->context->buildViolation($constraint->message)
-                ->setParameter('{{ string }}', $value)
+                ->setParameter('{{ string }}', $value ?? '')
                 ->addViolation();
         }
     }

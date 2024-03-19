@@ -27,7 +27,7 @@ class AeosTemplateIdValidator extends ConstraintValidator
         $template = $value ? $this->aeosService->getTemplate($value) : null;
         if (!$template) {
             $this->context->buildViolation($constraint->message)
-                ->setParameter('{{ string }}', $value)
+                ->setParameter('{{ string }}', $value ?? '')
                 ->addViolation();
         }
     }
