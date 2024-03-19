@@ -449,7 +449,7 @@
         <source>If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password. This link will expire in {expirationMessage}.</source>
         <target state="needs-l10n">__If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password. This link will expire in {expirationMessage}.</target>
       </trans-unit>
-      <trans-unit id="7LnnofM" resname="If you don't receive an email please check your spam folder or &lt;a href=&quot;{password_request_url}&quot;>try again&lt;/a>.">
+      <trans-unit id="7LnnofM" resname="If you don't receive an email please check your spam folder or &lt;a href=&quot;{password_request_url}&quot;&gt;try again&lt;/a&gt;.">
         <source>If you don't receive an email please check your spam folder or &lt;a href="{password_request_url}"&gt;try again&lt;/a&gt;.</source>
         <target state="needs-l10n"><![CDATA[__If you don't receive an email please check your spam folder or <a href="{password_request_url}">try again</a>.]]></target>
       </trans-unit>
@@ -572,6 +572,14 @@
       <trans-unit id="iXE7nJw" resname="Accept">
         <source>Accept</source>
         <target state="translated">Acceptér</target>
+      </trans-unit>
+      <trans-unit id="8If8eT." resname="&quot;{{ string }}&quot; is not a valid AEOS person id.">
+        <source>"{{ string }}" is not a valid AEOS person id.</source>
+        <target state="translated">"{{ string }}" er ikke et gyldigt AEOS-id.</target>
+      </trans-unit>
+      <trans-unit id="n_EUW1_" resname="&quot;{{ string }}&quot; is not a valid AEOS template id.">
+        <source>"{{ string }}" is not a valid AEOS template id.</source>
+        <target state="translated">“{{ string }}” er ikke et gyldigt AEOS-id.</target>
       </trans-unit>
     </body>
   </file>

@@ -573,6 +573,14 @@
         <source>Accept</source>
         <target>Accept</target>
       </trans-unit>
+      <trans-unit id="8If8eT." resname="&quot;{{ string }}&quot; is not a valid AEOS person id.">
+        <source>"{{ string }}" is not a valid AEOS person id.</source>
+        <target>"{{ string }}" is not a valid AEOS person id.</target>
+      </trans-unit>
+      <trans-unit id="n_EUW1_" resname="&quot;{{ string }}&quot; is not a valid AEOS template id.">
+        <source>"{{ string }}" is not a valid AEOS template id.</source>
+        <target>"{{ string }}" is not a valid AEOS template id.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

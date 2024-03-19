@@ -32,8 +32,7 @@ class TemplateCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return parent::configureCrud($crud)
-            ->setEntityPermission(Role::TEMPLATE_ADMIN->value)
-            ->addFormTheme('admin/form/form.html.twig');
+            ->setEntityPermission(Role::TEMPLATE_ADMIN->value);
     }
 
     public function configureAssets(Assets $assets): Assets
@@ -56,7 +55,16 @@ class TemplateCrudController extends AbstractCrudController
         yield TextField::new('level', new TranslatableMessage('Level'));
         yield BooleanField::new('enabled', new TranslatableMessage('Enabled'))
             ->renderAsSwitch(false);
-        yield TextField::new('aeosId', new TranslatableMessage('AEOS id'));
+        yield TextField::new('aeosId', new TranslatableMessage('AEOS id'))
+            // The aeosId field is required on Template, but due to our Tom
+            // Select overlay we make the field not required and let the
+            // validator report any problems.
+            ->setFormTypeOptions([
+                'required' => false,
+                'label_attr' => [
+                    'class' => 'required',
+                ],
+            ]);
         yield DateTimeField::new('createdAt', new TranslatableMessage('Created at'))
             ->setTimezone($this->getParameter('view_timezone'))
             ->onlyOnIndex();
