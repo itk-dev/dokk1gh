@@ -23,7 +23,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: [ '8.2' ]
+        php: [ '8.3' ]
     name: Validate composer (${{ matrix.php}})
     steps:
       - name: Checkout
@@ -55,7 +55,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: [ '8.2' ]
+        php: [ '8.3' ]
     name: Normalize composer (${{ matrix.php}})
     steps:
       - name: Checkout
@@ -85,7 +85,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: [ '8.2' ]
+        php: [ '8.3' ]
     name: PHP coding standards (${{ matrix.php }})
     steps:
       - name: Checkout
@@ -115,7 +115,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: [ '8.2' ]
+        php: [ '8.3' ]
     name: Twig coding standards
     steps:
       - name: Checkout
@@ -195,7 +195,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: [ '8.2' ]
+        php: [ '8.3' ]
     name: PHP code analysis (${{ matrix.php }})
     steps:
       - name: Checkout
