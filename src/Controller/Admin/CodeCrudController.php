@@ -79,7 +79,7 @@ class CodeCrudController extends AbstractCrudController
             ->setFormTypeOptions([
                 'placeholder' => new TranslatableMessage('Select template'),
                 'choices' => $this->templateManager->getUserTemplates(),
-        ]);
+            ]);
         yield TextareaField::new('note', new TranslatableMessage('Note'));
         yield DateTimeField::new('createdAt', new TranslatableMessage('Created at'))
             ->setTimezone($this->getParameter('view_timezone'))

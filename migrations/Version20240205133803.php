@@ -193,17 +193,17 @@ CONTENT
         ]);
 
         $addSetting([
-                    'name' => 'app_terms_header',
-                    'description' => <<<'DESCRIPTION'
+            'name' => 'app_terms_header',
+            'description' => <<<'DESCRIPTION'
 The app terms header
 DESCRIPTION,
-                    'type' => 'string',
-                    'form_type' => 'text',
-                    'value' => json_encode(
-                        <<<'CONTENT'
+            'type' => 'string',
+            'form_type' => 'text',
+            'value' => json_encode(
+                <<<'CONTENT'
 Accepter betingelser.
 CONTENT
-                    )]);
+            )]);
 
         $addSetting([
             'name' => 'app_terms_lead',
