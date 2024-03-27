@@ -36,20 +36,44 @@ class SmsGatewayController extends AbstractController
     #[Route(path: '/log', name: 'sms_log')]
     public function log(ManagerRegistry $registry): Response
     {
-        $items = $this->manager->findAll(SmsGatewayActionLogEntry::class);
+        $entries = $this->manager->findAll(SmsGatewayActionLogEntry::class);
 
         return $this->render('@Mock/smsgateway/index.html.twig', [
-            'items' => $items,
+            'entries' => $entries,
         ]);
     }
 
     #[Route(path: '/log/latest', name: 'sms_log_latest')]
-    public function logLastest(): Response
+    public function logLatest(): Response
     {
-        $items = array_filter([$this->manager->findOne(SmsGatewayActionLogEntry::class)]);
+        $entry = $this->manager->findOne(SmsGatewayActionLogEntry::class);
 
-        return $this->render('@Mock/smsgateway/index.html.twig', [
-            'items' => $items,
+        return $this->show($entry);
+    }
+
+    #[Route(path: '/log/{id}', name: 'sms_log_show')]
+    public function show(SmsGatewayActionLogEntry $entry): Response
+    {
+        $prev = null;
+        $next = null;
+        $entries = $this->manager->findAll(SmsGatewayActionLogEntry::class);
+        foreach ($entries as $index => $e) {
+            if ($e === $entry) {
+                if ($index > 0) {
+                    $prev = $entries[$index - 1];
+                }
+                if ($index < \count($entries) - 1) {
+                    $next = $entries[$index + 1];
+                }
+
+                break;
+            }
+        }
+
+        return $this->render('@Mock/smsgateway/show.html.twig', [
+            'entry' => $entry,
+            'prev' => $prev,
+            'next' => $next,
         ]);
     }
 

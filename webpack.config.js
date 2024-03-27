@@ -25,6 +25,7 @@ Encore
      */
     .addEntry('easy_admin', './assets/easy_admin/easy_admin.js')
     .addEntry('webapp', './assets/webapp/webapp.js')
+    .addEntry('mock', './assets/mock/mock.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
