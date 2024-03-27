@@ -94,10 +94,10 @@ class SmsGatewayController extends AbstractController
             $url = $callbackUrl
                 .(!str_contains((string) $callbackUrl, '?') ? '?' : ':')
                 .http_build_query([
-                                      'msg_id' => $messageId,
-                                      'status' => $status,
-                                      'status_description' => $statusDescription,
-                                  ]);
+                    'msg_id' => $messageId,
+                    'status' => $status,
+                    'status_description' => $statusDescription,
+                ]);
             $ch = curl_init($url);
             curl_exec($ch);
             curl_close($ch);
