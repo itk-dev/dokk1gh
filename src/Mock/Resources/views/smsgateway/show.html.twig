@@ -1,0 +1,63 @@
+{% extends '@Mock/base.html.twig' %}
+
+{% block title 'sms' %}
+
+{% block body %}
+  <div class="container-fluid">
+    <div class="d-flex flex-row justify-content-center">
+      <div>
+        <div class="iphone">
+          <div class="screen">
+            {# @see https://codepen.io/swards/pen/gxQmbj #}
+            <div class="chat">
+              {% set time = entry.createdAt %}
+
+              {# https://twig.symfony.com/doc/3.x/filters/format_datetime.html #}
+              {# https://unicode-org.github.io/icu/userguide/format_parse/datetime/#datetime-format-syntax #}
+
+              {% set pattern = "eeee, d. MMM '·' HH:mm" %}
+              {% if 'now'|date('Y-m-d') == time|date('Y-m-d') %}
+                {# today #}
+                {% set pattern = "HH:mm" %}
+              {% else %}
+                {% set difference = date('now').diff(time) %}
+                {% if difference.days < 7 %}
+                  {# within a week #}
+                  {% set pattern="eeee '·' HH:mm" %}
+                {% endif %}
+              {% endif %}
+
+              <div class="time">
+                {{ time|format_datetime(pattern=pattern) }}
+              </div>
+
+              <div class="yours messages">
+                <div class="message last">{{ entry.data.message|url_to_link|raw }}</div>
+              </div>
+            </div>
+
+            <div class="navigation">
+              {% if prev|default(false) %}
+                <a class="btn btn-outline-secondary" href="{{ path('sms_log_show', {id: prev.id}) }}">«</a>
+              {% else %}
+                <span class="btn btn-outline-secondary disabled">«</span>
+              {% endif %}
+
+              <a class="btn btn-outline-secondary" href="{{ path('sms_log_latest') }}">latest</a>
+              <a class="btn btn-outline-secondary" href="{{ path('sms_log') }}">all</a>
+
+              {% if next|default(false) %}
+                <a class="btn btn-outline-secondary" href="{{ path('sms_log_show', {id: next.id}) }}">»</a>
+              {% else %}
+                <span class="btn btn-outline-secondary disabled">»</span>
+              {% endif %}
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+{% endblock %}
