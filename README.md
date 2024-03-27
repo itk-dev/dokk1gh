@@ -242,6 +242,24 @@ open "http://$(docker compose port nginx 8080)/mock/aeosws/log/latest"
 
 Use this during local testing and development.
 
+##### Sms2Go
+
+<https://pushapi.ecmr.biz/docs/index.html?url=/swagger/v1/swagger.json#tag/SMS-gateway>
+
+```shell
+curl --verbose --location "$(docker compose port nginx 8080)/mock/sms2go/sms2go-gateway-id" --header "authorization: Bearer sms2go-api-key" --header "content-type: application/json"  --data @- <<'JSON'
+{
+ "body":"Hello!",
+ "to": [
+   "4512345678"
+ ]
+}
+JSON
+```
+
+The values `sms2go-gateway-id` and `sms2go-api-key` above must match the values
+of the `SMS2GO_GATEWAY_ID` and `SMS2GO_API_KEY` environment variables.
+
 See messages sent to the mock SMS gateway:
 
 ```shell

@@ -17,5 +17,5 @@ interface SmsServiceInterface
      *
      * @return bool
      */
-    public function send(string $number, string $message, string $countryCode);
+    public function send(string $number, string $message, string $countryCode, array $options = []);
 }
