@@ -65,6 +65,13 @@ services:
                 sms_gateway_username: '%env(SMS_GATEWAY_USERNAME)%'
                 sms_gateway_password: '%env(SMS_GATEWAY_PASSWORD)%'
 
+    App\Service\Sms2GoService:
+        arguments:
+            $options:
+                api_url: '%env(SMS2GO_API_URL)%'
+                api_key: '%env(SMS2GO_API_KEY)%'
+                gateway_id: '%env(SMS2GO_GATEWAY_ID)%'
+
     App\Service\AeosService:
         arguments:
             $options:
@@ -115,3 +122,12 @@ services:
 
     # https://twig.symfony.com/doc/3.x/functions/template_from_string.html
     Twig\Extension\StringLoaderExtension:
+
+    # Set the default sms service
+    App\Service\SmsServiceInterface: '@App\Service\Sms2GoService'
+
+    App\Mock\Controller\Sms2GoGatewayController:
+        arguments:
+            $options:
+                gateway_id: '%env(SMS2GO_GATEWAY_ID)%'
+                api_key: '%env(SMS2GO_API_KEY)%'

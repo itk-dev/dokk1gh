@@ -12,7 +12,7 @@ namespace App\Service;
 
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class SmsService implements SmsServiceInterface
+class Sms2GoService implements SmsServiceInterface
 {
     public function __construct(
         private readonly HttpClientInterface $client,
@@ -20,20 +20,23 @@ class SmsService implements SmsServiceInterface
     ) {
     }
 
+    /**
+     * @see https://pushapi.ecmr.biz/docs/index.html?url=/swagger/v1/swagger.json#tag/SMS-gateway/operation/Sms_PostBatch
+     */
     public function send(string $number, string $message, string $countryCode, array $options = [])
     {
         try {
             $this->client->request(
                 'POST',
-                $this->options['sms_gateway_url'],
+                $this->options['api_url'].'/'.$this->options['gateway_id'],
                 [
-                    'body' => [
-                        'user' => $this->options['sms_gateway_username'],
-                        'pass' => $this->options['sms_gateway_password'],
-                        'countrycode' => $countryCode,
-                        'number' => $number,
-                        'message' => $message,
-                        'charset' => 'UTF-8',
+                    'auth_bearer' => $this->options['api_key'],
+                    'json' => [
+                        'to' => [
+                            $countryCode.$number,
+                        ],
+                        'body' => $message,
+                        'flash' => (bool) ($options['flash'] ?? false),
                     ],
                 ]
             );
