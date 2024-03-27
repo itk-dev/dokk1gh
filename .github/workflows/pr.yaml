@@ -138,7 +138,7 @@ jobs:
       - name: Install Dependencies
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
       - name: coding-standards-check
-        run: composer coding-standards-check/twigcs
+        run: composer coding-standards-check/twig-cs-fixer
 
   coding-standards-markdown:
     runs-on: ubuntu-latest

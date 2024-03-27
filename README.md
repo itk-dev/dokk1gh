@@ -286,12 +286,6 @@ Apply coding standards:
 docker compose exec phpfpm composer coding-standards-apply
 ```
 
-### Twig (experimental)
-
-```shell
-docker compose exec phpfpm composer coding-standards-check/twigcs
-```
-
 ### Markdown
 
 ```shell
