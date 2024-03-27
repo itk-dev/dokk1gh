@@ -1,5 +1,8 @@
 {% extends 'app/base.html.twig' %}
-{% set on_app_page = false %}
+
+{% block page %}
+    {{ parent() }}
+{% endblock %}
 
 {% block content %}
     <div class="onboard-guide">
@@ -15,23 +18,27 @@
             </div>
             <div class="card text-center shadow">
               <div class="card-body">
-                <img src="/images/guide-screen1.png" class="img-fluid" alt="Select area">
+                <img src="{{ asset('/build/images/guide-screen1.png') }}" class="img-fluid" alt="Select area">
                 <p class="card-text">{{ 'Select the building area you want to access.'|trans }}</p>
               </div>
             </div>
-            <button class="btn btn-primary btn-lg btn-block" onclick="guideSteps()">{{ 'Next'|trans }}</button>
+            <div class="d-grid">
+              <button class="btn btn-primary btn-lg" onclick="guideSteps()">{{ 'Next'|trans }}</button>
+            </div>
         </div>
         <div class="slide fade-in slide-in">
             <div class="header">
-                <h1>{{ 'Recieve SMS with code'|trans }}</h1>
+                <h1>{{ 'Receive SMS with code'|trans }}</h1>
             </div>
             <div class="card text-center shadow">
               <div class="card-body">
-                <img src="/images/guide-screen2.png" class="img-fluid" alt="Select area">
-                <p class="card-text">{{ 'You now recive an SMS with the doorcode.'|trans }}</p>
+                <img src="{{ asset('/build/images/guide-screen2.png') }}" class="img-fluid" alt="Select area">
+                <p class="card-text">{{ 'You now receive an SMS with the doorcode.'|trans }}</p>
               </div>
             </div>
-            <button class="btn btn-primary btn-lg btn-block" onclick="guideSteps()">{{ 'Next'|trans }}</button>
+            <div class="d-grid">
+              <button class="btn btn-primary btn-lg" onclick="guideSteps()">{{ 'Next'|trans }}</button>
+            </div>
         </div>
         <div class="slide fade-in slide-in">
             <div class="header">
@@ -49,10 +56,14 @@
 
             {% if guest.activatedAt == null %}
                 <form method="post" action="{{ path('app_accept', {guest: guest.id}) }}">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block" onclick="guideSteps()">{{ 'I agree'|trans }}</button>
+                  <div class="d-grid">
+                    <button type="submit" class="btn btn-primary btn-lg" onclick="guideSteps()">{{ 'I agree'|trans }}</button>
+                  </div>
                 </form>
             {% else %}
-                <a class="btn btn-primary btn-lg btn-block" href="{{ path('app_code', {guest: guest.id}) }}">{{ 'OK'|trans }}</a>
+              <div class="d-grid">
+                <a class="btn btn-primary btn-lg" href="{{ path('app_code', {guest: guest.id}) }}">{{ 'OK'|trans }}</a>
+              </div>
             {% endif %}
         </div>
     </div>

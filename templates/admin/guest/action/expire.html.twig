@@ -1,0 +1,15 @@
+{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+{# @var action \EasyCorp\Bundle\EasyAdminBundle\Dto\ActionDto #}
+{# @var entity \EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto #}
+
+{# cf. @EasyAdmin/crud/action.html.twig #}
+{# @todo set the formaction attribute from PHP #}
+{# @todo generalize this to generic confirm actions #}
+<button class="{{ action.cssClass }} action-expire-app"
+   formaction="{{ action.linkUrl }}"
+   data-bs-toggle="modal"
+   data-bs-target="#modal-expire-app"
+   {% for name, value in action.htmlAttributes %}{{ name }}="{{ (value.trans is defined ? value|trans : value)|e('html_attr') }}" {% endfor %}>
+     {%- if action.icon %}<i class="action-icon {{ action.icon }}"></i> {% endif -%}
+     {%- if action.label is not empty -%}<span class="action-label">{{ action.label|trans|raw }}</span>{%- endif -%}
+</button>

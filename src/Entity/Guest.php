@@ -3,7 +3,7 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2020 ITK Development
+ * (c) 2017–2024 ITK Development
  *
  * This source file is subject to the MIT license.
  */
@@ -11,26 +11,22 @@
 namespace App\Entity;
 
 use App\Repository\GuestRepository;
-use App\Traits\BlameableEntity;
+use App\Trait\BlameableEntity;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Superbrave\GdprBundle\Annotation\Anonymize;
+use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
-/**
- * @ORM\Entity(repositoryClass=GuestRepository::class)
- * @UniqueEntity(
- *     fields={"phone"},
- *     message="This phone number is already in use."
- * )
- * @UniqueEntity(
- *     fields={"email"},
- *     message="This email is already in use."
- * )
- */
+#[ORM\Entity(repositoryClass: GuestRepository::class)]
+#[UniqueEntity(fields: ['phone'], message: 'This phone number is already in use.')]
+#[UniqueEntity(fields: ['email'], message: 'This email is already in use.')]
 class Guest
 {
     use BlameableEntity;
@@ -38,380 +34,240 @@ class Guest
     use TimestampableEntity;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Template::class)
+     * @var \Doctrine\Common\Collections\Collection<int, \App\Entity\Template>
      */
-    protected $templates;
+    #[ORM\ManyToMany(targetEntity: Template::class)]
+    protected Collection $templates;
 
-    /**
-     * @var string
-     *
-     * @ORM\Id
-     * @ORM\Column(type="guid")
-     * @ORM\GeneratedValue(strategy="UUID")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\Column(type: UuidType::NAME, unique: true)]
+    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
+    #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
+    private ?Uuid $id = null;
 
-    /**
-     * @var bool
-     *
-     * @ORM\Column(type="boolean")
-     */
-    private $enabled;
+    #[ORM\Column(type: Types::BOOLEAN)]
+    private ?bool $enabled = null;
 
     /**
      * Time when app is sent to user.
-     *
-     * @var \DateTime
-     *
-     * @ORM\Column(type="datetime", nullable=true)
      */
-    private $sentAt;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $sentAt = null;
 
     /**
      * Time when user accepts terms and conditions.
-     *
-     * @var \DateTime
-     *
-     * @ORM\Column(type="datetime", nullable=true)
      */
-    private $activatedAt;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $activatedAt = null;
 
     /**
      * Time when the Guest has been expired (e.g. due to inactivity).
-     *
-     * @var \DateTime
-     *
-     * @ORM\Column(type="datetime", nullable=true)
      */
-    private $expiredAt;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $expiredAt = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255)
-     * @Anonymize(type="fixed", value="{id}")
-     */
-    private $name;
+    #[ORM\Column(type: Types::STRING, length: 255)]
+    private ?string $name = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Anonymize(type="fixed", value="{id}")
-     */
-    private $company;
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
+    private ?string $company = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255)
-     * @Anonymize(type="fixed", value="{id}")
-     */
-    private $phone;
+    #[ORM\Column(type: Types::STRING, length: 255)]
+    private ?string $phone = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255)
-     * @Anonymize(type="fixed", value="+45")
-     */
-    private $phoneCountryCode;
+    #[ORM\Column(type: Types::STRING, length: 255)]
+    private ?string $phoneCountryCode = null;
 
-    /**
-     * @var string
-     *
-     * @Assert\Email()
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Anonymize(type="fixed", value="{id}@example.com")
-     */
-    private $email;
+    #[Assert\Email]
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
+    private ?string $email = null;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(type="datetime")
-     */
-    private $startTime;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $startTime = null;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(type="datetime")
-     */
-    private $endTime;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $endTime = null;
 
-    /**
-     * @var array
-     *
-     * @ORM\Column(type="array")
-     */
-    private $timeRanges;
+    #[ORM\Column(type: Types::JSON)]
+    private array $timeRanges = [];
 
-    /**
-     * Get id.
-     *
-     * @return string
-     */
-    public function getId()
+    public function __construct()
+    {
+        $this->templates = new ArrayCollection();
+    }
+
+    public function getId(): ?Uuid
     {
         return $this->id;
     }
 
-    /**
-     * @return bool
-     */
-    public function isEnabled()
+    public function isEnabled(): bool
     {
         return $this->enabled;
     }
 
-    public function setEnabled(bool $enabled)
+    public function setEnabled(bool $enabled): static
     {
         $this->enabled = $enabled;
 
         return $this;
     }
 
-    /**
-     * @return null|\DateTime
-     */
-    public function getSentAt()
+    public function getSentAt(): ?\DateTimeInterface
     {
         return $this->sentAt;
     }
 
-    public function setSentAt(\DateTime $sentAt)
+    public function setSentAt(\DateTimeInterface $sentAt): static
     {
         $this->sentAt = $sentAt;
 
         return $this;
     }
 
-    /**
-     * @return null|\DateTime
-     */
-    public function getActivatedAt()
+    public function getActivatedAt(): ?\DateTimeInterface
     {
         return $this->activatedAt;
     }
 
-    public function setActivatedAt(\DateTime $activatedAt)
+    public function setActivatedAt(\DateTimeInterface $activatedAt): static
     {
         $this->activatedAt = $activatedAt;
 
         return $this;
     }
 
-    /**
-     * @return null|\DateTime
-     */
-    public function getExpiredAt()
+    public function getExpiredAt(): ?\DateTimeInterface
     {
         return $this->expiredAt;
     }
 
-    public function setExpiredAt(\DateTime $expiredAt)
+    public function setExpiredAt(\DateTimeInterface $expiredAt): static
     {
         $this->expiredAt = $expiredAt;
 
         return $this;
     }
 
-    /**
-     * Set name.
-     *
-     * @param string $name
-     *
-     * @return Guest
-     */
-    public function setName($name)
+    public function setName(string $name): static
     {
         $this->name = $name;
 
         return $this;
     }
 
-    /**
-     * Get name.
-     *
-     * @return string
-     */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * Set company.
-     *
-     * @param string $company
-     *
-     * @return Guest
-     */
-    public function setCompany($company)
+    public function setCompany(string $company): static
     {
         $this->company = $company;
 
         return $this;
     }
 
-    /**
-     * Get company.
-     *
-     * @return string
-     */
-    public function getCompany()
+    public function getCompany(): ?string
     {
         return $this->company;
     }
 
-    /**
-     * Set phone.
-     *
-     * @param string $phone
-     *
-     * @return Guest
-     */
-    public function setPhone($phone)
+    public function setPhone(string $phone): static
     {
         $this->phone = $phone;
 
         return $this;
     }
 
-    /**
-     * Get phone.
-     *
-     * @return string
-     */
-    public function getPhone()
+    public function getPhone(): ?string
     {
         return $this->phone;
     }
 
-    /**
-     * Set phone country code.
-     *
-     * @param string $phoneCountryCode
-     *
-     * @return Guest
-     */
-    public function setPhoneContryCode($phoneCountryCode)
+    public function setPhoneCountryCode(string $phoneCountryCode): static
     {
         $this->phoneCountryCode = $phoneCountryCode;
 
         return $this;
     }
 
-    /**
-     * Get phone country code.
-     *
-     * @return string
-     */
-    public function getPhoneCountryCode()
+    public function getPhoneCountryCode(): ?string
     {
         return $this->phoneCountryCode;
     }
 
-    /**
-     * Set email.
-     *
-     * @param string $email
-     *
-     * @return Guest
-     */
-    public function setEmail($email)
+    public function setEmail(string $email): static
     {
         $this->email = $email;
 
         return $this;
     }
 
-    /**
-     * Get email.
-     *
-     * @return string
-     */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getTemplates()
+    public function getTemplates(): Collection
     {
         return $this->templates;
     }
 
-    /**
-     * @param mixed $templates
-     *
-     * @return Guest
-     */
-    public function setTemplates($templates)
+    public function addTemplate(Template $template): static
     {
-        $this->templates = $templates;
+        if (!$this->templates->contains($template)) {
+            $this->templates->add($template);
+        }
 
         return $this;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getStartTime()
+    public function removeTemplate(Template $template): static
+    {
+        $this->templates->removeElement($template);
+
+        return $this;
+    }
+
+    public function getStartTime(): ?\DateTimeInterface
     {
         return $this->startTime;
     }
 
-    /**
-     * @return Guest
-     */
-    public function setStartTime(\DateTime $startTime)
+    public function setStartTime(\DateTime $startTime): static
     {
         $this->startTime = $startTime;
 
         return $this;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getEndTime()
+    public function getEndTime(): ?\DateTimeInterface
     {
         return $this->endTime;
     }
 
-    /**
-     * @return Guest
-     */
-    public function setEndTime(\DateTime $endTime)
+    public function setEndTime(\DateTime $endTime): static
     {
         $this->endTime = $endTime;
 
         return $this;
     }
 
-    /**
-     * @return array
-     */
-    public function getTimeRanges()
+    public function getTimeRanges(): array
     {
         return $this->timeRanges;
     }
 
-    public function setTimeRanges(array $timeRanges)
+    public function setTimeRanges(array $timeRanges): static
     {
         $this->timeRanges = $timeRanges;
 
         return $this;
     }
 
-    /**
-     * @Assert\Callback()
-     */
-    public function validate(ExecutionContextInterface $context)
+    #[Assert\Callback]
+    public function validate(ExecutionContextInterface $context): void
     {
         if (0 === $this->getTemplates()->count()) {
             $context->buildViolation('At least one template is required.')

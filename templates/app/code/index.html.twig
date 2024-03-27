@@ -7,12 +7,10 @@
  #}
 
 {% block content %}
-    {% set route_params = app.request.attributes.get('_route_params')|default({}) %}
-
     <div class="header">
         {% if guest.templates|length == 1 %}
             <h1>{{ 'Get new code'|trans }}</h1>
-            <p class="lead">{{ 'Press %request_access% to get access'|trans({'%request_access%': 'Request access'|trans}) }}</p>
+            <p class="lead">{{ 'Press {request_access} to get access'|trans({'request_access': 'Request access'|trans}) }}</p>
         {% else %}
             <h1>{{ 'Select area'|trans }}</h1>
             <p class="lead">{{ 'Press the area in Dokk1 you wish to access'|trans }}</p>
@@ -36,19 +34,19 @@
                 <div class="card-body">
                     <h2 class="card-title area-name">{{ template.name }}</h2>
                     {% if template.level %}
-                        <h4 class="location">{{ 'Level %level%'|trans({'%level%': template.level}) }}</h4>
+                        <h4 class="location">{{ 'Level %level%'|trans({'%level%': template.level}, '') }}</h4>
                     {% endif %}
                     {% if template.description %}
                         <p class="card-text description">{{ template.description }}</p>
                     {% endif %}
                 </div>
-                <div class="card-footer">
+                <div class="card-footer d-grid">
                     {% if guest_can_request_code %}
-                        <form method="post" action="{{ path('app_code_request', route_params|merge({template: template.id})) }}">
-                            <button type="submit" class="btn btn-primary btn-block btn-lg">{{ 'Request access'|trans }}</button>
+                        <form method="post" action="{{ path('app_code_request', {guest: guest.id, template: template.id}) }}">
+                            <button type="submit" class="btn btn-primary btn-lg w-100">{{ 'Request access'|trans }}</button>
                         </form>
                     {% else %}
-                        <button class="btn btn-secondary btn-block btn-lg" disabled>{{ 'You are not allowed to request access right now'|trans }}</button>
+                        <button class="btn btn-secondary btn-lg rounded-0" disabled>{{ 'You are not allowed to request access right now'|trans }}</button>
                     {% endif %}
                 </div>
             </div>
@@ -77,22 +75,25 @@
 
     {{ parent() }}
 
-    <script>$(function() {
-            $('button[type="submit"]').on('click', function() {
-                $('.wrapper').addClass('blur');
-                $('#saving').modal( {
-                    backdrop: 'static',
-                    keyboard: false
-                });
+    {# TODO: Test if this is still needed
+    // <script>
+    //   $(function() {
+    //       $('button[type="submit"]').on('click', function() {
+    //           $('.wrapper').addClass('blur');
+    //           $('#saving').modal( {
+    //               backdrop: 'static',
+    //               keyboard: false
+    //           });
 
-                // @see https://stackoverflow.com/questions/41063074/bootstrap-modal-not-showing-on-submit-button-click-on-ios
-                event.preventDefault();
+    //           // @see https://stackoverflow.com/questions/41063074/bootstrap-modal-not-showing-on-submit-button-click-on-ios
+    //           event.preventDefault();
 
-                var form = $(this).closest('form');
-                setTimeout(function () {
-                    form.submit();
-                }, 500);
-            });
-        });</script>
+    //           var form = $(this).closest('form');
+    //           setTimeout(function () {
+    //               form.submit();
+    //           }, 500);
+    //       });
+    //   });
+    // </script> #}
 
 {% endblock %}

@@ -3,7 +3,7 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2020 ITK Development
+ * (c) 2017–2024 ITK Development
  *
  * This source file is subject to the MIT license.
  */
@@ -11,200 +11,118 @@
 namespace App\Entity;
 
 use App\Repository\TemplateRepository;
-use App\Traits\AeosDataEntity;
-use App\Traits\BlameableEntity;
+use App\Trait\AeosDataEntity;
+use App\Trait\BlameableEntity;
 use App\Validator\Constraints as Assert;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use JMS\Serializer\Annotation as JMS;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 
-/**
- * @ORM\Entity(repositoryClass=TemplateRepository::class)
- * @Gedmo\SoftDeleteable
- * @UniqueEntity(
- *   fields="aeosId",
- *   message="This aeosId is already in use."
- * )
- */
-class Template implements AeosEntityInterface
+#[ORM\Entity(repositoryClass: TemplateRepository::class)]
+#[UniqueEntity(fields: 'aeosId', message: 'This aeosId is already in use.')]
+#[Gedmo\SoftDeleteable]
+class Template implements AeosEntityInterface, \Stringable
 {
     use AeosDataEntity;
     use BlameableEntity;
     use SoftDeleteableEntity;
     use TimestampableEntity;
 
-    /**
-     * @var bool
-     * @ORM\Column(type="boolean")
-     */
-    protected $enabled = true;
+    #[ORM\Column(type: Types::BOOLEAN)]
+    protected ?bool $enabled = true;
 
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     * @JMS\Groups({"api"})
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: Types::INTEGER)]
+    #[Groups('api')]
+    private ?int $id = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255)
-     * @JMS\Groups({"api"})
-     */
-    private $name;
+    #[ORM\Column(type: Types::STRING, length: 255)]
+    #[Groups('api')]
+    private ?string $name = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @JMS\Groups({"api"})
-     */
-    private $level;
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
+    #[Groups('api')]
+    private ?string $level = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="text", nullable=true)
-     * @JMS\Groups({"api"})
-     */
-    private $description;
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups('api')]
+    private ?string $description = null;
 
-    /**
-     * @var string
-     *
-     * @Assert\AeosTemplateId()
-     *
-     * @ORM\Column(type="string", length=255)
-     */
-    private $aeosId;
+    #[ORM\Column(type: Types::STRING, length: 255)]
+    #[Assert\AeosTemplateId()]
+    private ?string $aeosId = null;
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->getName();
     }
 
-    /**
-     * Get id.
-     *
-     * @return int
-     */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function setEnabled(bool $enabled)
+    public function setEnabled(bool $enabled): static
     {
         $this->enabled = $enabled;
 
         return $this;
     }
 
-    /**
-     * @return bool
-     */
-    public function isEnabled()
+    public function isEnabled(): bool
     {
         return $this->enabled;
     }
 
-    /**
-     * Set name.
-     *
-     * @param string $name
-     *
-     * @return Template
-     */
-    public function setName($name)
+    public function setName(string $name): static
     {
         $this->name = $name;
 
         return $this;
     }
 
-    /**
-     * Get name.
-     *
-     * @return string
-     */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * Set level.
-     *
-     * @param string $level
-     *
-     * @return Template
-     */
-    public function setLevel($level)
+    public function setLevel(string $level): static
     {
         $this->level = $level;
 
         return $this;
     }
 
-    /**
-     * Get level.
-     *
-     * @return string
-     */
-    public function getLevel()
+    public function getLevel(): ?string
     {
         return $this->level;
     }
 
-    /**
-     * Set description.
-     *
-     * @param string $description
-     *
-     * @return Template
-     */
-    public function setDescription($description)
+    public function setDescription(string $description): static
     {
         $this->description = $description;
 
         return $this;
     }
 
-    /**
-     * Get description.
-     *
-     * @return string
-     */
-    public function getDescription()
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    /**
-     * Set aeosId.
-     *
-     * @param string $aeosId
-     *
-     * @return Template
-     */
-    public function setAeosId($aeosId)
+    public function setAeosId(string $aeosId): static
     {
         $this->aeosId = $aeosId;
 
         return $this;
     }
 
-    /**
-     * Get aeosId.
-     *
-     * @return string
-     */
-    public function getAeosId()
+    public function getAeosId(): ?string
     {
         return $this->aeosId;
     }

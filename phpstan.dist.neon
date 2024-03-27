@@ -1,0 +1,20 @@
+parameters:
+    level: 6
+    paths:
+        - bin/
+        - config/
+        - public/
+        - src/
+        # - tests/
+
+    ignoreErrors:
+        - '#Method .+ has parameter .+ with no value type specified in iterable type array#'
+        - '#Method .+ return type has no value type specified in iterable type array.#'
+        - '#Property .+ type has no value type specified in iterable type array.#'
+        - '#Unable to resolve the template type T in call to method Doctrine\\Persistence\\ManagerRegistry::getRepository#'
+
+    checkGenericClassInNonGenericObjectType: false
+
+# Local Variables:
+# mode: yaml
+# End:

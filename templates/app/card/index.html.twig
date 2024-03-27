@@ -11,11 +11,11 @@
 
     <div class="header">
         <h1>{{ 'ID-card'|trans }}</h1>
-        <p class="lead">{{ 'This is your personal identification wich grants you access to Dokk1'|trans }}</p>
+        <p class="lead">{{ 'This is your personal identification which grants you access to Dokk1'|trans }}</p>
     </div>
 
-    <div class="card mb-4">
-        <img class="card-img-top" src="/images/dokk1-guest-card.jpg" alt="Guest ID-card">
+    <div class="card mb-4 rounded-top-3 overflow-hidden">
+        <img class="card-img-top" src="{{ asset('build/images/dokk1-guest-card.jpg') }}" alt="Guest ID-card">
         <div class="card-body">
             <h5 class="card-title">{{ guest.name }}</h5>
             {% if guest.company %}
@@ -30,7 +30,7 @@
             <small class="text-muted">
                 {{ 'Valid from %start_time% to %end_time%'|trans({
                     '%start_time%': guest.startTime|date(format_date),
-                    '%end_time%': guest.endTime|date(format_date)}) }}
+                    '%end_time%': guest.endTime|date(format_date)}, '') }}
             </small>
         </div>
     </div>

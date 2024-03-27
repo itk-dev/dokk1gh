@@ -1,33 +1,76 @@
 doctrine:
     dbal:
-        url: '%env(resolve:DATABASE_URL)%'
+        connections:
+            default:
+                url: '%env(resolve:DATABASE_URL)%'
+                schema_filter: ~^(?!craue_config_setting|mock_)~
+                profiling_collect_backtrace: '%kernel.debug%'
+            mock:
+                url: '%env(resolve:MOCK_DATABASE_URL)%'
+        default_connection: default
 
         # IMPORTANT: You MUST configure your server version,
         # either here or in the DATABASE_URL env var (see .env file)
-        #server_version: '5.7'
-
-        schema_filter: ~^(?!craue_config_setting|mock_)~
+        #server_version: '16'
 
     orm:
         auto_generate_proxy_classes: true
-        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
-        auto_mapping: true
-        mappings:
-            App:
-                is_bundle: false
-                type: annotation
-                dir: '%kernel.project_dir%/src/Entity'
-                prefix: 'App\Entity'
-                alias: App
+        default_entity_manager: default
+        enable_lazy_ghost_objects: true
+        entity_managers:
+            default:
+                connection: default
+                naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+                # auto_mapping: true
+                report_fields_where_declared: true
+                validate_xml_mapping: true
+                mappings:
+                    App:
+                        is_bundle: false
+                        type: attribute
+                        dir: '%kernel.project_dir%/src/Entity'
+                        prefix: 'App\Entity'
+                        alias: App
 
-            App\Mock:
-                is_bundle: false
-                type: annotation
-                dir: '%kernel.project_dir%/src/Mock/Entity'
-                prefix: 'App\Mock\Entity'
-                alias: Mock
+                filters:
+                    softdeleteable:
+                        class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
+                        enabled: true
 
-        filters:
-            softdeleteable:
-                class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
-                enabled: true
+            mock:
+                connection: mock
+                naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+                # auto_mapping: true
+                mappings:
+                    App\Mock:
+                        is_bundle: false
+                        type: attribute
+                        dir: '%kernel.project_dir%/src/Mock/Entity'
+                        prefix: 'App\Mock\Entity'
+                        alias: Mock
+
+when@test:
+    doctrine:
+        dbal:
+            # "TEST_TOKEN" is typically set by ParaTest
+            dbname_suffix: '_test%env(default::TEST_TOKEN)%'
+
+when@prod:
+    doctrine:
+        orm:
+            auto_generate_proxy_classes: false
+            proxy_dir: '%kernel.build_dir%/doctrine/orm/Proxies'
+            query_cache_driver:
+                type: pool
+                pool: doctrine.system_cache_pool
+            result_cache_driver:
+                type: pool
+                pool: doctrine.result_cache_pool
+
+    framework:
+        cache:
+            pools:
+                doctrine.result_cache_pool:
+                    adapter: cache.app
+                doctrine.system_cache_pool:
+                    adapter: cache.system

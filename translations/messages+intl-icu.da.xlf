@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="da" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="NA9GMDP" resname="Code">
+        <source>Code</source>
+        <target state="translated">Kode</target>
+      </trans-unit>
+      <trans-unit id="kg5BPH1" resname="Status">
+        <source>Status</source>
+        <target state="translated">Status</target>
+      </trans-unit>
+      <trans-unit id="BXXynfi" resname="Template">
+        <source>Template</source>
+        <target state="translated">Adgangsområde</target>
+      </trans-unit>
+      <trans-unit id="2NosSd8" resname="Note">
+        <source>Note</source>
+        <target state="translated">Intern note</target>
+      </trans-unit>
+      <trans-unit id="d1tb_WR" resname="Created at">
+        <source>Created at</source>
+        <target state="translated">Oprettet</target>
+      </trans-unit>
+      <trans-unit id="N0zZ0iD" resname="Created by">
+        <source>Created by</source>
+        <target state="translated">Oprettet af</target>
+      </trans-unit>
+      <trans-unit id="3NHVIj9" resname="Name">
+        <source>Name</source>
+        <target state="translated">Navn</target>
+      </trans-unit>
+      <trans-unit id="3kdDyHl" resname="Company">
+        <source>Company</source>
+        <target state="translated">Firma</target>
+      </trans-unit>
+      <trans-unit id="ksHN.fT" resname="Enabled">
+        <source>Enabled</source>
+        <target state="translated">Aktiveret</target>
+      </trans-unit>
+      <trans-unit id="Y9zriAC" resname="Phone">
+        <source>Phone</source>
+        <target state="translated">Telefon</target>
+      </trans-unit>
+      <trans-unit id="lpzL089" resname="Email">
+        <source>Email</source>
+        <target state="translated">E-mail</target>
+      </trans-unit>
+      <trans-unit id="gWlpMQG" resname="Start date">
+        <source>Start date</source>
+        <target state="translated">Startdato</target>
+      </trans-unit>
+      <trans-unit id="FDA6oMS" resname="End date">
+        <source>End date</source>
+        <target state="translated">Slutdato</target>
+      </trans-unit>
+      <trans-unit id="8pLOlqs" resname="Activated at">
+        <source>Activated at</source>
+        <target state="translated">Aktiveret</target>
+      </trans-unit>
+      <trans-unit id="FwkwXJ_" resname="Level">
+        <source>Level</source>
+        <target state="translated">Niveau</target>
+      </trans-unit>
+      <trans-unit id="PCEFPeg" resname="Updated at">
+        <source>Updated at</source>
+        <target state="translated">Opdateret</target>
+      </trans-unit>
+      <trans-unit id="IPDEcp3" resname="Updated by">
+        <source>Updated by</source>
+        <target state="translated">Opdateret af</target>
+      </trans-unit>
+      <trans-unit id="XtiUSoW" resname="Guest">
+        <source>Guest</source>
+        <target state="translated">Gæst</target>
+      </trans-unit>
+      <trans-unit id="tRLZfny" resname="User">
+        <source>User</source>
+        <target state="translated">Bruger</target>
+      </trans-unit>
+      <trans-unit id="dKiDoDe" resname="Settings">
+        <source>Settings</source>
+        <target state="translated">Indstillinger</target>
+      </trans-unit>
+      <trans-unit id="QTPUjNh" resname="Last logged in at">
+        <source>Last logged in at</source>
+        <target state="translated">Seneste login</target>
+      </trans-unit>
+      <trans-unit id="JEM8cOu" resname="Activate">
+        <source>Activate</source>
+        <target state="translated">Aktivér</target>
+      </trans-unit>
+      <trans-unit id="ur6d2oU" resname="Start time">
+        <source>Start time</source>
+        <target state="translated">Starttidspunkt</target>
+      </trans-unit>
+      <trans-unit id="LkYAal7" resname="End time">
+        <source>End time</source>
+        <target state="translated">Sluttidspunkt</target>
+      </trans-unit>
+      <trans-unit id="xcqaBTb" resname="ID-card">
+        <source>ID-card</source>
+        <target state="translated">ID-kort</target>
+      </trans-unit>
+      <trans-unit id="UlLJwyj" resname="This is your personal identification which grants you access to Dokk1">
+        <source>This is your personal identification which grants you access to Dokk1</source>
+        <target state="translated">Dette er dit personlige ID-kort, som du vil kunne blive bedt om at fremvise, når du er på Dokk1</target>
+      </trans-unit>
+      <trans-unit id="fIFWG2o" resname="Valid from %start_time% to %end_time%">
+        <source>Valid from %start_time% to %end_time%</source>
+        <target state="translated">Gyldig fra %start_time% til %end_time%</target>
+      </trans-unit>
+      <trans-unit id="2vzwh8T" resname="Access times">
+        <source>Access times</source>
+        <target state="translated">Adgangstider</target>
+      </trans-unit>
+      <trans-unit id="bBzHKbn" resname="Error generating code">
+        <source>Error generating code</source>
+        <target state="translated">Fejl under generering af kode</target>
+      </trans-unit>
+      <trans-unit id="VlM5vE0" resname="OK">
+        <source>OK</source>
+        <target state="translated">OK</target>
+      </trans-unit>
+      <trans-unit id="No9SjXs" resname="Your code has been sent">
+        <source>Your code has been sent</source>
+        <target state="translated">Koden er sendt</target>
+      </trans-unit>
+      <trans-unit id="5IUs7bI" resname="You will recive an SMS with the code in a moment">
+        <source>You will recive an SMS with the code in a moment</source>
+        <target state="translated">Du modtager snart koden på SMS</target>
+      </trans-unit>
+      <trans-unit id="blUJRMy" resname="SMS sent to phone %guest_phone%">
+        <source>SMS sent to phone %guest_phone%</source>
+        <target state="translated">Sms sendt til %guest_phone%</target>
+      </trans-unit>
+      <trans-unit id="SWj3Jv7" resname="Code gives access to">
+        <source>Code gives access to</source>
+        <target state="translated">Koden giver adgang til</target>
+      </trans-unit>
+      <trans-unit id="LdWbpwI" resname="Code expires at">
+        <source>Code expires at</source>
+        <target state="translated">Koden udløber</target>
+      </trans-unit>
+      <trans-unit id="sJaG1vl" resname="It might take up to a few minutes before you recive the code depending on your network operator.">
+        <source>It might take up to a few minutes before you recive the code depending on your network operator.</source>
+        <target state="translated">Der kan gå op til et par minutter inden du modtager koden alt afhænging af hvilken mobiloperatør du har.</target>
+      </trans-unit>
+      <trans-unit id="pseoS6p" resname="Finish">
+        <source>Finish</source>
+        <target state="translated">Færdig</target>
+      </trans-unit>
+      <trans-unit id=".CF63kN" resname="Get new code">
+        <source>Get new code</source>
+        <target state="translated">Bestil ny kode</target>
+      </trans-unit>
+      <trans-unit id="sG8WYtp" resname="Request access">
+        <source>Request access</source>
+        <target state="translated">Send ny kode</target>
+      </trans-unit>
+      <trans-unit id="ULDg8Rk" resname="Select area">
+        <source>Select area</source>
+        <target state="translated">Vælg område</target>
+      </trans-unit>
+      <trans-unit id="uc28Dhn" resname="Press the area in Dokk1 you wish to access">
+        <source>Press the area in Dokk1 you wish to access</source>
+        <target state="translated">Tryk på det område i Dokk1 som du vil have adgang til</target>
+      </trans-unit>
+      <trans-unit id="tEbn97v" resname="You are not allowed to request access right now">
+        <source>You are not allowed to request access right now</source>
+        <target state="translated">Du har ikke adgang lige nu</target>
+      </trans-unit>
+      <trans-unit id="EIpMTtK" resname="Level %level%">
+        <source>Level %level%</source>
+        <target state="translated">Niveau %level%</target>
+      </trans-unit>
+      <trans-unit id="t5GEZwV" resname="Your guest access is not valid">
+        <source>Your guest access is not valid</source>
+        <target state="translated">Din gæsteadgang er ikke aktiv</target>
+      </trans-unit>
+      <trans-unit id="F5WN0Z8" resname="Please wait while the system generates the key - it can take up to a minute">
+        <source>Please wait while the system generates the key - it can take up to a minute</source>
+        <target state="translated">Vent venligst mens koden oprettes - det kan tage op til et minut</target>
+      </trans-unit>
+      <trans-unit id="mx8II0W" resname="No access">
+        <source>No access</source>
+        <target state="translated">Ingen adgang</target>
+      </trans-unit>
+      <trans-unit id="BPPTIUx" resname="Your app is not active">
+        <source>Your app is not active</source>
+        <target state="translated">Din app er ikke aktiveret</target>
+      </trans-unit>
+      <trans-unit id="n3TlGdM" resname="If you think this is an error please contact you guest access administrator at Dokk1 to have your guest access app enabled">
+        <source>If you think this is an error please contact you guest access administrator at Dokk1 to have your guest access app enabled</source>
+        <target state="translated">Hvis du mener det er en fejl så kontakt venligst din gæste adgangs administrator på Dokk1 for at få din app aktiveret</target>
+      </trans-unit>
+      <trans-unit id=".8jyb.y" resname="No network connection">
+        <source>No network connection</source>
+        <target state="translated">Ingen netværksforbindelse</target>
+      </trans-unit>
+      <trans-unit id="JdjX2mV" resname="Check your device network connection and try again">
+        <source>Check your device network connection and try again</source>
+        <target state="translated">Tjek din netværksforbindelse og prøv igen</target>
+      </trans-unit>
+      <trans-unit id="oXlHg6q" resname="Offline">
+        <source>Offline</source>
+        <target state="translated">Offline</target>
+      </trans-unit>
+      <trans-unit id="fq5KDGc" resname="Please wait while we load the app">
+        <source>Please wait while we load the app</source>
+        <target state="translated">Vent venligst mens app'en indlæses</target>
+      </trans-unit>
+      <trans-unit id="cOHehA0" resname="New code created">
+        <source>New code created</source>
+        <target state="translated">Ny kode oprettet</target>
+      </trans-unit>
+      <trans-unit id="GXZu1sy" resname="Cancel">
+        <source>Cancel</source>
+        <target state="translated">Annuller</target>
+      </trans-unit>
+      <trans-unit id="2cFxQHs" resname="Code copied to clipboard">
+        <source>Code copied to clipboard</source>
+        <target state="translated">Kode kopieret til udklipsholder</target>
+      </trans-unit>
+      <trans-unit id="Im.bfwC" resname="Notify user">
+        <source>Notify user</source>
+        <target state="translated">Notify user</target>
+      </trans-unit>
+      <trans-unit id="LmKkqt9" resname="label.null">
+        <source>label.null</source>
+        <target state="translated">–</target>
+      </trans-unit>
+      <trans-unit id="IYvwNvf" resname="App sent at %sent_at%">
+        <source>App sent at %sent_at%</source>
+        <target state="translated">App sendt %sent_at%</target>
+      </trans-unit>
+      <trans-unit id="8.bnQTo" resname="Resend app">
+        <source>Resend app</source>
+        <target state="translated">Gensend app</target>
+      </trans-unit>
+      <trans-unit id="We1UMSm" resname="Send app">
+        <source>Send app</source>
+        <target state="translated">Send app</target>
+      </trans-unit>
+      <trans-unit id="yM5CbaQ" resname="Something has gone wrong!">
+        <source>Something has gone wrong!</source>
+        <target state="translated">Noget er gået galt!</target>
+      </trans-unit>
+      <trans-unit id="qmXTfzn" resname="Sorry about this. We have been notified and will take action as soon as possible.">
+        <source>Sorry about this. We have been notified and will take action as soon as possible.</source>
+        <target state="translated">Vi beklager. Vi er blevet underrettet om fejlen og vil kigge på den hurtigst muligt.</target>
+      </trans-unit>
+      <trans-unit id="Suq5sgc" resname="This page does not exist!">
+        <source>This page does not exist!</source>
+        <target state="translated">Denne side findes ikke!</target>
+      </trans-unit>
+      <trans-unit id="exIYwei" resname="admin_gdpr">
+        <source>admin_gdpr</source>
+        <target state="translated">Administrator-GDPR</target>
+      </trans-unit>
+      <trans-unit id="rwE3wSS" resname="app_about_content">
+        <source>app_about_content</source>
+        <target state="translated">Om app'en – indhold</target>
+      </trans-unit>
+      <trans-unit id="RPiv.O4" resname="app_about_header">
+        <source>app_about_header</source>
+        <target state="translated">Om app'en – overskrift</target>
+      </trans-unit>
+      <trans-unit id="yww1eSg" resname="app_about_lead">
+        <source>app_about_lead</source>
+        <target state="translated">Om app'en – manchet</target>
+      </trans-unit>
+      <trans-unit id=".BGoyK7" resname="app_expired_content">
+        <source>app_expired_content</source>
+        <target state="translated">App udløbet – indhold</target>
+      </trans-unit>
+      <trans-unit id="RvJuriT" resname="app_expired_header">
+        <source>app_expired_header</source>
+        <target state="translated">App udløbet – overskrift</target>
+      </trans-unit>
+      <trans-unit id="eLGejMh" resname="app_terms_content">
+        <source>app_terms_content</source>
+        <target state="translated">Betingelser – indhold</target>
+      </trans-unit>
+      <trans-unit id="NSgrZiO" resname="app_terms_header">
+        <source>app_terms_header</source>
+        <target state="translated">Betingelser – overskrift</target>
+      </trans-unit>
+      <trans-unit id="LUiXji9" resname="app_terms_lead">
+        <source>app_terms_lead</source>
+        <target state="translated">Betingelser – manchet</target>
+      </trans-unit>
+      <trans-unit id="QWuj7Jl" resname="guest_app_sms_body_template">
+        <source>guest_app_sms_body_template</source>
+        <target state="translated">Gæsteapp-SMS-skabebelon</target>
+      </trans-unit>
+      <trans-unit id="2Lsm5Fd" resname="guest_code_sms_template">
+        <source>guest_code_sms_template</source>
+        <target state="translated">Gæstekode-SMS-skabebelon</target>
+      </trans-unit>
+      <trans-unit id="rvO5ZXf" resname="ROLE_USER">
+        <source>ROLE_USER</source>
+        <target state="translated">Bruger</target>
+      </trans-unit>
+      <trans-unit id="Nk5ZFLC" resname="ROLE_GUEST_ADMIN">
+        <source>ROLE_GUEST_ADMIN</source>
+        <target state="translated">Gæsteadministrator</target>
+      </trans-unit>
+      <trans-unit id="KU2w06K" resname="ROLE_TEMPLATE_ADMIN">
+        <source>ROLE_TEMPLATE_ADMIN</source>
+        <target state="translated">Adgangsområdeadministrator</target>
+      </trans-unit>
+      <trans-unit id="orTkKJj" resname="ROLE_USER_ADMIN">
+        <source>ROLE_USER_ADMIN</source>
+        <target state="translated">Brugeradministrator</target>
+      </trans-unit>
+      <trans-unit id="Y.gQb6B" resname="ROLE_CONFIG_ADMIN">
+        <source>ROLE_CONFIG_ADMIN</source>
+        <target state="translated">Indstillingsadministrator</target>
+      </trans-unit>
+      <trans-unit id="VrVkt1x" resname="Templates">
+        <source>Templates</source>
+        <target state="translated">Adgangsområder</target>
+      </trans-unit>
+      <trans-unit id="WKzFEJ4" resname="Time range">
+        <source>Time range</source>
+        <target state="translated">Tidsrum</target>
+      </trans-unit>
+      <trans-unit id="LA4WHWW" resname="App expired">
+        <source>App expired</source>
+        <target state="translated">App udløbet</target>
+      </trans-unit>
+      <trans-unit id="vjcC4.G" resname="Card">
+        <source>Card</source>
+        <target state="translated">Id-kort</target>
+      </trans-unit>
+      <trans-unit id="Tvyg0Qx" resname="About">
+        <source>About</source>
+        <target state="translated">Om denne app</target>
+      </trans-unit>
+      <trans-unit id="vlhy97D" resname="How to use this app">
+        <source>How to use this app</source>
+        <target state="translated">Sådan gør du</target>
+      </trans-unit>
+      <trans-unit id="z7sJyFq" resname="In a moment you will be ready to generate your first code, but first a quick guide.">
+        <source>In a moment you will be ready to generate your first code, but first a quick guide.</source>
+        <target state="translated">Om et øjeblik er du klar til at lave din første dørkode. Men først en kort guide.</target>
+      </trans-unit>
+      <trans-unit id="L93APrJ" resname="Select the building area you want to access.">
+        <source>Select the building area you want to access.</source>
+        <target state="translated">Tryk på området du vil have adgang til.</target>
+      </trans-unit>
+      <trans-unit id="H.V6Kdf" resname="Next">
+        <source>Next</source>
+        <target state="translated">Næste</target>
+      </trans-unit>
+      <trans-unit id="mZVbdeB" resname="I agree">
+        <source>I agree</source>
+        <target state="translated">Jeg accepterer</target>
+      </trans-unit>
+      <trans-unit id=".ZGtDru" resname="Code.status.active">
+        <source>Code.status.active</source>
+        <target state="translated">Aktiv</target>
+      </trans-unit>
+      <trans-unit id="j8CCDG9" resname="Code.status.expired">
+        <source>Code.status.expired</source>
+        <target state="translated">Udløbet</target>
+      </trans-unit>
+      <trans-unit id="fIP7GPU" resname="Code.status.future">
+        <source>Code.status.future</source>
+        <target state="translated">Fremtidig</target>
+      </trans-unit>
+      <trans-unit id="queLJPC" resname="You cannot create codes.">
+        <source>You cannot create codes.</source>
+        <target state="translated">Du kan ikke oprette koder.</target>
+      </trans-unit>
+      <trans-unit id="lk4EzjZ" resname="AEOS id">
+        <source>AEOS id</source>
+        <target state="translated">AEOS-id</target>
+      </trans-unit>
+      <trans-unit id="wlM3BVR" resname="Roles">
+        <source>Roles</source>
+        <target state="translated">Roller</target>
+      </trans-unit>
+      <trans-unit id="B06OqMC" resname="AEOS id used by {name}">
+        <source>AEOS id used by {name}</source>
+        <target state="translated">AEOS-id bruges allerede af {name}</target>
+      </trans-unit>
+      <trans-unit id="718iPw6" resname="ROLE_ADMIN">
+        <source>ROLE_ADMIN</source>
+        <target state="translated">Administrator</target>
+      </trans-unit>
+      <trans-unit id="F8Lb9pj" resname="Show app">
+        <source>Show app</source>
+        <target state="translated">Vis app</target>
+      </trans-unit>
+      <trans-unit id="MCLZFem" resname="Press {request_access} to get access">
+        <source>Press {request_access} to get access</source>
+        <target state="translated">Tryk på “{request_access}” for at få adgang</target>
+      </trans-unit>
+      <trans-unit id="_4rcyUW" resname="Receive SMS with code">
+        <source>Receive SMS with code</source>
+        <target state="translated">Modtag SMS med kode</target>
+      </trans-unit>
+      <trans-unit id="sj4IdsB" resname="You now receive an SMS with the doorcode.">
+        <source>You now receive an SMS with the doorcode.</source>
+        <target state="translated">Du modtager nu en SMS med dørkoden.</target>
+      </trans-unit>
+      <trans-unit id="FvDuR.m" resname="API key">
+        <source>API key</source>
+        <target state="translated">Api-nøgle</target>
+      </trans-unit>
+      <trans-unit id="588_9PF" resname="Password">
+        <source>Password</source>
+        <target state="translated">Adgangskode</target>
+      </trans-unit>
+      <trans-unit id="wYmEDPf" resname="Log in">
+        <source>Log in</source>
+        <target state="translated">Log ind</target>
+      </trans-unit>
+      <trans-unit id="r9Jf3xf" resname="Forgot your password?">
+        <source>Forgot your password?</source>
+        <target state="translated">Glemt adgangskode?</target>
+      </trans-unit>
+      <trans-unit id="IVbSFop" resname="Password sucessfully reset">
+        <source>Password sucessfully reset</source>
+        <target state="translated">Adgangskode nulstillet</target>
+      </trans-unit>
+      <trans-unit id="ATJ8qA9" resname="Your password reset request">
+        <source>Your password reset request</source>
+        <target state="needs-l10n">__Your password reset request</target>
+      </trans-unit>
+      <trans-unit id="WfpDeb4" resname="Reset your password">
+        <source>Reset your password</source>
+        <target state="translated">Nulstil din adgangskode</target>
+      </trans-unit>
+      <trans-unit id="y2XxXvP" resname="Send password reset email">
+        <source>Send password reset email</source>
+        <target state="translated">Send e-mail til nulstilling af adgangskode</target>
+      </trans-unit>
+      <trans-unit id="U28cTzJ" resname="Password Reset Email Sent">
+        <source>Password Reset Email Sent</source>
+        <target state="translated">E-mail til nulstilling af adgangskode sendt</target>
+      </trans-unit>
+      <trans-unit id="U843nOG" resname="If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password. This link will expire in {expirationMessage}.">
+        <source>If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password. This link will expire in {expirationMessage}.</source>
+        <target state="needs-l10n">__If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password. This link will expire in {expirationMessage}.</target>
+      </trans-unit>
+      <trans-unit id="7LnnofM" resname="If you don't receive an email please check your spam folder or &lt;a href=&quot;{password_request_url}&quot;&gt;try again&lt;/a&gt;.">
+        <source>If you don't receive an email please check your spam folder or &lt;a href="{password_request_url}"&gt;try again&lt;/a&gt;.</source>
+        <target state="needs-l10n"><![CDATA[__If you don't receive an email please check your spam folder or <a href="{password_request_url}">try again</a>.]]></target>
+      </trans-unit>
+      <trans-unit id="_hrBFRr" resname="Create password">
+        <source>Create password</source>
+        <target state="translated">Opret adgangskode</target>
+      </trans-unit>
+      <trans-unit id="4O3_s6c" resname="Reset password">
+        <source>Reset password</source>
+        <target state="translated">Nulstil adgangskode</target>
+      </trans-unit>
+      <trans-unit id="M3bG0Rh" resname="To reset your password on {site_name}, please visit the following link">
+        <source>To reset your password on {site_name}, please visit the following link</source>
+        <target state="translated">Brug følgende link for at nulstille din adgangskode på {site_name}</target>
+      </trans-unit>
+      <trans-unit id="k8OegrE" resname="This link will expire in {expirationMessage}.">
+        <source>This link will expire in {expirationMessage}.</source>
+        <target state="translated">Dette link udløber om {expirationMessage}.</target>
+      </trans-unit>
+      <trans-unit id="emutV_R" resname="Cheers from {site_name}">
+        <source>Cheers from {site_name}</source>
+        <target state="translated">Venlig hilsen {site_name}</target>
+      </trans-unit>
+      <trans-unit id="fZ63rLE" resname="Close">
+        <source>Close</source>
+        <target state="translated">Luk</target>
+      </trans-unit>
+      <trans-unit id="yFNUejp" resname="API key generated">
+        <source>API key generated</source>
+        <target state="translated">Api-nøgle oprettet</target>
+      </trans-unit>
+      <trans-unit id="SZdMoyQ" resname="API key copied to clipboard">
+        <source>API key copied to clipboard</source>
+        <target state="translated">Api-nøgle kopieret til udklipsholder</target>
+      </trans-unit>
+      <trans-unit id="UT6MwFc" resname="Generate new API key">
+        <source>Generate new API key</source>
+        <target state="translated">Generér ny api-nøgle</target>
+      </trans-unit>
+      <trans-unit id="5cOwZ97" resname="Confirm generate new API key">
+        <source>Confirm generate new API key</source>
+        <target state="translated">Bekræft at du vil lave en ny api-nøgle</target>
+      </trans-unit>
+      <trans-unit id="xVICefY" resname="You do not yet have an API key">
+        <source>You do not yet have an API key</source>
+        <target state="translated">Du har endnu ikke en api-nøgle</target>
+      </trans-unit>
+      <trans-unit id="ws_LTU4" resname="Generate API key">
+        <source>Generate API key</source>
+        <target state="translated">Generér api-nøgle</target>
+      </trans-unit>
+      <trans-unit id="S_0L9CD" resname="Please contact an administrator ({administrator_email}) for help.">
+        <source>Please contact an administrator ({administrator_email}) for help.</source>
+        <target state="translated">Kontakt en administrator ({administrator_email}) for hjælp</target>
+      </trans-unit>
+      <trans-unit id="jlYzC3I" resname="Select template">
+        <source>Select template</source>
+        <target state="translated">Vælg adgangsområde</target>
+      </trans-unit>
+      <trans-unit id="W5X_9ex" resname="category.admin">
+        <source>category.admin</source>
+        <target state="translated">Administration</target>
+      </trans-unit>
+      <trans-unit id="H3wDT1m" resname="category.app">
+        <source>category.app</source>
+        <target state="translated">App</target>
+      </trans-unit>
+      <trans-unit id="G2kPg8J" resname="category.guest">
+        <source>category.guest</source>
+        <target state="translated">Gæst</target>
+      </trans-unit>
+      <trans-unit id="CrY_XoG" resname="Accept terms">
+        <source>Accept terms</source>
+        <target state="translated">Acceptér betingelser</target>
+      </trans-unit>
+      <trans-unit id="o3bnC_9" resname="Expire app">
+        <source>Expire app</source>
+        <target state="translated">Slet app</target>
+      </trans-unit>
+      <trans-unit id="XSH0tCd" resname="App sent to {guest}">
+        <source>App sent to {guest}</source>
+        <target state="translated">App sendt til {guest}</target>
+      </trans-unit>
+      <trans-unit id="Ure4EZP" resname="App {guest} expired">
+        <source>App {guest} expired</source>
+        <target state="translated">App {guest} slettet</target>
+      </trans-unit>
+      <trans-unit id="j9n2aRH" resname="Are you sure you want to expire this app?">
+        <source>Are you sure you want to expire this app?</source>
+        <target state="translated">Er du sikker på at du vil slette denne app?</target>
+      </trans-unit>
+      <trans-unit id="YS8g7nX" resname="The guest will no longer have access and all guest data will be anonymized.">
+        <source>The guest will no longer have access and all guest data will be anonymized.</source>
+        <target state="translated">Gæsten vil ikke længere have adgang og oplysninger om gæsten vil blive anonymiseret.</target>
+      </trans-unit>
+      <trans-unit id="mcQKtAW" resname="Date">
+        <source>Date</source>
+        <target state="translated">Dato</target>
+      </trans-unit>
+      <trans-unit id="G5mZ4l0" resname="Edit setting {name}">
+        <source>Edit setting {name}</source>
+        <target state="translated">Rediger indstilling {name}</target>
+      </trans-unit>
+      <trans-unit id="KSwG8AR" resname="Category">
+        <source>Category</source>
+        <target state="translated">Kategori</target>
+      </trans-unit>
+      <trans-unit id="jjeVPSP" resname="Value">
+        <source>Value</source>
+        <target state="translated">Værdi</target>
+      </trans-unit>
+      <trans-unit id="QDJf5WW" resname="You must accept GDPR to continue">
+        <source>You must accept GDPR to continue</source>
+        <target state="translated">Du skal acceptere GDPR for at fortsætte</target>
+      </trans-unit>
+      <trans-unit id="CA6tt8y" resname="Accept GDPR">
+        <source>Accept GDPR</source>
+        <target state="translated">Acceptér GDPR</target>
+      </trans-unit>
+      <trans-unit id="iXE7nJw" resname="Accept">
+        <source>Accept</source>
+        <target state="translated">Acceptér</target>
+      </trans-unit>
+      <trans-unit id="8If8eT." resname="&quot;{{ string }}&quot; is not a valid AEOS person id.">
+        <source>"{{ string }}" is not a valid AEOS person id.</source>
+        <target state="translated">"{{ string }}" er ikke et gyldigt AEOS-id.</target>
+      </trans-unit>
+      <trans-unit id="n_EUW1_" resname="&quot;{{ string }}&quot; is not a valid AEOS template id.">
+        <source>"{{ string }}" is not a valid AEOS template id.</source>
+        <target state="translated">“{{ string }}” er ikke et gyldigt AEOS-id.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

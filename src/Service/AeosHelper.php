@@ -3,7 +3,7 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2020 ITK Development
+ * (c) 2017–2024 ITK Development
  *
  * This source file is subject to the MIT license.
  */
@@ -14,35 +14,22 @@ use App\Entity\Code;
 use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class AeosHelper
+final readonly class AeosHelper
 {
-    /** @var \App\Service\AeosService */
-    protected $aeosService;
-
-    /** @var \Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface */
-    protected $tokenStorage;
-
-    /** @var TwigHelper */
-    protected $twigHelper;
-
-    /** @var Configuration */
-    protected $configuration;
-
     public function __construct(
-        AeosService $aeosService,
-        TokenStorageInterface $tokenStorage,
-        TwigHelper $twigHelper,
-        Configuration $configuration
+        private readonly AeosService $aeosService,
+        private readonly TokenStorageInterface $tokenStorage,
+        private readonly TwigHelper $twigHelper,
+        private readonly array $options
     ) {
-        $this->aeosService = $aeosService;
-        $this->tokenStorage = $tokenStorage;
-        $this->twigHelper = $twigHelper;
-        $this->configuration = $configuration;
     }
 
-    public function createAeosIdentifier(Code $code, $visitorName = null)
+    /**
+     * Create AEOS identifier and set it on Code.
+     */
+    public function createAeosIdentifier(Code $code, ?string $visitorName = null): void
     {
-        $user = $code->getCreatedBy() ?? $this->tokenStorage->getToken()->getUser();
+        $user = $code->getCreatedBy() ?? $this->getUser();
         if (!$user) {
             throw new \Exception('Code has no user');
         }
@@ -51,7 +38,7 @@ class AeosHelper
             throw new \Exception('Code has no template');
         }
         if (!$template->getAeosId()) {
-            throw new \Exception('Template has no aeos id');
+            throw new \Exception('Template has no AEOS id');
         }
 
         $aeosContactPerson = $this->aeosService->getPerson($user->getAeosId());
@@ -66,16 +53,16 @@ class AeosHelper
 
         if (null === $visitorName) {
             try {
-                $template = $this->configuration->get('aeos_vistor_name_template');
+                $template = $this->options['aeos_visitor_name_template'];
                 $visitorName = $this->twigHelper
                     ->renderTemplate($template, [
                         'code' => $code,
                         'user' => $user,
                     ]);
-            } catch (\Exception $e) {
+            } catch (\Exception) {
             }
         }
-        $visitorName = trim($visitorName);
+        $visitorName = trim((string) $visitorName);
 
         $visitor = $this->aeosService->createVisitor([
             'UnitId' => $aeosContactPerson->UnitId,
@@ -95,7 +82,7 @@ class AeosHelper
         $code->setIdentifier($identifier->BadgeNumber);
     }
 
-    public function deleteAeosIdentifier(Code $code)
+    public function deleteAeosIdentifier(Code $code): void
     {
         $identifier = $this->aeosService->getIdentifierByBadgeNumber($code->getIdentifier());
         $visitor = $identifier ? $this->aeosService->getVisitorByIdentifier($identifier) : null;
@@ -112,17 +99,24 @@ class AeosHelper
         }
     }
 
-    public function userHasAeosId(User $user = null)
+    public function userHasAeosId(?User $user = null): bool
     {
         try {
-            if (null === $user) {
-                $user = $this->tokenStorage->getToken()->getUser();
-            }
+            $user ??= $this->getUser();
 
-            return null !== $this->aeosService->getPerson($user->getAeosId());
-        } catch (\Exception $ex) {
+            if (null !== $user) {
+                return null !== $this->aeosService->getPerson($user->getAeosId());
+            }
+        } catch (\Exception) {
         }
 
         return false;
+    }
+
+    private function getUser(): ?User
+    {
+        $user = $this->tokenStorage->getToken()?->getUser();
+
+        return $user instanceof User ? $user : null;
     }
 }

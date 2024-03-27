@@ -1,4 +1,4 @@
-{% extends ':Emails:layout.html.twig' %}
+{% extends 'Emails/layout.html.twig' %}
 
 {% block email_title %}{{ header|raw }}{% endblock %}
 
@@ -9,11 +9,6 @@
 {% block body %}
   {{ body|raw }}
 {% endblock %}
-
-{% set button = {
-  url: reset_password_url,
-  text: button.text
-} %}
 
 {% block footer %}
   {{ footer|raw }}

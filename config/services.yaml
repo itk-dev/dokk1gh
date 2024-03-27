@@ -2,12 +2,34 @@
 # Files in the packages/ subdirectory configure your dependencies.
 
 imports:
-    - { resource: services.local.yaml, ignore_errors: 'not_found' }
+    # - { resource: services.local.yaml, ignore_errors: 'not_found' }
+    - { resource: services.local.yaml }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
-# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
-    version: 1.2.0
+    version: 2.0.0
+    app_icons:
+        20x20: build/images/app_icon_20.png
+        29x29: build/images/app_icon_29.png
+        36x36: build/images/app_icon_36.png
+        40x40: build/images/app_icon_40.png
+        48x48: build/images/app_icon_48.png
+        58x58: build/images/app_icon_58.png
+        60x60: build/images/app_icon_60.png
+        72x72: build/images/app_icon_72.png
+        76x76: build/images/app_icon_76.png
+        80x80: build/images/app_icon_80.png
+        87x87: build/images/app_icon_87.png
+        96x96: build/images/app_icon_96.png
+        120x120: build/images/app_icon_120.png
+        144x144: build/images/app_icon_144.png
+        152x152: build/images/app_icon_152.png
+        167x167: build/images/app_icon_167.png
+        180x180: build/images/app_icon_180.png
+        192x192: build/images/app_icon_192.png
+        512x512: build/images/app_icon_512.png
+        1024x1024: build/images/app_icon_1024.png
 
 services:
     # default configuration for services in *this* file
@@ -16,28 +38,13 @@ services:
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
         bind:
-            $aeosConfiguration:
-                client:
-                    location: '%aoes_location%'
-                    username: '%aoes_username%'
-                    password: '%aoes_password%'
-                    context: '%aeos_context%'
-                    debug: '%kernel.debug%'
-                aeos:
-                    timezone: '%aeos_timezone%'
-                    identifier_type: '%aeos_identifier_type%'
-                    identifier_length: '%aeos_identifier_length%'
-                    block_reason: '%aeos_block_reason%'
+            # $resetPasswordControllerOptions:
+            #     from_email: '%mailer_email%'
+            #     from_name: '%mailer_name%'
 
-            $resetPasswordControllerOptions:
-                from_email: '%mailer_email%'
-                from_name: '%mailer_name%'
-
-            $userManagerConfiguration: {}
-
-            $codeControllerOptions:
-                'code.defaults.startTime': '%code.defaults.startTime%'
-                'code.defaults.endTime': '%code.defaults.endTime%'
+            # $codeControllerOptions:
+            #     'code.defaults.startTime': '%code.defaults.startTime%'
+            #     'code.defaults.endTime': '%code.defaults.endTime%'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -47,15 +54,64 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
-            - '../src/Tests/'
-
-    # controllers are imported separately to make sure services can be injected
-    # as action arguments even if you don't extend any base controller class
-    App\Controller\:
-        resource: '../src/Controller/'
-        tags: ['controller.service_arguments']
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
-    Craue\ConfigBundle\Util\Config: '@craue_config_default'
+    App\Service\SmsService:
+        arguments:
+            $options:
+                sms_gateway_url: '%env(SMS_GATEWAY_URL)%'
+                sms_gateway_username: '%env(SMS_GATEWAY_USERNAME)%'
+                sms_gateway_password: '%env(SMS_GATEWAY_PASSWORD)%'
+
+    App\Service\AeosService:
+        arguments:
+            $options:
+                client:
+                    location: '%env(AEOSWS_LOCATION)%'
+                    username: '%env(AEOSWS_USERNAME)%'
+                    password: '%env(AEOSWS_PASSWORD)%'
+                    context: '%env(json:AEOSWS_CONTEXT)%'
+                    debug: '%kernel.debug%'
+                aeos:
+                    timezone: '%env(AEOSWS_TIMEZONE)%'
+                    identifier_type: '%env(int:AEOSWS_IDENTIFIER_TYPE)%'
+                    identifier_length: '%env(int:AEOSWS_IDENTIFIER_LENGTH)%'
+                    block_reason: '%env(int:AEOSWS_BLOCK_REASON)%'
+
+    App\Service\AeosHelper:
+        arguments:
+            $options:
+                aeos_visitor_name_template: '%env(AEOSWS_VISITOR_NAME_TEMPLATE)%'
+
+    App\Controller\ResetPasswordController:
+        arguments:
+            $options:
+                from_email: '%env(MAILER_FROM_EMAIL)%'
+                from_name: '%env(MAILER_FROM_NAME)%'
+
+    App\Service\UserManager:
+        arguments:
+            $options:
+                sender:
+                    from_email: '%env(MAILER_FROM_EMAIL)%'
+                    from_name: '%env(MAILER_FROM_NAME)%'
+
+                user_created:
+                    subject: '%user_created_user_subject%'
+                    header: '%user_created_user_header%'
+                    body: '%user_created_user_body%'
+                    button:
+                        text: '%user_created_user_button_text%'
+                    footer: '%user_created_user_footer%'
+
+    App\Service\GdprHelper:
+        arguments:
+            $options:
+                accept_route: gdpr_show
+                accept_route_parameters: {}
+                user_gdpr_property: gdprAcceptedAt
+
+    # https://twig.symfony.com/doc/3.x/functions/template_from_string.html
+    Twig\Extension\StringLoaderExtension:

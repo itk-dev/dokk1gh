@@ -3,7 +3,7 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2020 ITK Development
+ * (c) 2017–2024 ITK Development
  *
  * This source file is subject to the MIT license.
  */
@@ -12,36 +12,29 @@ namespace App\Mock\Controller;
 
 use App\Mock\Entity\SmsGatewayActionLogEntry;
 use App\Mock\Service\ActionLogManager;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/mock/sms")
- */
+#[Route('/mock/sms')]
 class SmsGatewayController extends AbstractController
 {
-    /** @var ActionLogManager */
-    private $manager;
-
-    public function __construct(ActionLogManager $manager)
-    {
-        $this->manager = $manager;
+    public function __construct(
+        private readonly ActionLogManager $manager
+    ) {
     }
 
-    /**
-     * @Route()
-     */
-    public function indexAction()
+    #[Route]
+    public function index(): RedirectResponse
     {
         return $this->redirectToRoute('sms_log');
     }
 
-    /**
-     * @Route("/log", name="sms_log")
-     */
-    public function logAction()
+    #[Route(path: '/log', name: 'sms_log')]
+    public function log(ManagerRegistry $registry): Response
     {
         $items = $this->manager->findAll(SmsGatewayActionLogEntry::class);
 
@@ -50,22 +43,18 @@ class SmsGatewayController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/log/latest", name="sms_log_latest")
-     */
-    public function logLastestAction()
+    #[Route(path: '/log/latest', name: 'sms_log_latest')]
+    public function logLastest(): Response
     {
-        $items = [$this->manager->findOne(SmsGatewayActionLogEntry::class)];
+        $items = array_filter([$this->manager->findOne(SmsGatewayActionLogEntry::class)]);
 
         return $this->render('@Mock/smsgateway/index.html.twig', [
             'items' => $items,
         ]);
     }
 
-    /**
-     * @Route("/send", methods={"GET", "POST"})
-     */
-    public function sendAction(Request $request)
+    #[Route(path: '/send', methods: ['GET', 'POST'])]
+    public function send(Request $request): Response
     {
         $username = $request->get('user');
         $password = $request->get('pass');
@@ -103,24 +92,22 @@ class SmsGatewayController extends AbstractController
 
         if (null !== $callbackUrl) {
             $url = $callbackUrl
-                .(false === strpos($callbackUrl, '?') ? '?' : ':')
+                .(!str_contains((string) $callbackUrl, '?') ? '?' : ':')
                 .http_build_query([
-                                      'msg_id' => $messageId,
-                                      'status' => $status,
-                                      'status_description' => $statusDescription,
-                                  ]);
+                    'msg_id' => $messageId,
+                    'status' => $status,
+                    'status_description' => $statusDescription,
+                ]);
             $ch = curl_init($url);
             curl_exec($ch);
             curl_close($ch);
         }
 
-        return new Response($status);
+        return new Response((string) $status);
     }
 
-    /**
-     * @Route("/send/callback", methods={"GET"})
-     */
-    public function sendCallbackAction(Request $request)
+    #[Route(path: '/send/callback', methods: ['GET'])]
+    public function sendCallback(Request $request): Response
     {
         $messageId = $request->get('msg_id');
         $status = $request->get('status');

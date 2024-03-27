@@ -3,7 +3,7 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2020 ITK Development
+ * (c) 2017–2024 ITK Development
  *
  * This source file is subject to the MIT license.
  */
@@ -15,15 +15,11 @@ use Symfony\Component\Yaml\Yaml;
 
 class AeosWebService
 {
-    /** @var ActionLogManager */
-    private $logger;
-
-    public function __construct(ActionLogManager $logger)
+    public function __construct(private readonly ActionLogManager $logger)
     {
-        $this->logger = $logger;
     }
 
-    public function addVisit($params)
+    public function addVisit(object $params): object
     {
         $this->log(__FUNCTION__, $params);
 
@@ -33,7 +29,7 @@ class AeosWebService
         return $params;
     }
 
-    public function addVisitor($params)
+    public function addVisitor(object $params): object
     {
         $this->log(__FUNCTION__, $params);
 
@@ -49,7 +45,7 @@ class AeosWebService
         ];
     }
 
-    public function assignToken($params)
+    public function assignToken(object $params): object
     {
         $this->log(__FUNCTION__, $params);
 
@@ -60,12 +56,12 @@ class AeosWebService
         return $params;
     }
 
-    public function blockToken($params)
+    public function blockToken(object $params): object
     {
         return $params;
     }
 
-    public function changeCarrierAttribute($params)
+    public function changeCarrierAttribute(object $params): object
     {
         return (object) [
             'CarrierId' => $params->CarrierId,
@@ -81,58 +77,55 @@ class AeosWebService
         ];
     }
 
-    public function changeVisitor($params)
+    public function changeVisitor(object $params): void
     {
     }
 
-    public function findCarrierStates($params)
+    public function findCarrierStates(object $params): void
     {
     }
 
-    public function findPerson($params)
-    {
-        return $this->loadFixture(__FUNCTION__, $params);
-    }
-
-    public function findTemplate($params)
+    public function findPerson(object $params): object
     {
         return $this->loadFixture(__FUNCTION__, $params);
     }
 
-    public function findToken($params)
-    {
-    }
-
-    public function findUnit($params)
+    public function findTemplate(object $params): object
     {
         return $this->loadFixture(__FUNCTION__, $params);
     }
 
-    public function findVisit($params)
+    public function findToken(object $params): void
     {
     }
 
-    public function findVisitor($params)
+    public function findUnit(object $params): object
+    {
+        return $this->loadFixture(__FUNCTION__, $params);
+    }
+
+    public function findVisit(object $params): void
     {
     }
 
-    public function removeVisit($params)
+    public function findVisitor(object $params): void
+    {
+    }
+
+    public function removeVisit(object $params): object
     {
         return $params;
     }
 
-    public function removeVisitor($params)
+    public function removeVisitor(object $params): object
     {
         return $params;
     }
 
     /**
      * Filter by first (only?) property in $params.
-     *
-     * @param mixed $data
-     * @param mixed $params
      */
-    private function filter($data, $params)
+    private function filter(object $data, object $params): object
     {
         $dataKeys = array_keys(get_object_vars($data));
         if (1 === \count($dataKeys)) {
@@ -144,10 +137,10 @@ class AeosWebService
                 $data->{$dataKey} = array_values(array_filter($data->{$dataKey}, function ($item) use ($filter) {
                     foreach ($filter as $key => $value) {
                         if (isset($item->{$key}) && (
-                                // Starts with match on string value.
-                                (\is_string($item->{$key}) && 0 !== stripos($item->{$key}, $value))
-                                // Exact match on non-string value.
-                                || (!\is_string($item->{$key}) && $item->{$key} !== $value)
+                            // Starts with match on string value.
+                            (\is_string($item->{$key}) && 0 !== stripos($item->{$key}, (string) $value))
+                            // Exact match on non-string value.
+                            || (!\is_string($item->{$key}) && $item->{$key} !== $value)
                         )) {
                             return false;
                         }
@@ -161,10 +154,10 @@ class AeosWebService
         return $data;
     }
 
-    private function slice($data, $range)
+    private function slice(object $data, object $range): object
     {
-        $length = isset($range->nrOfRecords) ? $range->nrOfRecords : null;
-        $offset = isset($range->startRecordNo) ? $range->startRecordNo : 0;
+        $length = $range->nrOfRecords ?? null;
+        $offset = $range->startRecordNo ?? 0;
 
         $dataKeys = array_keys(get_object_vars($data));
         if (1 === \count($dataKeys)) {
@@ -175,7 +168,7 @@ class AeosWebService
         return $data;
     }
 
-    private function loadFixture($name, $params)
+    private function loadFixture(string $name, object $params): object
     {
         $fixturePath = __DIR__.'/../Resources/aeosws/fixtures/'.$name.'.yml';
         if (!file_exists($fixturePath)) {
@@ -194,7 +187,7 @@ class AeosWebService
         return $result;
     }
 
-    private function log($type, $data)
+    private function log(string $type, object $data): void
     {
         $this->logger->log(new AeosActionLogEntry($type, (array) $data));
     }

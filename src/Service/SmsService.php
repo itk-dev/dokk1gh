@@ -3,36 +3,33 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2020 ITK Development
+ * (c) 2017–2024 ITK Development
  *
  * This source file is subject to the MIT license.
  */
 
 namespace App\Service;
 
-use GuzzleHttp\Client;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class SmsService implements SmsServiceInterface
 {
-    /** @var Configuration */
-    private $configuration;
-
-    public function __construct(Configuration $configuration)
-    {
-        $this->configuration = $configuration;
+    public function __construct(
+        private readonly HttpClientInterface $client,
+        private readonly array $options
+    ) {
     }
 
-    public function send($number, $message, $countryCode)
+    public function send(string $number, string $message, string $countryCode)
     {
         try {
-            $client = new Client();
-            $res = $client->request(
+            $this->client->request(
                 'POST',
-                $this->configuration->get('sms_gateway_url'),
+                $this->options['sms_gateway_url'],
                 [
-                    'form_params' => [
-                        'user' => $this->configuration->get('sms_gateway_username'),
-                        'pass' => $this->configuration->get('sms_gateway_password'),
+                    'body' => [
+                        'user' => $this->options['sms_gateway_username'],
+                        'pass' => $this->options['sms_gateway_password'],
                         'countrycode' => $countryCode,
                         'number' => $number,
                         'message' => $message,
@@ -42,8 +39,7 @@ class SmsService implements SmsServiceInterface
             );
 
             return true;
-        } catch (\Exception $ex) {
-            throw $ex;
+        } catch (\Exception $exception) {
             // @TODO: Log exception.
         }
 

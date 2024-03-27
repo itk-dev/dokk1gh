@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="NA9GMDP" resname="Code">
+        <source>Code</source>
+        <target>Code</target>
+      </trans-unit>
+      <trans-unit id="kg5BPH1" resname="Status">
+        <source>Status</source>
+        <target>Status</target>
+      </trans-unit>
+      <trans-unit id="BXXynfi" resname="Template">
+        <source>Template</source>
+        <target>Template</target>
+      </trans-unit>
+      <trans-unit id="2NosSd8" resname="Note">
+        <source>Note</source>
+        <target>Note</target>
+      </trans-unit>
+      <trans-unit id="d1tb_WR" resname="Created at">
+        <source>Created at</source>
+        <target>Created at</target>
+      </trans-unit>
+      <trans-unit id="N0zZ0iD" resname="Created by">
+        <source>Created by</source>
+        <target>Created by</target>
+      </trans-unit>
+      <trans-unit id="3NHVIj9" resname="Name">
+        <source>Name</source>
+        <target>Name</target>
+      </trans-unit>
+      <trans-unit id="3kdDyHl" resname="Company">
+        <source>Company</source>
+        <target>Company</target>
+      </trans-unit>
+      <trans-unit id="ksHN.fT" resname="Enabled">
+        <source>Enabled</source>
+        <target>Enabled</target>
+      </trans-unit>
+      <trans-unit id="Y9zriAC" resname="Phone">
+        <source>Phone</source>
+        <target>Phone</target>
+      </trans-unit>
+      <trans-unit id="lpzL089" resname="Email">
+        <source>Email</source>
+        <target>Email</target>
+      </trans-unit>
+      <trans-unit id="gWlpMQG" resname="Start date">
+        <source>Start date</source>
+        <target>Start date</target>
+      </trans-unit>
+      <trans-unit id="FDA6oMS" resname="End date">
+        <source>End date</source>
+        <target>End date</target>
+      </trans-unit>
+      <trans-unit id="8pLOlqs" resname="Activated at">
+        <source>Activated at</source>
+        <target>Activated at</target>
+      </trans-unit>
+      <trans-unit id="FwkwXJ_" resname="Level">
+        <source>Level</source>
+        <target>Level</target>
+      </trans-unit>
+      <trans-unit id="PCEFPeg" resname="Updated at">
+        <source>Updated at</source>
+        <target>Updated at</target>
+      </trans-unit>
+      <trans-unit id="IPDEcp3" resname="Updated by">
+        <source>Updated by</source>
+        <target>Updated by</target>
+      </trans-unit>
+      <trans-unit id="XtiUSoW" resname="Guest">
+        <source>Guest</source>
+        <target>Guest</target>
+      </trans-unit>
+      <trans-unit id="tRLZfny" resname="User">
+        <source>User</source>
+        <target>User</target>
+      </trans-unit>
+      <trans-unit id="dKiDoDe" resname="Settings">
+        <source>Settings</source>
+        <target>Settings</target>
+      </trans-unit>
+      <trans-unit id="QTPUjNh" resname="Last logged in at">
+        <source>Last logged in at</source>
+        <target>Last logged in at</target>
+      </trans-unit>
+      <trans-unit id="JEM8cOu" resname="Activate">
+        <source>Activate</source>
+        <target>Activate</target>
+      </trans-unit>
+      <trans-unit id="ur6d2oU" resname="Start time">
+        <source>Start time</source>
+        <target>Start time</target>
+      </trans-unit>
+      <trans-unit id="LkYAal7" resname="End time">
+        <source>End time</source>
+        <target>End time</target>
+      </trans-unit>
+      <trans-unit id="xcqaBTb" resname="ID-card">
+        <source>ID-card</source>
+        <target>ID-card</target>
+      </trans-unit>
+      <trans-unit id="fIFWG2o" resname="Valid from %start_time% to %end_time%">
+        <source>Valid from %start_time% to %end_time%</source>
+        <target>Valid from %start_time% to %end_time%</target>
+      </trans-unit>
+      <trans-unit id="2vzwh8T" resname="Access times">
+        <source>Access times</source>
+        <target>Access times</target>
+      </trans-unit>
+      <trans-unit id="bBzHKbn" resname="Error generating code">
+        <source>Error generating code</source>
+        <target>Error generating code</target>
+      </trans-unit>
+      <trans-unit id="VlM5vE0" resname="OK">
+        <source>OK</source>
+        <target>OK</target>
+      </trans-unit>
+      <trans-unit id="No9SjXs" resname="Your code has been sent">
+        <source>Your code has been sent</source>
+        <target>Your code has been sent</target>
+      </trans-unit>
+      <trans-unit id="5IUs7bI" resname="You will recive an SMS with the code in a moment">
+        <source>You will recive an SMS with the code in a moment</source>
+        <target>You will recive an SMS with the code in a moment</target>
+      </trans-unit>
+      <trans-unit id="blUJRMy" resname="SMS sent to phone %guest_phone%">
+        <source>SMS sent to phone %guest_phone%</source>
+        <target>SMS sent to phone %guest_phone%</target>
+      </trans-unit>
+      <trans-unit id="SWj3Jv7" resname="Code gives access to">
+        <source>Code gives access to</source>
+        <target>Code gives access to</target>
+      </trans-unit>
+      <trans-unit id="LdWbpwI" resname="Code expires at">
+        <source>Code expires at</source>
+        <target>Code expires at</target>
+      </trans-unit>
+      <trans-unit id="sJaG1vl" resname="It might take up to a few minutes before you recive the code depending on your network operator.">
+        <source>It might take up to a few minutes before you recive the code depending on your network operator.</source>
+        <target>It might take up to a few minutes before you recive the code depending on your network operator.</target>
+      </trans-unit>
+      <trans-unit id="pseoS6p" resname="Finish">
+        <source>Finish</source>
+        <target>Finish</target>
+      </trans-unit>
+      <trans-unit id=".CF63kN" resname="Get new code">
+        <source>Get new code</source>
+        <target>Get new code</target>
+      </trans-unit>
+      <trans-unit id="sG8WYtp" resname="Request access">
+        <source>Request access</source>
+        <target>Request access</target>
+      </trans-unit>
+      <trans-unit id="ULDg8Rk" resname="Select area">
+        <source>Select area</source>
+        <target>Select area</target>
+      </trans-unit>
+      <trans-unit id="uc28Dhn" resname="Press the area in Dokk1 you wish to access">
+        <source>Press the area in Dokk1 you wish to access</source>
+        <target>Press the area in Dokk1 you wish to access</target>
+      </trans-unit>
+      <trans-unit id="tEbn97v" resname="You are not allowed to request access right now">
+        <source>You are not allowed to request access right now</source>
+        <target>You are not allowed to request access right now</target>
+      </trans-unit>
+      <trans-unit id="EIpMTtK" resname="Level %level%">
+        <source>Level %level%</source>
+        <target>Level %level%</target>
+      </trans-unit>
+      <trans-unit id="t5GEZwV" resname="Your guest access is not valid">
+        <source>Your guest access is not valid</source>
+        <target>Your guest access is not valid</target>
+      </trans-unit>
+      <trans-unit id="F5WN0Z8" resname="Please wait while the system generates the key - it can take up to a minute">
+        <source>Please wait while the system generates the key - it can take up to a minute</source>
+        <target>Please wait while the system generates the key - it can take up to a minute</target>
+      </trans-unit>
+      <trans-unit id="mx8II0W" resname="No access">
+        <source>No access</source>
+        <target>No access</target>
+      </trans-unit>
+      <trans-unit id="BPPTIUx" resname="Your app is not active">
+        <source>Your app is not active</source>
+        <target>Your app is not active</target>
+      </trans-unit>
+      <trans-unit id="n3TlGdM" resname="If you think this is an error please contact you guest access administrator at Dokk1 to have your guest access app enabled">
+        <source>If you think this is an error please contact you guest access administrator at Dokk1 to have your guest access app enabled</source>
+        <target>If you think this is an error please contact you guest access administrator at Dokk1 to have your guest access app enabled</target>
+      </trans-unit>
+      <trans-unit id=".8jyb.y" resname="No network connection">
+        <source>No network connection</source>
+        <target>No network connection</target>
+      </trans-unit>
+      <trans-unit id="JdjX2mV" resname="Check your device network connection and try again">
+        <source>Check your device network connection and try again</source>
+        <target>Check your device network connection and try again</target>
+      </trans-unit>
+      <trans-unit id="oXlHg6q" resname="Offline">
+        <source>Offline</source>
+        <target>Offline</target>
+      </trans-unit>
+      <trans-unit id="fq5KDGc" resname="Please wait while we load the app">
+        <source>Please wait while we load the app</source>
+        <target>Please wait while we load the app</target>
+      </trans-unit>
+      <trans-unit id="cOHehA0" resname="New code created">
+        <source>New code created</source>
+        <target>New code created</target>
+      </trans-unit>
+      <trans-unit id="GXZu1sy" resname="Cancel">
+        <source>Cancel</source>
+        <target>Cancel</target>
+      </trans-unit>
+      <trans-unit id="2cFxQHs" resname="Code copied to clipboard">
+        <source>Code copied to clipboard</source>
+        <target>Code copied to clipboard</target>
+      </trans-unit>
+      <trans-unit id="Im.bfwC" resname="Notify user">
+        <source>Notify user</source>
+        <target>Notify user</target>
+      </trans-unit>
+      <trans-unit id="LmKkqt9" resname="label.null">
+        <source>label.null</source>
+        <target>label.null</target>
+      </trans-unit>
+      <trans-unit id="IYvwNvf" resname="App sent at %sent_at%">
+        <source>App sent at %sent_at%</source>
+        <target>App sent at %sent_at%</target>
+      </trans-unit>
+      <trans-unit id="8.bnQTo" resname="Resend app">
+        <source>Resend app</source>
+        <target>Resend app</target>
+      </trans-unit>
+      <trans-unit id="We1UMSm" resname="Send app">
+        <source>Send app</source>
+        <target>Send app</target>
+      </trans-unit>
+      <trans-unit id="yM5CbaQ" resname="Something has gone wrong!">
+        <source>Something has gone wrong!</source>
+        <target>Something has gone wrong!</target>
+      </trans-unit>
+      <trans-unit id="qmXTfzn" resname="Sorry about this. We have been notified and will take action as soon as possible.">
+        <source>Sorry about this. We have been notified and will take action as soon as possible.</source>
+        <target>Sorry about this. We have been notified and will take action as soon as possible.</target>
+      </trans-unit>
+      <trans-unit id="Suq5sgc" resname="This page does not exist!">
+        <source>This page does not exist!</source>
+        <target>This page does not exist!</target>
+      </trans-unit>
+      <trans-unit id="exIYwei" resname="admin_gdpr">
+        <source>admin_gdpr</source>
+        <target>admin_gdpr</target>
+      </trans-unit>
+      <trans-unit id="rwE3wSS" resname="app_about_content">
+        <source>app_about_content</source>
+        <target>app_about_content</target>
+      </trans-unit>
+      <trans-unit id="RPiv.O4" resname="app_about_header">
+        <source>app_about_header</source>
+        <target>app_about_header</target>
+      </trans-unit>
+      <trans-unit id="yww1eSg" resname="app_about_lead">
+        <source>app_about_lead</source>
+        <target>app_about_lead</target>
+      </trans-unit>
+      <trans-unit id=".BGoyK7" resname="app_expired_content">
+        <source>app_expired_content</source>
+        <target>app_expired_content</target>
+      </trans-unit>
+      <trans-unit id="RvJuriT" resname="app_expired_header">
+        <source>app_expired_header</source>
+        <target>app_expired_header</target>
+      </trans-unit>
+      <trans-unit id="eLGejMh" resname="app_terms_content">
+        <source>app_terms_content</source>
+        <target>app_terms_content</target>
+      </trans-unit>
+      <trans-unit id="NSgrZiO" resname="app_terms_header">
+        <source>app_terms_header</source>
+        <target>app_terms_header</target>
+      </trans-unit>
+      <trans-unit id="LUiXji9" resname="app_terms_lead">
+        <source>app_terms_lead</source>
+        <target>app_terms_lead</target>
+      </trans-unit>
+      <trans-unit id="QWuj7Jl" resname="guest_app_sms_body_template">
+        <source>guest_app_sms_body_template</source>
+        <target>guest_app_sms_body_template</target>
+      </trans-unit>
+      <trans-unit id="2Lsm5Fd" resname="guest_code_sms_template">
+        <source>guest_code_sms_template</source>
+        <target>guest_code_sms_template</target>
+      </trans-unit>
+      <trans-unit id="rvO5ZXf" resname="ROLE_USER">
+        <source>ROLE_USER</source>
+        <target>ROLE_USER</target>
+      </trans-unit>
+      <trans-unit id="Nk5ZFLC" resname="ROLE_GUEST_ADMIN">
+        <source>ROLE_GUEST_ADMIN</source>
+        <target>ROLE_GUEST_ADMIN</target>
+      </trans-unit>
+      <trans-unit id="KU2w06K" resname="ROLE_TEMPLATE_ADMIN">
+        <source>ROLE_TEMPLATE_ADMIN</source>
+        <target>ROLE_TEMPLATE_ADMIN</target>
+      </trans-unit>
+      <trans-unit id="orTkKJj" resname="ROLE_USER_ADMIN">
+        <source>ROLE_USER_ADMIN</source>
+        <target>ROLE_USER_ADMIN</target>
+      </trans-unit>
+      <trans-unit id="Y.gQb6B" resname="ROLE_CONFIG_ADMIN">
+        <source>ROLE_CONFIG_ADMIN</source>
+        <target>ROLE_CONFIG_ADMIN</target>
+      </trans-unit>
+      <trans-unit id="VrVkt1x" resname="Templates">
+        <source>Templates</source>
+        <target>Templates</target>
+      </trans-unit>
+      <trans-unit id="WKzFEJ4" resname="Time range">
+        <source>Time range</source>
+        <target>Time range</target>
+      </trans-unit>
+      <trans-unit id="LA4WHWW" resname="App expired">
+        <source>App expired</source>
+        <target>App expired</target>
+      </trans-unit>
+      <trans-unit id="vjcC4.G" resname="Card">
+        <source>Card</source>
+        <target>Card</target>
+      </trans-unit>
+      <trans-unit id="Tvyg0Qx" resname="About">
+        <source>About</source>
+        <target>About</target>
+      </trans-unit>
+      <trans-unit id="vlhy97D" resname="How to use this app">
+        <source>How to use this app</source>
+        <target>How to use this app</target>
+      </trans-unit>
+      <trans-unit id="z7sJyFq" resname="In a moment you will be ready to generate your first code, but first a quick guide.">
+        <source>In a moment you will be ready to generate your first code, but first a quick guide.</source>
+        <target>In a moment you will be ready to generate your first code, but first a quick guide.</target>
+      </trans-unit>
+      <trans-unit id="L93APrJ" resname="Select the building area you want to access.">
+        <source>Select the building area you want to access.</source>
+        <target>Select the building area you want to access.</target>
+      </trans-unit>
+      <trans-unit id="H.V6Kdf" resname="Next">
+        <source>Next</source>
+        <target>Next</target>
+      </trans-unit>
+      <trans-unit id="mZVbdeB" resname="I agree">
+        <source>I agree</source>
+        <target>I agree</target>
+      </trans-unit>
+      <trans-unit id=".ZGtDru" resname="Code.status.active">
+        <source>Code.status.active</source>
+        <target>Code.status.active</target>
+      </trans-unit>
+      <trans-unit id="j8CCDG9" resname="Code.status.expired">
+        <source>Code.status.expired</source>
+        <target>Code.status.expired</target>
+      </trans-unit>
+      <trans-unit id="fIP7GPU" resname="Code.status.future">
+        <source>Code.status.future</source>
+        <target>Code.status.future</target>
+      </trans-unit>
+      <trans-unit id="queLJPC" resname="You cannot create codes.">
+        <source>You cannot create codes.</source>
+        <target>You cannot create codes.</target>
+      </trans-unit>
+      <trans-unit id="lk4EzjZ" resname="AEOS id">
+        <source>AEOS id</source>
+        <target>AEOS id</target>
+      </trans-unit>
+      <trans-unit id="wlM3BVR" resname="Roles">
+        <source>Roles</source>
+        <target>Roles</target>
+      </trans-unit>
+      <trans-unit id="B06OqMC" resname="AEOS id used by {name}">
+        <source>AEOS id used by {name}</source>
+        <target>AEOS id used by {name}</target>
+      </trans-unit>
+      <trans-unit id="718iPw6" resname="ROLE_ADMIN">
+        <source>ROLE_ADMIN</source>
+        <target>ROLE_ADMIN</target>
+      </trans-unit>
+      <trans-unit id="F8Lb9pj" resname="Show app">
+        <source>Show app</source>
+        <target>Show app</target>
+      </trans-unit>
+      <trans-unit id="MCLZFem" resname="Press {request_access} to get access">
+        <source>Press {request_access} to get access</source>
+        <target>Press {request_access} to get access</target>
+      </trans-unit>
+      <trans-unit id="_4rcyUW" resname="Receive SMS with code">
+        <source>Receive SMS with code</source>
+        <target>Receive SMS with code</target>
+      </trans-unit>
+      <trans-unit id="sj4IdsB" resname="You now receive an SMS with the doorcode.">
+        <source>You now receive an SMS with the doorcode.</source>
+        <target>You now receive an SMS with the doorcode.</target>
+      </trans-unit>
+      <trans-unit id="FvDuR.m" resname="API key">
+        <source>API key</source>
+        <target>API key</target>
+      </trans-unit>
+      <trans-unit id="UlLJwyj" resname="This is your personal identification which grants you access to Dokk1">
+        <source>This is your personal identification which grants you access to Dokk1</source>
+        <target>This is your personal identification which grants you access to Dokk1</target>
+      </trans-unit>
+      <trans-unit id="WfpDeb4" resname="Reset your password">
+        <source>Reset your password</source>
+        <target>Reset your password</target>
+      </trans-unit>
+      <trans-unit id="y2XxXvP" resname="Send password reset email">
+        <source>Send password reset email</source>
+        <target>Send password reset email</target>
+      </trans-unit>
+      <trans-unit id="U28cTzJ" resname="Password Reset Email Sent">
+        <source>Password Reset Email Sent</source>
+        <target>Password Reset Email Sent</target>
+      </trans-unit>
+      <trans-unit id="U843nOG" resname="If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password. This link will expire in {expirationMessage}.">
+        <source>If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password. This link will expire in {expirationMessage}.</source>
+        <target>If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password. This link will expire in {expirationMessage}.</target>
+      </trans-unit>
+      <trans-unit id="7LnnofM" resname="If you don't receive an email please check your spam folder or &lt;a href=&quot;{password_request_url}&quot;&gt;try again&lt;/a&gt;.">
+        <source>If you don't receive an email please check your spam folder or &lt;a href="{password_request_url}"&gt;try again&lt;/a&gt;.</source>
+        <target><![CDATA[If you don't receive an email please check your spam folder or <a href="{password_request_url}">try again</a>.]]></target>
+      </trans-unit>
+      <trans-unit id="588_9PF" resname="Password">
+        <source>Password</source>
+        <target>Password</target>
+      </trans-unit>
+      <trans-unit id="wYmEDPf" resname="Log in">
+        <source>Log in</source>
+        <target>Log in</target>
+      </trans-unit>
+      <trans-unit id="r9Jf3xf" resname="Forgot your password?">
+        <source>Forgot your password?</source>
+        <target>Forgot your password?</target>
+      </trans-unit>
+      <trans-unit id="IVbSFop" resname="Password sucessfully reset">
+        <source>Password sucessfully reset</source>
+        <target>Password sucessfully reset</target>
+      </trans-unit>
+      <trans-unit id="ATJ8qA9" resname="Your password reset request">
+        <source>Your password reset request</source>
+        <target>Your password reset request</target>
+      </trans-unit>
+      <trans-unit id="_hrBFRr" resname="Create password">
+        <source>Create password</source>
+        <target>Create password</target>
+      </trans-unit>
+      <trans-unit id="4O3_s6c" resname="Reset password">
+        <source>Reset password</source>
+        <target>Reset password</target>
+      </trans-unit>
+      <trans-unit id="M3bG0Rh" resname="To reset your password on {site_name}, please visit the following link">
+        <source>To reset your password on {site_name}, please visit the following link</source>
+        <target>To reset your password on {site_name}, please visit the following link</target>
+      </trans-unit>
+      <trans-unit id="k8OegrE" resname="This link will expire in {expirationMessage}.">
+        <source>This link will expire in {expirationMessage}.</source>
+        <target>This link will expire in {expirationMessage}.</target>
+      </trans-unit>
+      <trans-unit id="emutV_R" resname="Cheers from {site_name}">
+        <source>Cheers from {site_name}</source>
+        <target>Cheers from {site_name}</target>
+      </trans-unit>
+      <trans-unit id="fZ63rLE" resname="Close">
+        <source>Close</source>
+        <target>Close</target>
+      </trans-unit>
+      <trans-unit id="yFNUejp" resname="API key generated">
+        <source>API key generated</source>
+        <target>API key generated</target>
+      </trans-unit>
+      <trans-unit id="SZdMoyQ" resname="API key copied to clipboard">
+        <source>API key copied to clipboard</source>
+        <target>API key copied to clipboard</target>
+      </trans-unit>
+      <trans-unit id="UT6MwFc" resname="Generate new API key">
+        <source>Generate new API key</source>
+        <target>Generate new API key</target>
+      </trans-unit>
+      <trans-unit id="5cOwZ97" resname="Confirm generate new API key">
+        <source>Confirm generate new API key</source>
+        <target>Confirm generate new API key</target>
+      </trans-unit>
+      <trans-unit id="xVICefY" resname="You do not yet have an API key">
+        <source>You do not yet have an API key</source>
+        <target>You do not yet have an API key</target>
+      </trans-unit>
+      <trans-unit id="ws_LTU4" resname="Generate API key">
+        <source>Generate API key</source>
+        <target>Generate API key</target>
+      </trans-unit>
+      <trans-unit id="S_0L9CD" resname="Please contact an administrator ({administrator_email}) for help.">
+        <source>Please contact an administrator ({administrator_email}) for help.</source>
+        <target>Please contact an administrator ({administrator_email}) for help.</target>
+      </trans-unit>
+      <trans-unit id="jlYzC3I" resname="Select template">
+        <source>Select template</source>
+        <target>Select template</target>
+      </trans-unit>
+      <trans-unit id="W5X_9ex" resname="category.admin">
+        <source>category.admin</source>
+        <target>category.admin</target>
+      </trans-unit>
+      <trans-unit id="H3wDT1m" resname="category.app">
+        <source>category.app</source>
+        <target>category.app</target>
+      </trans-unit>
+      <trans-unit id="G2kPg8J" resname="category.guest">
+        <source>category.guest</source>
+        <target>category.guest</target>
+      </trans-unit>
+      <trans-unit id="CrY_XoG" resname="Accept terms">
+        <source>Accept terms</source>
+        <target>Accept terms</target>
+      </trans-unit>
+      <trans-unit id="o3bnC_9" resname="Expire app">
+        <source>Expire app</source>
+        <target>Expire app</target>
+      </trans-unit>
+      <trans-unit id="XSH0tCd" resname="App sent to {guest}">
+        <source>App sent to {guest}</source>
+        <target>App sent to {guest}</target>
+      </trans-unit>
+      <trans-unit id="Ure4EZP" resname="App {guest} expired">
+        <source>App {guest} expired</source>
+        <target>App {guest} expired</target>
+      </trans-unit>
+      <trans-unit id="j9n2aRH" resname="Are you sure you want to expire this app?">
+        <source>Are you sure you want to expire this app?</source>
+        <target>Are you sure you want to expire this app?</target>
+      </trans-unit>
+      <trans-unit id="YS8g7nX" resname="The guest will no longer have access and all guest data will be anonymized.">
+        <source>The guest will no longer have access and all guest data will be anonymized.</source>
+        <target>The guest will no longer have access and all guest data will be anonymized.</target>
+      </trans-unit>
+      <trans-unit id="mcQKtAW" resname="Date">
+        <source>Date</source>
+        <target>Date</target>
+      </trans-unit>
+      <trans-unit id="G5mZ4l0" resname="Edit setting {name}">
+        <source>Edit setting {name}</source>
+        <target>Edit setting {name}</target>
+      </trans-unit>
+      <trans-unit id="KSwG8AR" resname="Category">
+        <source>Category</source>
+        <target>Category</target>
+      </trans-unit>
+      <trans-unit id="jjeVPSP" resname="Value">
+        <source>Value</source>
+        <target>Value</target>
+      </trans-unit>
+      <trans-unit id="QDJf5WW" resname="You must accept GDPR to continue">
+        <source>You must accept GDPR to continue</source>
+        <target>You must accept GDPR to continue</target>
+      </trans-unit>
+      <trans-unit id="CA6tt8y" resname="Accept GDPR">
+        <source>Accept GDPR</source>
+        <target>Accept GDPR</target>
+      </trans-unit>
+      <trans-unit id="iXE7nJw" resname="Accept">
+        <source>Accept</source>
+        <target>Accept</target>
+      </trans-unit>
+      <trans-unit id="8If8eT." resname="&quot;{{ string }}&quot; is not a valid AEOS person id.">
+        <source>"{{ string }}" is not a valid AEOS person id.</source>
+        <target>"{{ string }}" is not a valid AEOS person id.</target>
+      </trans-unit>
+      <trans-unit id="n_EUW1_" resname="&quot;{{ string }}&quot; is not a valid AEOS template id.">
+        <source>"{{ string }}" is not a valid AEOS template id.</source>
+        <target>"{{ string }}" is not a valid AEOS template id.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

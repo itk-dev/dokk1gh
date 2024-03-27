@@ -3,7 +3,7 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2020 ITK Development
+ * (c) 2017–2024 ITK Development
  *
  * This source file is subject to the MIT license.
  */
@@ -24,13 +24,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class TimeRangesType extends AbstractType
 {
-    /** @var Configuration */
-    private $configuration;
-
-    /** @var TranslatorInterface */
-    private $translator;
-
-    private static $weekDayNames = [
+    private static array $weekDayNames = [
         1 => 'Monday',
         2 => 'Tuesday',
         3 => 'Wednesday',
@@ -40,10 +34,10 @@ class TimeRangesType extends AbstractType
         7 => 'Sunday',
     ];
 
-    public function __construct(Configuration $configuration, TranslatorInterface $translator)
-    {
-        $this->configuration = $configuration;
-        $this->translator = $translator;
+    public function __construct(
+        private readonly Configuration $configuration,
+        private readonly TranslatorInterface $translator
+    ) {
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -72,12 +66,12 @@ class TimeRangesType extends AbstractType
         $endTimeChoices = array_combine($timeOptions, $timeOptions);
         array_shift($endTimeChoices);
 
-        for ($day = 1; $day <= 7; ++$day) {
+        foreach (self::$weekDayNames as $day => $name) {
             $builder
                 ->add('start_time_'.$day, ChoiceType::class, [
                     'required' => false,
                     'choices' => $startTimeChoices,
-                    'label' => 'Start time '.self::$weekDayNames[$day],
+                    'label' => 'Start time '.$name,
                 ])
                 ->add('end_time_'.$day, ChoiceType::class, [
                     'required' => false,
@@ -90,7 +84,7 @@ class TimeRangesType extends AbstractType
             ->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
                 $form = $event->getForm();
                 $numberOfTimeIntervals = 0;
-                for ($day = 1; $day <= 7; ++$day) {
+                foreach (self::$weekDayNames as $day => $name) {
                     $startTime = $form->get('start_time_'.$day);
                     $endTime = $form->get('end_time_'.$day);
 
@@ -111,30 +105,24 @@ class TimeRangesType extends AbstractType
             });
     }
 
-    /**
-     * @param OptionsResolverInterface $resolver
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-                                   'view_timezone' => 'GMT',
-                               ]);
+            'view_timezone' => 'GMT',
+        ]);
     }
 
-    /**
-     * @return string
-     */
     public function getBlockPrefix()
     {
         return 'app_time_ranges';
     }
 
-    private function getTimeOptions()
+    private function getTimeOptions(): array
     {
         $min = $this->configuration->get('guest_timeRanges_min');
         $max = $this->configuration->get('guest_timeRanges_max');
         $step = $this->configuration->get('guest_timeRanges_step');
-        $step = new \DateInterval('PT'.strtoupper($step));
+        $step = new \DateInterval('PT'.strtoupper((string) $step));
 
         // Make sure that we don't hit a leap day.
         $minDate = \DateTime::createFromFormat('Y-m-d H:i', '2001-01-01 '.$min);
@@ -149,12 +137,12 @@ class TimeRangesType extends AbstractType
         return $choices;
     }
 
-    private function getDefaultValues()
+    private function getDefaultValues(): array
     {
         return $this->configuration->get('guest_default_timeRanges');
     }
 
-    private function createFormError(string $message, array $parameters = [])
+    private function createFormError(string $message, array $parameters = []): FormError
     {
         return new FormError($this->translator->trans($message, $parameters, 'validators'));
     }

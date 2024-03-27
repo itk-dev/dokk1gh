@@ -1,50 +1,49 @@
-{% extends 'admin/layout.html.twig' %}
+{% extends '@EasyAdmin/layout.html.twig' %}
 
-{# Variable `wrapper_classes` is used by parent template #}
-{% set wrapper_classes = ['no-menu', 'user-page'] %}
+{% block page %}
+  {{ parent() }}
+{% endblock %}
 
 {% block main %}
   <div class="container">
     <div class="row">
       <div class="panel">
         <div class="panel-heading">
-          <h1>{{ 'Api key'|trans }}</h1>
+          <h1>{{ 'API key'|trans }}</h1>
         </div>
 
         <div class="panel-body">
-          <form method="post" action="{{ path('user_apikey_generate') }}">
+          <form method="post">
 
             {% if user.apiKey %}
               <div class="form-group">
                 <div class="input-group">
-                  <input class="form-control" type="text" data-readonly value="{{ user.apiKey }}"/>
+                  <input class="form-control" type="text" readonly value="{{ user.apiKey }}"/>
                   <span class="input-group-btn">
-                    <button type="button" class="btn btn-default" data-clipboard-text="{{ user.apiKey }}" data-content="{{ 'Api key copied to clipboard'|trans }}"><span class="fa fa-clipboard"></span></button>
+                    <button type="button" class="btn btn-default" data-clipboard-text="{{ user.apiKey }}" data-clipboard-success="{{ 'API key copied to clipboard'|trans }}"><span class="fa fa-clipboard"></span></button>
                   </span>
                 </div>
               </div>
 
               <div class="form-group">
-                {% set label = 'Generate new api key'|trans %}
+                {% set label = 'Generate new API key'|trans %}
 
-                <div class="form-group">
-                  <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#confirm-modal">{{ label }}</button>
+                <div class="form-group d-grid">
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirm-modal">{{ label }}</button>
                 </div>
 
-                <div class="modal fade" id="confirm-modal" tabindex="-1" aria-labelledby="confirm-modal-label" aria-hidden="true">
+                <div class="modal fade" id="confirm-modal" tabindex="-1">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title" id="confirm-modal-label">{{ label }}</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
+                        <h5 class="modal-title">{{ label }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ 'Close'|trans }}"></button>
                       </div>
                       <div class="modal-body">
-                        <p>{{ 'Confirm generate new api key'|trans }}</p>
+                        <p>{{ 'Confirm generate new API key'|trans }}</p>
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'Cancel'|trans }}</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ 'Cancel'|trans }}</button>
                         <button type="submit" class="btn btn-primary">{{ label }}</button>
                       </div>
                     </div>
@@ -53,8 +52,9 @@
 
               </div>
             {% else %}
-              <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block">{{ 'Generate api key'|trans }}</button>
+              <div class="alert alert-info">{{ 'You do not yet have an API key'|trans }}</div>
+              <div class="form-group d-grid">
+                <button type="submit" class="btn btn-primary">{{ 'Generate API key'|trans }}</button>
               </div>
             {% endif %}
           </form>
@@ -64,7 +64,7 @@
   </div>
 {% endblock %}
 
-{% block body_javascript %}
+{% block hest_body_javascript %}
   <script src="{{ asset('javascripts/clipboard.min.js') }}"></script>
   <script>(function($) {
       var selector = '[data-clipboard-text]',

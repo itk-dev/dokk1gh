@@ -3,7 +3,7 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2020 ITK Development
+ * (c) 2017–2024 ITK Development
  *
  * This source file is subject to the MIT license.
  */
@@ -11,83 +11,57 @@
 namespace App\Entity;
 
 use App\Repository\CodeRepository;
-use App\Traits\BlameableEntity;
+use App\Trait\BlameableEntity;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Blameable\Blameable;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use JMS\Serializer\Annotation as JMS;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
- * @ORM\Entity(repositoryClass=CodeRepository::class)
  * @Gedmo\SoftDeleteable()
  */
-class Code implements Blameable
+#[ORM\Entity(repositoryClass: CodeRepository::class)]
+class Code implements Blameable, \Stringable
 {
     use BlameableEntity;
     use SoftDeleteableEntity;
     use TimestampableEntity;
 
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     * @JMS\Groups({"api"})
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: Types::INTEGER)]
+    #[Groups('api')]
+    private ?int $id = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255, unique=true, nullable=true)
-     */
-    private $aeosId;
+    #[ORM\Column(type: Types::STRING, length: 255, unique: true, nullable: true)]
+    private ?string $aeosId = null;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(type="datetime")
-     * @JMS\Groups({"api"})
-     */
-    private $startTime;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Groups('api')]
+    private ?\DateTime $startTime = null;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(type="datetime")
-     * @JMS\Groups({"api"})
-     */
-    private $endTime;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Groups('api')]
+    private ?\DateTime $endTime = null;
 
-    /**
-     * @var \App\Entity\Template
-     *
-     * @ORM\ManyToOne(targetEntity=Template::class)
-     * @ORM\JoinColumn(nullable=false)
-     * @JMS\Groups({"api"})
-     */
-    private $template;
+    #[ORM\ManyToOne(targetEntity: Template::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Groups('api')]
+    private ?Template $template = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", nullable=true)
-     * @JMS\Groups({"api"})
-     * @JMS\SerializedName("code")
-     */
-    private $identifier;
+    #[ORM\Column(type: Types::STRING, nullable: true)]
+    #[Groups('api')]
+    private ?string $identifier = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $note;
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $note = null;
 
-    public function __toString()
+    public function __toString(): string
     {
         $timeRange = ($this->getStartTime() ? $this->getStartTime()->format(\DateTime::W3C) : null)
             .'–'
@@ -96,175 +70,99 @@ class Code implements Blameable
         return '['.$this->getIdentifier().'; '.$this->getTemplate()->getName().'; '.$timeRange.']';
     }
 
-    /**
-     * Get id.
-     *
-     * @return int
-     */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * Set startTime.
-     *
-     * @return Code
-     */
-    public function setStartTime(\DateTime $startTime)
+    public function setStartTime(\DateTime $startTime): static
     {
         $this->startTime = $startTime;
 
         return $this;
     }
 
-    /**
-     * Get startTime.
-     *
-     * @return \DateTime
-     */
-    public function getStartTime()
+    public function getStartTime(): ?\DateTime
     {
         return $this->startTime;
     }
 
-    /**
-     * Set endTime.
-     *
-     * @return Code
-     */
-    public function setEndTime(\DateTime $endTime)
+    public function setEndTime(\DateTime $endTime): static
     {
         $this->endTime = $endTime;
 
         return $this;
     }
 
-    /**
-     * Get endTime.
-     *
-     * @return \DateTime
-     */
-    public function getEndTime()
+    public function getEndTime(): ?\DateTime
     {
         return $this->endTime;
     }
 
-    /**
-     * Set template.
-     *
-     * @param \App\Entity\Template $template
-     *
-     * @return Code
-     */
-    public function setTemplate(Template $template = null)
+    public function setTemplate(Template $template): static
     {
         $this->template = $template;
 
         return $this;
     }
 
-    /**
-     * Get template.
-     *
-     * @return \App\Entity\Template
-     */
-    public function getTemplate()
+    public function getTemplate(): ?Template
     {
         return $this->template;
     }
 
-    /**
-     * Set identifier.
-     *
-     * @param string $identifier
-     *
-     * @return Code
-     */
-    public function setIdentifier(string $identifier = null)
+    public function setIdentifier(string $identifier): static
     {
         $this->identifier = $identifier;
 
         return $this;
     }
 
-    /**
-     * Get identifier.
-     *
-     * @return string
-     */
-    public function getIdentifier()
+    public function getIdentifier(): ?string
     {
         return $this->identifier;
     }
 
-    /**
-     * Set aeosId.
-     *
-     * @param string $aeosId
-     *
-     * @return \App\Entity\Code|\App\Entity\Template
-     */
-    public function setAeosId($aeosId)
+    public function setAeosId(string $aeosId): static
     {
         $this->aeosId = $aeosId;
 
         return $this;
     }
 
-    /**
-     * Get aeosId.
-     *
-     * @return string
-     */
-    public function getAeosId()
+    public function getAeosId(): ?string
     {
         return $this->aeosId;
     }
 
-    /**
-     * Set note.
-     *
-     * @param string $note
-     *
-     * @return Code
-     */
-    public function setNote(string $note = null)
+    public function setNote(?string $note = null): static
     {
         $this->note = $note;
 
         return $this;
     }
 
-    /**
-     * Get note.
-     *
-     * @return string
-     */
-    public function getNote()
+    public function getNote(): ?string
     {
         return $this->note;
     }
 
-    public function getStatus()
+    public function getStatus(): string
     {
-        $now = new \DateTime();
-        if ($this->getStartTime() > $now) {
-            return 'future';
-        } elseif ($this->getEndTime() < $now) {
-            return 'expired';
-        }
+        $now = new \DateTimeImmutable();
 
-        return 'active';
+        return match (true) {
+            $this->getStartTime() > $now => 'future',
+            $this->getEndTime() < $now => 'expired',
+            default => 'active'
+        };
     }
 
-    /**
-     * @Assert\Callback
-     */
-    public function validate(ExecutionContextInterface $context)
+    #[Assert\Callback]
+    public function validate(ExecutionContextInterface $context): void
     {
         if (null === $this->getId()) {
-            if ($this->getStartTime() <= new \DateTime('-1 hour')) {
+            if ($this->getStartTime() <= new \DateTimeImmutable('-1 hour')) {
                 $context->buildViolation('Start time must be after one hour ago.')
                     ->atPath('startTime')
                     ->addViolation();

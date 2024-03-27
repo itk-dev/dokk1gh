@@ -3,7 +3,7 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2020 ITK Development
+ * (c) 2017–2024 ITK Development
  *
  * This source file is subject to the MIT license.
  */
@@ -16,47 +16,19 @@ use App\Entity\Template;
 use App\Exception\GuestException;
 use App\Exception\InvalidTemplateException;
 use Doctrine\ORM\EntityManagerInterface;
-use Superbrave\GdprBundle\Anonymize\Anonymizer;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class GuestService
 {
-    /** @var AeosHelper */
-    private $aeosHelper;
-
-    /** @var EntityManagerInterface */
-    private $manager;
-
-    /** @var Anonymizer */
-    private $anonymizer;
-
-    /** @var TwigHelper */
-    private $twig;
-
-    /** @var Configuration */
-    private $configuration;
-
-    /** @var SmsHelper */
-    private $smsHelper;
-
-    /** @var MailerInterface */
-    private $mailHelper;
-
     public function __construct(
-        AeosHelper $aeosHelper,
-        EntityManagerInterface $manager,
-        Anonymizer $anonymizer,
-        TwigHelper $twig,
-        Configuration $configuration,
-        SmsHelper $smsHelper,
-        MailHelper $mailHelper
+        private readonly AeosHelper $aeosHelper,
+        private readonly EntityManagerInterface $manager,
+        private readonly TwigHelper $twig,
+        private readonly Configuration $configuration,
+        private readonly SmsHelper $smsHelper,
+        private readonly MailHelper $mailHelper,
+        private readonly UrlGeneratorInterface $urlGenerator
     ) {
-        $this->aeosHelper = $aeosHelper;
-        $this->manager = $manager;
-        $this->anonymizer = $anonymizer;
-        $this->twig = $twig;
-        $this->configuration = $configuration;
-        $this->smsHelper = $smsHelper;
-        $this->mailHelper = $mailHelper;
     }
 
     /**
@@ -69,7 +41,7 @@ class GuestService
         $guest = new Guest();
         $guest
             ->setEnabled(true)
-            ->setPhoneContryCode($this->configuration->get('guest_default_phone_country_code'))
+            ->setPhoneCountryCode($this->configuration->get('guest_default_phone_country_code'))
             ->setStartTime(new \DateTime($this->configuration->get('guest_default_startTime')))
             ->setEndTime(new \DateTime($this->configuration->get('guest_default_endTime')));
 
@@ -79,12 +51,12 @@ class GuestService
     /**
      * Send app url to user via sms and email.
      *
-     * @param string $appUrl
-     *
      * @return bool
      */
-    public function sendApp(Guest $guest, $appUrl)
+    public function sendApp(Guest $guest)
     {
+        $appUrl = $this->urlGenerator->generate('app_code', ['guest' => $guest->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
+
         if (null !== $guest->getPhone()) {
             $this->smsHelper->sendApp($guest, $appUrl);
         }
@@ -99,14 +71,14 @@ class GuestService
         return true;
     }
 
-    public function activate(Guest $guest)
+    public function activate(Guest $guest): void
     {
         $guest->setActivatedAt(new \DateTime());
         $this->manager->persist($guest);
         $this->manager->flush();
     }
 
-    public function isValid(Guest $guest)
+    public function isValid(Guest $guest): bool
     {
         $now = new \DateTime();
 
@@ -117,7 +89,7 @@ class GuestService
             && $now <= $guest->getEndTime();
     }
 
-    public function canRequestCode(Guest $guest)
+    public function canRequestCode(Guest $guest): bool
     {
         if (!$this->isValid($guest)) {
             return false;
@@ -129,15 +101,15 @@ class GuestService
         $timeRanges = $guest->getTimeRanges();
         $day = $now->format('N');
         if (!isset($timeRanges['start_time_'.$day], $timeRanges['end_time_'.$day])
-            || !preg_match('/^(?<hours>\d{2}):(?<minutes>\d{2})$/', $timeRanges['start_time_'.$day], $startTimeData)
-            || !preg_match('/^(?<hours>\d{2}):(?<minutes>\d{2})$/', $timeRanges['end_time_'.$day], $endTimeData)) {
+            || !preg_match('/^(?<hours>\d{2}):(?<minutes>\d{2})$/', (string) $timeRanges['start_time_'.$day], $startTimeData)
+            || !preg_match('/^(?<hours>\d{2}):(?<minutes>\d{2})$/', (string) $timeRanges['end_time_'.$day], $endTimeData)) {
             return false;
         }
 
         $startTime = clone $now;
-        $startTime->setTime($startTimeData['hours'], $startTimeData['minutes']);
+        $startTime->setTime((int) $startTimeData['hours'], (int) $startTimeData['minutes']);
         $endTime = clone $now;
-        $endTime->setTime($endTimeData['hours'], $endTimeData['minutes']);
+        $endTime->setTime((int) $endTimeData['hours'], (int) $endTimeData['minutes']);
 
         if ($now < $startTime || $endTime < $now) {
             return false;
@@ -149,7 +121,7 @@ class GuestService
     /**
      * Get end time for a new code.
      */
-    public function getEndTime(Guest $guest)
+    public function getEndTime(Guest $guest): \DateTime
     {
         $duration = $this->configuration->get('guest_code_duration');
         if (null !== $duration) {
@@ -164,19 +136,19 @@ class GuestService
         $day = $now->format('N');
 
         if (!isset($timeRanges['start_time_'.$day], $timeRanges['end_time_'.$day])
-            || !preg_match('/^(?<hours>\d{2}):(?<minutes>\d{2})$/', $timeRanges['start_time_'.$day], $startTimeData)
-            || !preg_match('/^(?<hours>\d{2}):(?<minutes>\d{2})$/', $timeRanges['end_time_'.$day], $endTimeData)) {
-            return null;
+            || !preg_match('/^(?<hours>\d{2}):(?<minutes>\d{2})$/', (string) $timeRanges['start_time_'.$day], $startTimeData)
+            || !preg_match('/^(?<hours>\d{2}):(?<minutes>\d{2})$/', (string) $timeRanges['end_time_'.$day], $endTimeData)) {
+            throw new \RuntimeException('Cannot get guest end time');
         }
 
         $endTime = clone $now;
-        $endTime->setTime($endTimeData['hours'], $endTimeData['minutes']);
+        $endTime->setTime((int) $endTimeData['hours'], (int) $endTimeData['minutes']);
         $endTime->setTimeZone(new \DateTimeZone('UTC'));
 
         return $endTime;
     }
 
-    public function generateCode(Guest $guest, Template $template, $note = null)
+    public function generateCode(Guest $guest, Template $template, ?string $note = null): Code
     {
         if (!$this->canRequestCode($guest)) {
             throw new GuestException('Guest cannot request code right now', ['guest' => $guest]);
@@ -205,12 +177,12 @@ class GuestService
             $this->manager->flush();
 
             return $code;
-        } catch (\Exception $ex) {
+        } catch (\Exception) {
             throw new GuestException('Cannot generate code');
         }
     }
 
-    public function sendCode(Guest $guest, Code $code)
+    public function sendCode(Guest $guest, Code $code): void
     {
         $this->smsHelper->sendCode($guest, $code);
     }
@@ -218,10 +190,17 @@ class GuestService
     /**
      * Expire a Guest by anonymizing data and setting the expired at time.
      */
-    public function expire(Guest $guest)
+    public function expire(Guest $guest): bool
     {
         if (null !== $guest && null === $guest->getExpiredAt()) {
-            $this->anonymizer->anonymize($guest);
+            // Anonymize guest.
+            $guest
+                ->setName($guest->getId())
+                ->setCompany($guest->getId())
+                ->setPhone($guest->getId())
+                ->setPhoneCountryCode('+45')
+                ->setEmail($guest->getId().'@example.com');
+
             $guest
                 ->setEnabled(false)
                 ->setExpiredAt(new \DateTime());
