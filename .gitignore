@@ -26,3 +26,7 @@ phpstan.neon
 /.php-cs-fixer.cache
 ###< friendsofphp/php-cs-fixer ###
 config/services.local.yaml
+
+###> vincentlanglet/twig-cs-fixer ###
+/.twig-cs-fixer.cache
+###< vincentlanglet/twig-cs-fixer ###
