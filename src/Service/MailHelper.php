@@ -19,16 +19,12 @@ class MailHelper
 {
     final public const MAIL_SENT = 'MAIL_SENT';
 
-    /** @var MailerInterface */
-    protected $mailer;
-
     public function __construct(
-        MailerInterface $mailer,
+        private readonly MailerInterface $mailer,
         private readonly EntityActionLogger $actionLogger,
         private readonly Configuration $configuration,
         private readonly TwigHelper $twigHelper
     ) {
-        $this->mailer = $mailer;
     }
 
     public function sendApp(Guest $guest, string $appUrl): void
@@ -62,16 +58,22 @@ class MailHelper
         $subject = $template->renderBlock('subject', $context);
         $bodyHtml = $template->renderBlock('body_html', $context);
 
-        $message = (new Email())
-            ->subject($subject)
-            ->from($from)
-            ->to($recipient)
-            ->html($bodyHtml);
+        $this->sendEmail($subject, $from, $recipient, $bodyHtml);
 
-        $this->mailer->send($message);
         $this->actionLogger->log($guest, self::MAIL_SENT, [
             'message' => $bodyHtml,
             'guest' => $guest,
         ]);
+    }
+
+    public function sendEmail(string $subject, Address|string $from, Address|string $to, string $html): void
+    {
+        $message = (new Email())
+            ->subject($subject)
+            ->from($from)
+            ->to($to)
+            ->html($html);
+
+        $this->mailer->send($message);
     }
 }
