@@ -17,6 +17,6 @@ use Doctrine\ORM\Mapping as ORM;
  * Class SmsGatewayActionLogEntry.
  */
 #[ORM\Entity(repositoryClass: SmsGatewayActionLogEntryRepository::class)]
-final class SmsGatewayActionLogEntry extends ActionLogEntry
+class SmsGatewayActionLogEntry extends ActionLogEntry
 {
 }
