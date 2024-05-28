@@ -14,7 +14,6 @@ use App\Mock\Entity\ActionLogEntry;
 use App\Mock\Repository\ActionLogEntryRepository;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Persistence\ManagerRegistry;
-use Doctrine\Persistence\ObjectRepository;
 
 class ActionLogManager
 {
@@ -37,11 +36,16 @@ class ActionLogManager
 
     public function findOne(string $className, array $criteria = [], array $orderBy = ['createdAt' => Criteria::DESC]): mixed
     {
-        return $this->getRepository($className)->findOneBy($criteria);
+        return $this->getRepository($className)->findOneBy($criteria, $orderBy);
     }
 
-    private function getRepository(string $className, string $persistentManagerName = 'mock'): ObjectRepository
+    private function getRepository(string $className, string $persistentManagerName = 'mock'): ActionLogEntryRepository
     {
-        return $this->registry->getRepository($className, $persistentManagerName);
+        $repository = $this->registry->getRepository($className, $persistentManagerName);
+        if ($repository instanceof ActionLogEntryRepository) {
+            return $repository;
+        }
+
+        throw new \RuntimeException(sprintf('Invalid repository class name: %s', $className));
     }
 }

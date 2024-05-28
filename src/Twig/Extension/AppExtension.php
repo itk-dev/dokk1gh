@@ -13,6 +13,7 @@ namespace App\Twig\Extension;
 use App\Service\AeosHelper;
 use App\Service\Configuration;
 use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 class AppExtension extends AbstractExtension
@@ -21,6 +22,13 @@ class AppExtension extends AbstractExtension
         private readonly AeosHelper $aeosHelper,
         private readonly Configuration $configuration
     ) {
+    }
+
+    public function getFilters(): array
+    {
+        return [
+            new TwigFilter('url_to_link', $this->urlToLink(...)),
+        ];
     }
 
     public function getFunctions(): array
@@ -35,5 +43,19 @@ class AppExtension extends AbstractExtension
     public function getAppIcon(int $size): string
     {
         return (string) $this->configuration->get('app_icons.'.$size.'x'.$size);
+    }
+
+    public function urlToLink(?string $text): ?string
+    {
+        if (null === $text) {
+            return null;
+        }
+
+        // @see https://stackoverflow.com/a/47268360
+        return preg_replace(
+            '/(?<!href="|">)(?<!src=\")((http|ftp)+(s)?:\/\/[^<>\s]+)/is',
+            '<a href="\\1" target="_blank">\\1</a>',
+            $text
+        );
     }
 }
