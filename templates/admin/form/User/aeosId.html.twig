@@ -1,4 +1,4 @@
-{% include 'admin/form/_includes/aeosId.html.twig' with {
+{{ include('admin/form/_includes/aeosId.html.twig', {
   markup: markup,
   value: value,
   id: id,
@@ -9,4 +9,4 @@
     invalid_id: 'Invalid AEOS person id: %id%',
   },
   search_path: 'api_admin_get_people_search'
-} only %}
+}, false) }}

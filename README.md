@@ -292,21 +292,16 @@ Run API tests:
 
 ### PHP
 
-Check code:
-
-```shell
-docker compose exec phpfpm composer coding-standards-check
-```
-
-Apply coding standards:
-
 ```shell
 docker compose exec phpfpm composer coding-standards-apply
+docker compose exec phpfpm composer coding-standards-check
 ```
 
 ### Markdown
 
 ```shell
+docker compose run --rm node yarn install
+docker compose run --rm node yarn coding-standards-apply
 docker compose run --rm node yarn coding-standards-check
 ```
 

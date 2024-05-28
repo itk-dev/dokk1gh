@@ -20,7 +20,7 @@
 
                     var value = render({{ item_template|json_encode|raw }}, result);
                     if (result._usedBy) {
-                        value += ' ' + render('(' + {{ 'AEOS id used by {name}'|trans({'name': '%_usedBy%'})|json_encode|raw }} +')', result);
+                        value += ' ' + render('(' + {{ 'AEOS id used by {name}'|trans({name: '%_usedBy%'})|json_encode|raw }} +')', result);
                     }
 
                     return value;
@@ -28,7 +28,7 @@
 
             {# @see https://tom-select.js.org/ #}
             const tom = new TomSelect({{ ('#' ~ element_id)|json_encode|raw }}, {
-                placeholder: renderResult({{ (data ?: {'id': 0, 'text': (messages.invalid_id|trans({'%id%': value}))})|json_encode|raw }}),
+                placeholder: renderResult({{ (data ?: {id: 0, text: (messages.invalid_id|trans({'%id%': value}))})|json_encode|raw }}),
                 // @see https://tom-select.js.org/examples/remote/
                 valueField: 'Id',
                 labelField: 'PersonnelNo',
