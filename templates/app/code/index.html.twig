@@ -10,7 +10,7 @@
     <div class="header">
         {% if guest.templates|length == 1 %}
             <h1>{{ 'Get new code'|trans }}</h1>
-            <p class="lead">{{ 'Press {request_access} to get access'|trans({'request_access': 'Request access'|trans}) }}</p>
+            <p class="lead">{{ 'Press {request_access} to get access'|trans({request_access: 'Request access'|trans}) }}</p>
         {% else %}
             <h1>{{ 'Select area'|trans }}</h1>
             <p class="lead">{{ 'Press the area in Dokk1 you wish to access'|trans }}</p>
@@ -67,7 +67,7 @@
                         <div class="bounce2"></div>
                         <div class="bounce3"></div>
                     </div>
-                    <p>{{ "Please wait while the system generates the key - it can take up to a minute"|trans }}</p>
+                    <p>{{ 'Please wait while the system generates the key - it can take up to a minute'|trans }}</p>
                 </div>
             </div>
         </div>
