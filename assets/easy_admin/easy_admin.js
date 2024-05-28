@@ -52,6 +52,7 @@ window.addEventListener('load', () => {
     })
 
     const updateTimerange = () => {
+      // See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date for details on <input type="date" />
       const startTime = document.getElementById('Code_startTime-picker').valueAsDate
       const endTime = new Date(startTime.getTime())
       const timeStart = document.getElementById('Code_endTime-time-start').value
@@ -63,8 +64,9 @@ window.addEventListener('load', () => {
       numbers = timeEnd.split(':').map(s => parseInt(s))
       endTime.setHours(numbers[0], numbers[1], 0)
 
-      document.getElementById('Code_startTime').valueAsDate = startTime
-      document.getElementById('Code_endTime').valueAsDate = endTime
+      // See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/datetime-local for details on <input type="datetime-local" />
+      document.getElementById('Code_startTime').valueAsNumber = startTime.getTime()
+      document.getElementById('Code_endTime').valueAsNumber = endTime.getTime()
     }
 
     [
