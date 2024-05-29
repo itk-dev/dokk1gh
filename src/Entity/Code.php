@@ -22,10 +22,8 @@ use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
-/**
- * @Gedmo\SoftDeleteable()
- */
 #[ORM\Entity(repositoryClass: CodeRepository::class)]
+#[Gedmo\SoftDeleteable]
 class Code implements Blameable, \Stringable
 {
     use BlameableEntity;

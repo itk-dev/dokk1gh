@@ -16,6 +16,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Bridge\Doctrine\Types\UuidType;
@@ -27,6 +28,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 #[ORM\Entity(repositoryClass: GuestRepository::class)]
 #[UniqueEntity(fields: ['phone'], message: 'This phone number is already in use.')]
 #[UniqueEntity(fields: ['email'], message: 'This email is already in use.')]
+#[Gedmo\SoftDeleteable]
 class Guest
 {
     use BlameableEntity;
