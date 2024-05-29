@@ -14,6 +14,7 @@ use App\Entity\Guest;
 use App\Entity\Role;
 use App\Form\TimeRangesType;
 use App\Service\GuestService;
+use App\Service\TemplateManager;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
@@ -39,7 +40,8 @@ use Symfony\Component\Translation\TranslatableMessage;
 class GuestCrudController extends AbstractCrudController
 {
     public function __construct(
-        private readonly GuestService $guestService
+        private readonly GuestService $guestService,
+        private readonly TemplateManager $templateManager
     ) {
     }
 
@@ -159,6 +161,7 @@ class GuestCrudController extends AbstractCrudController
             ->setFormTypeOptions([
                 'expanded' => true,
                 'required' => true,
+                'choices' => $this->templateManager->getUserTemplates(),
             ]);
         yield DateField::new('startTime', new TranslatableMessage('Start date'));
         yield DateField::new('endTime', new TranslatableMessage('End date'));
