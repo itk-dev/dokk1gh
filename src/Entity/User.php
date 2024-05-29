@@ -18,7 +18,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation\SoftDeleteable;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Timestampable;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -30,7 +30,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
-#[SoftDeleteable]
+#[Gedmo\SoftDeleteable]
 #[UniqueEntity(fields: 'email', message: 'This email is already in use.')]
 #[UniqueEntity(fields: 'aeosId', message: 'This aeosId is already in use.')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface, AeosEntityInterface, \Stringable, Timestampable
