@@ -64,9 +64,11 @@ class CodeCrudController extends AbstractCrudController
         yield TextField::new('identifier', new TranslatableMessage('Code'))
             ->onlyOnIndex()
             ->setTemplatePath('admin/Code/code.html.twig');
+
         yield TextField::new('status', new TranslatableMessage('Status'))
             ->onlyOnIndex()
             ->setTemplatePath('admin/Code/status.html.twig');
+
         if (Crud::PAGE_INDEX === $pageName) {
             yield DateTimeField::new('startTime', new TranslatableMessage('Time range'))
                 ->setTemplatePath('admin/Code/date_time_range.html.twig');
@@ -80,10 +82,14 @@ class CodeCrudController extends AbstractCrudController
                 'placeholder' => new TranslatableMessage('Select template'),
                 'choices' => $this->templateManager->getUserTemplates(),
             ]);
-        yield TextareaField::new('note', new TranslatableMessage('Note'));
+
+        yield TextareaField::new('note', new TranslatableMessage('Note'))
+            ->setTemplatePath('admin/Code/note.html.twig');
+
         yield DateTimeField::new('createdAt', new TranslatableMessage('Created at'))
             ->setTimezone($this->getParameter('view_timezone'))
             ->onlyOnIndex();
+
         yield AssociationField::new('createdBy', new TranslatableMessage('Created by'))
             ->onlyOnIndex()
             ->setPermission(Role::ADMIN->value);
