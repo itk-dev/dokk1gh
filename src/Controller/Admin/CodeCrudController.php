@@ -14,9 +14,15 @@ use App\Entity\Code;
 use App\Entity\Role;
 use App\Service\AeosHelper;
 use App\Service\TemplateManager;
+use Doctrine\ORM\QueryBuilder;
+use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
+use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Option\SortOrder;
+use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
+use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
@@ -43,6 +49,9 @@ class CodeCrudController extends AbstractCrudController
             ->overrideTemplates([
                 'crud/index' => 'admin/Code/list.html.twig',
                 'crud/new' => 'admin/Code/new.html.twig',
+            ])
+            ->setDefaultSort([
+                'status' => SortOrder::DESC,
             ]);
     }
 
@@ -67,7 +76,8 @@ class CodeCrudController extends AbstractCrudController
 
         yield TextField::new('status', new TranslatableMessage('Status'))
             ->onlyOnIndex()
-            ->setTemplatePath('admin/Code/status.html.twig');
+            ->setTemplatePath('admin/Code/status.html.twig')
+            ->setSortable(true);
 
         if (Crud::PAGE_INDEX === $pageName) {
             yield DateTimeField::new('startTime', new TranslatableMessage('Time range'))
@@ -93,5 +103,67 @@ class CodeCrudController extends AbstractCrudController
         yield AssociationField::new('createdBy', new TranslatableMessage('Created by'))
             ->onlyOnIndex()
             ->setPermission(Role::ADMIN->value);
+    }
+
+    /**
+     * Override index query builder to handle custom sorting on the virtual "status" field.
+     */
+    public function createIndexQueryBuilder(
+        SearchDto $searchDto,
+        EntityDto $entityDto,
+        FieldCollection $fields,
+        FilterCollection $filters
+    ): QueryBuilder {
+        $sort = $searchDto->getSort();
+        if (!\array_key_exists('status', $sort)) {
+            return parent::createIndexQueryBuilder($searchDto, $entityDto, $fields, $filters);
+        }
+
+        $order = $sort['status'];
+        unset($sort['status']);
+
+        // Create a new search DTO without the "status" sort.
+        $searchDto = new SearchDto(
+            $searchDto->getRequest(),
+            $searchDto->getSearchableProperties(),
+            $searchDto->getQuery(),
+            [],
+            $sort,
+            $searchDto->getAppliedFilters(),
+        );
+
+        $queryBuilder = parent::createIndexQueryBuilder(
+            $searchDto,
+            $entityDto,
+            $fields,
+            $filters
+        );
+
+        // Add our custom sorting.
+        $alias = $queryBuilder->getRootAliases()[0];
+        // Sort by code "status"
+        //   1. active: startTime <= now <= endTime
+        //   2. future: startTime > now
+        //   3. expired: otherwise
+        //
+        // @see https://stackoverflow.com/a/15269307
+        // @see http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/dql-doctrine-query-language.html
+        $queryBuilder
+            ->addSelect(
+                sprintf(
+                    <<<'SQL'
+CASE
+    WHEN :gh_now BETWEEN %1$s.startTime AND %1$s.endTime THEN 0
+    WHEN %1$s.startTime > :gh_now THEN -1
+    ELSE -2
+END HIDDEN gh_statusSortValue
+SQL,
+                    $alias
+                )
+            )
+            ->addOrderBy('gh_statusSortValue', $order)
+            ->setParameter('gh_now', new \DateTimeImmutable());
+
+        return $queryBuilder;
     }
 }
