@@ -44,9 +44,9 @@ class EasyAdminSubscriber implements EventSubscriberInterface
         $entity = $event->getAdminContext()->getEntity()->getInstance();
         if ($entity instanceof AeosEntityInterface) {
             $id = $entity->getAeosId();
-            $data = match ($entity::class) {
-                Template::class => $this->aeosService->getTemplate($id),
-                User::class => $this->aeosService->getPerson($id),
+            $data = match (true) {
+                $entity instanceof Template => $this->aeosService->getTemplate($id),
+                $entity instanceof User => $this->aeosService->getPerson($id),
                 default => throw new \RuntimeException(sprintf('Invalid class %s', $entity::class))
             };
             $entity->setAeosData((array) $data);

@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- [#14](https://github.com/itk-dev/dokk1gh/pull/14)
+  Miscellaneous fixes
 - [#13](https://github.com/itk-dev/dokk1gh/pull/13)
   Code list fixes
 - [#12](https://github.com/itk-dev/dokk1gh/pull/12)

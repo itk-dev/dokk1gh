@@ -14,7 +14,7 @@ security:
             - !php/enum App\Entity\Role::USER_ADMIN->value
             - !php/enum App\Entity\Role::GUEST_ADMIN->value
             - !php/enum App\Entity\Role::TEMPLATE_ADMIN->value
-        # Roles used solely for access checks, but are not assignable to a user.
+        # Roles used solely for access checks, but not assignable to a user.
         ROLE_ADMIN_API:
         ROLE_SUPER_ADMIN:
             - !php/enum App\Entity\Role::ADMIN->value
