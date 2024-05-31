@@ -15,8 +15,6 @@ use App\Entity\Role;
 use App\Service\AeosHelper;
 use App\Service\TemplateManager;
 use Doctrine\ORM\EntityManagerInterface;
-use FOS\RestBundle\Controller\Annotations as Rest;
-use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -56,28 +54,6 @@ class CodeController extends AbstractApiController
         );
     }
 
-    /**
-     * @Rest\Post("", name="post")
-     *
-     * @SWG\Tag(name="Code")
-     *
-     * @ SWG\Parameter(name="template", type="integer", description="Template id", in="body")
-     *
-     * @ SWG\Parameter(name="startTime", type="datetime", description="The start time", in="body")
-     *
-     * @ SWG\Parameter(name="endTime", type="datetime", description="The end time", in="body")
-     *
-     * @SWG\Response(
-     *  response=201,
-     *  description="Code created",
-     *
-     *  @SWG\Schema(
-     *    type="array",
-     *
-     *    @SWG\Items(type="object")
-     *  )
-     * )
-     */
     #[Route('', name: 'create', methods: [Request::METHOD_POST])]
     public function create(Request $request): Response
     {
