@@ -1,4 +1,4 @@
-{% extends '@EasyAdmin/layout.html.twig' %}
+{% extends 'admin/layout.html.twig' %}
 
 {% block page %}
   {{ parent() }}
@@ -64,27 +64,16 @@
   </div>
 {% endblock %}
 
-{% block hest_body_javascript %}
-  <script src="{{ asset('javascripts/clipboard.min.js') }}"></script>
-  <script>(function($) {
-      var selector = '[data-clipboard-text]',
-          clipboard = new Clipboard(selector);
+{% block body_javascript %}
+  {{ encore_entry_script_tags('easy_admin') }}
 
-      $(selector).popover({
-        trigger: 'manual',
-        container: 'body',
-        placement: 'left'
-      });
-
-      clipboard.on('success', function(e) {
-        $(e.trigger).popover('show');
-        setTimeout(function () {
-          $(e.trigger).popover('hide');
-        }, 1000);
-      });
-
-      $('.form-control').on('focus', function () {
-        $(this).select();
-      });
-    }(jQuery))</script>
+  <script>
+    window.addEventListener('load', () => {
+      document.querySelectorAll('.form-control').forEach((el) => {
+        el.addEventListener('focus', () => {
+          el.select();
+        })
+      })
+    })
+  </script>
 {% endblock %}
