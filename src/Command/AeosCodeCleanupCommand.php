@@ -20,7 +20,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(
     name: 'app:aeos:code-cleanup',
-    description: 'Create user'
+    description: 'Clean up expired codes'
 )]
 class AeosCodeCleanupCommand extends Command
 {
