@@ -7,23 +7,23 @@
     <body>
       <trans-unit id="4J45.H4" resname="login_page.username">
         <source>login_page.username</source>
-        <target state="needs-l10n">__login_page.username</target>
+        <target state="translated">Brugernavn</target>
       </trans-unit>
       <trans-unit id="V56_FDR" resname="login_page.password">
         <source>login_page.password</source>
-        <target state="needs-l10n">__login_page.password</target>
+        <target state="translated">Adgangskode</target>
       </trans-unit>
       <trans-unit id="iWZtM1U" resname="login_page.forgot_password">
         <source>login_page.forgot_password</source>
-        <target state="needs-l10n">__login_page.forgot_password</target>
+        <target state="translated">Glemt adgangskode</target>
       </trans-unit>
       <trans-unit id="eHA8HYd" resname="login_page.remember_me">
         <source>login_page.remember_me</source>
-        <target state="needs-l10n">__login_page.remember_me</target>
+        <target state="translated">Husk mig</target>
       </trans-unit>
       <trans-unit id="W0jkiQG" resname="login_page.sign_in">
         <source>login_page.sign_in</source>
-        <target state="needs-l10n">__login_page.sign_in</target>
+        <target state="translated">Log ind</target>
       </trans-unit>
     </body>
   </file>

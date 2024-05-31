@@ -431,7 +431,7 @@
       </trans-unit>
       <trans-unit id="ATJ8qA9" resname="Your password reset request">
         <source>Your password reset request</source>
-        <target state="needs-l10n">__Your password reset request</target>
+        <target state="translated">Nulstilling af adgangskode</target>
       </trans-unit>
       <trans-unit id="WfpDeb4" resname="Reset your password">
         <source>Reset your password</source>
@@ -447,11 +447,11 @@
       </trans-unit>
       <trans-unit id="U843nOG" resname="If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password. This link will expire in {expirationMessage}.">
         <source>If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password. This link will expire in {expirationMessage}.</source>
-        <target state="needs-l10n">__If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password. This link will expire in {expirationMessage}.</target>
+        <target state="translated">Hvis der findes en koste for denne e-mailadresse, så bliver der sendt en e-mail med et link du kan bruge til at nulstille din adgangskode. Linket udløber om {expirationMessage}.</target>
       </trans-unit>
-      <trans-unit id="7LnnofM" resname="If you don't receive an email please check your spam folder or &lt;a href=&quot;{password_request_url}&quot;&gt;try again&lt;/a&gt;.">
+      <trans-unit id="7LnnofM" resname="If you don't receive an email please check your spam folder or &lt;a href=&quot;{password_request_url}&quot;>try again&lt;/a>.">
         <source>If you don't receive an email please check your spam folder or &lt;a href="{password_request_url}"&gt;try again&lt;/a&gt;.</source>
-        <target state="needs-l10n"><![CDATA[__If you don't receive an email please check your spam folder or <a href="{password_request_url}">try again</a>.]]></target>
+        <target state="translated"><![CDATA[Tjek din “Uønsket mail”-mappe hvis du ikke modtager en e-mail eller <a href="{password_request_url}">prøv igen</a>.]]></target>
       </trans-unit>
       <trans-unit id="_hrBFRr" resname="Create password">
         <source>Create password</source>

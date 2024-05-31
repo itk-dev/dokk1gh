@@ -11,27 +11,27 @@
       </trans-unit>
       <trans-unit id="kDjokpF" resname="This email is already in use.">
         <source>This email is already in use.</source>
-        <target state="needs-l10n">__This email is already in use.</target>
+        <target state="translated">Denne e-mailadresse er allerede i brug.</target>
       </trans-unit>
       <trans-unit id="df8VHej" resname="This aeosId is already in use.">
         <source>This aeosId is already in use.</source>
-        <target state="needs-l10n">__This aeosId is already in use.</target>
+        <target state="translated">Dette AEOS-id er allerede i brug.</target>
       </trans-unit>
       <trans-unit id="cjNO.TU" resname="This phone number is already in use.">
         <source>This phone number is already in use.</source>
-        <target state="needs-l10n">__This phone number is already in use.</target>
+        <target state="translated">Dette telefonnummer er allerede i brug.</target>
       </trans-unit>
       <trans-unit id="Fe2zEyl" resname="Please enter your email">
         <source>Please enter your email</source>
-        <target state="needs-l10n">__Please enter your email</target>
+        <target state="translated">Indtast venligst din e-mailadresse</target>
       </trans-unit>
       <trans-unit id="YXZ26gK" resname="Please enter a password">
         <source>Please enter a password</source>
-        <target state="needs-l10n">__Please enter a password</target>
+        <target state="translated">Indtast venligst en adgangskode</target>
       </trans-unit>
       <trans-unit id=".esazsm" resname="Your password should be at least {{ limit }} characters">
         <source>Your password should be at least {{ limit }} characters</source>
-        <target state="needs-l10n">__Your password should be at least {{ limit }} characters</target>
+        <target state="translated">Din adgangskode skal indeholde mindst {{ limit }} tegn.</target>
       </trans-unit>
     </body>
   </file>
