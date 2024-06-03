@@ -1,2 +1,5 @@
+{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+{# @var field \EasyCorp\Bundle\EasyAdminBundle\Dto\FieldDto #}
+{# @var entity \EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto #}
 {# @FIXME: Make Easy Admin render dates in a specific timezone #}
-{{ value is null ? '–' : value|date(format_datetime, view_timezone) }}
+{{ field.value is null ? '–' : field.value|date(format_datetime, view_timezone) }}

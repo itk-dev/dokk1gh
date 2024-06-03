@@ -1,5 +1,8 @@
-{% set start_time = item.startTime %}
-{% set end_time = item.endTime %}
+{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+{# @var field \EasyCorp\Bundle\EasyAdminBundle\Dto\FieldDto #}
+{# @var entity \EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto #}
+{% set start_time = entity.instance.startTime %}
+{% set end_time = entity.instance.endTime %}
 
 {% if (start_time|date('Y-m-d')) == (end_time|date('Y-m-d')) %}
   {{ start_time|date(format_date, view_timezone) }} {{ start_time|date(format_time, view_timezone) }}–{{ end_time|date(format_time, view_timezone) }}

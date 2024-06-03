@@ -5950,7 +5950,7 @@
     </wsdl:binding>
     <wsdl:service name="aeosws">
         <wsdl:port binding="tns:aeoswsSoapBinding" name="aeoswsTypePort">
-            <soap:address location="http://dokk1gh.vm/mock/aeosws"></soap:address>
+            <soap:address location="http://nginx:8080/mock/aeosws"></soap:address>
         </wsdl:port>
     </wsdl:service>
 </wsdl:definitions>

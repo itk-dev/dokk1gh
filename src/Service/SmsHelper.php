@@ -3,7 +3,7 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2020 ITK Development
+ * (c) 2017–2024 ITK Development
  *
  * This source file is subject to the MIT license.
  */
@@ -15,33 +15,17 @@ use App\Entity\Guest;
 
 class SmsHelper
 {
-    const SMS_SENT = 'SMS_SENT';
-
-    /** @var \App\Service\SmsServiceInterface */
-    protected $smsService;
-
-    /** @var EntityActionLogger */
-    private $actionLogger;
-
-    /** @var Configuration */
-    private $configuration;
-
-    /** @var \Twig_Environment */
-    private $twigHelper;
+    final public const SMS_SENT = 'SMS_SENT';
 
     public function __construct(
-        SmsServiceInterface $smsService,
-        EntityActionLogger $actionLogger,
-        Configuration $configuration,
-        TwigHelper $twigHelper
+        private readonly SmsServiceInterface $smsService,
+        private readonly EntityActionLogger $actionLogger,
+        private readonly Configuration $configuration,
+        private readonly TwigHelper $twigHelper
     ) {
-        $this->smsService = $smsService;
-        $this->actionLogger = $actionLogger;
-        $this->twigHelper = $twigHelper;
-        $this->configuration = $configuration;
     }
 
-    public function sendApp(Guest $guest, $appUrl)
+    public function sendApp(Guest $guest, string $appUrl): void
     {
         $number = $guest->getPhone();
         $countryCode = $guest->getPhoneCountryCode();
@@ -50,7 +34,6 @@ class SmsHelper
             [
                 'guest' => $guest,
                 'app_url' => $appUrl,
-                'guest_name' => $guest->getName(),
             ]
         );
         $this->smsService->send($number, $message, $countryCode);
@@ -61,7 +44,7 @@ class SmsHelper
         ]);
     }
 
-    public function sendCode(Guest $guest, Code $code)
+    public function sendCode(Guest $guest, Code $code): void
     {
         $number = $guest->getPhone();
         $countryCode = $guest->getPhoneCountryCode();

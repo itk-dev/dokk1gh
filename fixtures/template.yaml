@@ -1,0 +1,15 @@
+App\Entity\Template:
+  'template-1':
+    name: 'Template 1'
+    enabled: true
+    aeosId: 1
+
+  'template-2':
+    name: 'Template 2'
+    enabled: true
+    aeosId: 2
+
+  'template-3':
+    name: 'Template 3'
+    enabled: true
+    aeosId: 3

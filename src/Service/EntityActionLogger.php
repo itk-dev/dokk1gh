@@ -3,7 +3,7 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2020 ITK Development
+ * (c) 2017–2024 ITK Development
  *
  * This source file is subject to the MIT license.
  */
@@ -16,25 +16,22 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class EntityActionLogger
 {
-    /** @var EntityManagerInterface */
-    protected $manager;
-
-    public function __construct(EntityManagerInterface $manager)
-    {
-        $this->manager = $manager;
+    public function __construct(
+        private readonly EntityManagerInterface $manager
+    ) {
     }
 
-    public function log($entity, $message, array $context = null)
+    public function log(object $entity, string $message, ?array $context = null): void
     {
-        list($entityType, $entityId) = $this->getEntityTypeAndId($entity);
+        [$entityType, $entityId] = $this->getEntityTypeAndId($entity);
         $entry = new EntityActionLogEntry($entityType, $entityId, $message, $context);
         $this->manager->persist($entry);
         $this->manager->flush();
     }
 
-    public function getActionLogEntries($entity, array $criteria = [], array $orderBy = null)
+    public function getActionLogEntries(object $entity, array $criteria = [], ?array $orderBy = null): array
     {
-        list($entityType, $entityId) = $this->getEntityTypeAndId($entity);
+        [$entityType, $entityId] = $this->getEntityTypeAndId($entity);
         $criteria += [
             'entityType' => $entityType,
             'entityId' => $entityId,
@@ -46,12 +43,9 @@ class EntityActionLogger
         return $this->manager->getRepository(EntityActionLogEntry::class)->findBy($criteria, $orderBy);
     }
 
-    private function getEntityTypeAndId($entity)
+    private function getEntityTypeAndId(object $entity): array
     {
-        if (!\is_object($entity)) {
-            throw new \RuntimeException('Entity must be an object');
-        }
-        $entityType = \get_class($entity);
+        $entityType = $entity::class;
 
         if (method_exists($entity, 'getId')) {
             $entityId = $entity->getId();

@@ -3,7 +3,7 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2020 ITK Development
+ * (c) 2017–2024 ITK Development
  *
  * This source file is subject to the MIT license.
  */
@@ -13,6 +13,7 @@ namespace App\Command;
 use App\Entity\Guest;
 use App\Service\GuestService;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\RuntimeException;
 use Symfony\Component\Console\Input\InputArgument;
@@ -20,21 +21,14 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(
+    name: 'app:expire-inactive-apps',
+    description: 'Expire inactive apps'
+)]
 class ExpireInactiveAppsCommand extends Command
 {
-    protected static $defaultName = 'app:expire-inactive-apps';
-
-    /** @var EntityManagerInterface */
-    private $entityManager;
-
-    /** @var GuestService */
-    private $guestService;
-
-    public function __construct(EntityManagerInterface $entityManager, GuestService $guestService)
+    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly GuestService $guestService)
     {
-        $this->entityManager = $entityManager;
-        $this->guestService = $guestService;
-
         parent::__construct();
     }
 
@@ -58,7 +52,7 @@ EOF
             ->addArgument('ids', InputArgument::OPTIONAL | InputArgument::IS_ARRAY, 'Ids to process');
     }
 
-    public function execute(InputInterface $input, OutputInterface $output)
+    public function execute(InputInterface $input, OutputInterface $output): int
     {
         $appSentBeforeSpec = $input->getOption('app-sent-before');
         $appSentBefore = null;
@@ -66,7 +60,7 @@ EOF
 
         try {
             $appSentBefore = new \DateTime($appSentBeforeSpec);
-        } catch (\Exception $exception) {
+        } catch (\Exception) {
         }
         if (null === $appSentBefore) {
             throw new RuntimeException('Invalid end-time-before: '.$appSentBeforeSpec);
@@ -102,5 +96,7 @@ EOF
                 }
             }
         }
+
+        return static::SUCCESS;
     }
 }

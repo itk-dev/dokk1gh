@@ -1,8 +1,5 @@
 twig:
-    default_path: '%kernel.project_dir%/templates'
-    debug: '%kernel.debug%'
-    strict_variables: '%kernel.debug%'
-    exception_controller: null
+    file_name_pattern: '*.twig'
 
     globals:
         app_name: '%app_name%'
@@ -29,10 +26,13 @@ twig:
             name: '%mailer_name%'
         version: '%version%'
         configuration: '@App\Service\Configuration'
+        site_header_message: '%env(SITE_HEADER_MESSAGE)%'
 
-# @see https://stackoverflow.com/a/41465692
-services:
-    app.twig.extension.loader:
-        class: Twig\Extension\StringLoaderExtension
-        tags:
-            - { name: 'twig.extension' }
+when@dev:
+    twig:
+        paths:
+            'src/Mock/Resources/views': 'Mock'
+
+when@test:
+    twig:
+        strict_variables: true

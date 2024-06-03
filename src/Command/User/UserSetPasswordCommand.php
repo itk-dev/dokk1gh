@@ -3,37 +3,26 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2020 ITK Development
+ * (c) 2017–2024 ITK Development
  *
  * This source file is subject to the MIT license.
  */
 
 namespace App\Command\User;
 
-use App\Repository\UserRepository;
-use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Console\Attribute\AsCommand;
+use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+#[AsCommand(
+    name: 'user:set-password',
+    description: 'Set password on user'
+)]
 class UserSetPasswordCommand extends UserCommand
 {
-    protected static $defaultName = 'user:set-password';
-
-    /** @var UserPasswordEncoderInterface */
-    private $passwordEncoder;
-
-    public function __construct(
-        UserRepository $userRepository,
-        EntityManagerInterface $entityManager,
-        UserPasswordEncoderInterface $passwordEncoder
-    ) {
-        parent::__construct($userRepository, $entityManager);
-        $this->passwordEncoder = $passwordEncoder;
-    }
-
     protected function configure()
     {
         $this
@@ -41,26 +30,28 @@ class UserSetPasswordCommand extends UserCommand
             ->addArgument('password', InputArgument::OPTIONAL);
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         parent::execute($input, $output);
 
         $email = $input->getArgument('email');
-        $password = $input->getArgument('password');
+        $user = $this->getUser($email);
 
+        $password = $input->getArgument('password');
         while (null === $password) {
             $question = (new Question('Password: '))
                 ->setHidden(true);
-            $password = $this->getHelper('question')
-                ->ask($input, $output, $question);
+            $helper = $this->getHelper('question');
+            \assert($helper instanceof QuestionHelper);
+            $password = $helper->ask($input, $output, $question);
         }
 
-        $user = $this->getUser($email);
-        $user->setPassword($this->passwordEncoder->encodePassword($user, $password));
-        $this->entityManager->persist($user);
-        $this->entityManager->flush();
+        $this->userManager->setPassword($user, $password);
+        $this->userManager->updateUser($user, true);
 
         $output->writeln(sprintf('Password set for user %s', $user->getEmail()));
         $this->showUser($user);
+
+        return static::SUCCESS;
     }
 }

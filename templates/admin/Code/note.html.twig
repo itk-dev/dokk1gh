@@ -1,8 +1,13 @@
-{% if item.createdBy == app.user %}
-  {% if view == 'show' %}
-    {{ value|nl2br }}
+{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+{# @var field \EasyCorp\Bundle\EasyAdminBundle\Dto\FieldDto #}
+{# @var entity \EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto #}
+
+{# Show note only to creator #}
+{% if entity.instance.createdBy == app.user %}
+  {% if ea.crud.currentPage == constant('EasyCorp\\Bundle\\EasyAdminBundle\\Config\\Crud::PAGE_DETAIL') %}
+    {{ field.value|nl2br }}
   {% else %}
-    <span class="code-note" data-toggle="popover" data-placement="bottom" data-content="{{ value }}">{{ value|easyadmin_truncate }}</span>
+    <span class="code-note" data-toggle="popover" data-placement="bottom" data-content="{{ field.value }}">{{ field.value|u.truncate(32, '…', false) }}</span>
   {% endif %}
 {% else %}
   –

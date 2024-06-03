@@ -1,3 +1,6 @@
-<span class="code-status code-status-{{ value }}">
-  {{ ('Code.status.' ~ value)|trans }}
+{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+{# @var field \EasyCorp\Bundle\EasyAdminBundle\Dto\FieldDto #}
+{# @var entity \EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto #}
+<span class="code-status code-status-{{ field.value }}">
+  {{ ('Code.status.' ~ field.value)|trans }}
 </span>

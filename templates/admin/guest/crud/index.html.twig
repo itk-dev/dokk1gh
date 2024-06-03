@@ -1,0 +1,29 @@
+{% extends '@EasyAdmin/crud/index.html.twig' %}
+
+{% block main %}
+  {{ parent() }}
+
+  <form class="d-none" method="post" id="expire-app-form">
+    <input type="hidden" name="token" value="{{ ea_csrf_token('ea-delete') }}" />
+  </form>
+
+  <div id="modal-expire-app" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <h4>{{ 'Are you sure you want to expire this app?'|trans }}</h4>
+          <p>{{ 'The guest will no longer have access and all guest data will be anonymized.'|trans }}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" data-bs-dismiss="modal" class="btn btn-secondary">
+            <span class="btn-label">{{ 'Cancel'|trans }}</span>
+          </button>
+
+          <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="modal-expire-app-button" form="expire-app-form">
+            <span class="btn-label">{{ 'Expire app'|trans }}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

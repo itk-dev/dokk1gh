@@ -3,7 +3,7 @@
 /*
  * This file is part of Gæstehåndtering.
  *
- * (c) 2017–2020 ITK Development
+ * (c) 2017–2024 ITK Development
  *
  * This source file is subject to the MIT license.
  */
@@ -11,125 +11,105 @@
 namespace App\Service;
 
 use App\Entity\User;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\UserRepository;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
+use SymfonyCasts\Bundle\ResetPassword\Model\ResetPasswordToken;
+use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 use Twig\Environment;
 
 class UserManager
 {
     /**
-     * @var \FOS\UserBundle\Util\TokenGeneratorInterface
+     * @phpstan-param array<string, mixed> $options
      */
-    private $tokenGenerator;
-
-    /** @var EntityManagerInterface */
-    private $entityManager;
-
-    /** @var \Twig_Environment */
-    private $twig;
-
-    /** @var \Symfony\Component\Routing\RouterInterface */
-    private $router;
-
-    /** @var MailerInterface */
-    private $mailer;
-
-    /** @var array */
-    private $configuration;
-
     public function __construct(
-        EntityManagerInterface $entityManager,
-        Environment $twig,
-        RouterInterface $router,
-        MailerInterface $mailer,
-        array $userManagerConfiguration
+        private readonly UserRepository $userRepository,
+        private readonly UserPasswordHasherInterface $passwordHasher,
+        private readonly ResetPasswordHelperInterface $resetPasswordHelper,
+        private readonly Environment $twig,
+        private readonly RouterInterface $router,
+        private readonly MailerInterface $mailer,
+        private readonly array $options
     ) {
-        $this->entityManager = $entityManager;
-        $this->twig = $twig;
-        $this->router = $router;
-        $this->mailer = $mailer;
-        $this->configuration = $userManagerConfiguration;
     }
 
-    public function createUser()
+    public function createUser(): User
     {
-        $user = new User();
-        $user
+        return (new User())
             ->setPassword(sha1(uniqid('', true)))
             ->setEnabled(true);
-
-        return $user;
     }
 
-    public function updateUser(UserInterface $user, $andFlush = true)
+    public function findUser(string $email): ?User
     {
-        $this->entityManager->persist($user);
-        if ($andFlush) {
-            $this->entityManager->flush();
-        }
+        return $this->userRepository->findOneBy(['email' => $email]);
     }
 
-    public function notifyUserCreated(UserInterface $user, $andFlush = true)
+    /**
+     * @return array|User[]
+     */
+    public function findBy(array $criteria, ?array $orderBy = null, ?int $limit = null, ?int $offset = null): array
     {
-        if (null === $user->getConfirmationToken()) {
-            // @var $tokenGenerator TokenGeneratorInterface
-            $user->setConfirmationToken($this->tokenGenerator->generateToken());
-        }
-        $user->setPasswordRequestedAt(new \DateTime());
-        $this->updateUser($user, $andFlush);
+        return $this->userRepository->findBy($criteria, $orderBy, $limit, $offset);
+    }
 
-        $message = $this->createUserCreatedMessage($user);
+    public function updateUser(User $user, bool $flush = true): void
+    {
+        $this->userRepository->persist($user, $flush);
+    }
+
+    public function setPassword(User $user, string $password): User
+    {
+        return $user->setPassword($this->passwordHasher->hashPassword(
+            $user,
+            $password
+        ));
+    }
+
+    public function notifyUserCreated(User $user, bool $flush = true): void
+    {
+        $resetToken = $this->resetPasswordHelper->generateResetToken($user);
+        $message = $this->createUserCreatedMessage($user, $resetToken);
         $this->mailer->send($message);
     }
 
-    public function resetPassword(User $user, $andFlush = true)
+    private function createUserCreatedMessage(User $user, ResetPasswordToken $resetPasswordToken): Email
     {
-        if (null === $user->getConfirmationToken()) {
-            // @var $tokenGenerator TokenGeneratorInterface
-            $user->setConfirmationToken($this->tokenGenerator->generateToken());
-        }
-        $user->setPasswordRequestedAt(new \DateTime());
-        $this->updateUser($user, $andFlush);
-
-        $this->userMailer->sendResettingEmailMessage($user);
-    }
-
-    private function createUserCreatedMessage(UserInterface $user)
-    {
-        $url = $this->router->generate('fos_user_resetting_reset', [
-            'token' => $user->getConfirmationToken(),
+        $url = $this->router->generate('app_reset_password', [
+            'token' => $resetPasswordToken->getToken(),
             'create' => true,
         ], UrlGeneratorInterface::ABSOLUTE_URL);
 
-        $config = $this->configuration->user_created;
-        $sender = $config->sender;
-        $template = $config->user;
-
-        $subject = $this->twig->createTemplate($template->subject)->render([]);
         $parameters = [
             'reset_password_url' => $url,
             'user' => $user,
         ];
-        $template->header = $this->twig->createTemplate($template->header)->render($parameters);
-        $template->body = $this->twig->createTemplate($template->body)->render($parameters);
-        $template->button->text = $this->twig->createTemplate($template->button->text)->render($parameters);
-        $template->footer = $this->twig->createTemplate($template->footer)->render($parameters);
 
-        return (new \Swift_Message($subject))
-            ->setFrom($sender->email, $sender->name)
-            ->setTo($user->getEmail())
-            ->setBody($this->twig->render(':Emails:user_created_user.html.twig', [
+        $template = $this->options['user_created'];
+        $subject = $this->twig->createTemplate($template['subject'])->render($parameters);
+        $template['header'] = $this->twig->createTemplate($template['header'])->render($parameters);
+        $template['body'] = $this->twig->createTemplate($template['body'])->render($parameters);
+        $template['button']['text'] = $this->twig->createTemplate($template['button']['text'])->render($parameters);
+        $template['button']['url'] = $url;
+        $template['footer'] = $this->twig->createTemplate($template['footer'])->render($parameters);
+
+        return (new TemplatedEmail())
+            ->from(new Address(
+                $this->options['sender']['from_email'],
+                $this->options['sender']['from_name']
+            ))
+            ->to($user->getEmail())
+            ->subject($subject)
+            ->htmlTemplate('Emails/user_created_user.html.twig')
+            ->context($template + [
                 'reset_password_url' => $url,
-                'header' => $template->header,
-                'body' => $template->body,
-                'button' => [
-                    'url' => $url,
-                    'text' => $template->button->text,
-                ],
-                'footer' => $template->footer,
-            ]), 'text/html');
+                'user' => $user,
+            ]);
     }
 }

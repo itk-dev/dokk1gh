@@ -1,0 +1,14 @@
+App\Entity\Code:
+  code-00000000:
+    identifier: '00000000'
+    aeosId: 1
+    startTime: <(new \DateTimeImmutable('-1 hour'))>
+    endTime: <(new \DateTimeImmutable('+23 hours'))>
+    template: '@template-1'
+
+  code-00000001:
+    identifier: '00000001'
+    aeosId: 2
+    startTime: <(new \DateTimeImmutable('-1 hour'))>
+    endTime: <(new \DateTimeImmutable('+23 hours'))>
+    template: '@template-2'

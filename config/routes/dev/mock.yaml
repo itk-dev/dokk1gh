@@ -1,3 +1,5 @@
 controllers:
-    resource: ../../../src/Mock/Controller/
-    type: annotation
+    resource:
+        path: ../../../src/Mock/Controller/
+        namespace: App\Mock\Controller
+    type: attribute

@@ -1,49 +1,18 @@
-{% extends '@EasyAdmin/default/list.html.twig' %}
+{% extends '@EasyAdmin/crud/index.html.twig' %}
 
 {% set user_has_aeos_id = user_has_aeos_id() %}
 
-{% block content_header %}
+{% block flash_messages %}
   {% if not user_has_aeos_id %}
-    <div class="alert alert-danger">
+    <div class="alert alert-danger" role="alert">
       {{ 'You cannot create codes.'|trans }}
       {% if administrator_email|default(false) %}
         {% set subject = include(template_from_string(get_configuration('user.cannot_create_codes.subject'))) %}
         {% set body = include(template_from_string(get_configuration('user.cannot_create_codes.body'))) %}
         {% set url = 'mailto:' ~ administrator_email ~ '?' ~ ({subject: subject, body: body}|url_encode) %}
-        <a href="{{ url }}">{{ 'Please contact an administrator (%administrator_email%) for help.'|trans({'%administrator_email%': administrator_email}) }}</a>
-
-        <a class="btn btn-link btn-xs" href="{{ url }}"><span class="fa fa-envelope"></span></a>
+        <a href="{{ url }}">{{ 'Please contact an administrator ({administrator_email}) for help.'|trans({administrator_email: administrator_email}) }} <span class="fa fa-envelope"></span></a>
       {% endif %}
     </div>
   {% endif %}
   {{ parent() }}
-{% endblock %}
-
-{% block new_action %}
-  {% if user_has_aeos_id %}
-    {{ parent() }}
-  {% endif %}
-{% endblock %}
-
-{% block body_javascript %}
-  {{ parent() }}
-  <script src="{{ asset('javascripts/clipboard.min.js') }}"></script>
-  <script>(function($) {
-     $('.code-note').popover();
-
-     $('.clipboard-copy a').popover({
-       trigger: 'manual'
-     });
-
-     var clipboard = new Clipboard('.clipboard-copy');
-     clipboard.on('success', function(e) {
-       $(e.trigger).find('[data-toggle="popover"]').popover('show');
-       setTimeout(function () {
-         $(e.trigger).find('[data-toggle="popover"]').popover('hide');
-       }, 1000);
-     });
-     clipboard.on('error', function(e) {
-       console.debug(e);
-     });
-   }(jQuery))</script>
 {% endblock %}

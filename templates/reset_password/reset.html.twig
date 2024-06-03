@@ -1,36 +1,25 @@
-{% extends 'admin/layout.html.twig' %}
+{% extends 'admin/page/login.html.twig' %}
 
 {% block title %}{{ 'Reset your password'|trans }}{% endblock %}
 
 {% block body_class 'page-login reset-password' %}
 
-{% set is_create = app.request.get('create')|default(false) %}
+{% block content %}
+  {% if error|default(false) %}
+    <div class="w-100 alert alert-danger">
+      {{ error.messageKey|trans(error.messageData, 'security') }}
+    </div>
+  {% endif %}
 
-{% block wrapper_wrapper %}
-  <div class="login-wrapper">
-    <header class="main-header mb-4">
-      <div id="header-logo">
-        {% block header_logo %}
-          <a class="logo {{ easyadmin_config('site_name')|length > 14 ? 'logo-long' }}" title="{{ easyadmin_config('site_name')|striptags }}" href="{{ path('easyadmin') }}">
-            {{ easyadmin_config('site_name')|raw }}
-          </a>
-        {% endblock header_logo %}
-      </div>
-    </header>
-    {% if error|default(false) %}
-      <div class="w-100 alert alert-danger">
-        {{ error.messageKey|trans(error.messageData, 'security') }}
-      </div>
-    {% endif %}
-    <section class="content">
-      {% form_theme resetForm '@EasyAdmin/form/bootstrap_4.html.twig' %}
-      {{ form_start(resetForm) }}
-        {{ form_row(resetForm.plainPassword) }}
-        <button type="submit" class="btn btn-primary btn-lg btn-block">
-          {{ (is_create ? 'resetting.create.submit' : 'resetting.reset.submit')|trans }}
-        </button>
-
-      {{ form_end(resetForm) }}
-    </section>
+  {% form_theme resetForm '@EasyAdmin/symfony-form-themes/bootstrap_5_layout.html.twig' %}
+  {{ form_start(resetForm) }}
+  {{ form_row(resetForm.plainPassword) }}
+  <div class="d-grid">
+    <button type="submit" class="btn btn-primary btn-lg">
+      {% set is_create = app.request.get('create')|default(false) %}
+      {{ is_create ? 'Create password'|trans : 'Reset password'|trans }}
+    </button>
   </div>
+
+  {{ form_end(resetForm) }}
 {% endblock %}
