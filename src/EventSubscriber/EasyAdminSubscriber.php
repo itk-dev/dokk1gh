@@ -35,7 +35,7 @@ class EasyAdminSubscriber implements EventSubscriberInterface
         private readonly AeosService $aeosService,
         private readonly AeosHelper $aeosHelper,
         private readonly Environment $twig,
-        private readonly RequestStack $requestStack
+        private readonly RequestStack $requestStack,
     ) {
     }
 
@@ -47,7 +47,7 @@ class EasyAdminSubscriber implements EventSubscriberInterface
             $data = match (true) {
                 $entity instanceof Template => $this->aeosService->getTemplate($id),
                 $entity instanceof User => $this->aeosService->getPerson($id),
-                default => throw new \RuntimeException(sprintf('Invalid class %s', $entity::class))
+                default => throw new \RuntimeException(\sprintf('Invalid class %s', $entity::class)),
             };
             $entity->setAeosData((array) $data);
         }

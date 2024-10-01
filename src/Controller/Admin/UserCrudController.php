@@ -29,7 +29,7 @@ use Symfony\Component\Translation\TranslatableMessage;
 class UserCrudController extends AbstractCrudController
 {
     public function __construct(
-        private readonly UserManager $userManager
+        private readonly UserManager $userManager,
     ) {
     }
 

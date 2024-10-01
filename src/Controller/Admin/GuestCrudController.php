@@ -41,7 +41,7 @@ class GuestCrudController extends AbstractCrudController
 {
     public function __construct(
         private readonly GuestService $guestService,
-        private readonly TemplateManager $templateManager
+        private readonly TemplateManager $templateManager,
     ) {
     }
 
@@ -139,10 +139,10 @@ class GuestCrudController extends AbstractCrudController
         SearchDto $searchDto,
         EntityDto $entityDto,
         FieldCollection $fields,
-        FilterCollection $filters
+        FilterCollection $filters,
     ): QueryBuilder {
         $queryBuilder = parent::createIndexQueryBuilder($searchDto, $entityDto, $fields, $filters);
-        $queryBuilder->andWhere(sprintf('%s.expiredAt is null', $queryBuilder->getRootAliases()[0]));
+        $queryBuilder->andWhere(\sprintf('%s.expiredAt is null', $queryBuilder->getRootAliases()[0]));
 
         return $queryBuilder;
     }

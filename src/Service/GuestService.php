@@ -27,7 +27,7 @@ class GuestService
         private readonly Configuration $configuration,
         private readonly SmsHelper $smsHelper,
         private readonly MailHelper $mailHelper,
-        private readonly UrlGeneratorInterface $urlGenerator
+        private readonly UrlGeneratorInterface $urlGenerator,
     ) {
     }
 

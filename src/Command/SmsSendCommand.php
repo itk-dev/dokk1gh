@@ -26,7 +26,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class SmsSendCommand extends Command
 {
     public function __construct(
-        private readonly SmsServiceInterface $smsService
+        private readonly SmsServiceInterface $smsService,
     ) {
         parent::__construct();
     }
@@ -47,7 +47,7 @@ class SmsSendCommand extends Command
         $message = $input->getOption('message');
 
         if (!preg_match('/^(?<countryCode>45)?(?P<number>[0-9]{8})$/', $recipient, $matches)) {
-            $io->error(sprintf('Invalid recipient: %s', $recipient));
+            $io->error(\sprintf('Invalid recipient: %s', $recipient));
 
             return Command::INVALID;
         }
@@ -57,17 +57,17 @@ class SmsSendCommand extends Command
         }
 
         $number = $matches['number'];
-        $countryCode = $matches['countryCode'] ?? '';
+        $countryCode = $matches['countryCode'] ?: '';
 
         $options = [
             'flash' => (bool) $input->getOption('flash'),
         ];
         if ($this->smsService->send($number, $message, $countryCode, $options)) {
-            $io->success(sprintf('SMS sent to %s%s', $countryCode, $number));
+            $io->success(\sprintf('SMS sent to %s%s', $countryCode, $number));
 
             return Command::SUCCESS;
         }
-        $io->success(sprintf('Error sending SMS to %s%s', $countryCode, $number));
+        $io->success(\sprintf('Error sending SMS to %s%s', $countryCode, $number));
 
         return Command::FAILURE;
     }

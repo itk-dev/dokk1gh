@@ -39,7 +39,7 @@ class EntityActionLogEntry
         #[ORM\Column(name: 'message', type: Types::STRING, length: 255)]
         private $message,
         #[ORM\Column(name: 'context', type: Types::JSON, nullable: true)]
-        private ?array $context = null
+        private ?array $context = null,
     ) {
         $this->createdAt = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
     }

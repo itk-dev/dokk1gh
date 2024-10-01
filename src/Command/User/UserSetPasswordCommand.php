@@ -49,7 +49,7 @@ class UserSetPasswordCommand extends UserCommand
         $this->userManager->setPassword($user, $password);
         $this->userManager->updateUser($user, true);
 
-        $output->writeln(sprintf('Password set for user %s', $user->getEmail()));
+        $output->writeln(\sprintf('Password set for user %s', $user->getEmail()));
         $this->showUser($user);
 
         return static::SUCCESS;

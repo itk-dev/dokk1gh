@@ -46,7 +46,7 @@ class UserPromoteCommand extends UserCommand
         );
         $this->userManager->updateUser($user, true);
 
-        $output->writeln(sprintf('User %s promoted', $user->getEmail()));
+        $output->writeln(\sprintf('User %s promoted', $user->getEmail()));
         $this->showUser($user);
 
         return static::SUCCESS;

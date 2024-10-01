@@ -17,7 +17,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 class AeosTemplateIdValidator extends ConstraintValidator
 {
     public function __construct(
-        private readonly AeosService $aeosService
+        private readonly AeosService $aeosService,
     ) {
     }
 

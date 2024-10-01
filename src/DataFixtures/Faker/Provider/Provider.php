@@ -19,7 +19,7 @@ class Provider extends Base
 {
     public function __construct(
         Generator $generator,
-        private readonly UserPasswordHasherInterface $passwordHasher
+        private readonly UserPasswordHasherInterface $passwordHasher,
     ) {
         parent::__construct($generator);
     }

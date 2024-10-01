@@ -68,7 +68,7 @@ class CodeController extends AbstractApiController
         foreach (['template', 'startTime', 'endTime'] as $key) {
             if (!isset($data[$key])) {
                 return $this->createHttpExceptionResponse(
-                    new BadRequestHttpException(sprintf('Missing data: %s', $key))
+                    new BadRequestHttpException(\sprintf('Missing data: %s', $key))
                 );
             }
         }
@@ -76,7 +76,7 @@ class CodeController extends AbstractApiController
         $template = $this->templateManager->getUserTemplate((int) $data['template']);
         if (!$template) {
             return $this->createHttpExceptionResponse(
-                new BadRequestHttpException(sprintf('Invalid template: %s', $data['template']))
+                new BadRequestHttpException(\sprintf('Invalid template: %s', $data['template']))
             );
         }
         $startTime = new \DateTime($data['startTime']);

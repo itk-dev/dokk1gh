@@ -35,7 +35,7 @@ class UserManager
         private readonly Environment $twig,
         private readonly RouterInterface $router,
         private readonly MailerInterface $mailer,
-        private readonly array $options
+        private readonly array $options,
     ) {
     }
 

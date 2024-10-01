@@ -21,7 +21,7 @@ class GdprHelper
         private readonly RouterInterface $router,
         private readonly PropertyAccessorInterface $accessor,
         private readonly UserRepository $userRepository,
-        private readonly array $options
+        private readonly array $options,
     ) {
     }
 

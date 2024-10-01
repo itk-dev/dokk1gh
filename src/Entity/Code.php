@@ -152,7 +152,7 @@ class Code implements Blameable, \Stringable
         return match (true) {
             $this->getStartTime() > $now => 'future',
             $this->getEndTime() < $now => 'expired',
-            default => 'active'
+            default => 'active',
         };
     }
 

@@ -18,7 +18,7 @@ class Configuration
 {
     public function __construct(
         private readonly SettingRepository $settingRepository,
-        private readonly ParameterBagInterface $parameters
+        private readonly ParameterBagInterface $parameters,
     ) {
     }
 

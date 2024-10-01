@@ -46,7 +46,7 @@ class UserDemoteCommand extends UserCommand
         );
         $this->userManager->updateUser($user, true);
 
-        $output->writeln(sprintf('User %s demoted', $user->getEmail()));
+        $output->writeln(\sprintf('User %s demoted', $user->getEmail()));
         $this->showUser($user);
 
         return static::SUCCESS;

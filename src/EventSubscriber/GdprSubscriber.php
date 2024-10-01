@@ -23,7 +23,7 @@ class GdprSubscriber implements EventSubscriberInterface
 {
     public function __construct(
         private readonly TokenStorageInterface $tokenStorage,
-        private readonly GdprHelper $helper
+        private readonly GdprHelper $helper,
     ) {
     }
 

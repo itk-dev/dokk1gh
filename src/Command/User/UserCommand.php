@@ -57,7 +57,7 @@ abstract class UserCommand extends Command
         $user = $this->userManager->findUser($email);
 
         if (null === $user) {
-            throw new RuntimeException(sprintf('Cannot find user %s', $email));
+            throw new RuntimeException(\sprintf('Cannot find user %s', $email));
         }
 
         return $user;

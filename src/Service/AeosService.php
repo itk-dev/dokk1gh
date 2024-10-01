@@ -19,7 +19,7 @@ class AeosService
     private ?string $lastResponse;
 
     public function __construct(
-        private readonly array $options
+        private readonly array $options,
     ) {
     }
 
