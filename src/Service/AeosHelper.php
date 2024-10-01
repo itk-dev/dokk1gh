@@ -20,7 +20,7 @@ final readonly class AeosHelper
         private readonly AeosService $aeosService,
         private readonly TokenStorageInterface $tokenStorage,
         private readonly TwigHelper $twigHelper,
-        private readonly array $options
+        private readonly array $options,
     ) {
     }
 

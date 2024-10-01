@@ -23,7 +23,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SmsGatewayController extends AbstractController
 {
     public function __construct(
-        private readonly ActionLogManager $manager
+        private readonly ActionLogManager $manager,
     ) {
     }
 

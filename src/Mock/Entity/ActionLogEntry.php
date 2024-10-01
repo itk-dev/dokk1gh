@@ -37,7 +37,7 @@ abstract class ActionLogEntry
         protected string $type,
         #[Assert\NotBlank]
         #[ORM\Column(type: Types::JSON)]
-        protected array $data
+        protected array $data,
     ) {
         $this->createdAt = new \DateTimeImmutable();
     }

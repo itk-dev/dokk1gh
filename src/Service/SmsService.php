@@ -16,7 +16,7 @@ class SmsService implements SmsServiceInterface
 {
     public function __construct(
         private readonly HttpClientInterface $client,
-        private readonly array $options
+        private readonly array $options,
     ) {
     }
 

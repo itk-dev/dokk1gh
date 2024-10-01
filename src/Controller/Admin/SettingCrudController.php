@@ -27,7 +27,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class SettingCrudController extends AbstractCrudController
 {
     public function __construct(
-        private readonly TranslatorInterface $translator
+        private readonly TranslatorInterface $translator,
     ) {
     }
 
@@ -76,10 +76,10 @@ class SettingCrudController extends AbstractCrudController
                     Types::TEXT => match ($formType) {
                         'texteditor' => TextEditorField::class,
                         'textarea' => TextareaField::class,
-                        default => throw new \RuntimeException(sprintf('Unhandled form type: %s', $formType))
+                        default => throw new \RuntimeException(\sprintf('Unhandled form type: %s', $formType)),
                     },
                     Types::STRING => TextField::class,
-                    default => throw new \RuntimeException(sprintf('Unhandled data type: %s', $type))
+                    default => throw new \RuntimeException(\sprintf('Unhandled data type: %s', $type)),
                 };
                 \assert(is_a($fieldType, FieldInterface::class, true));
                 $field = $fieldType::new('value', false);

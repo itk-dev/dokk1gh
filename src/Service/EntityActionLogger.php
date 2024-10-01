@@ -17,7 +17,7 @@ use Doctrine\ORM\EntityManagerInterface;
 class EntityActionLogger
 {
     public function __construct(
-        private readonly EntityManagerInterface $manager
+        private readonly EntityManagerInterface $manager,
     ) {
     }
 

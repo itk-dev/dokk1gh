@@ -25,7 +25,7 @@ class AdminController extends AbstractApiController
 {
     public function __construct(
         private readonly AeosService $aeosService,
-        private readonly EntityManagerInterface $entityManager
+        private readonly EntityManagerInterface $entityManager,
     ) {
     }
 

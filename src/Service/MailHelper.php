@@ -26,7 +26,7 @@ class MailHelper
         MailerInterface $mailer,
         private readonly EntityActionLogger $actionLogger,
         private readonly Configuration $configuration,
-        private readonly TwigHelper $twigHelper
+        private readonly TwigHelper $twigHelper,
     ) {
         $this->mailer = $mailer;
     }

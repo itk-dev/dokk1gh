@@ -16,7 +16,7 @@ use Twig\TemplateWrapper;
 class TwigHelper
 {
     public function __construct(
-        private readonly Environment $twig
+        private readonly Environment $twig,
     ) {
     }
 

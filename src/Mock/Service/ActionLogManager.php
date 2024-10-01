@@ -18,7 +18,7 @@ use Doctrine\Persistence\ManagerRegistry;
 class ActionLogManager
 {
     public function __construct(
-        private readonly ManagerRegistry $registry
+        private readonly ManagerRegistry $registry,
     ) {
     }
 
@@ -46,6 +46,6 @@ class ActionLogManager
             return $repository;
         }
 
-        throw new \RuntimeException(sprintf('Invalid repository class name: %s', $className));
+        throw new \RuntimeException(\sprintf('Invalid repository class name: %s', $className));
     }
 }

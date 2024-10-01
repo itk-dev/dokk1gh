@@ -20,7 +20,7 @@ class AppExtension extends AbstractExtension
 {
     public function __construct(
         private readonly AeosHelper $aeosHelper,
-        private readonly Configuration $configuration
+        private readonly Configuration $configuration,
     ) {
     }
 

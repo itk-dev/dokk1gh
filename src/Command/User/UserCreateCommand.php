@@ -41,7 +41,7 @@ class UserCreateCommand extends UserCommand
         } catch (\Throwable) {
         }
         if (isset($user)) {
-            throw new RuntimeException(sprintf('User %s already exists', $user->getUserIdentifier()));
+            throw new RuntimeException(\sprintf('User %s already exists', $user->getUserIdentifier()));
         }
 
         $user = $this->userManager
@@ -49,7 +49,7 @@ class UserCreateCommand extends UserCommand
             ->setEmail($email);
         $this->userManager->updateUser($user, true);
 
-        $output->writeln(sprintf('User %s created', $user->getEmail()));
+        $output->writeln(\sprintf('User %s created', $user->getEmail()));
         $this->showUser($user);
 
         if ($input->getOption('notify')) {

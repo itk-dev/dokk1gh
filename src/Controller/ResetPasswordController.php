@@ -37,7 +37,7 @@ class ResetPasswordController extends AbstractDashboardController
     public function __construct(
         private readonly ResetPasswordHelperInterface $resetPasswordHelper,
         private readonly EntityManagerInterface $entityManager,
-        private readonly array $options
+        private readonly array $options,
     ) {
     }
 
@@ -108,7 +108,7 @@ class ResetPasswordController extends AbstractDashboardController
         try {
             $user = $this->resetPasswordHelper->validateTokenAndFetchUser($token);
         } catch (ResetPasswordExceptionInterface $e) {
-            $this->addFlash('danger', sprintf(
+            $this->addFlash('danger', \sprintf(
                 '%s - %s',
                 $translator->trans(ResetPasswordExceptionInterface::MESSAGE_PROBLEM_VALIDATE, [], 'ResetPasswordBundle'),
                 $translator->trans($e->getReason(), [], 'ResetPasswordBundle')

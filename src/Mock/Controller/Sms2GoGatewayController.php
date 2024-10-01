@@ -24,7 +24,7 @@ class Sms2GoGatewayController extends AbstractController
 {
     public function __construct(
         private readonly ActionLogManager $manager,
-        private readonly array $options
+        private readonly array $options,
     ) {
     }
 

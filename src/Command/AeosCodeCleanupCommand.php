@@ -26,7 +26,7 @@ class AeosCodeCleanupCommand extends Command
 {
     public function __construct(
         private readonly CodeRepository $codeRepository,
-        private readonly AeosHelper $aeosHelper
+        private readonly AeosHelper $aeosHelper,
     ) {
         parent::__construct();
     }

@@ -25,7 +25,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 class TemplateController extends AbstractApiController
 {
     public function __construct(
-        private readonly TemplateManager $templateManager
+        private readonly TemplateManager $templateManager,
     ) {
     }
 

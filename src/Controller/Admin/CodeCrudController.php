@@ -33,7 +33,7 @@ class CodeCrudController extends AbstractCrudController
 {
     public function __construct(
         private readonly AeosHelper $aeosHelper,
-        private readonly TemplateManager $templateManager
+        private readonly TemplateManager $templateManager,
     ) {
     }
 
@@ -112,7 +112,7 @@ class CodeCrudController extends AbstractCrudController
         SearchDto $searchDto,
         EntityDto $entityDto,
         FieldCollection $fields,
-        FilterCollection $filters
+        FilterCollection $filters,
     ): QueryBuilder {
         $sort = $searchDto->getSort();
         if (!\array_key_exists('status', $sort)) {
@@ -150,7 +150,7 @@ class CodeCrudController extends AbstractCrudController
         // @see http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/dql-doctrine-query-language.html
         $queryBuilder
             ->addSelect(
-                sprintf(
+                \sprintf(
                     <<<'SQL'
 CASE
     WHEN :gh_now BETWEEN %1$s.startTime AND %1$s.endTime THEN 0

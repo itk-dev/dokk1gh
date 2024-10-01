@@ -36,7 +36,7 @@ class TimeRangesType extends AbstractType
 
     public function __construct(
         private readonly Configuration $configuration,
-        private readonly TranslatorInterface $translator
+        private readonly TranslatorInterface $translator,
     ) {
     }
 
