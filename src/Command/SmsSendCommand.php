@@ -57,7 +57,7 @@ class SmsSendCommand extends Command
         }
 
         $number = $matches['number'];
-        $countryCode = $matches['countryCode'] ?? '';
+        $countryCode = $matches['countryCode'] ?: '';
 
         $options = [
             'flash' => (bool) $input->getOption('flash'),
