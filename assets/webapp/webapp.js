@@ -4,9 +4,6 @@ import './scss/webapp.scss'
 // Fonts
 import '@fontsource/montserrat'
 
-// Fonts
-import '@fontsource/montserrat';
-
 // Fontawsome icons
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import {
@@ -18,6 +15,11 @@ import {
   faCheckSquare,
   faCircleNotch
 } from '@fortawesome/free-solid-svg-icons'
+
+// JavaScrips
+import 'add-to-homescreen'
+import 'clipboard'
+import './js/ios_stay_standalone'
 library.add(
   faLockOpen,
   faIdCard,
@@ -28,8 +30,3 @@ library.add(
   faCircleNotch
 )
 dom.watch()
-
-// JavaScrips
-import 'add-to-homescreen'
-import 'clipboard'
-import './js/ios_stay_standalone'
