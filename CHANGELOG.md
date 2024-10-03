@@ -23,6 +23,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Fixes to the webapp in connection with The major upgrade
 * [PR-5](https://github.com/itk-dev/dokk1gh/pull/5)
   The major upgrade
+* [PR-3](https://github.com/itk-dev/dokk1gh/pull/3)
+  Frontend upgrade
 
 ## [1.5.0]
 
