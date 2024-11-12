@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* [PR-18](https://github.com/itk-dev/dokk1gh/pull/18)
+  Cleaned up translations
 * [PR-17](https://github.com/itk-dev/dokk1gh/pull/17)
   Access check
 * [PR-16](https://github.com/itk-dev/dokk1gh/pull/16)

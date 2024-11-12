@@ -6,12 +6,12 @@
 
 {% block content %}
 <p>
-  {% trans with {'%expirationMessage%': resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle')} %}
+  {% trans with {expirationMessage: resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle')} %}
     If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password. This link will expire in {expirationMessage}.
   {% endtrans %}
 </p>
 <p>
-  {% trans with {'%password_request_url%': path('app_forgot_password_request')} %}
+  {% trans with {password_request_url: path('app_forgot_password_request')} %}
     If you don't receive an email please check your spam folder or <a href="{password_request_url}">try again</a>.
   {% endtrans %}
 {% endblock %}
