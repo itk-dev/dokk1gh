@@ -28,7 +28,7 @@
 
             {# @see https://tom-select.js.org/ #}
             const tom = new TomSelect({{ ('#' ~ element_id)|json_encode|raw }}, {
-                placeholder: renderResult({{ (data ?: {id: 0, text: (messages.invalid_id|trans({'%id%': value}))})|json_encode|raw }}),
+                placeholder: renderResult({{ (data ?: {id: 0, text: (messages.invalid_id|trans({id: value}))})|json_encode|raw }}),
                 // @see https://tom-select.js.org/examples/remote/
                 valueField: 'Id',
                 labelField: 'PersonnelNo',

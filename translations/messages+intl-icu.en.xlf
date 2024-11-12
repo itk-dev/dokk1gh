@@ -105,10 +105,6 @@
         <source>ID-card</source>
         <target>ID-card</target>
       </trans-unit>
-      <trans-unit id="fIFWG2o" resname="Valid from %start_time% to %end_time%">
-        <source>Valid from %start_time% to %end_time%</source>
-        <target>Valid from %start_time% to %end_time%</target>
-      </trans-unit>
       <trans-unit id="2vzwh8T" resname="Access times">
         <source>Access times</source>
         <target>Access times</target>
@@ -128,10 +124,6 @@
       <trans-unit id="5IUs7bI" resname="You will recive an SMS with the code in a moment">
         <source>You will recive an SMS with the code in a moment</source>
         <target>You will recive an SMS with the code in a moment</target>
-      </trans-unit>
-      <trans-unit id="blUJRMy" resname="SMS sent to phone %guest_phone%">
-        <source>SMS sent to phone %guest_phone%</source>
-        <target>SMS sent to phone %guest_phone%</target>
       </trans-unit>
       <trans-unit id="SWj3Jv7" resname="Code gives access to">
         <source>Code gives access to</source>
@@ -168,10 +160,6 @@
       <trans-unit id="tEbn97v" resname="You are not allowed to request access right now">
         <source>You are not allowed to request access right now</source>
         <target>You are not allowed to request access right now</target>
-      </trans-unit>
-      <trans-unit id="EIpMTtK" resname="Level %level%">
-        <source>Level %level%</source>
-        <target>Level %level%</target>
       </trans-unit>
       <trans-unit id="t5GEZwV" resname="Your guest access is not valid">
         <source>Your guest access is not valid</source>
@@ -228,10 +216,6 @@
       <trans-unit id="LmKkqt9" resname="label.null">
         <source>label.null</source>
         <target>label.null</target>
-      </trans-unit>
-      <trans-unit id="IYvwNvf" resname="App sent at %sent_at%">
-        <source>App sent at %sent_at%</source>
-        <target>App sent at %sent_at%</target>
       </trans-unit>
       <trans-unit id="8.bnQTo" resname="Resend app">
         <source>Resend app</source>
@@ -580,6 +564,30 @@
       <trans-unit id="n_EUW1_" resname="&quot;{{ string }}&quot; is not a valid AEOS template id.">
         <source>"{{ string }}" is not a valid AEOS template id.</source>
         <target>"{{ string }}" is not a valid AEOS template id.</target>
+      </trans-unit>
+      <trans-unit id="yh96fAc" resname="SMS sent to phone {guest_phone}">
+        <source>SMS sent to phone {guest_phone}</source>
+        <target>SMS sent to phone {guest_phone}</target>
+      </trans-unit>
+      <trans-unit id="qBHuwM_" resname="Level {level}">
+        <source>Level {level}</source>
+        <target>Level {level}</target>
+      </trans-unit>
+      <trans-unit id="e0CkzOR" resname="App sent at {sent_at}">
+        <source>App sent at {sent_at}</source>
+        <target>App sent at {sent_at}</target>
+      </trans-unit>
+      <trans-unit id="0HFHzTC" resname="Invalid AEOS person id: {id}">
+        <source>Invalid AEOS person id: {id}</source>
+        <target>Invalid AEOS person id: {id}</target>
+      </trans-unit>
+      <trans-unit id="U85HXMK" resname="Invalid AEOS template id: {id}">
+        <source>Invalid AEOS template id: {id}</source>
+        <target>Invalid AEOS template id: {id}</target>
+      </trans-unit>
+      <trans-unit id="huYh4Gn" resname="Valid from {start_time} to {end_time}">
+        <source>Valid from {start_time} to {end_time}</source>
+        <target>Valid from {start_time} to {end_time}</target>
       </trans-unit>
     </body>
   </file>

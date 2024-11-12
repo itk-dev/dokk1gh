@@ -109,10 +109,6 @@
         <source>This is your personal identification which grants you access to Dokk1</source>
         <target state="translated">Dette er dit personlige ID-kort, som du vil kunne blive bedt om at fremvise, når du er på Dokk1</target>
       </trans-unit>
-      <trans-unit id="fIFWG2o" resname="Valid from %start_time% to %end_time%">
-        <source>Valid from %start_time% to %end_time%</source>
-        <target state="translated">Gyldig fra %start_time% til %end_time%</target>
-      </trans-unit>
       <trans-unit id="2vzwh8T" resname="Access times">
         <source>Access times</source>
         <target state="translated">Adgangstider</target>
@@ -132,10 +128,6 @@
       <trans-unit id="5IUs7bI" resname="You will recive an SMS with the code in a moment">
         <source>You will recive an SMS with the code in a moment</source>
         <target state="translated">Du modtager snart koden på SMS</target>
-      </trans-unit>
-      <trans-unit id="blUJRMy" resname="SMS sent to phone %guest_phone%">
-        <source>SMS sent to phone %guest_phone%</source>
-        <target state="translated">Sms sendt til %guest_phone%</target>
       </trans-unit>
       <trans-unit id="SWj3Jv7" resname="Code gives access to">
         <source>Code gives access to</source>
@@ -172,10 +164,6 @@
       <trans-unit id="tEbn97v" resname="You are not allowed to request access right now">
         <source>You are not allowed to request access right now</source>
         <target state="translated">Du har ikke adgang lige nu</target>
-      </trans-unit>
-      <trans-unit id="EIpMTtK" resname="Level %level%">
-        <source>Level %level%</source>
-        <target state="translated">Niveau %level%</target>
       </trans-unit>
       <trans-unit id="t5GEZwV" resname="Your guest access is not valid">
         <source>Your guest access is not valid</source>
@@ -232,10 +220,6 @@
       <trans-unit id="LmKkqt9" resname="label.null">
         <source>label.null</source>
         <target state="translated">–</target>
-      </trans-unit>
-      <trans-unit id="IYvwNvf" resname="App sent at %sent_at%">
-        <source>App sent at %sent_at%</source>
-        <target state="translated">App sendt %sent_at%</target>
       </trans-unit>
       <trans-unit id="8.bnQTo" resname="Resend app">
         <source>Resend app</source>
@@ -449,7 +433,7 @@
         <source>If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password. This link will expire in {expirationMessage}.</source>
         <target state="translated">Hvis der findes en koste for denne e-mailadresse, så bliver der sendt en e-mail med et link du kan bruge til at nulstille din adgangskode. Linket udløber om {expirationMessage}.</target>
       </trans-unit>
-      <trans-unit id="7LnnofM" resname="If you don't receive an email please check your spam folder or &lt;a href=&quot;{password_request_url}&quot;>try again&lt;/a>.">
+      <trans-unit id="7LnnofM" resname="If you don't receive an email please check your spam folder or &lt;a href=&quot;{password_request_url}&quot;&gt;try again&lt;/a&gt;.">
         <source>If you don't receive an email please check your spam folder or &lt;a href="{password_request_url}"&gt;try again&lt;/a&gt;.</source>
         <target state="translated"><![CDATA[Tjek din “Uønsket mail”-mappe hvis du ikke modtager en e-mail eller <a href="{password_request_url}">prøv igen</a>.]]></target>
       </trans-unit>
@@ -580,6 +564,30 @@
       <trans-unit id="n_EUW1_" resname="&quot;{{ string }}&quot; is not a valid AEOS template id.">
         <source>"{{ string }}" is not a valid AEOS template id.</source>
         <target state="translated">“{{ string }}” er ikke et gyldigt AEOS-id.</target>
+      </trans-unit>
+      <trans-unit id="yh96fAc" resname="SMS sent to phone {guest_phone}">
+        <source>SMS sent to phone {guest_phone}</source>
+        <target state="needs-l10n">Sms sendt til {guest_phone}</target>
+      </trans-unit>
+      <trans-unit id="qBHuwM_" resname="Level {level}">
+        <source>Level {level}</source>
+        <target state="needs-l10n">Niveau {level}</target>
+      </trans-unit>
+      <trans-unit id="e0CkzOR" resname="App sent at {sent_at}">
+        <source>App sent at {sent_at}</source>
+        <target state="needs-l10n">App sendt {sent_at}</target>
+      </trans-unit>
+      <trans-unit id="0HFHzTC" resname="Invalid AEOS person id: {id}">
+        <source>Invalid AEOS person id: {id}</source>
+        <target state="needs-l10n">Ugyldigt AEOS-person-id: {id}</target>
+      </trans-unit>
+      <trans-unit id="U85HXMK" resname="Invalid AEOS template id: {id}">
+        <source>Invalid AEOS template id: {id}</source>
+        <target state="needs-l10n">Ugyldigt AEOS-skabelon-id: {id}</target>
+      </trans-unit>
+      <trans-unit id="huYh4Gn" resname="Valid from {start_time} to {end_time}">
+        <source>Valid from {start_time} to {end_time}</source>
+        <target state="needs-l10n">Gyldig fra {start_time} til {end_time}</target>
       </trans-unit>
     </body>
   </file>

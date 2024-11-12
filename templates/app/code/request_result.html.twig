@@ -26,7 +26,7 @@
             <div class="card-body">
                 <p class="text-center"><i class="fa-solid fa-check-square fa-3x text-primary"></i></p>
                 {% if status['sms_sent']|default(false) %}
-                    <p class="card-text text-center"><b>{{ 'SMS sent to phone %guest_phone%'|trans({'%guest_phone%': guest.phone}) }}</b></p>
+                    <p class="card-text text-center"><b>{{ 'SMS sent to phone {guest_phone}'|trans({guest_phone: guest.phone}) }}</b></p>
                 {% endif %}
                 <hr>
                 <dl>
