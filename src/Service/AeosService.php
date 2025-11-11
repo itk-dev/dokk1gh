@@ -286,7 +286,9 @@ class AeosService
             $this->lastResponse = $client->__getLastResponse();
         }
 
-        return $result;
+        // Some services return a string (e.g. `(null)`). This is a pragmatic
+        // “solution“.
+        return (object) $result;
     }
 
     private function generateBadgeNumber(?int $length = null): string
