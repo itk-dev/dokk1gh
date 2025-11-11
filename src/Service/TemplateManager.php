@@ -1,13 +1,5 @@
 <?php
 
-/*
- * This file is part of Gæstehåndtering.
- *
- * (c) 2017–2024 ITK Development
- *
- * This source file is subject to the MIT license.
- */
-
 namespace App\Service;
 
 use App\Entity\Template;
@@ -66,7 +58,7 @@ class TemplateManager
     /**
      * Get a user template by id.
      *
-     * @return null|Template
+     * @return Template|null
      */
     public function getUserTemplate(int $id)
     {

@@ -12,7 +12,7 @@
             </thead>
             {% for item in items %}
                 <tr>
-                    <td>{{ item.createdAt | date('Y-m-d H:i:s') }}</td>
+                    <td>{{ item.createdAt|date('Y-m-d H:i:s') }}</td>
                     <td>{{ item.type }}</td>
                     <td>
                         <dl class="row">
