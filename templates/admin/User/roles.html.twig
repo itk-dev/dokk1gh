@@ -1,7 +1,10 @@
+{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+{# @var field \EasyCorp\Bundle\EasyAdminBundle\Dto\FieldDto #}
+{# @var entity \EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto #}
 <div class="user-roles">
-	{% for role in item.roles %}
-		<span class="user-role">{{ role|trans }}</span>{% if not loop.last %}, {% endif %}
+  {% for role in entity.instance.roles %}
+      <span class="user-role">{{ role|trans }}</span>{% if not loop.last %}, {% endif %}
   {% else %}
-		<span class="user-no-roles">–</span>
-	{% endfor %}
+      <span class="user-no-roles">–</span>
+  {% endfor %}
 </div>

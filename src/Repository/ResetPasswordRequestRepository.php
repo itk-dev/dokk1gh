@@ -1,13 +1,5 @@
 <?php
 
-/*
- * This file is part of Gæstehåndtering.
- *
- * (c) 2017–2020 ITK Development
- *
- * This source file is subject to the MIT license.
- */
-
 namespace App\Repository;
 
 use App\Entity\ResetPasswordRequest;
@@ -18,8 +10,10 @@ use SymfonyCasts\Bundle\ResetPassword\Persistence\Repository\ResetPasswordReques
 use SymfonyCasts\Bundle\ResetPassword\Persistence\ResetPasswordRequestRepositoryInterface;
 
 /**
- * @method null|ResetPasswordRequest find($id, $lockMode = null, $lockVersion = null)
- * @method null|ResetPasswordRequest findOneBy(array $criteria, array $orderBy = null)
+ * @extends ServiceEntityRepository<ResetPasswordRequest>
+ *
+ * @method ResetPasswordRequest|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ResetPasswordRequest|null findOneBy(array $criteria, array $orderBy = null)
  * @method ResetPasswordRequest[]    findAll()
  * @method ResetPasswordRequest[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
@@ -32,12 +26,8 @@ class ResetPasswordRequestRepository extends ServiceEntityRepository implements 
         parent::__construct($registry, ResetPasswordRequest::class);
     }
 
-    public function createResetPasswordRequest(
-        object $user,
-        \DateTimeInterface $expiresAt,
-        string $selector,
-        string $hashedToken
-    ): ResetPasswordRequestInterface {
+    public function createResetPasswordRequest(object $user, \DateTimeInterface $expiresAt, string $selector, string $hashedToken): ResetPasswordRequestInterface
+    {
         return new ResetPasswordRequest($user, $expiresAt, $selector, $hashedToken);
     }
 }

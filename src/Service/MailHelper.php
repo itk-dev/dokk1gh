@@ -1,13 +1,5 @@
 <?php
 
-/*
- * This file is part of Gæstehåndtering.
- *
- * (c) 2017–2020 ITK Development
- *
- * This source file is subject to the MIT license.
- */
-
 namespace App\Service;
 
 use App\Entity\Guest;
@@ -17,33 +9,21 @@ use Symfony\Component\Mime\Email;
 
 class MailHelper
 {
-    const MAIL_SENT = 'MAIL_SENT';
+    final public const MAIL_SENT = 'MAIL_SENT';
 
     /** @var MailerInterface */
     protected $mailer;
 
-    /** @var EntityActionLogger */
-    private $actionLogger;
-
-    /** @var Configuration */
-    private $configuration;
-
-    /** @var TwigHelper */
-    private $twigHelper;
-
     public function __construct(
         MailerInterface $mailer,
-        EntityActionLogger $actionLogger,
-        Configuration $configuration,
-        TwigHelper $twigHelper
+        private readonly EntityActionLogger $actionLogger,
+        private readonly Configuration $configuration,
+        private readonly TwigHelper $twigHelper,
     ) {
         $this->mailer = $mailer;
-        $this->actionLogger = $actionLogger;
-        $this->twigHelper = $twigHelper;
-        $this->configuration = $configuration;
     }
 
-    public function sendApp(Guest $guest, $appUrl)
+    public function sendApp(Guest $guest, string $appUrl): void
     {
         $from = new Address(
             $this->configuration->get('guest_app_email_sender_email'),

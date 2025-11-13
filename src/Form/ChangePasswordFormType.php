@@ -1,13 +1,5 @@
 <?php
 
-/*
- * This file is part of Gæstehåndtering.
- *
- * (c) 2017–2020 ITK Development
- *
- * This source file is subject to the MIT license.
- */
-
 namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -25,6 +17,11 @@ class ChangePasswordFormType extends AbstractType
         $builder
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
+                'options' => [
+                    'attr' => [
+                        'autocomplete' => 'new-password',
+                    ],
+                ],
                 'first_options' => [
                     'constraints' => [
                         new NotBlank([
@@ -40,7 +37,7 @@ class ChangePasswordFormType extends AbstractType
                     'label' => 'New password',
                 ],
                 'second_options' => [
-                    'label' => 'Repeat Password',
+                    'label' => 'Repeat password',
                 ],
                 'invalid_message' => 'The password fields must match.',
                 // Instead of being set onto the object directly,

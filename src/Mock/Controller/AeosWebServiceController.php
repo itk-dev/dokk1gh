@@ -1,13 +1,5 @@
 <?php
 
-/*
- * This file is part of Gæstehåndtering.
- *
- * (c) 2017–2020 ITK Development
- *
- * This source file is subject to the MIT license.
- */
-
 namespace App\Mock\Controller;
 
 use App\Mock\Entity\AeosActionLogEntry;
@@ -17,23 +9,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/mock/aeosws")
- */
+#[Route('/mock/aeosws')]
 class AeosWebServiceController extends AbstractController
 {
-    /** @var ActionLogManager */
-    private $manager;
-
-    public function __construct(ActionLogManager $manager)
-    {
-        $this->manager = $manager;
+    public function __construct(
+        private readonly ActionLogManager $manager,
+    ) {
     }
 
-    /**
-     * @Route()
-     */
-    public function indexAction(AeosWebService $aeosWebService)
+    #[Route]
+    public function index(AeosWebService $aeosWebService): Response
     {
         $server = new \SoapServer(__DIR__.'/../Resources/aeosws/wsdl/aeosws.wsdl');
         $server->setObject($aeosWebService);
@@ -48,10 +33,8 @@ class AeosWebServiceController extends AbstractController
         return $response;
     }
 
-    /**
-     * @Route("/log", name="aeosws_log")
-     */
-    public function logAction()
+    #[Route(path: '/log', name: 'aeosws_log')]
+    public function log(): Response
     {
         $items = $this->manager->findAll(AeosActionLogEntry::class);
 

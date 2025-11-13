@@ -1,0 +1,29 @@
+name: Project
+
+env:
+  COMPOSE_USER: root
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  code-analysis:
+    runs-on: ubuntu-latest
+    name: PHP code analysis
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create docker network
+        run: |
+          docker network create frontend
+
+      - name: Create local settings
+        run: cp config/services.local.yaml.dist config/services.local.yaml
+
+      - run: |
+          docker compose run --rm phpfpm composer install
+          docker compose run --rm phpfpm composer code-analysis

@@ -14,7 +14,7 @@
             <div class="col-sm-8 offset-sm-2 mb-3">
                 {{ get_configuration('app_expired_content')|replace({
                     '%expired_at%': guest.expiredAt|date(format_datetime),
-                        '%expired_on%': guest.expiredAt|date(format_date)
+                        '%expired_on%': guest.expiredAt|date(format_date),
                     })|raw }}
             </div>
         </div>
