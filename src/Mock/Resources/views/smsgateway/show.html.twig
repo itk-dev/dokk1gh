@@ -18,17 +18,17 @@
               {% set pattern = "eeee, d. MMM '·' HH:mm" %}
               {% if 'now'|date('Y-m-d') == time|date('Y-m-d') %}
                 {# today #}
-                {% set pattern = "HH:mm" %}
+                {% set pattern = 'HH:mm' %}
               {% else %}
                 {% set difference = date('now').diff(time) %}
                 {% if difference.days < 7 %}
                   {# within a week #}
-                  {% set pattern="eeee '·' HH:mm" %}
+                  {% set pattern = "eeee '·' HH:mm" %}
                 {% endif %}
               {% endif %}
 
               <div class="time">
-                {{ time|format_datetime(pattern=pattern) }}
+                {{ time|format_datetime(pattern: pattern) }}
               </div>
 
               <div class="yours messages">

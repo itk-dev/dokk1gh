@@ -1,13 +1,5 @@
 <?php
 
-/*
- * This file is part of Gæstehåndtering.
- *
- * (c) 2017–2024 ITK Development
- *
- * This source file is subject to the MIT license.
- */
-
 namespace App\Repository;
 
 use App\Entity\User;
@@ -20,8 +12,8 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 /**
  * @extends ServiceEntityRepository<User>
  *
- * @method null|User find($id, $lockMode = null, $lockVersion = null)
- * @method null|User findOneBy(array $criteria, array $orderBy = null)
+ * @method User|null find($id, $lockMode = null, $lockVersion = null)
+ * @method User|null findOneBy(array $criteria, array $orderBy = null)
  * @method User[]    findAll()
  * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */

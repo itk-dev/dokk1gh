@@ -1,3 +1,3 @@
-import './scss/mock.scss'
+import "./scss/mock.scss";
 
-console.debug('mock')
+console.debug("mock");

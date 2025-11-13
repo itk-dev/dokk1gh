@@ -1,16 +1,27 @@
 // Override default colors
-$blue:      #235587;
+$blue: #235587;
 $dark-blue: #003764;
-$orange:    #D2411E;
-$yellow:    #FFB400;
-$gray-200:  #ECECEC;
-$gray-600:  #88898C;
+$orange: #d2411e;
+$yellow: #ffb400;
+$gray-200: #ececec;
+$gray-600: #88898c;
 
 // Override primary color
 $primary: $dark-blue;
 
 // Override default font
-$font-family-sans-serif: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" ;
+$font-family-sans-serif:
+  "Montserrat",
+  -apple-system,
+  BlinkMacSystemFont,
+  "Segoe UI",
+  Roboto,
+  "Helvetica Neue",
+  Arial,
+  sans-serif,
+  "Apple Color Emoji",
+  "Segoe UI Emoji",
+  "Segoe UI Symbol";
 
 $lead-font-size: 1.2rem;
 $lead-font-weight: 400;
@@ -21,4 +32,4 @@ $card-border-color: none;
 $card-inner-border-radius: 0;
 
 // Import bootstrap scss
-@import "bootstrap"
+@import "bootstrap";

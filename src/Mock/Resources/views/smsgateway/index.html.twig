@@ -16,7 +16,7 @@
       {% for entry in entries %}
         {% set show_url = path('sms_log_show', {id: entry.id}) %}
         <tr onclick="location = {{ show_url|json_encode }}">
-          <td>{{ entry.createdAt | date('Y-m-d H:i:s') }}</td>
+          <td>{{ entry.createdAt|date('Y-m-d H:i:s') }}</td>
           <td>{{ entry.type }}</td>
           <td>
             <dl class="row">

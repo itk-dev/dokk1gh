@@ -1,13 +1,5 @@
 <?php
 
-/*
- * This file is part of Gæstehåndtering.
- *
- * (c) 2017–2024 ITK Development
- *
- * This source file is subject to the MIT license.
- */
-
 namespace App\Entity;
 
 use App\Repository\GuestRepository;
@@ -37,7 +29,7 @@ class Guest implements Blameable
     use TimestampableEntity;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection<int, \App\Entity\Template>
+     * @var Collection<int, Template>
      */
     #[ORM\ManyToMany(targetEntity: Template::class)]
     protected Collection $templates;

@@ -10,4 +10,4 @@ App\Entity\User:
     aeosId: 1
     apiKey: user-api-key
     templates:
-      - '@template-1'
+      - "@template-1"

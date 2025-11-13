@@ -1,6 +1,6 @@
 {# Default page properties.  You can override these in the `page` block of your child templates. #}
 {% set page = page|default({})|merge({
-    on_app_page: false
+    on_app_page: false,
 }) %}
 
 {% block page %}
