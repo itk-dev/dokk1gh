@@ -42,7 +42,7 @@
         "rector/rector": "^0.19.2",
         "symfony/maker-bundle": "^1.52",
         "symfony/web-profiler-bundle": "7.3.*",
-        "vincentlanglet/twig-cs-fixer": "^2.6"
+        "vincentlanglet/twig-cs-fixer": "^3.10"
     },
     "replace": {
         "symfony/polyfill-ctype": "*",
