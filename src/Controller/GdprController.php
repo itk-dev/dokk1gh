@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Service\GdprHelper;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -15,7 +14,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Translation\TranslatableMessage;
 
 #[Route('/gdpr', name: 'gdpr_')]
-class GdprController extends AbstractDashboardController
+class GdprController extends AbstractController
 {
     public function __construct(
         private readonly TokenStorageInterface $tokenStorage,
