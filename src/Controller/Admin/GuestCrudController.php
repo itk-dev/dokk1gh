@@ -8,6 +8,7 @@ use App\Form\TimeRangesType;
 use App\Service\GuestService;
 use App\Service\TemplateManager;
 use Doctrine\ORM\QueryBuilder;
+use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminRoute;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
@@ -59,19 +60,12 @@ class GuestCrudController extends AbstractCrudController
                     ->linkToCrudAction('showApp')
             );
 
-        $sendAction = Action::new('sendApp', new TranslatableMessage('Send app'))
-            ->linkToCrudAction('sendApp');
-        $sendAction
-            ->getAsDto()
-            ->setDisplayCallable(static fn (Guest $guest) => null === $guest->getSentAt());
-        $actions->add(Crud::PAGE_INDEX, $sendAction);
-
-        $resendAction = Action::new('resendApp', new TranslatableMessage('Resend app'))
-            ->linkToCrudAction('resendApp');
-        $resendAction
-            ->getAsDto()
-            ->setDisplayCallable(static fn (Guest $guest) => null !== $guest->getSentAt());
-        $actions->add(Crud::PAGE_INDEX, $resendAction);
+        $actions->add(Crud::PAGE_INDEX, Action::new('sendApp',
+            static fn (Guest $guest) => null === $guest->getSentAt()
+                ? new TranslatableMessage('Send app')
+                : new TranslatableMessage('Resend app'))
+            ->linkToCrudAction('sendApp')
+        );
 
         $expireAction = Action::new('expireApp', new TranslatableMessage('Expire app'))
             ->linkToCrudAction('expireApp')
@@ -81,20 +75,20 @@ class GuestCrudController extends AbstractCrudController
         return $actions;
     }
 
-    public function showApp(): Response
+    #[AdminRoute(path: '/{entityId}/show-app', name: 'show_app')]
+    public function showApp(AdminContext $context): Response
     {
-        $guest = $this->getGuest();
+        $guest = $this->getGuest($context);
 
         return $this->redirectToRoute('app_code', ['guest' => $guest->getId()]);
     }
 
-    public function sendApp(): Response
+    #[AdminRoute(path: '/{entityId}/send-app', name: 'send_app')]
+    public function sendApp(AdminContext $context): Response
     {
-        $guest = $this->getGuest();
-        if (null !== $guest) {
-            if ($this->guestService->sendApp($guest)) {
-                $this->showInfo(new TranslatableMessage('App sent to {guest}', ['guest' => $guest->getName()]));
-            }
+        $guest = $this->getGuest($context);
+        if ($this->guestService->sendApp($guest)) {
+            $this->showInfo(new TranslatableMessage('App sent to {guest}', ['guest' => $guest->getName()]));
         }
 
         return $this->redirect(
@@ -102,21 +96,15 @@ class GuestCrudController extends AbstractCrudController
         );
     }
 
-    public function resendApp(): Response
-    {
-        return $this->sendApp();
-    }
-
+    #[AdminRoute(path: '/{entityId}/expire-app', name: 'expire_app')]
     public function expireApp(AdminContext $context): Response
     {
         if (Request::METHOD_POST === $context->getRequest()->getMethod()) {
-            $guest = $this->getGuest();
-            if (null !== $guest) {
-                // Expiring an app will anonymize data, so we need to keep a useful guest name.
-                $message = new TranslatableMessage('App {guest} expired', ['guest' => (string) $guest->getName()]);
-                if ($this->guestService->expire($guest)) {
-                    $this->showInfo($message);
-                }
+            $guest = $this->getGuest($context);
+            // Expiring an app will anonymize data, so we need to keep a useful guest name.
+            $message = new TranslatableMessage('App {guest} expired', ['guest' => (string) $guest->getName()]);
+            if ($this->guestService->expire($guest)) {
+                $this->showInfo($message);
             }
 
             return $this->redirect(
@@ -177,8 +165,8 @@ class GuestCrudController extends AbstractCrudController
         return $this->guestService->createNewGuest();
     }
 
-    private function getGuest(): Guest
+    private function getGuest(AdminContext $context): Guest
     {
-        return $this->getContext()->getEntity()->getInstance();
+        return $context->getEntity()->getInstance();
     }
 }
