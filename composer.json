@@ -83,7 +83,7 @@
     "extra": {
         "symfony": {
             "allow-contrib": true,
-            "docker": true,
+            "docker": false,
             "require": "7.3.*"
         }
     },
