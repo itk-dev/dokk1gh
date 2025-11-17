@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* [PR-21](https://github.com/itk-dev/dokk1gh/pull/21)
+  * Security update
+  * Upgraded to Symfony 7.3
+
 ## [1.6.0] - 2025-11-11
 
 * [PR-18](https://github.com/itk-dev/dokk1gh/pull/18)
