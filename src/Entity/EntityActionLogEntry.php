@@ -33,7 +33,7 @@ class EntityActionLogEntry
         #[ORM\Column(name: 'context', type: Types::JSON, nullable: true)]
         private ?array $context = null,
     ) {
-        $this->createdAt = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
+        $this->createdAt = new \DateTime('now', new \DateTimeZone('UTC'));
     }
 
     public function getId(): ?int

@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\Routing\RouterInterface;
@@ -29,6 +30,7 @@ class GdprHelper
         $property = $this->getGdprAcceptedProperty();
         $value = $this->getGdprAcceptedAtValue();
         $this->accessor->setValue($user, $property, $value);
+        assert($user instanceof User);
         $this->userRepository->persist($user, true);
     }
 

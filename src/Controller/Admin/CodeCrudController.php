@@ -39,8 +39,8 @@ class CodeCrudController extends AbstractCrudController
         return parent::configureCrud($crud)
             ->setEntityPermission(Role::USER->value)
             ->overrideTemplates([
-                'crud/index' => 'admin/Code/list.html.twig',
-                'crud/new' => 'admin/Code/new.html.twig',
+                'crud/index' => 'admin/code/list.html.twig',
+                'crud/new' => 'admin/code/new.html.twig',
             ])
             ->setDefaultSort([
                 'status' => SortOrder::DESC,
@@ -64,16 +64,16 @@ class CodeCrudController extends AbstractCrudController
     {
         yield TextField::new('identifier', new TranslatableMessage('Code'))
             ->onlyOnIndex()
-            ->setTemplatePath('admin/Code/code.html.twig');
+            ->setTemplatePath('admin/code/code.html.twig');
 
         yield TextField::new('status', new TranslatableMessage('Status'))
             ->onlyOnIndex()
-            ->setTemplatePath('admin/Code/status.html.twig')
+            ->setTemplatePath('admin/code/status.html.twig')
             ->setSortable(true);
 
         if (Crud::PAGE_INDEX === $pageName) {
             yield DateTimeField::new('startTime', new TranslatableMessage('Time range'))
-                ->setTemplatePath('admin/Code/date_time_range.html.twig');
+                ->setTemplatePath('admin/code/date_time_range.html.twig');
         } else {
             yield DateTimeField::new('startTime', new TranslatableMessage('Date'));
             yield DateTimeField::new('endTime', new TranslatableMessage('Time range'));
@@ -86,7 +86,7 @@ class CodeCrudController extends AbstractCrudController
             ]);
 
         yield TextareaField::new('note', new TranslatableMessage('Note'))
-            ->setTemplatePath('admin/Code/note.html.twig');
+            ->setTemplatePath('admin/code/note.html.twig');
 
         yield DateTimeField::new('createdAt', new TranslatableMessage('Created at'))
             ->setTimezone($this->getParameter('view_timezone'))

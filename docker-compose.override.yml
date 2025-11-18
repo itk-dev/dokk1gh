@@ -1,6 +1,14 @@
 services:
+  nginx:
+    labels:
+      # HTTPS config - uncomment to enable redirect from :80 to :443
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}.middlewares=redirect-to-https"
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+
   node:
     image: node:18
+    profiles:
+      - dev
     volumes:
       - .:/app
     working_dir: /app
