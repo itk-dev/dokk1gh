@@ -6,6 +6,8 @@ use App\Entity\Code;
 use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
+use function Symfony\Component\String\u;
+
 final readonly class AeosHelper
 {
     public function __construct(
@@ -55,6 +57,11 @@ final readonly class AeosHelper
             }
         }
         $visitorName = trim((string) $visitorName);
+        // AEOS says: Visitor.lastName: size must be between 1 and 50
+        $visitorName = u($visitorName)->slice(0, 50)->toString();
+        if (u($visitorName)->length() < 1) {
+            $visitorName = uniqid();
+        }
 
         $visitor = $this->aeosService->createVisitor([
             'UnitId' => $aeosContactPerson->UnitId,
