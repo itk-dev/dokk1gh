@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Security update
   * Upgraded to Symfony 7.3
 
+## [1.6.1] - 2025-12-08
+
+* [PR-23](https://github.com/itk-dev/dokk1gh/pull/23)
+  Added cap on visitor last name length
+
 ## [1.6.0] - 2025-11-11
 
 * [PR-18](https://github.com/itk-dev/dokk1gh/pull/18)
@@ -40,6 +45,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Security update.
 
-[Unreleased]: https://github.com/itk-dev/dokk1gh/compare/1.6.0...HEAD
+[Unreleased]: https://github.com/itk-dev/dokk1gh/compare/1.6.1...HEAD
+[1.6.1]: https://github.com/itk-dev/dokk1gh/compare/1.6.0...1.6.1
 [1.6.0]: https://github.com/itk-dev/dokk1gh/compare/1.5.0...1.6.0
 [1.5.0]: https://github.com/itk-dev/dokk1gh/releases/tag/1.5.0
