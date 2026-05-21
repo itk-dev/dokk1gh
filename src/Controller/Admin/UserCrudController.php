@@ -74,7 +74,7 @@ class UserCrudController extends AbstractCrudController
             Role::values()
         );
         yield ChoiceField::new('roles', new TranslatableMessage('Roles'))
-            ->setTemplatePath('admin/User/roles.html.twig')
+            ->setTemplatePath('admin/user/roles.html.twig')
             ->setFormTypeOptions([
                 'multiple' => true,
                 'expanded' => true,

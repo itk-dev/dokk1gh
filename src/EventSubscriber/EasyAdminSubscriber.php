@@ -48,7 +48,7 @@ class EasyAdminSubscriber implements EventSubscriberInterface
     public function setCodeIdentifier(BeforeEntityPersistedEvent|BeforeEntityUpdatedEvent $event): void
     {
         $entity = $event->getEntityInstance();
-        if (!($entity instanceof Code)) {
+        if (!$entity instanceof Code) {
             return;
         }
 
@@ -60,7 +60,7 @@ class EasyAdminSubscriber implements EventSubscriberInterface
     public function removeCodeIdentifier(BeforeEntityDeletedEvent $event): void
     {
         $entity = $event->getEntityInstance();
-        if (!($entity instanceof Code)) {
+        if (!$entity instanceof Code) {
             return;
         }
 
