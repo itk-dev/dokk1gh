@@ -7,6 +7,9 @@ parameters:
         - src/
         # - tests/
 
+    excludePaths:
+        - config/reference.php
+
     ignoreErrors:
         - '#Method .+ has parameter .+ with no value type specified in iterable type array#'
         - '#Method .+ return type has no value type specified in iterable type array.#'

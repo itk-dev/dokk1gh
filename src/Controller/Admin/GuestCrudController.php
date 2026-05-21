@@ -61,7 +61,6 @@ class GuestCrudController extends AbstractCrudController
             );
 
         $actions->add(Crud::PAGE_INDEX, Action::new('sendApp',
-            // @phpstan-ignore argument.type
             static fn (Guest $guest) => null === $guest->getSentAt()
                 ? new TranslatableMessage('Send app')
                 : new TranslatableMessage('Resend app'))
