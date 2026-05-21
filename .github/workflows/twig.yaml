@@ -50,6 +50,9 @@ jobs:
         run: |
           docker network create frontend
 
+      - name: Create local settings
+        run: cp config/services.local.yaml.dist config/services.local.yaml
+
       - run: |
           docker compose run --rm phpfpm composer install
           docker compose run --rm phpfpm vendor/bin/twig-cs-fixer lint
