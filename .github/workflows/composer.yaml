@@ -26,22 +26,25 @@
 name: Composer
 
 env:
-  COMPOSE_USER: root
+  COMPOSE_USER: runner
 
 on:
   pull_request:
+    paths: &paths
+      - "composer.json"
+      - "composer.lock"
+      - "docker-compose.yml"
   push:
     branches:
       - main
       - develop
+    paths: *paths
 
 jobs:
   composer-validate:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Create docker network
         run: |
@@ -52,17 +55,12 @@ jobs:
 
   composer-normalized:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Create docker network
         run: |
           docker network create frontend
-
-      - name: Create local settings
-        run: cp config/services.local.yaml.dist config/services.local.yaml
 
       - run: |
           docker compose run --rm phpfpm composer install
@@ -70,10 +68,8 @@ jobs:
 
   composer-audit:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Create docker network
         run: |
