@@ -13,7 +13,7 @@ class UserController extends AbstractController
     #[Route(path: '/user/apikey', name: 'user_apikey', methods: ['GET'])]
     public function apiKeyGet(): Response
     {
-        return $this->render('User/apikey.html.twig', [
+        return $this->render('user/apikey.html.twig', [
             'user' => $this->getUser(),
         ]);
     }

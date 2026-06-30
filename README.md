@@ -199,7 +199,7 @@ open "http://$(docker compose port mail 8025)"
 ### Mocks
 
 ```shell
-docker compose exec phpfpm bin/console doctrine:schema:update --em=mock --force --complete
+docker compose exec phpfpm bin/console doctrine:schema:update --em=mock --force
 ```
 
 #### Mock AEOS web service
