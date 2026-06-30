@@ -98,7 +98,7 @@ class UserManager
             ))
             ->to($user->getEmail())
             ->subject($subject)
-            ->htmlTemplate('Emails/user_created_user.html.twig')
+            ->htmlTemplate('emails/user_created_user.html.twig')
             ->context($template + [
                 'reset_password_url' => $url,
                 'user' => $user,
