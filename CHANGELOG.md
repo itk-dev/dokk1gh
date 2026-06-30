@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.8.0] - 2026-06-30
+
 * [PR-25](https://github.com/itk-dev/dokk1gh/pull/25)
   Security update. Template naming cleanup.
 
@@ -55,7 +57,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Security update.
 
-[Unreleased]: https://github.com/itk-dev/dokk1gh/compare/1.7.1...HEAD
+[Unreleased]: https://github.com/itk-dev/dokk1gh/compare/1.8.0...HEAD
+[1.8.0]: https://github.com/itk-dev/dokk1gh/compare/1.7.1...1.8.0
 [1.7.1]: https://github.com/itk-dev/dokk1gh/compare/1.7.0...1.7.1
 [1.7.0]: https://github.com/itk-dev/dokk1gh/compare/1.6.1...1.7.0
 [1.6.1]: https://github.com/itk-dev/dokk1gh/compare/1.6.0...1.6.1
