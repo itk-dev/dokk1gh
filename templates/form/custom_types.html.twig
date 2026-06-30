@@ -2,7 +2,7 @@
 
 {% block datetime_widget %}
   {% if easyadmin.entity.class == 'App\\Entity\\Code' and name matches '/(start|end)Time/' %}
-    {{ include('admin/form/Code/date_time_range.html.twig', {markup: parent()}) }}
+    {{ include('admin/form/code/date_time_range.html.twig', {markup: parent()}) }}
   {% else %}
     {{ parent() }}
   {% endif %}
@@ -11,11 +11,11 @@
 {% block form_widget_simple %}
   {# @FIXME: There must be a better way to do this! #}
   {% if easyadmin.entity.class == 'App\\Entity\\Template' and name == 'aeosId' %}
-    {{ include('admin/form/Template/aeosId.html.twig', {markup: parent()}) }}
+    {{ include('admin/form/template/aeos_id.html.twig', {markup: parent()}) }}
   {% elseif easyadmin.entity.class == 'App\\Entity\\User' and name == 'aeosId' %}
-    {{ include('admin/form/User/aeosId.html.twig', {markup: parent()}) }}
+    {{ include('admin/form/user/aeos_id.html.twig', {markup: parent()}) }}
   {% elseif easyadmin.entity.class == 'App\\Entity\\Guest' and name == 'phone' %}
-    {{ include('admin/form/Guest/phone.html.twig', {markup: parent()}) }}
+    {{ include('admin/form/guest/phone.html.twig', {markup: parent()}) }}
   {% else %}
     {{ parent() }}
   {% endif %}

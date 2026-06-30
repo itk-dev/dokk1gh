@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* [PR-25](https://github.com/itk-dev/dokk1gh/pull/25)
+  Security update. Template naming cleanup.
+
 ## [1.7.1] - 2026-05-21
 
 * [PR-24](https://github.com/itk-dev/dokk1gh/pull/24)
