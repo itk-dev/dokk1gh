@@ -3,6 +3,7 @@ App\Entity\Template:
     name: "Template 1"
     enabled: true
     aeosId: 1
+    badgeNumberLength: 16
 
   "template-2":
     name: "Template 2"
