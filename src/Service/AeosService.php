@@ -7,8 +7,8 @@ class AeosService
     final public const ACTIVATE_VERIFICATION = 'ActivateVerification';
 
     // Debugging.
-    private ?string $lastRequest;
-    private ?string $lastResponse;
+    private ?string $lastRequest = null;
+    private ?string $lastResponse = null;
 
     public function __construct(
         private readonly array $options,

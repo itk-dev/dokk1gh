@@ -32,7 +32,7 @@ class Sms2GoGatewayController extends AbstractController
             ], Response::HTTP_UNAUTHORIZED);
         }
 
-        if (!preg_match('/^Bearer\s+(?P<key>.+)$/i', $request->headers->get('authorization'), $matches)
+        if (!preg_match('/^Bearer\s+(?P<key>.+)$/i', (string) $request->headers->get('authorization'), $matches)
             || $matches['key'] !== $this->options['api_key']) {
             return new JsonResponse([
                 'message' => 'Authorization has been denied for this request.',
@@ -41,7 +41,7 @@ class Sms2GoGatewayController extends AbstractController
 
         try {
             $payload = $request->toArray();
-        } catch (JsonException $jsonException) {
+        } catch (JsonException) {
             return new JsonResponse([
                 'message' => 'The request is invalid.',
                 'modelState' => ['model.body' => ['An error has occurred.']],
