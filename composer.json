@@ -127,7 +127,7 @@
         "fixtures:load": [
             "php bin/console hautelook:fixtures:load --no-interaction"
         ],
-        "update-translations": [
+        "translations-extract": [
             "# We need a translation from en to en (!) (without prefix) to be able to process placeholders in en.",
             "DEFAULT_LOCALE=en bin/console translation:extract --clean --force en --prefix=''",
             "DEFAULT_LOCALE=en bin/console translation:extract --clean --force da",

@@ -58,7 +58,7 @@ open "http://$(docker compose port nginx 8080)"
 ## Translations
 
 ```shell
-docker compose exec phpfpm composer update-translations
+docker compose exec phpfpm composer translations-extract
 # Open Danish translations in Poedit (https://poedit.net/)
 # Run `brew install poedit` to install Poedit.
 open translations/messages+intl-icu.da.xlf

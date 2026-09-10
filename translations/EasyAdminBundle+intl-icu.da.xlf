@@ -5,25 +5,33 @@
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
-      <trans-unit id="4J45.H4" resname="login_page.username">
+      <trans-unit id="iFP0IOu" resname="login_page.username">
         <source>login_page.username</source>
         <target state="translated">Brugernavn</target>
       </trans-unit>
-      <trans-unit id="V56_FDR" resname="login_page.password">
+      <trans-unit id="uxJWiMn" resname="login_page.password">
         <source>login_page.password</source>
         <target state="translated">Adgangskode</target>
       </trans-unit>
-      <trans-unit id="iWZtM1U" resname="login_page.forgot_password">
+      <trans-unit id="IsDUuMi" resname="login_page.forgot_password">
         <source>login_page.forgot_password</source>
         <target state="translated">Glemt adgangskode</target>
       </trans-unit>
-      <trans-unit id="eHA8HYd" resname="login_page.remember_me">
+      <trans-unit id="GNqK_5o" resname="login_page.remember_me">
         <source>login_page.remember_me</source>
         <target state="translated">Husk mig</target>
       </trans-unit>
-      <trans-unit id="W0jkiQG" resname="login_page.sign_in">
+      <trans-unit id="eiGmhDt" resname="login_page.sign_in">
         <source>login_page.sign_in</source>
         <target state="translated">Log ind</target>
+      </trans-unit>
+      <trans-unit id="Mi9fRIF" resname="autocomplete.no-more-results">
+        <source>autocomplete.no-more-results</source>
+        <target state="needs-l10n">__autocomplete.no-more-results</target>
+      </trans-unit>
+      <trans-unit id="3Mq5DeM" resname="files">
+        <source>files</source>
+        <target state="needs-l10n">__files</target>
       </trans-unit>
     </body>
   </file>
