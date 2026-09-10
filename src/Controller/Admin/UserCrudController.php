@@ -16,6 +16,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Translation\TranslatableMessage;
 
 class UserCrudController extends AbstractCrudController
@@ -39,7 +40,12 @@ class UserCrudController extends AbstractCrudController
     public function configureActions(Actions $actions): Actions
     {
         return parent::configureActions($actions)
-            ->disable(Action::DELETE);
+            ->disable(Action::DELETE)
+            // Hide edit action for the current user.
+            ->update(Crud::PAGE_INDEX, Action::EDIT,
+                fn (Action $action) => $action->displayIf(
+                    fn (User $user): bool => $user !== $this->getUser(),
+                ));
     }
 
     public function configureAssets(Assets $assets): Assets
@@ -53,6 +59,14 @@ class UserCrudController extends AbstractCrudController
     public function createEntity(string $entityFqcn): User
     {
         return $this->userManager->createUser();
+    }
+
+    public function updateEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    {
+        if ($entityInstance === $this->getUser()) {
+            throw new AccessDeniedHttpException('You cannot edit yourself!');
+        }
+        parent::updateEntity($entityManager, $entityInstance);
     }
 
     public function persistEntity(EntityManagerInterface $entityManager, mixed $entityInstance): void
