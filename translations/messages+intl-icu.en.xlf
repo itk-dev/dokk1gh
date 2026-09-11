@@ -601,6 +601,14 @@
         <source>Impersonate</source>
         <target>Impersonate</target>
       </trans-unit>
+      <trans-unit id="ZpPug3j" resname="ROLE_SUPER_ADMIN">
+        <source>ROLE_SUPER_ADMIN</source>
+        <target>ROLE_SUPER_ADMIN</target>
+      </trans-unit>
+      <trans-unit id="kI0pwKg" resname="User {user} notified">
+        <source>User {user} notified</source>
+        <target>User {user} notified</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

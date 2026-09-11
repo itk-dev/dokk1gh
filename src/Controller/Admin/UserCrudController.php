@@ -78,7 +78,7 @@ class UserCrudController extends AbstractCrudController
         parent::persistEntity($entityManager, $entityInstance);
         \assert($entityInstance instanceof User);
         $this->userManager->notifyUserCreated($entityInstance, false);
-        $this->showInfo('User {user} notified', ['user' => $entityInstance->getEmail()]);
+        $this->showInfo(new TranslatableMessage('User {user} notified', ['user' => $entityInstance->getEmail()]));
     }
 
     public function configureFields(string $pageName): iterable

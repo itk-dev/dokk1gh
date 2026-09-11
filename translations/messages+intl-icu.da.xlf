@@ -433,7 +433,7 @@
         <source>If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password. This link will expire in {expirationMessage}.</source>
         <target state="translated">Hvis der findes en koste for denne e-mailadresse, så bliver der sendt en e-mail med et link du kan bruge til at nulstille din adgangskode. Linket udløber om {expirationMessage}.</target>
       </trans-unit>
-      <trans-unit id="XFTyVcz" resname="If you don't receive an email please check your spam folder or &lt;a href=&quot;{password_request_url}&quot;&gt;try again&lt;/a&gt;.">
+      <trans-unit id="XFTyVcz" resname="If you don't receive an email please check your spam folder or &lt;a href=&quot;{password_request_url}&quot;>try again&lt;/a>.">
         <source>If you don't receive an email please check your spam folder or &lt;a href="{password_request_url}"&gt;try again&lt;/a&gt;.</source>
         <target state="translated"><![CDATA[Tjek din “Uønsket mail”-mappe hvis du ikke modtager en e-mail eller <a href="{password_request_url}">prøv igen</a>.]]></target>
       </trans-unit>
@@ -600,6 +600,14 @@
       <trans-unit id="LcHFTP1" resname="Impersonate">
         <source>Impersonate</source>
         <target state="translated">Skift til bruger</target>
+      </trans-unit>
+      <trans-unit id="ZpPug3j" resname="ROLE_SUPER_ADMIN">
+        <source>ROLE_SUPER_ADMIN</source>
+        <target state="translated">Superadministrator</target>
+      </trans-unit>
+      <trans-unit id="kI0pwKg" resname="User {user} notified">
+        <source>User {user} notified</source>
+        <target state="translated">Besked sendt til {user}</target>
       </trans-unit>
     </body>
   </file>
