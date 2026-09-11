@@ -7,7 +7,7 @@
     <body>
       <trans-unit id="EgM1sAf" resname="download">
         <source>download</source>
-        <target state="needs-l10n">__download</target>
+        <target state="translated">download</target>
       </trans-unit>
     </body>
   </file>
