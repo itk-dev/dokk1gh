@@ -39,13 +39,17 @@ class UserCrudController extends AbstractCrudController
 
     public function configureActions(Actions $actions): Actions
     {
+        $isNotCurrentUser = fn (?User $user): bool => $user !== $this->getUser();
+        $impersonate = Action::new('impersonate', new TranslatableMessage('Impersonate'), 'fa fa-fw fa-user-lock')
+            ->linkToUrl(fn (User $user) => $this->generateUrl('admin', ['_switch_user' => $user->getUserIdentifier()]))
+            ->displayIf(fn (User $user) => $isNotCurrentUser($user) && $this->isGranted('ROLE_ALLOWED_TO_SWITCH'));
+
         return parent::configureActions($actions)
             ->disable(Action::DELETE)
+            ->add(Crud::PAGE_INDEX, $impersonate)
             // Hide edit action for the current user.
             ->update(Crud::PAGE_INDEX, Action::EDIT,
-                fn (Action $action) => $action->displayIf(
-                    fn (User $user): bool => $user !== $this->getUser(),
-                ));
+                fn (Action $action) => $action->displayIf($isNotCurrentUser(...)));
     }
 
     public function configureAssets(Assets $assets): Assets

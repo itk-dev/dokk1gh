@@ -597,6 +597,10 @@
         <source>Badge number length. If not set the default value ({default_value}) will be used.</source>
         <target>Badge number length. If not set the default value ({default_value}) will be used.</target>
       </trans-unit>
+      <trans-unit id="LcHFTP1" resname="Impersonate">
+        <source>Impersonate</source>
+        <target>Impersonate</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
