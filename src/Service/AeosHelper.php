@@ -76,7 +76,8 @@ final readonly class AeosHelper
             $code->getEndTime(),
             $aeosTemplate
         );
-        $identifier = $this->aeosService->createIdentifier($visitor, $aeosContactPerson);
+        $badgeNumberLength = $code->getTemplate()->getBadgeNumberLength();
+        $identifier = $this->aeosService->createIdentifier($visitor, $aeosContactPerson, $badgeNumberLength);
 
         $code->setIdentifier($identifier->BadgeNumber);
     }

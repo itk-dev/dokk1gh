@@ -44,7 +44,7 @@ jobs:
   composer-validate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Create docker network
         run: |
@@ -59,7 +59,7 @@ jobs:
   composer-normalized:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Create docker network
         run: |
@@ -75,7 +75,7 @@ jobs:
   composer-audit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Create docker network
         run: |

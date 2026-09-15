@@ -58,7 +58,7 @@ class GdprController extends AbstractController
     {
         return $this->createFormBuilder(['referrer' => $referrer])
             ->setAction($this->generateUrl('gdpr_accept'))
-            ->setMethod('POST')
+            ->setMethod(Request::METHOD_POST)
             ->add('accept', CheckboxType::class, [
                 'required' => true,
                 'label' => new TranslatableMessage('Accept GDPR'),

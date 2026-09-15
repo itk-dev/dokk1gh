@@ -7,8 +7,8 @@ class AeosService
     final public const ACTIVATE_VERIFICATION = 'ActivateVerification';
 
     // Debugging.
-    private ?string $lastRequest;
-    private ?string $lastResponse;
+    private ?string $lastRequest = null;
+    private ?string $lastResponse = null;
 
     public function __construct(
         private readonly array $options,
@@ -155,9 +155,9 @@ class AeosService
         return (object) $this->invoke('addVisitor', $data);
     }
 
-    public function createIdentifier(object $visitor, object $contactPerson): object
+    public function createIdentifier(object $visitor, object $contactPerson, ?int $badgeNumberLength): object
     {
-        $badgeNumber = $this->generateBadgeNumber();
+        $badgeNumber = $this->generateBadgeNumber($badgeNumberLength);
         $data = [
             'IdentifierType' => $this->options['aeos']['identifier_type'],
             'BadgeNumber' => $badgeNumber,
