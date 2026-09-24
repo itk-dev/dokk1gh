@@ -11,3 +11,11 @@ App\Entity\User:
     apiKey: user-api-key
     templates:
       - "@template-1"
+
+  user2@example.com:
+    email: user2@example.com
+    password: '<password(@self, "user-password")>'
+    aeosId: 2
+    apiKey: user-api-key-2
+    templates:
+      - "@template-2"

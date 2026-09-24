@@ -38,7 +38,7 @@ class SmsSendCommand extends Command
         $recipient = $input->getArgument('recipient');
         $message = $input->getOption('message');
 
-        if (!preg_match('/^(?<countryCode>45)?(?P<number>[0-9]{8})$/', $recipient, $matches)) {
+        if (!preg_match('/^(?<countryCode>45)?(?P<number>[0-9]{8})$/', (string) $recipient, $matches)) {
             $io->error(\sprintf('Invalid recipient: %s', $recipient));
 
             return Command::INVALID;

@@ -16,6 +16,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Translation\TranslatableMessage;
 
 class UserCrudController extends AbstractCrudController
@@ -38,8 +39,17 @@ class UserCrudController extends AbstractCrudController
 
     public function configureActions(Actions $actions): Actions
     {
+        $isNotCurrentUser = fn (?User $user): bool => $user !== $this->getUser();
+        $impersonate = Action::new('impersonate', new TranslatableMessage('Impersonate'), 'fa fa-fw fa-user-lock')
+            ->linkToUrl(fn (User $user) => $this->generateUrl('admin', ['_switch_user' => $user->getUserIdentifier()]))
+            ->displayIf(fn (User $user) => $isNotCurrentUser($user) && $this->isGranted('ROLE_ALLOWED_TO_SWITCH'));
+
         return parent::configureActions($actions)
-            ->disable(Action::DELETE);
+            ->disable(Action::DELETE)
+            ->add(Crud::PAGE_INDEX, $impersonate)
+            // Hide edit action for the current user.
+            ->update(Crud::PAGE_INDEX, Action::EDIT,
+                fn (Action $action) => $action->displayIf($isNotCurrentUser(...)));
     }
 
     public function configureAssets(Assets $assets): Assets
@@ -55,12 +65,20 @@ class UserCrudController extends AbstractCrudController
         return $this->userManager->createUser();
     }
 
+    public function updateEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    {
+        if ($entityInstance === $this->getUser()) {
+            throw new AccessDeniedHttpException('You cannot edit yourself!');
+        }
+        parent::updateEntity($entityManager, $entityInstance);
+    }
+
     public function persistEntity(EntityManagerInterface $entityManager, mixed $entityInstance): void
     {
         parent::persistEntity($entityManager, $entityInstance);
         \assert($entityInstance instanceof User);
         $this->userManager->notifyUserCreated($entityInstance, false);
-        $this->showInfo('User {user} notified', ['user' => $entityInstance->getEmail()]);
+        $this->showInfo(new TranslatableMessage('User {user} notified', ['user' => $entityInstance->getEmail()]));
     }
 
     public function configureFields(string $pageName): iterable

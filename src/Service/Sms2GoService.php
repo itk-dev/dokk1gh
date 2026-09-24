@@ -34,7 +34,7 @@ class Sms2GoService implements SmsServiceInterface
             );
 
             return true;
-        } catch (\Exception $exception) {
+        } catch (\Exception) {
             // @TODO: Log exception.
         }
 

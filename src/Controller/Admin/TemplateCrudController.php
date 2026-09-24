@@ -11,11 +11,19 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Translation\TranslatableMessage;
 
 class TemplateCrudController extends AbstractCrudController
 {
+    public function __construct(
+        #[Autowire(env: 'int:AEOSWS_IDENTIFIER_LENGTH')]
+        private readonly int $defaultIdentifierLength,
+    ) {
+    }
+
     public static function getEntityFqcn(): string
     {
         return Template::class;
@@ -57,6 +65,17 @@ class TemplateCrudController extends AbstractCrudController
                     'class' => 'required',
                 ],
             ]);
+        yield IntegerField::new('badgeNumberLength', new TranslatableMessage('Badge number length'))
+            ->setFormTypeOptions([
+                'attr' => [
+                    'min' => Template::BADGE_NUMBER_LENGTH_MIN,
+                    'max' => Template::BADGE_NUMBER_LENGTH_MAX,
+                ],
+            ])
+            ->setHelp(new TranslatableMessage('Badge number length. If not set the default value ({default_value}) will be used.', [
+                'default_value' => $this->defaultIdentifierLength,
+            ]))
+            ->hideOnIndex();
         yield DateTimeField::new('createdAt', new TranslatableMessage('Created at'))
             ->setTimezone($this->getParameter('view_timezone'))
             ->onlyOnIndex();

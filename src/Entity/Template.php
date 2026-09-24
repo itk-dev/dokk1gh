@@ -13,6 +13,7 @@ use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints\Range;
 
 #[ORM\Entity(repositoryClass: TemplateRepository::class)]
 #[UniqueEntity(fields: 'aeosId', message: 'This aeosId is already in use.')]
@@ -23,6 +24,9 @@ class Template implements AeosEntityInterface, \Stringable
     use BlameableEntity;
     use SoftDeleteableEntity;
     use TimestampableEntity;
+
+    public const BADGE_NUMBER_LENGTH_MIN = 4;
+    public const BADGE_NUMBER_LENGTH_MAX = 16;
 
     #[ORM\Column(type: Types::BOOLEAN)]
     protected ?bool $enabled = true;
@@ -49,9 +53,13 @@ class Template implements AeosEntityInterface, \Stringable
     #[Assert\AeosTemplateId()]
     private ?string $aeosId = null;
 
+    #[ORM\Column(nullable: true)]
+    #[Range(min: self::BADGE_NUMBER_LENGTH_MIN, max: self::BADGE_NUMBER_LENGTH_MAX)]
+    private ?int $badgeNumberLength = null;
+
     public function __toString(): string
     {
-        return $this->getName();
+        return (string) $this->getName();
     }
 
     public function getId(): ?int
@@ -117,5 +125,17 @@ class Template implements AeosEntityInterface, \Stringable
     public function getAeosId(): ?string
     {
         return $this->aeosId;
+    }
+
+    public function getBadgeNumberLength(): ?int
+    {
+        return $this->badgeNumberLength;
+    }
+
+    public function setBadgeNumberLength(?int $badgeNumberLength): static
+    {
+        $this->badgeNumberLength = $badgeNumberLength;
+
+        return $this;
     }
 }

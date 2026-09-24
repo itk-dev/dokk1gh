@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.9.0] - 2026-09-24
+
+* [PR-27](https://github.com/itk-dev/dokk1gh/pull/27)
+  Added template badge number length
+
 ## [1.8.1] - 2026-09-15
 
 * [PR-28](https://github.com/itk-dev/dokk1gh/pull/28)
@@ -62,7 +67,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Security update.
 
-[Unreleased]: https://github.com/itk-dev/dokk1gh/compare/1.8.1...HEAD
+[Unreleased]: https://github.com/itk-dev/dokk1gh/compare/1.9.0...HEAD
+[1.9.0]: https://github.com/itk-dev/dokk1gh/compare/1.8.1...1.9.0
 [1.8.1]: https://github.com/itk-dev/dokk1gh/compare/1.8.0...1.8.1
 [1.8.0]: https://github.com/itk-dev/dokk1gh/compare/1.7.1...1.8.0
 [1.7.1]: https://github.com/itk-dev/dokk1gh/compare/1.7.0...1.7.1

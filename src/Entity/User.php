@@ -63,7 +63,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, AeosEnt
     private ?string $aeosId = null;
 
     #[ORM\Column(type: Types::STRING, unique: true, nullable: true)]
-    private ?string $apiKey;
+    private ?string $apiKey = null;
 
     /**
      * The hashed password.
