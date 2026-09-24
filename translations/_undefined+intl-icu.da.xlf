@@ -5,9 +5,9 @@
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
-      <trans-unit id="ZeI3pSX" resname="There was a problem validating your password reset request">
-        <source>There was a problem validating your password reset request</source>
-        <target state="translated">There was a problem validating your password reset request</target>
+      <trans-unit id="EgM1sAf" resname="download">
+        <source>download</source>
+        <target state="translated">download</target>
       </trans-unit>
     </body>
   </file>

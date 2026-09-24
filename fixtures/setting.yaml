@@ -1,0 +1,112 @@
+App\Entity\Setting:
+  admin_gdpr:
+    name: admin_gdpr
+    description: Information on GDPR (terms and conditions)
+    type: text
+    form_type: texteditor
+    value: |
+      General Data Protection Regulation (GDPR)
+    category: admin
+
+  app_about_content:
+    name: app_about_content
+    description: |
+      Content on the "About" page.
+
+      Placeholders:
+        app://guide_url: Url to the app guide
+    type: text
+    form_type: texteditor
+    value: ""
+    category: app
+
+  app_about_header:
+    name: app_about_header
+    description: The about header
+    type: string
+    form_type: text
+    value: "Om denne app"
+    category: app
+
+  app_about_lead:
+    name: app_about_lead
+    description: The about lead
+    type: string
+    form_type: text
+    value: ""
+    category: app
+
+  app_expired_content:
+    name: app_expired_content
+    description: |
+      The app expired content
+
+      Placeholders: |
+        {expired_on}: The date on which the app expired.
+        {expired_at}: The date and time at which the app expired.
+    type: text
+    form_type: texteditor
+    value: Din Dokk1 app udløb {expired_on}
+    category: app
+
+  app_expired_header:
+    name: app_expired_header
+    description: The app expired header
+    type: string
+    form_type: text
+    value: "Din app er udløbet"
+    category: app
+
+  app_terms_content:
+    name: app_terms_content
+    description: The terms and conditions for using the app
+    type: text
+    form_type: texteditor
+    value: Betingelser for brug af Dokk1 app
+    category: app
+
+  app_terms_header:
+    name: app_terms_header
+    description: The app terms header
+    type: string
+    form_type: text
+    value: "Accepter betingelser."
+    category: app
+
+  app_terms_lead:
+    name: app_terms_lead
+    description: The app terms lead
+    type: string
+    form_type: text
+    value: ""
+    category: app
+
+  guest_app_sms_body_template:
+    name: guest_app_sms_body_template
+    description: |
+      Template for message sent to guest with generated code.
+
+      Placeholders: |
+        {{ guest.name }}
+        {{ code.template.name }}
+        {{ code_valid_time_period }}
+        {{ site_name }}
+    type: text
+    form_type: textarea
+    value: "Hej {{ guest.name }}\n\nHent din personlige Dokk1-g\u00e6ste-app inden 24 timer p\u00e5 {{ app_url }}\n\nVenlig hilsen\n{{ site_name }}"
+    category: guest
+
+  guest_code_sms_template:
+    name: guest_code_sms_template
+    description: |
+      Template for message sent to guest with generated code.
+
+      Placeholders: |
+        {{ guest.name }}
+        {{ code.template.name }}
+        {{ code_valid_time_period }}
+        {{ site_name }}
+    type: text
+    form_type: textarea
+    value: "Hej {{ guest.name }}\n\nHer er din adgangskode til Dokk1: {{ code.identifier }}\n\nKoden indtastes p\u00e5 tal-panelet ved siden af døren eller inde i elevatoren. OBS: N\u00e5r du taster koden skal du huske at afslutte med E, dvs. du skal taste \u201c{{ code.identifier }}E\u201d.\n\nKoden giver adgang til \u201c{{ code.template.name }}\u201d i tidsrummet {{ code_valid_time_period }}.\n\nBem\u00e6rk at der kan g\u00e5 op til 30 minutter før koden er aktiv.\n\nVenlig hilsen\n{{ site_name }}"
+    category: guest
