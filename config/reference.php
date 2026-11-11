@@ -1329,7 +1329,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             status_code?: scalar|Param|null, // Default: 302
  *             action?: scalar|Param|null, // Default: "redirect"
  *         },
- *         full?: array{
+ *         desktop?: array{
  *             is_enabled?: bool|Param, // Default: false
  *             host?: scalar|Param|null, // Default: null
  *             status_code?: scalar|Param|null, // Default: 302
