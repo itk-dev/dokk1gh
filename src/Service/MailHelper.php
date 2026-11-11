@@ -9,7 +9,7 @@ use Symfony\Component\Mime\Email;
 
 class MailHelper
 {
-    final public const MAIL_SENT = 'MAIL_SENT';
+    final public const string MAIL_SENT = 'MAIL_SENT';
 
     /** @var MailerInterface */
     protected $mailer;
@@ -54,7 +54,7 @@ class MailHelper
         $subject = $template->renderBlock('subject', $context);
         $bodyHtml = $template->renderBlock('body_html', $context);
 
-        $message = (new Email())
+        $message = new Email()
             ->subject($subject)
             ->from($from)
             ->to($recipient)

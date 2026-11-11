@@ -4,7 +4,6 @@ namespace App\Command\User;
 
 use App\Entity\User;
 use App\Service\UserManager;
-use Gedmo\Timestampable\Timestampable;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\RuntimeException;
 use Symfony\Component\Console\Helper\Table;
@@ -61,7 +60,7 @@ abstract class UserCommand extends Command
     }
 
     /**
-     * @param array|User[] $users
+     * @param User[] $users
      */
     protected function showUsers(array $users): void
     {
@@ -72,11 +71,9 @@ abstract class UserCommand extends Command
             'roles',
             'assigned roles',
             'AEOS ID',
+            'created at',
+            'updated at',
         ];
-        if ($firstUser instanceof Timestampable) {
-            $headers[] = 'created at';
-            $headers[] = 'updated at';
-        }
         $table->setHeaders($headers);
         foreach ($users as $user) {
             $row = [
@@ -84,11 +81,9 @@ abstract class UserCommand extends Command
                 implode(', ', $user->getRoles()),
                 implode(', ', $this->roleHierarchy->getReachableRoleNames($user->getRoles())),
                 $user->getAeosId(),
+                $user->getCreatedAt()->format(\DateTimeInterface::ATOM),
+                $user->getUpdatedAt()->format(\DateTimeInterface::ATOM),
             ];
-            if ($user instanceof Timestampable) {
-                $row[] = $user->getCreatedAt()->format(\DateTimeInterface::ATOM);
-                $row[] = $user->getUpdatedAt()->format(\DateTimeInterface::ATOM);
-            }
             $table->addRow($row);
         }
         $table->render();

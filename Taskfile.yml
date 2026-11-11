@@ -72,6 +72,12 @@ tasks:
       # https://github.com/EasyCorp/EasyAdminBundle/issues/7722
       # - rm translations/_undefined+intl-icu.*.xlf
 
+  assets:build:
+    desc: Build assets
+    cmds:
+      - docker compose run --rm node yarn install
+      - docker compose run --rm node yarn build
+
   fixtures:load:
     desc: Load fixtures
     prompt: Really load fixtures?

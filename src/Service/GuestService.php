@@ -151,7 +151,7 @@ class GuestService
         }
 
         try {
-            $code = (new Code())
+            $code = new Code()
                 ->setNote($note)
                 ->setCreatedBy($guest->getCreatedBy())
                 ->setTemplate($template)
@@ -184,7 +184,7 @@ class GuestService
      */
     public function expire(Guest $guest): bool
     {
-        if (null !== $guest && null === $guest->getExpiredAt()) {
+        if (null === $guest->getExpiredAt()) {
             // Anonymize guest.
             $guest
                 ->setName($guest->getId())

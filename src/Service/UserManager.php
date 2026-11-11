@@ -33,7 +33,7 @@ class UserManager
 
     public function createUser(): User
     {
-        return (new User())
+        return new User()
             ->setPassword(sha1(uniqid('', true)))
             ->setEnabled(true);
     }
@@ -91,7 +91,7 @@ class UserManager
         $template['button']['url'] = $url;
         $template['footer'] = $this->twig->createTemplate($template['footer'])->render($parameters);
 
-        return (new TemplatedEmail())
+        return new TemplatedEmail()
             ->from(new Address(
                 $this->options['sender']['from_email'],
                 $this->options['sender']['from_name']
