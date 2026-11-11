@@ -78,6 +78,13 @@
             "symfony/flex": true,
             "symfony/runtime": true
         },
+        "policy": {
+            "cooldown": {
+                "ignore": {
+                    "symfony/*": "We trust Symfony"
+                }
+            }
+        },
         "sort-packages": true
     },
     "extra": {
