@@ -108,11 +108,9 @@ class AppController extends AbstractController
 
         try {
             $code = $this->guestService->generateCode($guest, $template, 'Created by app');
-            if (null !== $code) {
-                $status['code_generated'] = true;
-                $this->guestService->sendCode($guest, $code);
-                $status['sms_sent'] = true;
-            }
+            $status['code_generated'] = true;
+            $this->guestService->sendCode($guest, $code);
+            $status['sms_sent'] = true;
         } catch (AbstractException $exception) {
             return $this->render('app/code/error.html.twig', [
                 'message' => $exception->getMessage(),

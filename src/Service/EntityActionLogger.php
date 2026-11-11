@@ -3,7 +3,7 @@
 namespace App\Service;
 
 use App\Entity\EntityActionLogEntry;
-use Doctrine\Common\Collections\Criteria;
+use Doctrine\Common\Collections\Order;
 use Doctrine\ORM\EntityManagerInterface;
 
 class EntityActionLogger
@@ -28,7 +28,7 @@ class EntityActionLogger
             'entityType' => $entityType,
             'entityId' => $entityId,
         ];
-        $orderBy ??= ['createdAt' => Criteria::DESC];
+        $orderBy ??= ['createdAt' => Order::Descending->value];
 
         return $this->manager->getRepository(EntityActionLogEntry::class)->findBy($criteria, $orderBy);
     }

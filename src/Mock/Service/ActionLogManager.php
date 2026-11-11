@@ -4,7 +4,7 @@ namespace App\Mock\Service;
 
 use App\Mock\Entity\ActionLogEntry;
 use App\Mock\Repository\ActionLogEntryRepository;
-use Doctrine\Common\Collections\Criteria;
+use Doctrine\Common\Collections\Order;
 use Doctrine\Persistence\ManagerRegistry;
 
 class ActionLogManager
@@ -17,16 +17,15 @@ class ActionLogManager
     public function log(ActionLogEntry $entry): void
     {
         $repository = $this->getRepository($entry::class);
-        \assert($repository instanceof ActionLogEntryRepository);
         $repository->persist($entry, true);
     }
 
-    public function findAll(string $className, array $criteria = [], array $orderBy = ['createdAt' => Criteria::DESC]): array
+    public function findAll(string $className, array $criteria = [], array $orderBy = ['createdAt' => Order::Descending->value]): array
     {
         return $this->getRepository($className)->findBy($criteria, $orderBy);
     }
 
-    public function findOne(string $className, array $criteria = [], array $orderBy = ['createdAt' => Criteria::DESC]): mixed
+    public function findOne(string $className, array $criteria = [], array $orderBy = ['createdAt' => Order::Descending->value]): mixed
     {
         return $this->getRepository($className)->findOneBy($criteria, $orderBy);
     }
