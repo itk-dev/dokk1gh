@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.9.2] - 2026-11-11
+
 * [PR-30](https://github.com/itk-dev/dokk1gh/pull/30)
   * Applied security updates
   * Cleaned up code
@@ -77,7 +79,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Security update.
 
-[Unreleased]: https://github.com/itk-dev/dokk1gh/compare/1.9.1...HEAD
+[Unreleased]: https://github.com/itk-dev/dokk1gh/compare/1.9.2...HEAD
+[1.9.2]: https://github.com/itk-dev/dokk1gh/compare/1.9.1...1.9.2
 [1.9.1]: https://github.com/itk-dev/dokk1gh/compare/1.9.0...1.9.1
 [1.9.0]: https://github.com/itk-dev/dokk1gh/compare/1.8.1...1.9.0
 [1.8.1]: https://github.com/itk-dev/dokk1gh/compare/1.8.0...1.8.1
