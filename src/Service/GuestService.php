@@ -151,7 +151,7 @@ class GuestService
         }
 
         try {
-            $code = (new Code())
+            $code = new Code()
                 ->setNote($note)
                 ->setCreatedBy($guest->getCreatedBy())
                 ->setTemplate($template)

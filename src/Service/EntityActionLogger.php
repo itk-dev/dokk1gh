@@ -28,9 +28,7 @@ class EntityActionLogger
             'entityType' => $entityType,
             'entityId' => $entityId,
         ];
-        if (null === $orderBy) {
-            $orderBy = ['createdAt' => Criteria::DESC];
-        }
+        $orderBy ??= ['createdAt' => Criteria::DESC];
 
         return $this->manager->getRepository(EntityActionLogEntry::class)->findBy($criteria, $orderBy);
     }

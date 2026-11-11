@@ -170,6 +170,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, AeosEnt
         $this->gdprAcceptedAt = $gdprAcceptedAt;
     }
 
+    /**
+     * @return Collection<int, Template>
+     */
     public function getTemplates(): Collection
     {
         return $this->templates;

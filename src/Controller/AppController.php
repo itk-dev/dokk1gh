@@ -23,7 +23,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route(path: '/app/{guest}')]
 class AppController extends AbstractController
 {
-    final public const GENERATED_CODE_SESSION_KEY = 'generated_code';
+    final public const string GENERATED_CODE_SESSION_KEY = 'generated_code';
 
     public function __construct(
         private readonly GuestService $guestService,
