@@ -4,7 +4,7 @@ namespace App\Service;
 
 class AeosService
 {
-    final public const ACTIVATE_VERIFICATION = 'ActivateVerification';
+    final public const string ACTIVATE_VERIFICATION = 'ActivateVerification';
 
     // Debugging.
     private ?string $lastRequest = null;
@@ -285,9 +285,7 @@ class AeosService
 
     private function generateBadgeNumber(?int $length = null): string
     {
-        if (null === $length) {
-            $length = $this->options['aeos']['identifier_length'] ?? 8;
-        }
+        $length ??= $this->options['aeos']['identifier_length'] ?? 8;
 
         // Loop until we find an unused code or time out.
         for ($i = 0; $i < 100; ++$i) {

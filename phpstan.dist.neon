@@ -14,6 +14,8 @@ parameters:
         - "#Method .+ has parameter .+ with no value type specified in iterable type array#"
         - "#Method .+ return type has no value type specified in iterable type array.#"
         - "#Property .+ type has no value type specified in iterable type array.#"
+        - '#Class App\\Repository\\.+Repository has PHPDoc tag @method for method .+\(\) parameter .+ with no value type specified in iterable type array.#'
+        - '#Property App\\Entity\\.+::\$id \([^)]+\) is never assigned .+ so it can be removed from the property type.#'
         - '#Unable to resolve the template type T in call to method Doctrine\\Persistence\\ManagerRegistry::getRepository#'
         - identifier: missingType.generics
 

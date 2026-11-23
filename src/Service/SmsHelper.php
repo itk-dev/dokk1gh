@@ -7,7 +7,7 @@ use App\Entity\Guest;
 
 class SmsHelper
 {
-    final public const SMS_SENT = 'SMS_SENT';
+    final public const string SMS_SENT = 'SMS_SENT';
 
     public function __construct(
         private readonly SmsServiceInterface $smsService,

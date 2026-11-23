@@ -31,7 +31,7 @@ class UserSetPasswordCommand extends UserCommand
 
         $password = $input->getArgument('password');
         while (null === $password) {
-            $question = (new Question('Password: '))
+            $question = new Question('Password: ')
                 ->setHidden(true);
             $helper = $this->getHelper('question');
             \assert($helper instanceof QuestionHelper);

@@ -204,6 +204,9 @@ class Guest implements Blameable
         return $this->email;
     }
 
+    /**
+     * @return Collection<int, Template>
+     */
     public function getTemplates(): Collection
     {
         return $this->templates;

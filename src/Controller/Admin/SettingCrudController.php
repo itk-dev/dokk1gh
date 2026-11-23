@@ -8,7 +8,6 @@ use Doctrine\DBAL\Types\Types;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
-use EasyCorp\Bundle\EasyAdminBundle\Contracts\Field\FieldInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FieldTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
@@ -60,7 +59,7 @@ class SettingCrudController extends AbstractCrudController
         if (Crud::PAGE_INDEX === $pageName) {
             yield TextField::new('value', new TranslatableMessage('Value'));
         } elseif (Crud::PAGE_EDIT === $pageName) {
-            /** @var Setting $setting */
+            /** @var ?Setting $setting */
             $setting = $this->getContext()->getEntity()->getInstance();
             if (null !== $setting) {
                 [$type, $formType] = [$setting->getType(), $setting->getFormType()];
@@ -73,7 +72,6 @@ class SettingCrudController extends AbstractCrudController
                     Types::STRING => TextField::class,
                     default => throw new \RuntimeException(\sprintf('Unhandled data type: %s', $type)),
                 };
-                \assert(is_a($fieldType, FieldInterface::class, true));
                 $field = $fieldType::new('value', false);
                 \assert(\in_array(FieldTrait::class, class_uses($field), true));
                 yield $field

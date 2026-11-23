@@ -26,7 +26,7 @@ class CodeRepository extends ServiceEntityRepository
     public function findExpired(): AbstractLazyCollection&Selectable
     {
         $now = new \DateTime('now', new \DateTimeZone('UTC'));
-        $criteria = (new Criteria())
+        $criteria = new Criteria()
             ->where(new Comparison('endTime', Comparison::LT, $now));
 
         return $this->matching($criteria);
